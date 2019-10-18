@@ -10,14 +10,13 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { StudentsModule } from './students/students.module';
 import { TeachersModule } from './teachers/teachers.module';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +30,8 @@ import { TeachersModule } from './teachers/teachers.module';
     FormsModule,
 
     StudentsModule,
-    TeachersModule
+    TeachersModule,
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TeachersService } from '../teachers.service';
+import { TeachersService } from '../../services/teachers.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
