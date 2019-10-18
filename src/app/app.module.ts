@@ -12,6 +12,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { StudentsModule } from './students/students.module';
+import { TeachersModule } from './teachers/teachers.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { StudentsModule } from './students/students.module';
     ReactiveFormsModule,
     FormsModule,
 
-    StudentsModule
+    StudentsModule,
+    TeachersModule
   ],
   providers: [],
   bootstrap: [AppComponent]

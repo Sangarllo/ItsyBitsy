@@ -8,13 +8,13 @@ import { IStudent } from '../models/iStudent.interface';
 })
 export class StudentsService {
 
-  private studentCollection: AngularFirestoreCollection<any>;
+  private studentCollection: AngularFirestoreCollection<IStudent>;
 
   constructor(private afs: AngularFirestore) {
-    this.studentCollection = afs.collection<any>('students');
+    this.studentCollection = afs.collection<IStudent>('students');
   }
 
-  saveStudent(newStudent: any): void {
+  saveStudent(newStudent: IStudent): void {
     this.studentCollection.add(newStudent);
   }
 }
