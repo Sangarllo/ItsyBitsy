@@ -1,0 +1,9 @@
+<h3>Lista de Usuarios</h3>
+<ul>
+    <li class="text" *ngFor="let item of items | async">
+        <div>
+            <img [src]="item.photoURL">
+            <p>UID: {{ item.uid }}</p>
+        </div>
+    </li>
+</ul>
