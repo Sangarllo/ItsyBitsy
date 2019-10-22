@@ -1,7 +1,11 @@
 <div class="div-container">
     <h1>Edita los datos del alumno!</h1>
     <form [formGroup]="studentForm" (ngSubmit)="onSaveForm()">
-        <input type="text" formControlName="name" placeholder="Nombre">
+
+        <mat-form-field>
+            <input matInput type="text" formControlName="name" placeholder="Nombre">
+        </mat-form-field>
+
         <input type="text" formControlName="surname" placeholder="Apellidos">
         <button type="submit" class="bn-send">Crear</button>
     </form>

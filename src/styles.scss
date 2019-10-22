@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 html,
 body {
     height: 100%;
@@ -8,4 +9,19 @@ body {
 body {
     margin: 10px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.form-container mat-form-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-container button {
+    margin: 5px;
+}
+
+mat-card {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

@@ -11,7 +11,7 @@ const routes: Routes = [
     component: StudentListComponent
   },
   {
-    path: 'new',
+    path: 'nuevo',
     component: StudentNewComponent
   },
   {
