@@ -1,6 +1,5 @@
 <h3>Lista de Profesores</h3>
-<ul>
-    <li class="text" *ngFor="let item of items | async">
-        {{item.name}} {{item.surname}}
-    </li>
-</ul>
+
+<div *ngFor="let item of items | async">
+    <mat-card>{{item.name}}</mat-card>
+</div>

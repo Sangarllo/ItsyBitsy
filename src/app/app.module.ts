@@ -13,6 +13,10 @@ import { environment } from '../environments/environment';
 import { StudentsModule } from './students/students.module';
 import { TeachersModule } from './teachers/teachers.module';
 import { UsersModule } from './users/users.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatButtonModule} from '@angular/material/button';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +35,9 @@ import { UsersModule } from './users/users.module';
 
     StudentsModule,
     TeachersModule,
-    UsersModule
+    UsersModule,
+    BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

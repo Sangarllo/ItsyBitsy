@@ -4,15 +4,15 @@ import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'users',
+    path: 'usuarios',
     loadChildren: () => import('./users/users.module').then(mod => mod.UsersModule)
   },
   {
-    path: 'students',
+    path: 'estudiantes',
     loadChildren: () => import('./students/students.module').then(mod => mod.StudentsModule)
   },
   {
-    path: 'teachers',
+    path: 'profesores',
     loadChildren: () => import('./teachers/teachers.module').then(mod => mod.TeachersModule)
   },
   {
