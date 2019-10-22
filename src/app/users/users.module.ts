@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MaterialConfigurationModule } from '../material-configuration/material-configuration.module';
 
 import { UsersRoutingModule } from './users-routing.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserListComponent } from './user-list/user-list.component';
 
-import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import {MatCardModule} from '@angular/material/card';
   imports: [
     CommonModule,
     UsersRoutingModule,
-    MatCardModule
+    MaterialConfigurationModule
   ]
 })
 export class UsersModule { }

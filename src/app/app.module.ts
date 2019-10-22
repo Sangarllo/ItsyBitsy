@@ -15,7 +15,7 @@ import { TeachersModule } from './teachers/teachers.module';
 import { UsersModule } from './users/users.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatButtonModule} from '@angular/material/button';
+import { MaterialConfigurationModule } from './material-configuration/material-configuration.module';
 
 
 @NgModule({
@@ -37,7 +37,7 @@ import {MatButtonModule} from '@angular/material/button';
     TeachersModule,
     UsersModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MaterialConfigurationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
