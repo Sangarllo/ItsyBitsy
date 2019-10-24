@@ -4,7 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { IStudent } from '../../models/iStudent.interface';
+import { Student } from '../../models/student.model';
 import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
@@ -14,15 +14,19 @@ import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firest
 })
 export class StudentFormComponent {
 
-  private itemDoc: AngularFirestoreDocument<IStudent>;
-  student$: Observable<IStudent>;
-  student: IStudent;
+  private itemDoc: AngularFirestoreDocument<Student>;
+  student$: Observable<Student>;
+  student: Student;
   studentId: string;
 
   createFormGroup() {
     return new FormGroup({
-      name: new FormControl(''),
-      surname: new FormControl(''),
+      displayName: new FormControl(''),
+      photoURL: new FormControl(''),
+      email: new FormControl(''),
+      phone: new FormControl(''),
+      contact: new FormControl(''),
+      fare: new FormControl(''),
     });
   }
 
@@ -31,14 +35,19 @@ export class StudentFormComponent {
   constructor(
     private studentService: StudentsService,
     private route: ActivatedRoute,
+    private router: Router
   ) {
     this.studentForm = this.createFormGroup();
     this.studentId = this.route.snapshot.paramMap.get('id');
     this.studentService.getStudent(this.studentId)
       .subscribe( (student) => {
         this.studentForm.setValue({
-          name: student.payload.data()['name'],
-          surname: student.payload.data()['surname']
+          displayName: student.payload.data()['displayName'],
+          photoURL: student.payload.data()['photoURL'],
+          email: student.payload.data()['email'],
+          phone: student.payload.data()['phone'],
+          contact: student.payload.data()['contact'],
+          fare: student.payload.data()['fare'],
         });
       });
   }
@@ -48,7 +57,10 @@ export class StudentFormComponent {
   }
 
   public onSaveForm() {
-    this.studentService.saveStudent(this.studentForm.value);
+    this.studentService.updateStudent(
+      this.studentId,
+      this.studentForm.value);
+    this.router.navigate([`/estudiantes/${this.studentId}`]);
   }
 
 }

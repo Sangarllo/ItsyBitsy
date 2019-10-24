@@ -1,7 +1,7 @@
 <h3>Lista de Estudiantes</h3>
 
 <div *ngFor="let student of students | async">
-    <mat-card (click)="gotoStudent(student)">{{student.name}}</mat-card>
+    <mat-card (click)="gotoStudent(student)">{{student.displayName}}</mat-card>
 </div>
 
 <button mat-raised-button color="primary" routerLink="/estudiantes/nuevo">Crear</button>

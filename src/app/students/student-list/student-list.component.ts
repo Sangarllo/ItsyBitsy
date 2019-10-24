@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IStudent, IStudentExtended } from '../../models/iStudent.interface';
+import { Student, IStudentExtended } from '../../models/student.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,14 +12,14 @@ import { Router } from '@angular/router';
 })
 export class StudentListComponent {
 
-  private studentCollection: AngularFirestoreCollection<IStudent>;
+  private studentCollection: AngularFirestoreCollection<Student>;
   students: Observable<IStudentExtended[]>;
 
   constructor(private router: Router, afs: AngularFirestore) {
-    this.studentCollection = afs.collection<IStudent>('students');
+    this.studentCollection = afs.collection<Student>('students');
     this.students = this.studentCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as IStudent;
+        const data = a.payload.doc.data() as Student;
         const id = a.payload.doc.id;
         return { id, ...data };
       }))

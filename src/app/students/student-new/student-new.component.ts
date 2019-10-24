@@ -12,8 +12,12 @@ export class StudentNewComponent implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
-      name: new FormControl(''),
-      surname: new FormControl(''),
+      displayName: new FormControl(''),
+      photoURL: new FormControl(''),
+      email: new FormControl(''),
+      phone: new FormControl(''),
+      contact: new FormControl(''),
+      fare: new FormControl(''),
     });
   }
 

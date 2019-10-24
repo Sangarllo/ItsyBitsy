@@ -3,14 +3,15 @@
     <mat-card class="example-card">
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>{{ student.name }} {{ student.surname }} </mat-card-title>
-            <mat-card-subtitle>xxx</mat-card-subtitle>
+            <mat-card-title>{{ student.displayName }}</mat-card-title>
+            <mat-card-subtitle>{{ student.email }}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="assets/itsy.jpg" alt="Photo of a Shiba Inu">
+        <img mat-card-image [src]="student.photoURL" [alt]="student.displayName">
         <mat-card-content>
-            <pre>
-                    {{ student | json }}
-            </pre>
+            <p>
+                Contacto: <b>{{ student.contact }}</b> ({{ student.phone }})
+            </p>
+            <p>{{ student.fare }}</p>
         </mat-card-content>
         <mat-card-actions>
 

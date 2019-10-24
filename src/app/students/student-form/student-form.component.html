@@ -5,11 +5,27 @@
     <form [formGroup]="studentForm" class="form-container" (ngSubmit)="onSaveForm()">
 
         <mat-form-field>
-            <input matInput type="text" formControlName="name" placeholder="Nombre">
+            <input matInput type="text" formControlName="displayName" placeholder="Nombre Completo">
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput type="text" formControlName="surname" placeholder="Apellido">
+            <input matInput type="text" formControlName="photoURL" placeholder="Avatar">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput type="text" formControlName="email" placeholder="Correo Electrónico">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput type="text" formControlName="phone" placeholder="Teléfono">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput type="text" formControlName="contact" placeholder="Persona de Contacto">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput type="text" formControlName="fare" placeholder="Tarifa">
         </mat-form-field>
 
         <button mat-raised-button type="submit" color="primary">Actualizar</button>

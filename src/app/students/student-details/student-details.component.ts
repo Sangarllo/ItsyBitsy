@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentsService } from '../../services/students.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Student } from '../../models/iStudent.interface';
+import { Student } from '../../models/student.model';
 
 @Component({
   selector: 'app-student-details',
@@ -25,11 +25,12 @@ export class StudentDetailsComponent implements OnInit {
     this.studentService.getStudent(this.studentId)
       .subscribe( (student) => {
         this.student = new Student(
-          student.payload.data()['name'],
-          student.payload.data()['surname'],
-          '',
-          '',
-          ''
+          student.payload.data()['displayName'],
+          student.payload.data()['photoURL'],
+          student.payload.data()['email'],
+          student.payload.data()['phone'],
+          student.payload.data()['contact'],
+          student.payload.data()['fare'],
         );
       });
   }
