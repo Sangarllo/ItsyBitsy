@@ -38,7 +38,7 @@ export class StudentNewComponent implements OnInit {
   }
 
   public onSaveForm() {
-    this.studentService.saveStudent(this.studentForm.value);
+    this.studentService.createStudent(this.studentForm.value);
     this.router.navigate(['/estudiantes']);
   }
 
