@@ -1,11 +1,22 @@
-export interface Student {
+export interface IStudent {
   name: string;
   surname: string;
   fare: string;
   contact: string;
-  phono: string;
+  phone: string;
 }
 
-export interface StudentExtended extends Student {
+export interface IStudentExtended extends IStudent {
   id: string;
+}
+
+export class Student implements IStudent {
+
+  constructor(
+    public name: string,
+    public surname: string,
+    public fare: string,
+    public contact: string,
+    public phone: string ) {
+  }
 }

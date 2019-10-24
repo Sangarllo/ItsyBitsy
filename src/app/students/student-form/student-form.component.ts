@@ -4,7 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Student } from '../../models/iStudent.interface';
+import { IStudent } from '../../models/iStudent.interface';
 import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
@@ -14,9 +14,9 @@ import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firest
 })
 export class StudentFormComponent {
 
-  private itemDoc: AngularFirestoreDocument<Student>;
-  student$: Observable<Student>;
-  student: Student;
+  private itemDoc: AngularFirestoreDocument<IStudent>;
+  student$: Observable<IStudent>;
+  student: IStudent;
   studentId: string;
 
   createFormGroup() {

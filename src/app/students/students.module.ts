@@ -6,12 +6,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentNewComponent } from './student-new/student-new.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { MaterialConfigurationModule } from '../material-configuration/material-configuration.module';
+import { StudentDetailsComponent } from './student-details/student-details.component';
 
 @NgModule({
   declarations: [
     StudentFormComponent,
     StudentNewComponent,
-    StudentListComponent
+    StudentListComponent,
+    StudentDetailsComponent
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Student } from '../models/iStudent.interface';
+import { IStudent } from '../models/iStudent.interface';
 
 const STUDENT_COLLECTION = 'students';
 
@@ -11,17 +11,17 @@ const STUDENT_COLLECTION = 'students';
 })
 export class StudentsService {
 
-  private studentCollection: AngularFirestoreCollection<Student>;
+  private studentCollection: AngularFirestoreCollection<IStudent>;
 
   constructor(private afs: AngularFirestore) {
-    this.studentCollection = afs.collection<Student>(STUDENT_COLLECTION);
+    this.studentCollection = afs.collection<IStudent>(STUDENT_COLLECTION);
   }
 
   getStudent(studentId: string) {
     return this.studentCollection.doc(studentId).snapshotChanges();
   }
 
-  saveStudent(newStudent: Student): void {
+  saveStudent(newStudent: IStudent): void {
     this.studentCollection.add(newStudent);
   }
 }
