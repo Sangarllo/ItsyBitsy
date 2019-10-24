@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Student, StudentExtended } from '../../models/iStudent.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-list',
@@ -9,9 +12,23 @@ import { Observable } from 'rxjs';
 })
 export class StudentListComponent {
 
-  items: Observable<any[]>;
-  constructor(db: AngularFirestore) {
-    this.items = db.collection('students').valueChanges();
+  private studentCollection: AngularFirestoreCollection<Student>;
+  students: Observable<StudentExtended[]>;
+
+  constructor(private router: Router, afs: AngularFirestore) {
+    this.studentCollection = afs.collection<Student>('students');
+    this.students = this.studentCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Student;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+  }
+
+  gotoStudent(student) {
+    console.log(`goto ${student.id}`);
+    this.router.navigate([`estudiantes/${student.id}`]);
   }
 
 }

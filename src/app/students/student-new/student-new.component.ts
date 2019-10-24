@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentsService } from '../../services/students.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-new',
@@ -18,7 +19,10 @@ export class StudentNewComponent implements OnInit {
 
   // tslint:disable-next-line: member-ordering
   studentForm: FormGroup;
-  constructor(private studentService: StudentsService) {
+  constructor(
+    private studentService: StudentsService,
+    private router: Router
+  ) {
     this.studentForm = this.createFormGroup();
   }
 
@@ -31,6 +35,7 @@ export class StudentNewComponent implements OnInit {
 
   public onSaveForm() {
     this.studentService.saveStudent(this.studentForm.value);
+    this.router.navigate(['/estudiantes']);
   }
 
 }
