@@ -29,7 +29,7 @@ export class StudentNewComponent implements OnInit {
     });
 
     this.studentForm.patchValue({
-      photoURL: Avatar.getDefault().name,
+      photoURL: Avatar.getDefault().path,
     });
   }
 
