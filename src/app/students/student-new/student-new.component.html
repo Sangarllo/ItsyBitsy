@@ -14,7 +14,7 @@
 
         <mat-form-field>
             <mat-label>Avatar</mat-label>
-            <mat-select formControlName="photoURL" [(value)]="studentForm.get('photoURL').value">
+            <mat-select formControlName="photoURL" [value]="studentForm.get('photoURL').value">
                 <mat-option>--</mat-option>
                 <mat-option *ngFor="let avatar of avatares" [value]="avatar.path">
                     {{avatar.name}}
