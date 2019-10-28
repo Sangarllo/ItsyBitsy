@@ -2,6 +2,10 @@
 
     <h3>Crea un nuevo alumno:</h3>
 
+    <div style="text-align: center;">
+        <img [src]="selectedAvatar.path" style="width:40%" />
+    </div>
+
     <form [formGroup]="studentForm" class="form-container" (ngSubmit)="onSaveForm()">
 
         <mat-form-field>
@@ -9,7 +13,13 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput type="text" formControlName="photoURL" placeholder="Avatar">
+            <mat-label>Avatar</mat-label>
+            <mat-select formControlName="photoURL" [(value)]="selectedAvatar.path">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let avatar of avatares" [value]="avatar.path">
+                    {{avatar.name}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
 
         <mat-form-field>

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentsService } from '../../services/students.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Student } from '../../models/student.model';
-import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
+import { Avatar } from '../../models/avatar.model';
 
 @Component({
   selector: 'app-student-form',
@@ -14,40 +13,40 @@ import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firest
 })
 export class StudentFormComponent {
 
-  private itemDoc: AngularFirestoreDocument<Student>;
   student$: Observable<Student>;
   student: Student;
   studentId: string;
 
-  createFormGroup() {
-    return new FormGroup({
-      displayName: new FormControl(''),
-      photoURL: new FormControl(''),
-      email: new FormControl(''),
-      phone: new FormControl(''),
-      contact: new FormControl(''),
-      fare: new FormControl(''),
-    });
-  }
+  avatares: Avatar[] = Avatar.getAvatares();
 
   // tslint:disable-next-line: member-ordering
   studentForm: FormGroup;
   constructor(
+    private fb: FormBuilder,
     private studentService: StudentsService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.studentForm = this.createFormGroup();
+
+    this.studentForm = this.fb.group({
+      displayName: ['', Validators.required],
+      photoURL: ['', Validators.required],
+      email: [''],
+      phone: [''],
+      contact: [''],
+      fare: [''],
+    });
+
     this.studentId = this.route.snapshot.paramMap.get('id');
     this.studentService.getStudent(this.studentId)
       .subscribe( (student) => {
         this.studentForm.setValue({
-          displayName: student.payload.data()['displayName'],
-          photoURL: student.payload.data()['photoURL'],
-          email: student.payload.data()['email'],
-          phone: student.payload.data()['phone'],
-          contact: student.payload.data()['contact'],
-          fare: student.payload.data()['fare'],
+          displayName: student.payload.data()[Student.FIELD_DISPLAY_NAME],
+          photoURL: student.payload.data()[Student.FIELD_PHOTO_URL],
+          email: student.payload.data()[Student.FIELD_EMAIL],
+          phone: student.payload.data()[Student.FIELD_PHONE],
+          contact: student.payload.data()[Student.FIELD_CONTACT],
+          fare: student.payload.data()[Student.FIELD_FARE],
         });
       });
   }

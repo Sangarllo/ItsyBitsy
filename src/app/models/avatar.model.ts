@@ -1,11 +1,36 @@
-export class Avatar {
+export interface IAvatar {
+  path: string;
+  name: string;
+}
+
+export class Avatar implements IAvatar {
 
   constructor(
-    public id: string,
-    public path: string
+    public path: string,
+    public name: string
   ) {
   }
 
+  public static getDefault(): Avatar {
+    return {path: 'assets/avatar/001-man.png', name: 'man-01'};
+  }
+
+  public static getAvatares(): Avatar[] {
+    return [
+    {path: 'assets/avatar/001-man.png', name: 'man-01'},
+    {path: 'assets/avatar/002-girl.png', name: 'girl-02'},
+    {path: 'assets/avatar/003-boy.png', name: 'boy-03'},
+    {path: 'assets/avatar/004-woman.png', name: 'woman-04'},
+    {path: 'assets/avatar/005-man-1.png', name: 'man-05'},
+    {path: 'assets/avatar/006-woman-1.png', name: 'woman-06'},
+    {path: 'assets/avatar/007-boy-1.png', name: 'boy-07'},
+    {path: 'assets/avatar/008-clown.png', name: 'clown-08'},
+    {path: 'assets/avatar/009-firefighter.png', name: 'firefighter-09'},
+    {path: 'assets/avatar/010-girl-1.png', name: 'girl-10'}
+  ];
+
+  }
+/*
   static AVATARES = [
     'assets/avatar/001-man.png',
     'assets/avatar/002-girl.png',
@@ -77,4 +102,5 @@ export class Avatar {
     'assets/avatar/068-girl-8.png',
     'assets/avatar/069-woman-15.png',
     'assets/avatar/070-man-15.png' ];
+    */
 }

@@ -25,12 +25,12 @@ export class StudentDetailsComponent implements OnInit {
     this.studentService.getStudent(this.studentId)
       .subscribe( (student) => {
         this.student = new Student(
-          student.payload.data()['displayName'],
-          student.payload.data()['photoURL'],
-          student.payload.data()['email'],
-          student.payload.data()['phone'],
-          student.payload.data()['contact'],
-          student.payload.data()['fare'],
+          student.payload.data()[Student.FIELD_DISPLAY_NAME],
+          student.payload.data()[Student.FIELD_PHOTO_URL],
+          student.payload.data()[Student.FIELD_EMAIL],
+          student.payload.data()[Student.FIELD_PHONE],
+          student.payload.data()[Student.FIELD_CONTACT],
+          student.payload.data()[Student.FIELD_FARE],
         );
       });
   }

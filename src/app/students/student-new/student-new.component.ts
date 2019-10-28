@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentsService } from '../../services/students.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Avatar } from '../../models/avatar.model';
 
 @Component({
   selector: 'app-student-new',
@@ -10,24 +11,26 @@ import { Router } from '@angular/router';
 })
 export class StudentNewComponent implements OnInit {
 
-  createFormGroup() {
-    return new FormGroup({
-      displayName: new FormControl(''),
-      photoURL: new FormControl(''),
-      email: new FormControl(''),
-      phone: new FormControl(''),
-      contact: new FormControl(''),
-      fare: new FormControl(''),
-    });
-  }
-
-  // tslint:disable-next-line: member-ordering
   studentForm: FormGroup;
+  avatares: Avatar[] = Avatar.getAvatares();
+
   constructor(
+    private fb: FormBuilder,
     private studentService: StudentsService,
     private router: Router
   ) {
-    this.studentForm = this.createFormGroup();
+    this.studentForm = this.fb.group({
+      displayName: ['', Validators.required],
+      photoURL: ['', Validators.required],
+      email: [''],
+      phone: [''],
+      contact: [''],
+      fare: [''],
+    });
+
+    this.studentForm.patchValue({
+      photoURL: Avatar.getDefault().name,
+    });
   }
 
   ngOnInit() {
@@ -38,6 +41,7 @@ export class StudentNewComponent implements OnInit {
   }
 
   public onSaveForm() {
+    console.log('Student Form: ', this.studentForm.value);
     this.studentService.createStudent(this.studentForm.value);
     this.router.navigate(['/estudiantes']);
   }
