@@ -26,6 +26,14 @@ export class StudentListComponent {
     );
   }
 
+  applyStyles(student: Student) {
+    const styles = {
+      'background-image': `url("${student.photoURL}")`,
+      'background-size': 'cover'
+    };
+    return styles;
+  }
+
   gotoStudent(student) {
     console.log(`goto ${student.id}`);
     this.router.navigate([`estudiantes/${student.id}`]);
