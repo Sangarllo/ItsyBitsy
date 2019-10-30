@@ -1,22 +1,22 @@
-<div *ngIf="student">
+<div *ngIf="student" class="container-fluid">
 
-    <mat-card class="example-card">
-        <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>{{ student.displayName }}</mat-card-title>
-            <mat-card-subtitle>{{ student.email }}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image [src]="student.photoURL" [alt]="student.displayName">
-        <mat-card-content>
-            <p>
-                Contacto: <b>{{ student.contact }}</b> ({{ student.phone }})
-            </p>
-            <p>{{ student.fare }}</p>
-        </mat-card-content>
-        <mat-card-actions>
+    <div class="row">
 
+        <div class="col-12 col-md-6 col-lg-4" style="text-align: center;">
+            <img [src]="student.photoURL" style="height:80%" />
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-8">
+
+            <h3>{{ student.displayName }}</h3>
+            <br/><br/>
+            <h4>{{ student.email }}</h4>
+            <h4>{{ student.contact }}</h4>
+            <h4>{{ student.phone }}</h4>
+            <h4>{{ student.fare }}</h4>
+            <br/><br/>
             <button mat-raised-button color="primary" (click)="gotoEdition()">Editar</button>
-        </mat-card-actions>
-    </mat-card>
+        </div>
+    </div>
 
 </div>

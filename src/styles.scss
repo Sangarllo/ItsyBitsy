@@ -13,6 +13,10 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+mat-form-field {
+    margin-bottom: 20px;
+}
+
 .form-container mat-form-field {
     display: flex;
     flex-direction: column;

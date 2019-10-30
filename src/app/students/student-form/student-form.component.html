@@ -1,45 +1,60 @@
-<div class="div-container">
+<div class="container-fluid">
 
-    <h3>Edita los datos del alumno:</h3>
-
-    <div style="text-align: center;">
-        <img [src]="studentForm.get('photoURL').value" style="width:40%" />
+    <div class="row">
+        <h3>Edita los datos del estudiante:</h3>
     </div>
 
-    <form [formGroup]="studentForm" class="form-container" (ngSubmit)="onSaveForm()">
+    <div class="row">
 
-        <mat-form-field>
-            <input matInput type="text" formControlName="displayName" placeholder="Nombre Completo">
-        </mat-form-field>
+        <div class="col-12 col-md-6 col-lg-4" style="text-align: center;">
+            <img [src]="studentForm.get('photoURL').value" style="height:80%" />
+        </div>
 
-        <mat-form-field>
-            <mat-label>Avatar</mat-label>
-            <mat-select formControlName="photoURL" [value]="studentForm.get('photoURL').value">
-                <mat-option>--</mat-option>
-                <mat-option *ngFor="let avatar of avatares" [value]="avatar.path">
-                    {{avatar.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <div class="col-12 col-md-6 col-lg-8">
+            <form [formGroup]="studentForm" class="form-container" (ngSubmit)="onSaveForm()">
 
-        <mat-form-field>
-            <input matInput type="text" formControlName="email" placeholder="Correo Electrónico">
-        </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="displayName" placeholder="Nombre Completo">
+                </mat-form-field>
 
-        <mat-form-field>
-            <input matInput type="text" formControlName="phone" placeholder="Teléfono">
-        </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Avatar</mat-label>
+                    <mat-select formControlName="photoURL" [value]="studentForm.get('photoURL').value">
+                        <mat-option *ngFor="let avatar of AVATARES" [value]="avatar.path">
+                            {{avatar.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-        <mat-form-field>
-            <input matInput type="text" formControlName="contact" placeholder="Persona de Contacto">
-        </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="email" placeholder="Correo Electrónico">
+                    <mat-error *ngIf="!!studentForm.get('email').errors?.email">{{ emailMessage }}</mat-error>
+                </mat-form-field>
 
-        <mat-form-field>
-            <input matInput type="text" formControlName="fare" placeholder="Tarifa">
-        </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="phone" placeholder="Teléfono">
+                </mat-form-field>
 
-        <button mat-raised-button type="submit" color="primary">Actualizar</button>
-        <button mat-raised-button color="primary" routerLink="/estudiantes">Ver listado</button>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="contact" placeholder="Persona de Contacto">
+                </mat-form-field>
 
-    </form>
+                <mat-form-field>
+                    <mat-label>Tarifa</mat-label>
+                    <mat-select formControlName="fare" [value]="studentForm.get('fare').value">
+                        <mat-option *ngFor="let fare of FARES" [value]="fare.name">
+                            {{fare.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <button mat-raised-button type="submit" color="primary">Actualizar</button>
+
+                <button mat-raised-button type="button" (click)="onResetForm()" color="primary">Limpiar</button>
+
+                <button mat-raised-button color="primary" routerLink="/estudiantes">Ver listado</button>
+
+            </form>
+        </div>
+    </div>
 </div>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentsService } from '../../services/students.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Student } from '../../models/student.model';
 import { Avatar } from '../../models/avatar.model';
+import { Fare } from '../../models/fare';
 
 @Component({
   selector: 'app-student-form',
@@ -13,14 +14,21 @@ import { Avatar } from '../../models/avatar.model';
 })
 export class StudentFormComponent {
 
+  AVATARES: Avatar[] = Avatar.getAvatares();
+  FARES: Fare[] = Fare.getFares();
+
+  studentForm: FormGroup;
+  emailMessage: string;
+
+  private validationMessages = {
+    required: 'Introduce el email',
+    email: 'Introduce un email válido.'
+  };
+
   student$: Observable<Student>;
   student: Student;
   studentId: string;
 
-  avatares: Avatar[] = Avatar.getAvatares();
-
-  // tslint:disable-next-line: member-ordering
-  studentForm: FormGroup;
   constructor(
     private fb: FormBuilder,
     private studentService: StudentsService,
@@ -31,7 +39,7 @@ export class StudentFormComponent {
     this.studentForm = this.fb.group({
       displayName: ['', Validators.required],
       photoURL: ['', Validators.required],
-      email: [''],
+      email: ['', Validators.email],
       phone: [''],
       contact: [''],
       fare: [''],
@@ -49,6 +57,14 @@ export class StudentFormComponent {
           fare: student.payload.data()[Student.FIELD_FARE],
         });
       });
+  }
+
+  setMessage(c: AbstractControl): void {
+    this.emailMessage = '';
+    if ((c.touched || c.dirty) && c.errors) {
+      this.emailMessage = Object.keys(c.errors).map(
+        key => this.validationMessages[key]).join(' ');
+    }
   }
 
   onResetForm() {
