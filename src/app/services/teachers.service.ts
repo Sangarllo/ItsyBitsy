@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { ITeacher } from '../models/iTeacher.interface';
+import { ITeacher } from '../models/teacher.model';
 
 
 @Injectable({

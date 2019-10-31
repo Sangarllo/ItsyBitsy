@@ -1,0 +1,18 @@
+<div *ngIf="course" class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-12">
+
+            <h3>{{ course.name }}</h3>
+            <br/><br/>
+            <pre>
+              {{ course | json }}
+            </pre>
+            <br/><br/>
+
+            <button mat-raised-button color="primary" (click)="gotoEdition()">Editar</button>
+        </div>
+    </div>
+
+</div>

@@ -17,7 +17,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialConfigurationModule } from './material-configuration/material-configuration.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +38,8 @@ import { MaterialConfigurationModule } from './material-configuration/material-c
     BrowserAnimationsModule,
     MaterialConfigurationModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

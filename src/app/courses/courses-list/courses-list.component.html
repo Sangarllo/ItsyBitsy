@@ -1,0 +1,13 @@
+<h3>Lista de Cursos</h3>
+
+<div *ngFor="let course of courses | async">
+    <mat-card (click)="gotoCourse(course)">
+        <mat-card-header>
+            <div mat-card-avatar></div>
+            <mat-card-title>{{course.name}}</mat-card-title>
+            <mat-card-subtitle>{{course.current}}</mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>
+</div>
+
+<button mat-raised-button color="primary" routerLink="/cursos/nuevo">Crear</button>

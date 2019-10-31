@@ -1,0 +1,61 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <h3>Edita los datos del curso:</h3>
+    </div>
+
+    <div class="row">
+
+        <div class="col-12 col-md-6 col-lg-4" style="text-align: center;">
+            <img src="assets/section/gears.gif" style="height:80%" />
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-8">
+
+            <form [formGroup]="courseForm" class="form-container" (ngSubmit)="onSaveForm()">
+
+                <mat-form-field>
+                    <input matInput type="text" formControlName="name" placeholder="Nombre">
+                    <mat-error *ngIf="!!courseForm.get('name').errors?.required">Es necesario incluir esta información</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput formControlName="startDate" [matDatepicker]="pickerStart" placeholder="Escoge la fecha de inicio">
+                    <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerStart></mat-datepicker>
+                    <mat-error *ngIf="!!courseForm.get('startDate').errors?.required">Es necesario incluir esta información</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="time" formControlName="startTime" placeholder="Escoge la hora de inicio">
+                    <mat-error *ngIf="!!courseForm.get('startTime').errors?.required">Es necesario incluir esta información</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput formControlName="endDate" [matDatepicker]="pickerEnd" placeholder="Escoge la fecha de fin">
+                    <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerEnd></mat-datepicker>
+                    <mat-error *ngIf="!!courseForm.get('endDate').errors?.required">Es necesario incluir esta información</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="time" formControlName="endTime" placeholder="Escoge la hora de fin">
+                    <mat-error *ngIf="!!courseForm.get('endTime').errors?.required">Es necesario incluir esta información</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="text" formControlName="teacher" placeholder="Profesor">
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="submit" [title]="courseForm.valid ? 'Crea un nuevo curso' : 'Deshabilitado hasta que los datos sean válidos'" [disabled]="!courseForm.valid">
+                Actualizar
+              </button>
+
+                <button mat-raised-button color="primary" routerLink="/cursos">Ver listado</button>
+
+                <button mat-raised-button type="button" (click)="onResetForm()" color="primary">Limpiar</button>
+
+            </form>
+        </div>
+    </div>
+</div>
