@@ -1,0 +1,49 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <img src="assets/logo-itsy-bitsy.png" width="30" height="30" class="d-inline-block align-top" alt=""> Itsy Bitsy
+            </a>
+        </div>
+        <!--
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Page 1</a></li>
+            <li><a href="#">Page 2</a></li>
+        </ul>
+        -->
+        <ul class="nav navbar-nav navbar-right">
+
+            <div *ngIf="afAuth.user | async as user; else showLogin">
+                <li>
+                    <mat-icon class="header-icon" aria-hidden="false" aria-label="Exit" (click)="logout()">exit_to_app</mat-icon>
+                </li>
+                <li>
+                    <mat-icon class="header-icon" aria-hidden="false" aria-label="Profile" (click)="gotoProfile()">how_to_reg</mat-icon>
+                </li>
+            </div>
+        </ul>
+    </div>
+</nav>
+
+<ng-template #showLogin>
+    <li>
+        <mat-icon class="header-icon" aria-hidden="false" aria-label="Login" (click)="login()">account_circle</mat-icon>
+    </li>
+    <li>
+        <mat-icon class="header-icon" aria-hidden="false" aria-label="Register" (click)="login()">how_to_reg</mat-icon>
+    </li>
+</ng-template>
+
+<!--
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>ItsyBitsy</span>
+        <span class="header-spacer"></span>
+        <mat-icon class="header-icon" aria-hidden="false" aria-label="Favoritos">favorite</mat-icon>
+        <mat-icon class="header-icon" aria-hidden="false" aria-label="Usuarios" routerLink="/usuarios">people</mat-icon>
+        <mat-icon class="header-icon" aria-hidden="false" aria-label="Estudiantes" routerLink="/estudiantes">photo_library</mat-icon>
+        <mat-icon class="header-icon" aria-hidden="false" aria-label="Login" (click)="login()">account_circle</mat-icon>
+    </mat-toolbar-row>
+</mat-toolbar>
+-->

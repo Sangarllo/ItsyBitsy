@@ -16,10 +16,12 @@ import { UsersModule } from './users/users.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialConfigurationModule } from './material-configuration/material-configuration.module';
+import { HeaderComponent } from './layout/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
