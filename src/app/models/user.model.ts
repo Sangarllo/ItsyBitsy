@@ -1,7 +1,9 @@
 export interface User {
   uid: string;
-  email: string;
+  displayName: string;
+  email?: string;
   photoURL?: string;
-  displayName?: string;
+  rol?: string;
+  lastDate?: Date;
   myCustomData?: string;
 }

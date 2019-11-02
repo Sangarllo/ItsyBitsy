@@ -5,8 +5,8 @@ import { IStudent, Student, IStudentData } from '../models/student.model';
 import { Avatar } from '../models/avatar.model';
 import { Fare } from '../models/fare';
 
-const STUDENT_COLLECTION = 'students';
 
+const STUDENT_COLLECTION = 'students';
 
 @Injectable({
   providedIn: 'root'

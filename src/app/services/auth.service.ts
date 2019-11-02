@@ -9,12 +9,24 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+
+const USER_COLLECTION = 'users';
+
+enum Rol {
+  Admin = 'admin',
+  Teacher = 'profesor',
+  Student = 'estudiante',
+  Normal = 'normal',
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
   user$: Observable<User>;
+
+
 
   constructor(
       private afAuth: AngularFireAuth,
@@ -26,7 +38,7 @@ export class AuthService {
         switchMap(user => {
             // Logged in
           if (user) {
-            return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+            return this.afs.doc<User>(`${USER_COLLECTION}/${user.uid}`).valueChanges();
           } else {
             // Logged out
             return of(null);
@@ -41,18 +53,25 @@ export class AuthService {
     return this.updateUserData(credential.user);
   }
 
+
   private updateUserData(user) {
     // Sets user data to firestore on login
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`${USER_COLLECTION}/${user.uid}`);
 
-    const data = {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL
-    };
+    userRef.valueChanges()
+      .subscribe( (userFB: User) => {
 
-    return userRef.set(data, { merge: true });
+        const userData = {
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          rol: ( userFB == null ) ? Rol.Normal : userFB.rol,
+          lastDate: new Date()
+        };
+
+        return userRef.set(userData, { merge: true });
+      });
   }
 
   async signOut() {
