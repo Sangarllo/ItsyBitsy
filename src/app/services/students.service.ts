@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { IStudent, Student } from '../models/student.model';
+import { Observable, of } from 'rxjs';
+import { IStudent, Student, IStudentData } from '../models/student.model';
+import { Avatar } from '../models/avatar.model';
+import { Fare } from '../models/fare';
+import { StudentNewComponent } from '../students/student-new/student-new.component';
 
 const STUDENT_COLLECTION = 'students';
 
@@ -18,16 +21,43 @@ export class StudentsService {
     this.studentCollection = afs.collection<IStudent>(STUDENT_COLLECTION);
   }
 
-  getStudent(studentId: string) {
-    return this.studentCollection.doc(studentId).snapshotChanges();
+  getStudent(studentId: string): Observable<any> {
+    if (studentId === '0') {
+      return of(this.initialize());
+    } else {
+      return this.studentCollection.doc(studentId).valueChanges();
+    }
   }
 
-  updateStudent(studentId: string, studentData: Student): void {
-    this.studentDoc = this.studentCollection.doc(studentId);
-    this.studentDoc.update(studentData);
+  deleteStudent(id: string): Observable<{}> {
+    this.studentDoc = this.studentCollection.doc(id);
+    this.studentDoc.delete();
+    return of({});
   }
 
-  createStudent(newStudent: IStudent): void {
-    this.studentCollection.add(newStudent);
+  updateStudent(student: Student): Observable<Student> {
+    this.studentDoc = this.studentCollection.doc(student.id);
+    this.studentDoc.update(student);
+    return of(student);
+  }
+
+  createStudent(student: Student): Observable<Student> {
+    // Persist a document id
+    student.id = this.afs.createId();
+    this.studentCollection.doc(student.id).set(student);
+    return of(student);
+  }
+
+  private initialize(): Student {
+    // Return an initialized object
+    return {
+      id: '0',
+      displayName: '',
+      photoURL: Avatar.getRandom().path,
+      email: '',
+      phone: '',
+      contact: '',
+      fare: Fare.getDefault().name
+    };
   }
 }

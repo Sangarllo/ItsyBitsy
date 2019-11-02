@@ -1,4 +1,4 @@
-export interface IStudent {
+export interface IStudentData {
   displayName: string;
   photoURL: string;
   email: string;
@@ -7,12 +7,15 @@ export interface IStudent {
   fare: string;
 }
 
-export interface IStudentExtended extends IStudent {
+export interface IStudent extends IStudentData {
   id: string;
 }
 
 export class Student implements IStudent {
 
+  public static PATH_URL = 'estudiantes';
+
+  public static FIELD_ID = 'id';
   public static FIELD_DISPLAY_NAME = 'displayName';
   public static FIELD_PHOTO_URL = 'photoURL';
   public static FIELD_EMAIL = 'email';
@@ -21,6 +24,7 @@ export class Student implements IStudent {
   public static FIELD_FARE = 'fare';
 
   constructor(
+    public id: string,
     public displayName: string,
     public photoURL: string,
     public email: string,

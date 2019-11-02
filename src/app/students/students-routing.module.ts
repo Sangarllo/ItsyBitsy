@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { StudentFormComponent } from './student-form/student-form.component';
-import { StudentNewComponent } from './student-new/student-new.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
+import { StudentEditComponent } from './student-edit/student-edit.component';
 
 
 const routes: Routes = [
@@ -12,17 +11,15 @@ const routes: Routes = [
     component: StudentListComponent
   },
   {
-    path: 'nuevo',
-    component: StudentNewComponent
-  },
-  {
     path: ':id',
     component: StudentDetailsComponent
   },
   {
     path: ':id/editar',
-    component: StudentFormComponent
-  }
+    // canDeactivate: [ProductEditGuard], TODO
+    component: StudentEditComponent
+  },
+
 ];
 
 @NgModule({

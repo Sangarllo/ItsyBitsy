@@ -14,6 +14,7 @@ import { Fare } from '../../models/fare';
 })
 export class StudentFormComponent {
 
+  /*
   AVATARES: Avatar[] = Avatar.getAvatares();
   FARES: Fare[] = Fare.getFares();
 
@@ -77,5 +78,5 @@ export class StudentFormComponent {
       this.studentForm.value);
     this.router.navigate([`/estudiantes/${this.studentId}`]);
   }
-
+*/
 }

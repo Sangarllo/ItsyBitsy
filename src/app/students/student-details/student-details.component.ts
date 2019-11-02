@@ -1,17 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StudentsService } from '../../services/students.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from '../../models/student.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-student-details',
   templateUrl: './student-details.component.html',
   styleUrls: ['./student-details.component.scss']
 })
-export class StudentDetailsComponent implements OnInit {
+export class StudentDetailsComponent implements OnInit, OnDestroy {
+
+  pageTitle = 'Detalles de Estudiante';
+  errorMessage: string;
 
   studentId: string;
   student: Student;
+
+  // private sub: Subscription;
 
   constructor(
     private studentService: StudentsService,
@@ -23,20 +29,21 @@ export class StudentDetailsComponent implements OnInit {
   ngOnInit() {
     this.studentId = this.route.snapshot.paramMap.get('id');
     this.studentService.getStudent(this.studentId)
-      .subscribe( (student) => {
-        this.student = new Student(
-          student.payload.data()[Student.FIELD_DISPLAY_NAME],
-          student.payload.data()[Student.FIELD_PHOTO_URL],
-          student.payload.data()[Student.FIELD_EMAIL],
-          student.payload.data()[Student.FIELD_PHONE],
-          student.payload.data()[Student.FIELD_CONTACT],
-          student.payload.data()[Student.FIELD_FARE],
-        );
+      .subscribe({
+        next: student => this.student = student,
+        error: err => this.errorMessage = err
       });
   }
 
-  gotoEdition() {
-    this.router.navigate([`/estudiantes/${this.studentId}/editar`]);
+  ngOnDestroy(): void {
+    // this.sub.unsubscribe();
   }
 
+  gotoEdition() {
+    this.router.navigate([`/${Student.PATH_URL}/${this.studentId}/editar`]);
+  }
+
+  gotoList(): void {
+    this.router.navigate([`/${Student.PATH_URL}`]);
+  }
 }

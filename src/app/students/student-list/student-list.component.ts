@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Student, IStudentExtended } from '../../models/student.model';
+import { Student, IStudent } from '../../models/student.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class StudentListComponent {
 
   private studentCollection: AngularFirestoreCollection<Student>;
-  students: Observable<IStudentExtended[]>;
+  students: Observable<IStudent[]>;
 
   constructor(private router: Router, afs: AngularFirestore) {
     this.studentCollection = afs.collection<Student>('students');
@@ -36,7 +36,11 @@ export class StudentListComponent {
 
   gotoStudent(student) {
     console.log(`goto ${student.id}`);
-    this.router.navigate([`estudiantes/${student.id}`]);
+    this.router.navigate([`${Student.PATH_URL}/${student.id}`]);
+  }
+
+  gotoNew() {
+    this.router.navigate([`${Student.PATH_URL}/0/editar`]);
   }
 
 }

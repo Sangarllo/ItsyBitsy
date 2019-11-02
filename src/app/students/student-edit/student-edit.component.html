@@ -1,9 +1,7 @@
-Student-Form under construction
-<!--
 <div class="container-fluid">
 
     <div class="row">
-        <h3>Edita los datos del estudiante:</h3>
+        <h3>{{pageTitle}}</h3>
     </div>
 
     <div class="row">
@@ -13,6 +11,7 @@ Student-Form under construction
         </div>
 
         <div class="col-12 col-md-6 col-lg-8">
+
             <form [formGroup]="studentForm" class="form-container" (ngSubmit)="onSaveForm()">
 
                 <mat-form-field>
@@ -30,7 +29,7 @@ Student-Form under construction
 
                 <mat-form-field>
                     <input matInput type="text" formControlName="email" placeholder="Correo Electrónico">
-                    <mat-error *ngIf="!!studentForm.get('email').errors?.email">{{ emailMessage }}</mat-error>
+                    <mat-error *ngIf="!!studentForm.get('email').errors?.email">{{ errorMessage }}</mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
@@ -50,14 +49,20 @@ Student-Form under construction
                     </mat-select>
                 </mat-form-field>
 
-                <button mat-raised-button type="submit" color="primary">Actualizar</button>
+                <button mat-raised-button [title]="studentForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!studentForm.valid" type="submit" color="primary">Guardar</button>
 
                 <button mat-raised-button type="button" (click)="onResetForm()" color="primary">Limpiar</button>
 
-                <button mat-raised-button color="primary" routerLink="/estudiantes">Ver listado</button>
+                <button mat-raised-button type="button" (click)="gotoList()" color="primary">Ver listado</button>
+
+                <button mat-raised-button type="button" (click)="onRandomPopulateForm()" color="primary">Random</button>
 
             </form>
+
         </div>
     </div>
 </div>
--->
+
+<pre>
+  {{ this.student | json }}
+</pre>
