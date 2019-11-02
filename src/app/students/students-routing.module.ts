@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { StudentEditComponent } from './student-edit/student-edit.component';
+import { StudentEditGuard } from './student-edit.guard';
 
 
 const routes: Routes = [
@@ -16,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: ':id/editar',
-    // canDeactivate: [ProductEditGuard], TODO
+    canDeactivate: [StudentEditGuard],
     component: StudentEditComponent
   },
 

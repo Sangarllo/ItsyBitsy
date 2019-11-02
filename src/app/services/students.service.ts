@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { IStudent, Student, IStudentData } from '../models/student.model';
 import { Avatar } from '../models/avatar.model';
 import { Fare } from '../models/fare';
-import { StudentNewComponent } from '../students/student-new/student-new.component';
 
 const STUDENT_COLLECTION = 'students';
 
