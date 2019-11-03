@@ -61,14 +61,25 @@ export class AuthService {
     userRef.valueChanges()
       .subscribe( (userFB: User) => {
 
-        const userData = {
-          uid: user.uid,
-          displayName: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-          rol: ( userFB == null ) ? Rol.Normal : userFB.rol,
-          lastDate: new Date()
-        };
+        let userData;
+        if ( userFB == null ) {
+          // No existía hasta ahora en BBDD como usuario
+          userData = {
+            uid: user.uid,
+            displayName: user.displayName,
+            nickName: user.displayName.substring(0, user.displayName.indexOf(' ')),
+            email: user.email,
+            photoURL: user.photoURL,
+            rol: Rol.Normal,
+            creationDate: new Date(),
+            lastDate: new Date()
+          };
+        } else {
+          // Ya existe en BBDD como usuario
+          userData = {
+            lastDate: new Date()
+          };
+        }
 
         return userRef.set(userData, { merge: true });
       });

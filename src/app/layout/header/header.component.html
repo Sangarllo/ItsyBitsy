@@ -1,49 +1,42 @@
-<nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                <img src="assets/logo-itsy-bitsy.png" width="30" height="30" class="d-inline-block align-top" alt=""> Itsy Bitsy
-            </a>
-        </div>
-        <!--
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Page 1</a></li>
-            <li><a href="#">Page 2</a></li>
-        </ul>
-        -->
-        <ul class="nav navbar-nav navbar-right">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-            <div *ngIf="afAuth.user | async as user; else showLogin">
-                <li>
-                    <mat-icon class="header-icon" aria-hidden="false" aria-label="Exit" (click)="logout()">exit_to_app</mat-icon>
-                </li>
-                <li>
-                    <mat-icon class="header-icon" aria-hidden="false" aria-label="Profile" (click)="gotoProfile()">how_to_reg</mat-icon>
-                </li>
-            </div>
-        </ul>
+    <a class="navbar-brand" href="#">
+        <img src="assets/logo-itsy-bitsy.png" width="30" height="30" class="d-inline-block align-top" alt=""> Itsy Bitsy
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/home">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/estudiantes">Estudiantes</a>
+            <a class="nav-item nav-link" href="/cursos">Cursos</a>
+            <a class="nav-item nav-link disabled" href="#">Disabled</a>
+        </div>
     </div>
+
+    <div #menu class="nav navbar-nav navbar-right" *ngIf="afAuth.user | async as user; else showLogin">
+
+        <span>Hola {{ user.nickName }} </span>
+
+        <a (click)="gotoProfile()">
+            <mat-icon class="header-icon" aria-hidden="false" aria-label="Profile">how_to_reg</mat-icon>
+            &nbsp;&nbsp;<span class="align-top">Ver Perfil</span>
+        </a>
+
+        <a (click)="logout()">
+            <mat-icon class="header-icon" aria-hidden="false" aria-label="Exit">exit_to_app</mat-icon>
+            &nbsp;&nbsp;<span class="align-top">Salir</span>
+        </a>
+    </div>
+
 </nav>
 
 <ng-template #showLogin>
-    <li>
-        <mat-icon class="header-icon" aria-hidden="false" aria-label="Login" (click)="login()">account_circle</mat-icon>
-    </li>
-    <li>
-        <mat-icon class="header-icon" aria-hidden="false" aria-label="Register" (click)="login()">how_to_reg</mat-icon>
-    </li>
+    <a (click)="login()">
+        <mat-icon class="header-icon" aria-hidden="false" aria-label="Login">account_circle</mat-icon>
+        &nbsp;&nbsp;<span class="align-top">Entrar</span>
+    </a>
+    <a (click)="login()">
+        <mat-icon class="header-icon" aria-hidden="false" aria-label="Register">how_to_reg</mat-icon>
+        &nbsp;&nbsp;<span class="align-top">Registrarte</span>
+    </a>
 </ng-template>
-
-<!--
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <span>ItsyBitsy</span>
-        <span class="header-spacer"></span>
-        <mat-icon class="header-icon" aria-hidden="false" aria-label="Favoritos">favorite</mat-icon>
-        <mat-icon class="header-icon" aria-hidden="false" aria-label="Usuarios" routerLink="/usuarios">people</mat-icon>
-        <mat-icon class="header-icon" aria-hidden="false" aria-label="Estudiantes" routerLink="/estudiantes">photo_library</mat-icon>
-        <mat-icon class="header-icon" aria-hidden="false" aria-label="Login" (click)="login()">account_circle</mat-icon>
-    </mat-toolbar-row>
-</mat-toolbar>
--->
