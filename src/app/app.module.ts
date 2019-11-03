@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialConfigurationModule } from './material-configuration/material-configuration.module';
 import { HeaderComponent } from './layout/header/header.component';
 import { HomeComponent } from './home/home.component';
+import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { HomeComponent } from './home/home.component';
     AngularFireModule.initializeApp(environment.firebase, 'itsy-bitsy'),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    AngularFireAuthGuardModule, // used for AngularFireAuthGuard
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
 
     ReactiveFormsModule,
