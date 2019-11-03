@@ -17,11 +17,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialConfigurationModule } from './material-configuration/material-configuration.module';
 import { HeaderComponent } from './layout/header/header.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
