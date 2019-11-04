@@ -67,6 +67,10 @@ export class AuthService {
             // lastDate: null // new Date()
           };
 
+          /* TODO:
+          https://app.gitkraken.com/glo/board/XZ4_skfrBQAPXsgV/card/XcCcI1uFhQAPHQuo
+          Solventar problema cuando existía ya en UserDetails, y luego hace login/registro
+          */
           this.userService.createUserDetails(userDetailsData);
         }
       }

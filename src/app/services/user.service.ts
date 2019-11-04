@@ -31,10 +31,13 @@ export class UserService {
   }
 
   createUserDetails(userDetails: IUserDetails): Observable<IUserDetails> {
-    // Persist a document id
-    const id = userDetails.uid;
-    console.log(`Creating in UserDatils Database user ${id}`);
-    this.userDetailsCollection.doc(id).set(userDetails);
+    if ( userDetails.uid === '0') {
+    // If uid is not asigned, we get a GUID (item exists on UserDetails, not in Users)
+      userDetails.uid = this.afs.createId();
+    }
+
+    console.log(`Creating in UserDatils Database user ${userDetails.uid}`);
+    this.userDetailsCollection.doc(userDetails.uid).set(userDetails);
     return of(userDetails);
   }
 

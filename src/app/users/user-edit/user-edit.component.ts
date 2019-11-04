@@ -37,7 +37,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
         email: ['', Validators.email],
         nickName: [''],
         rol: [Rol.Normal],
-        createDate: [new Date()],
+        creationDate: [new Date()],
       });
 
       // Read the student Id from the route parameter

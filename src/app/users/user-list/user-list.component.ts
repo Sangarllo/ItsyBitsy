@@ -30,4 +30,10 @@ export class UserListComponent {
     console.log(`goto ${userDetails.id}`);
     this.router.navigate([`${UserDetails.PATH_URL}/${userDetails.id}`]);
   }
+
+  gotoNew() {
+    this.router.navigate([`${UserDetails.PATH_URL}/0/editar`]);
+  }
+
 }
+
