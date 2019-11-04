@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs';
 import { Avatar } from '../../models/avatar.model';
+import { RandomGenerator } from '../../shared/random-generator';
+import { UserDetailsComponent } from '../user-details/user-details.component';
 
 @Component({
   selector: 'app-user-edit',
@@ -100,6 +102,18 @@ export class UserEditComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  onRandomPopulateForm(): void {
+
+    this.userDetails.displayName = RandomGenerator.randomDisplayName();
+    this.userDetails.email = this.userDetails.displayName.replace(' ', '.').toLowerCase() + '@gmail.com';
+    this.userDetails.photoURL = Avatar.getRandom().path;
+    this.userDetails.nickName = this.userDetails.displayName.split(' ')[0];
+    this.userDetails.rol = UserDetails.getRolRandom();
+
+    this.displayUserDetails();
+  }
+
 
   onResetForm(): void {
     this.userDetailsForm.reset();

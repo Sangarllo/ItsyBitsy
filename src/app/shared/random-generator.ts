@@ -23,7 +23,6 @@ export class RandomGenerator {
       name += constants.charAt(Math.floor(Math.random() * constants.length));
       name += vowels.charAt(Math.floor(Math.random() * vowels.length));
     }
-    return name;
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   }
-
 }

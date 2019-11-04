@@ -46,6 +46,8 @@
 
                 <button mat-raised-button type="button" (click)="gotoList()" color="primary">Ver listado</button>
 
+                <button mat-raised-button [disabled]="userDetails.uid !== '0'" type="button" (click)="onRandomPopulateForm()" color="primary">Random</button>
+
             </form>
 
         </div>

@@ -42,4 +42,26 @@ export class UserDetails implements IUserDetails {
     public creationDate: Date
      ) {
   }
+
+  // Roles
+
+  public static getRolDefault(): Rol {
+    return Rol.Normal;
+  }
+
+  public static getRoles(): Rol[] {
+    return [
+        Rol.Admin,
+        Rol.Teacher,
+        Rol.Student,
+        Rol.Normal
+    ];
+  }
+
+  public static getRolRandom(): Rol {
+    const ROLES: Rol[] = this.getRoles();
+    const index = Math.floor(Math.random() * ROLES.length);
+    return ROLES[index];
+  }
+
 }
