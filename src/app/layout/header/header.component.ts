@@ -22,9 +22,15 @@ export class HeaderComponent {
 
   logout() {
     this.afAuth.auth.signOut();
+    this.router.navigate([`/home`]);
   }
 
   public gotoProfile() {
     this.router.navigate([`/usuarios/perfil`]);
   }
+
+  public gotoDashboard() {
+    this.router.navigate([`/usuarios/dashboard`]);
+  }
+
 }

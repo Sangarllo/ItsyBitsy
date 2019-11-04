@@ -5,6 +5,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,11 @@ const routes: Routes = [
   {
     path: 'perfil',
     component: UserProfileComponent,
+    canActivate: [AngularFireAuthGuard]
+  },
+  {
+    path: 'dashboard',
+    component: UserDashboardComponent,
     canActivate: [AngularFireAuthGuard]
   },
   {
