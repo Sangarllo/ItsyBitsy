@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UserDetails } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,6 +20,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     public auth: AuthService,
+    private router: Router,
     private userService: UserService
   ) { }
 
@@ -36,5 +38,9 @@ export class UserProfileComponent implements OnInit {
       }
 
     );
+  }
+
+  gotoEdition() {
+    this.router.navigate([`/${UserDetails.PATH_URL}/${this.userDetailsId}/editar`]);
   }
 }

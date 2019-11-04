@@ -35,4 +35,8 @@ export class UserDetailsComponent implements OnInit {
           error: err => this.errorMessage = err
         });
   }
+
+  gotoEdition() {
+    this.router.navigate([`/${UserDetails.PATH_URL}/${this.userDetailsId}/editar`]);
+  }
 }

@@ -26,6 +26,14 @@ export class UserListComponent {
     );
   }
 
+  applyStyles(userDetails: UserDetails) {
+    const styles = {
+      'background-image': `url("${userDetails.photoURL}")`,
+      'background-size': 'cover'
+    };
+    return styles;
+  }
+
   gotoUserDetails(userDetails) {
     console.log(`goto ${userDetails.id}`);
     this.router.navigate([`${UserDetails.PATH_URL}/${userDetails.id}`]);

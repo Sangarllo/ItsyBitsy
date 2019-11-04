@@ -1,13 +1,18 @@
 <h3>Lista de Usuarios</h3>
 
-<ul class="list-unstyled" *ngFor="let userDetails of usersDetails | async">
-    <li class="media" (click)="gotoUserDetails(userDetails)">
-        <img [src]="userDetails.photoURL" class="mr-3" style="width:32px" [alt]="userDetails.displayName">
-        <div class="media-body">
-            <h5 class="mt-0 mb-1">{{userDetails.displayName}}</h5>
-            Rol: {{userDetails.rol}}
-        </div>
-    </li>
-</ul>
+<div *ngFor="let userDetails of usersDetails | async">
+    <mat-card (click)="gotoUserDetails(userDetails)">
+        <mat-card-header>
+            <div mat-card-avatar [ngStyle]="applyStyles(userDetails)"></div>
+            <mat-card-title>{{userDetails.displayName}}</mat-card-title>
+            <mat-card-subtitle>{{userDetails.email}}</mat-card-subtitle>
+            <mat-chip-list aria-label="Roles">
+                <mat-chip>{{userDetails.rol}}</mat-chip>
+                <mat-chip color="primary" selected>{{userDetails.rol}}</mat-chip>
+                <mat-chip color="accent" selected>{{userDetails.rol}}</mat-chip>
+            </mat-chip-list>
+        </mat-card-header>
+    </mat-card>
+</div>
 
 <button mat-raised-button color="primary" (click)="gotoNew()">Crear Nuevo</button>
