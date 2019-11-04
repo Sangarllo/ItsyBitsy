@@ -1,5 +1,11 @@
 <h3>Lista de Usuarios</h3>
 
-<div *ngFor="let item of items | async">
-    <mat-card>{{item.displayName}}</mat-card>
-</div>
+<ul class="list-unstyled" *ngFor="let userDetails of usersDetails | async">
+    <li class="media" (click)="gotoUserDetails(userDetails)">
+        <img [src]="userDetails.photoURL" class="mr-3" style="width:32px" [alt]="userDetails.displayName">
+        <div class="media-body">
+            <h5 class="mt-0 mb-1">{{userDetails.displayName}}</h5>
+            Rol: {{userDetails.rol}}
+        </div>
+    </li>
+</ul>

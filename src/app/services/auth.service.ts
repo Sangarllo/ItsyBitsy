@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User, UserDetails } from '../models/user.model'; // optional
+import { User, IUserDetails, Rol, UserDetails } from '../models/user.model'; // optional
 
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -12,13 +12,6 @@ import { UserService } from './user.service';
 
 
 const USER_COLLECTION = 'users';
-
-enum Rol {
-  Admin = 'admin',
-  Teacher = 'profesor',
-  Student = 'estudiante',
-  Normal = 'normal',
-}
 
 @Injectable({
   providedIn: 'root'
@@ -57,21 +50,27 @@ export class AuthService {
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`${USER_COLLECTION}/${user.uid}`);
 
-    // TODO (CHECK)? conditional to create userDetails if first login (register)
-    if ( userRef == null ) {
-      const userDetailsData: UserDetails = {
-        uid: user.uid,
-        displayName: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-        nickName: user.displayName.substring(0, user.displayName.indexOf(' ')),
-        rol: Rol.Normal,
-        creationDate: new Date(),
-        // lastDate: null // new Date()
-      };
+    const userDetailsRef: AngularFirestoreDocument<UserDetails> = this.afs.doc(`${UserService.USER_DETAILS_COLLECTION}/${user.uid}`);
 
-      this.userService.createUserDetails(userDetailsData);
-    }
+    // TODO (CHECK)? conditional to create userDetails if first login (register)
+    userDetailsRef.get().subscribe(
+      (data) => {
+      if ( !data.exists) {
+          const userDetailsData: IUserDetails = {
+            uid: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            nickName: user.displayName.substring(0, user.displayName.indexOf(' ')),
+            rol: Rol.Normal,
+            creationDate: new Date(),
+            // lastDate: null // new Date()
+          };
+
+          this.userService.createUserDetails(userDetailsData);
+        }
+      }
+    );
 
     const userData = {
       uid: user.uid,

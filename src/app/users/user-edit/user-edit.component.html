@@ -1,0 +1,53 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <h3>{{pageTitle}}</h3>
+    </div>
+
+    <div class="row">
+
+        <div class="col-12 col-md-6 col-lg-4" style="text-align: center;">
+            <img [src]="userDetailsForm.get('photoURL').value" style="height:80%" />
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-8">
+
+            <form [formGroup]="userDetailsForm" class="form-container" (ngSubmit)="onSaveForm()">
+
+                <mat-form-field>
+                    <input matInput type="text" formControlName="displayName" placeholder="Nombre Completo">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Avatar</mat-label>
+                    <mat-select formControlName="photoURL" [value]="userDetailsForm.get('photoURL').value">
+                        <mat-option *ngFor="let avatar of AVATARES" [value]="avatar.path">
+                            {{avatar.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="text" formControlName="email" placeholder="Correo Electrónico">
+                    <mat-error *ngIf="!!userDetailsForm.get('email').errors?.email">{{ errorMessage }}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="text" formControlName="nickName" placeholder="Nombre de usuario">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="text" formControlName="rol" placeholder="Rol">
+                </mat-form-field>
+
+                <button mat-raised-button [title]="userDetailsForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!userDetailsForm.valid" type="submit" color="primary">Guardar</button>
+
+                <button mat-raised-button type="button" (click)="onResetForm()" color="primary">Limpiar</button>
+
+                <button mat-raised-button type="button" (click)="gotoList()" color="primary">Ver listado</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-
+import { IUserDetails, UserDetails } from '../../models/user.model';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-list',
@@ -10,9 +12,22 @@ import { Observable } from 'rxjs';
 })
 export class UserListComponent {
 
-  items: Observable<any[]>;
-  constructor(db: AngularFirestore) {
-    this.items = db.collection('users').valueChanges();
+  private userDetailsCollection: AngularFirestoreCollection<UserDetails>;
+  usersDetails: Observable<UserDetails[]>;
+
+  constructor( afs: AngularFirestore, private router: Router) {
+    this.userDetailsCollection = afs.collection<UserDetails>('user-details');
+    this.usersDetails = this.userDetailsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as UserDetails;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
   }
 
+  gotoUserDetails(userDetails) {
+    console.log(`goto ${userDetails.id}`);
+    this.router.navigate([`${UserDetails.PATH_URL}/${userDetails.id}`]);
+  }
 }

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Student, IStudent } from '../../models/student.model';
 import { Router } from '@angular/router';
+import { StudentsService } from '../../services/students.service';
 
 @Component({
   selector: 'app-student-list',
@@ -15,7 +16,7 @@ export class StudentListComponent {
   private studentCollection: AngularFirestoreCollection<Student>;
   students: Observable<IStudent[]>;
 
-  constructor(private router: Router, afs: AngularFirestore) {
+  constructor( afs: AngularFirestore, private router: Router) {
     this.studentCollection = afs.collection<Student>('students');
     this.students = this.studentCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {

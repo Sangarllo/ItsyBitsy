@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UserDetails } from '../../models/user.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
+
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  selector: 'app-user-details',
+  templateUrl: './user-details.component.html',
+  styleUrls: ['./user-details.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class UserDetailsComponent implements OnInit {
 
   pageTitle = 'Detalles del Usuario';
   errorMessage: string;
@@ -19,22 +21,18 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     public auth: AuthService,
+    private route: ActivatedRoute,
+    private router: Router,
     private userService: UserService
   ) { }
 
   ngOnInit() {
 
-    this.auth.user$.subscribe(
-
-      ( user ) => {
-        this.userDetailsId = user.uid;
+        this.userDetailsId = this.route.snapshot.paramMap.get('id');
         this.userService.getUserDetails(this.userDetailsId)
         .subscribe({
           next: userDetails => this.userDetails = userDetails,
           error: err => this.errorMessage = err
         });
-      }
-
-    );
   }
 }

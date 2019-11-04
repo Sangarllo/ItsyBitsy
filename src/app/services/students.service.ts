@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { IStudent, Student, IStudentData } from '../models/student.model';
 import { Avatar } from '../models/avatar.model';
 import { Fare } from '../models/fare';
+import { map } from 'rxjs/operators';
 
 
 const STUDENT_COLLECTION = 'students';
@@ -19,6 +20,9 @@ export class StudentsService {
   constructor(private afs: AngularFirestore) {
     this.studentCollection = afs.collection<IStudent>(STUDENT_COLLECTION);
   }
+
+  // TODO No implementado
+  // getStudents(): {};
 
   getStudent(studentId: string): Observable<any> {
     if (studentId === '0') {
