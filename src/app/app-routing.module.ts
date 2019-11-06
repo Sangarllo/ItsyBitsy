@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './services/auth.guard';
+import { LessonsModule } from './lessons/lessons.module';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'cursos',
     loadChildren: () => import('./courses/courses.module').then(mod => mod.CoursesModule)
+  },
+  {
+    path: 'lessons',
+    loadChildren: () => import('./lessons/lessons.module').then(mod => mod.LessonsModule)
   },
   {
     path: ':id',

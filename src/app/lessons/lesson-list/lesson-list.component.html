@@ -1,0 +1,13 @@
+<h3>Lista de Clases (asociadas a un curso)</h3>
+
+<div *ngFor="let lesson of lessons | async">
+    <mat-card (click)="gotoLesson(lesson)">
+        <mat-card-header>
+            <div mat-card-avatar [ngStyle]="applyStyles(lesson)"></div>
+            <mat-card-title>{{lesson.date}}</mat-card-title>
+            <mat-card-subtitle>De {{lesson.startTime}} a {{lesson.endTime}}</mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>
+</div>
+
+<button mat-raised-button color="primary" (click)="gotoNew()">Crear Clase</button>

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Student, IStudent } from '../../models/student.model';
 import { Router } from '@angular/router';
-import { StudentsService } from '../../services/students.service';
 
 @Component({
   selector: 'app-student-list',
