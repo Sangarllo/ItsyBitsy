@@ -19,8 +19,7 @@ const routes: Routes = [
     path: ':id/editar',
     canDeactivate: [StudentEditGuard],
     component: StudentEditComponent
-  },
-
+  }
 ];
 
 @NgModule({

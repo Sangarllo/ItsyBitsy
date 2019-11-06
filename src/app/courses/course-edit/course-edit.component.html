@@ -1,22 +1,30 @@
 <div class="container-fluid">
 
     <div class="row">
-        <h3>Edita los datos del curso:</h3>
+        <h3>{{pageTitle}}</h3>
     </div>
 
     <div class="row">
 
-        <div class="col-12 col-md-6 col-lg-4" style="text-align: center;">
-            <img src="assets/section/gears.gif" style="height:80%" />
+        <div class="col-12 col-md-4 col-lg-3" style="text-align: center;">
+            <img [src]="courseForm.get('image').value" class="img-thumbnail" />
         </div>
 
-        <div class="col-12 col-md-6 col-lg-8">
+        <div class="col-12 col-md-8 col-lg-9">
 
             <form [formGroup]="courseForm" class="form-container" (ngSubmit)="onSaveForm()">
 
                 <mat-form-field>
-                    <input matInput type="text" formControlName="name" placeholder="Nombre">
-                    <mat-error *ngIf="!!courseForm.get('name').errors?.required">Es necesario incluir esta información</mat-error>
+                    <input matInput type="text" formControlName="name" placeholder="Nombre del Curso">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Image</mat-label>
+                    <mat-select formControlName="image" [value]="courseForm.get('image').value">
+                        <mat-option *ngFor="let icon of ICONS" [value]="icon.path">
+                            {{icon.name}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
 
                 <mat-form-field>
@@ -47,15 +55,18 @@
                     <input matInput type="text" formControlName="teacher" placeholder="Profesor">
                 </mat-form-field>
 
-                <button mat-raised-button color="primary" type="submit" [title]="courseForm.valid ? 'Crea un nuevo curso' : 'Deshabilitado hasta que los datos sean válidos'" [disabled]="!courseForm.valid">
-                Actualizar
-              </button>
-
-                <button mat-raised-button color="primary" routerLink="/cursos">Ver listado</button>
+                <button mat-raised-button [title]="courseForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!courseForm.valid" type="submit" color="primary">Guardar</button>
 
                 <button mat-raised-button type="button" (click)="onResetForm()" color="primary">Limpiar</button>
 
+                <button mat-raised-button type="button" (click)="gotoList()" color="primary">Ver listado</button>
+
+                <!--
+                <button mat-raised-button [disabled]="course.id !== '0'" type="button" (click)="onRandomPopulateForm()" color="primary">Random</button>
+                -->
+
             </form>
+
         </div>
     </div>
 </div>

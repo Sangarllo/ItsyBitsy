@@ -1,18 +1,21 @@
-<div *ngIf="course" class="container-fluid">
+<mat-card *ngIf="course" class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{ course.name }}</mat-card-title>
+        <mat-card-subtitle>{{ course.teacher }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>
+            Explicación del curso
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
 
-    <div class="row">
+        <button mat-raised-button color="primary" (click)="gotoEdition()">Editar</button>
 
-        <div class="col-12">
+        <button mat-raised-button color="primary" (click)="gotoEdition()">Ver Clases</button>
 
-            <h3>{{ course.name }}</h3>
-            <br/><br/>
-            <pre>
-              {{ course | json }}
-            </pre>
-            <br/><br/>
+        <button mat-raised-button color="primary" (click)="gotoEdition()">Programar (TODO)</button>
 
-            <button mat-raised-button color="primary" (click)="gotoEdition()">Editar</button>
-        </div>
-    </div>
-
-</div>
+    </mat-card-actions>
+</mat-card>

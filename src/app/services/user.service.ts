@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 import { IUserDetails, Rol, UserDetails } from '../models/user.model';
 import { Observable, of } from 'rxjs';
-import { Avatar } from '../models/avatar.model';
+import { Avatar } from '../models/image.model';
 
 
 @Injectable({

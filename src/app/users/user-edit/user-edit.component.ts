@@ -4,9 +4,8 @@ import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControl
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs';
-import { Avatar } from '../../models/avatar.model';
+import { Avatar } from '../../models/image.model';
 import { RandomGenerator } from '../../shared/random-generator';
-import { UserDetailsComponent } from '../user-details/user-details.component';
 
 @Component({
   selector: 'app-user-edit',
@@ -30,7 +29,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private userService: UserService) { }
 
-    ngOnInit() {
+  ngOnInit() {
       this.userDetailsForm = this.fb.group({
         displayName: ['', [Validators.required,
           Validators.minLength(3),
@@ -40,7 +39,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
         nickName: [''],
         rol: [Rol.Normal],
         creationDate: [new Date()],
-      });
+    });
 
       // Read the student Id from the route parameter
       this.sub = this.route.paramMap.subscribe(
@@ -49,7 +48,8 @@ export class UserEditComponent implements OnInit, OnDestroy {
           this.getUserDetails(id);
         }
       );
-    }
+  }
+
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
@@ -114,7 +114,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.displayUserDetails();
   }
 
-
   onResetForm(): void {
     this.userDetailsForm.reset();
   }
@@ -153,5 +152,4 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.userDetailsForm.reset();
     this.router.navigate([`/${UserDetails.PATH_URL}`]);
   }
-
 }

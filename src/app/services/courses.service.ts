@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ICourse, Course } from '../models/course.model';
+import { ICON_REGISTRY_PROVIDER } from '@angular/material/icon';
+import { Icon } from '../models/image.model';
 
 const COURSE_COLLECTION = 'courses';
 
@@ -18,16 +20,45 @@ export class CoursesService {
     this.courseCollection = afs.collection<ICourse>(COURSE_COLLECTION);
   }
 
-  getCourse(courseId: string) {
-    return this.courseCollection.doc(courseId).snapshotChanges();
+  getCourse(id: string): Observable<any> {
+    if (id === '0') {
+      return of(this.initialize());
+    } else {
+      return this.courseCollection.doc(id).valueChanges();
+    }
   }
 
-  updateCourse(courseId: string, courseData: Course): void {
-    this.courseDoc = this.courseCollection.doc(courseId);
-    this.courseDoc.update(courseData);
+  updateCourse(course: Course): Observable<Course> {
+    this.courseDoc = this.courseCollection.doc(course.id);
+    this.courseDoc.update(course);
+    return of(course);
   }
 
-  createCourse(newCourse: ICourse): void {
-    this.courseCollection.add(newCourse);
+  createCourse(course: Course): Observable<Course> {
+    // Persist a document id
+    course.id = this.afs.createId();
+    this.courseCollection.doc(course.id).set(course);
+    return of(course);
+  }
+
+  deleteCourse(id: string): Observable<{}> {
+    this.courseDoc = this.courseCollection.doc(id);
+    this.courseDoc.delete();
+    return of({});
+  }
+
+  private initialize(): Course {
+    // Return an initialized object
+    return {
+      current: true,
+      id: '0',
+      name: '',
+      image: Icon.getDefault().path,
+      startDate: new Date().toString(),
+      startTime: '00:00',
+      endDate: new Date().toString(),
+      endTime: '00:00',
+      teacher: ''
+    };
   }
 }

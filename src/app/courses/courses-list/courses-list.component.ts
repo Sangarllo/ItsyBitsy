@@ -28,15 +28,17 @@ export class CoursesListComponent {
 
   applyStyles(course: Course) {
     const styles = {
-      'background-image': `url("assets/section/curso.png")`,
+      'background-image': `url("${course.image}")`,
       'background-size': 'cover'
     };
     return styles;
   }
 
   gotoCourse(course) {
-    console.log(`goto ${course.id}`);
     this.router.navigate([`${Course.PATH_URL}/${course.id}`]);
   }
 
+  gotoNew() {
+    this.router.navigate([`${Course.PATH_URL}/0/editar`]);
+  }
 }

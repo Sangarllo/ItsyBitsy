@@ -18,7 +18,6 @@ export class UserDetailsComponent implements OnInit {
   userDetailsId: string;
   userDetails: UserDetails;
 
-
   constructor(
     public auth: AuthService,
     private route: ActivatedRoute,
@@ -27,13 +26,12 @@ export class UserDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-        this.userDetailsId = this.route.snapshot.paramMap.get('id');
-        this.userService.getUserDetails(this.userDetailsId)
-        .subscribe({
+    this.userDetailsId = this.route.snapshot.paramMap.get('id');
+    this.userService.getUserDetails(this.userDetailsId)
+      .subscribe({
           next: userDetails => this.userDetails = userDetails,
           error: err => this.errorMessage = err
-        });
+      });
   }
 
   gotoEdition() {

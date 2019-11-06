@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StudentsService } from '../../services/students.service';
 import { Student } from '../../models/student.model';
 import { Fare } from '../../models/fare';
-import { Avatar } from '../../models/avatar.model';
+import { Avatar } from '../../models/image.model';
 import { GenericValidator } from '../../shared/generic-validator';
 import { RandomGenerator } from '../../shared/random-generator';
 

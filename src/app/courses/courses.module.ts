@@ -4,17 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialConfigurationModule } from '../material-configuration/material-configuration.module';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CoursesListComponent } from './courses-list/courses-list.component';
-import { CourseNewComponent } from './course-new/course-new.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
-import { CourseFormComponent } from './course-form/course-form.component';
+import { CourseEditComponent } from './course-edit/course-edit.component';
 
 
 @NgModule({
   declarations: [
     CoursesListComponent,
-    CourseNewComponent,
     CourseDetailComponent,
-    CourseFormComponent
+    CourseEditComponent
   ],
   imports: [
     CommonModule,
