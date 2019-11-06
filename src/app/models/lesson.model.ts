@@ -11,8 +11,8 @@ export enum Status {
 // TODO: Type (speaking, examen, repaso, especial...)
 
 export interface ILesson {
-  status: string;
   courseId: string;
+  status: string;
   teacher: string;
   material: string;
   date: string;
@@ -47,5 +47,9 @@ export class Lesson implements ILesson {
     public startTime: string,
     public endTime: string,
      ) {
+  }
+
+  static getDefaultStatus(): string {
+    return Status.Planificada;
   }
 }
