@@ -49,6 +49,16 @@ export class Lesson implements ILesson {
      ) {
   }
 
+  static getAllStatus(): Status[] {
+    return [
+      Status.Eliminada,
+      Status.Suspendida,
+      Status.Realizada,
+      Status.Planificada,
+      Status.Futura,
+    ];
+  }
+
   static getDefaultStatus(): string {
     return Status.Planificada;
   }

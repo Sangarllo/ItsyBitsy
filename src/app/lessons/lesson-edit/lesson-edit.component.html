@@ -1,0 +1,69 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <h3>{{pageTitle}}</h3>
+    </div>
+
+    <div class="row">
+
+        <div class="col-12 col-md-4 col-lg-3" style="text-align: center;">
+            <img [src]="'assets/section/lesson.png'" class="img-thumbnail" />
+        </div>
+
+        <div class="col-12 col-md-8 col-lg-9">
+
+            <form [formGroup]="lessonForm" class="form-container" (ngSubmit)="onSaveForm()">
+
+                <mat-form-field>
+                    <input matInput type="text" formControlName="courseId" placeholder="Curso asociado">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status" [value]="lessonForm.get('status').value">
+                        <mat-option *ngFor="let status of STATUS_ARRAY" [value]="status">
+                            {{status}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="text" formControlName="teacher" placeholder="Profesor">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="text" formControlName="material" placeholder="Material">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput formControlName="date" [matDatepicker]="pickerStart" placeholder="Escoge la fecha de inicio">
+                    <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerStart></mat-datepicker>
+                    <mat-error *ngIf="!!lessonForm.get('date').errors?.required">Es necesario incluir esta información</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="time" formControlName="startTime" placeholder="Escoge la hora de inicio">
+                    <mat-error *ngIf="!!lessonForm.get('startTime').errors?.required">Es necesario incluir esta información</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="time" formControlName="endTime" placeholder="Escoge la hora de fin">
+                    <mat-error *ngIf="!!lessonForm.get('endTime').errors?.required">Es necesario incluir esta información</mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button [title]="lessonForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!lessonForm.valid" type="submit" color="primary">Guardar</button>
+
+                <button mat-raised-button type="button" (click)="onResetForm()" color="primary">Limpiar</button>
+
+                <button mat-raised-button type="button" (click)="gotoList()" color="primary">Ver listado</button>
+
+                <!--
+                <button mat-raised-button [disabled]="course.id !== '0'" type="button" (click)="onRandomPopulateForm()" color="primary">Random</button>
+                -->
+
+            </form>
+
+        </div>
+    </div>
+</div>
