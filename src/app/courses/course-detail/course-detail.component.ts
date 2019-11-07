@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from '../../models/course.model';
+import { Lesson } from 'src/app/models/lesson.model';
 
 
 @Component({
@@ -34,5 +35,13 @@ export class CourseDetailComponent implements OnInit {
 
   gotoEdition() {
     this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/editar`]);
+  }
+
+  gotoLessons() {
+    this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/${Lesson.PATH_URL}`]);
+  }
+
+  gotoNewLesson() {
+    this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/${Lesson.PATH_URL}/0/editar`]);
   }
 }

@@ -5,7 +5,9 @@ import { Subscription } from 'rxjs';
 import { Icon } from '../../models/image.model';
 import { RandomGenerator } from '../../shared/random-generator';
 import { Lesson, Status } from '../../models/lesson.model';
+import { CoursesService } from '../../services/courses.service';
 import { LessonsService } from '../../services/lessons.service';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'app-lesson-edit',
@@ -14,11 +16,15 @@ import { LessonsService } from '../../services/lessons.service';
 })
 export class LessonEditComponent implements OnInit, OnDestroy {
 
+  courseTitle = 'Edición de Curso';
   pageTitle = 'Edición de Curso';
   errorMessage: string;
   lessonForm: FormGroup;
 
+  courseId: string;
+  course: Course;
   lesson: Lesson;
+
   STATUS_ARRAY: Status[] = Lesson.getAllStatus();
   ICONS: Icon[] = Icon.getIcons();
 
@@ -28,26 +34,41 @@ export class LessonEditComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private lessonService: LessonsService) { }
+    private lessonService: LessonsService,
+    private coursesService: CoursesService
+    ) { }
 
   ngOnInit() {
-    this.lessonForm = this.fb.group({
-      courseId: ['', Validators.required],
-      status: ['', Validators.required],
-      teacher: ['', Validators.required],
-      material: ['', Validators.required],
-      date: ['', Validators.required],
-      startTime: ['', Validators.required],
-      endTime: ['', Validators.required],
-    });
 
-    // Read the student Id from the route parameter
-    this.sub = this.route.paramMap.subscribe(
-      params => {
-        const id = params.get('id');
-        this.getLesson(id);
-      }
-    );
+    this.courseId = this.route.snapshot.paramMap.get('courseId');
+    this.coursesService.getCourse(this.courseId)
+    .subscribe({
+      next: (course) => {
+
+        this.course = course;
+        this.courseTitle = `Curso ${this.course.name}`;
+
+        this.lessonForm = this.fb.group({
+          courseId: ['', Validators.required],
+          status: ['', Validators.required],
+          teacher: ['', Validators.required],
+          material: ['', Validators.required],
+          date: ['', Validators.required],
+          startTime: ['', Validators.required],
+          endTime: ['', Validators.required],
+        });
+
+        // Read the student Id from the route parameter
+        this.sub = this.route.paramMap.subscribe(
+          params => {
+            const id = params.get('id');
+            this.getLesson(id);
+          }
+        );
+
+      },
+      error: err => this.errorMessage = err
+    });
   }
 
   ngOnDestroy(): void {
@@ -72,7 +93,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
     }
 
     if (this.lesson.id === '0') {
-      this.pageTitle = 'Creando una nueva clase';
+      this.pageTitle = `Creando una nueva clase`;
     } else {
       this.pageTitle = `Editando la clase del día: ${this.lesson.date}`;
     }
@@ -149,7 +170,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
   onSaveComplete(): void {
     // Reset the form to clear the flags
     this.lessonForm.reset();
-    this.router.navigate([`/${Lesson.PATH_URL}`]);
+    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Lesson.PATH_URL}`]);
   }
 
   gotoList(): void {
