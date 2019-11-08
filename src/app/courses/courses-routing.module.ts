@@ -6,11 +6,16 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
 import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
   {
     path: '',
     component: CoursesListComponent
+  },
+  {
+    path: 'calendar',
+    component: CalendarComponent
   },
   {
     path: ':id',
