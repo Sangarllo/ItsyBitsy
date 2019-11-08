@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
-import { colors } from './color';
+import { EventFormatterService } from '../../services/event-formatter.service';
 
 @Component({
   selector: 'app-calendar',
@@ -15,22 +15,12 @@ export class CalendarComponent {
 
   viewDate: Date = new Date();
 
-  events: Array<CalendarEvent<{ id: number }>> = [
-    {
-      title: 'Event 1',
-      color: colors.yellow,
-      start: new Date(),
-      meta: {
-        id: 1
-      }
-    },
-    {
-      title: 'Event 2',
-      color: colors.blue,
-      start: new Date(),
-      meta: {
-        id: 2
-      }
-    }
-  ];
+  events: Array<CalendarEvent<{ id: number }>>;
+
+  constructor(
+    private eventFormatterService: EventFormatterService,
+  ) {
+    this.events = eventFormatterService.getEventCalendar();
+  }
+
 }
