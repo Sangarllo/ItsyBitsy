@@ -20,9 +20,6 @@ import { HeaderComponent } from './layout/header/header.component';
 import { HomeComponent } from './home/home.component';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 
-// import { CalendarModule, DateAdapter } from 'angular-calendar';
-// import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,12 +42,6 @@ import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
     TeachersModule,
     UsersModule,
     BrowserAnimationsModule,
-    /*
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory
-    }),
-    */
     MaterialConfigurationModule
   ],
   providers: [
