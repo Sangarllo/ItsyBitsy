@@ -12,6 +12,7 @@ import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarHeaderComponent } from './calendar/calendar-header.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     LessonListComponent,
     LessonEditComponent,
     LessonDetailComponent,
-    CalendarComponent
+    CalendarComponent,
+    CalendarHeaderComponent
   ],
   imports: [
     CommonModule,
