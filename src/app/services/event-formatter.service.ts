@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
 import { colors } from '../courses/calendar/color';
+import { LessonsService } from './lessons.service';
+import { ILesson, Lesson } from '../models/lesson.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventFormatterService {
 
-  constructor() { }
+  events: Array<CalendarEvent>;
+  lessons: Array<ILesson>;
 
-  getEventCalendar(): Array<CalendarEvent> {
+  constructor(
+    private lessonsService: LessonsService
+  ) { }
+
+getEventCalendar(): Array<CalendarEvent> {
     return [
     {
       title: 'Clase 1',

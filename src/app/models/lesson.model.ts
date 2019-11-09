@@ -12,6 +12,7 @@ export enum Status {
 
 export interface ILesson {
   courseId: string;
+  name: string;
   status: string;
   teacher: string;
   material: string;
@@ -30,6 +31,7 @@ export class Lesson implements ILesson {
 
   public static FIELD_ID = 'id';
   public static FIELD_COURSE_ID = 'courseId';
+  public static FIELD_NAME = 'name';
   public static FIELD_STATUS = 'status';
   public static FIELD_TEACHER = 'teacher';
   public static FIELD_MATERIAL = 'material';
@@ -40,6 +42,7 @@ export class Lesson implements ILesson {
   constructor(
     public id: string,
     public courseId: string,
+    public name: string,
     public status: Status,
     public teacher: string,
     public material: string,

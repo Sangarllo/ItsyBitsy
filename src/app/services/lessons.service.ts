@@ -20,6 +20,11 @@ export class LessonsService {
     this.lessonCollection = afs.collection<ILesson>(LESSON_COLLECTION);
   }
 
+  getAllLessons(): Observable<ILesson[]> {
+      return this.lessonCollection.valueChanges();
+  }
+
+
   getLesson(id: string): Observable<any> {
     if (id === '0') {
       return of(this.initialize());
@@ -51,6 +56,7 @@ export class LessonsService {
     // Return an initialized object
     return {
       id: '0',
+      name: '',
       courseId: '0',
       status: Status.Planificada,
       teacher: '',
