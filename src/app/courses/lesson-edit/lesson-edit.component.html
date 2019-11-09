@@ -23,6 +23,10 @@
                 </mat-form-field>
 
                 <mat-form-field>
+                    <input matInput type="text" formControlName="name" placeholder="Nombre de la Clase">
+                </mat-form-field>
+
+                <mat-form-field>
                     <mat-label>Status</mat-label>
                     <mat-select formControlName="status" [value]="lessonForm.get('status').value">
                         <mat-option *ngFor="let status of STATUS_ARRAY" [value]="status">

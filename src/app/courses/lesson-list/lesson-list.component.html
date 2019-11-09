@@ -4,7 +4,7 @@
     <mat-card (click)="gotoLesson(lesson)">
         <mat-card-header>
             <div mat-card-avatar [ngStyle]="applyStyles(lesson)"></div>
-            <mat-card-title>{{lesson.date}}</mat-card-title>
+            <mat-card-title>{{lesson.name}}</mat-card-title>
             <mat-card-subtitle>De {{lesson.startTime}} a {{lesson.endTime}}</mat-card-subtitle>
         </mat-card-header>
     </mat-card>

@@ -9,7 +9,10 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
 import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
-
+import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarHeaderComponent } from './calendar/calendar-header.component';
 
 @NgModule({
   declarations: [
@@ -18,13 +21,19 @@ import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
     CourseEditComponent,
     LessonListComponent,
     LessonEditComponent,
-    LessonDetailComponent
+    LessonDetailComponent,
+    CalendarComponent,
+    CalendarHeaderComponent
   ],
   imports: [
     CommonModule,
     CoursesRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
     MaterialConfigurationModule
   ],
   providers: [

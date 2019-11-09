@@ -49,7 +49,8 @@ export class LessonEditComponent implements OnInit, OnDestroy {
         this.courseTitle = `Curso ${this.course.name}`;
 
         this.lessonForm = this.fb.group({
-          courseId: ['', Validators.required],
+          courseId: [course.id, Validators.required],
+          name: [course.name, Validators.required],
           status: ['', Validators.required],
           teacher: ['', Validators.required],
           material: ['', Validators.required],
@@ -101,6 +102,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
     // Update the data on the form
     this.lessonForm.patchValue({
       courseId: this.lesson.courseId,
+      name: this.lesson.name,
       status: this.lesson.status,
       teacher: this.lesson.teacher,
       material: this.lesson.material,
@@ -124,21 +126,6 @@ export class LessonEditComponent implements OnInit, OnDestroy {
       }
     }
   }
-
-  /* TODO
-  onRandomPopulateForm(): void {
-    this.lesson.current = true;
-    this.lesson.name = RandomGenerator.randomDisplayName();
-    this.lesson.image = Icon.getRandom().path;
-    this.lesson.startDate = new Date().toString();
-    this.lesson.startTime = '00:00';
-    this.lesson.endDate = new Date().toString();
-    this.lesson.endTime = '00:00';
-    this.lesson.teacher = 'Lourdes Menor';
-
-    this.displayLesson();
-  }
-  */
 
   onResetForm(): void {
     this.lessonForm.reset();
