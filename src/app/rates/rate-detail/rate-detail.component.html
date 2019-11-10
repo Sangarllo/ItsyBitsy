@@ -1,0 +1,14 @@
+<mat-card *ngIf="rate" class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{ rate.name }}</mat-card-title>
+        <mat-card-subtitle>{{ rate.type }} - {{ rate.price }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+
+        <button mat-raised-button color="primary" (click)="gotoEdition()">Editar</button>
+
+        <button mat-raised-button color="primary" (click)="gotoList()">Ver Listado</button>
+
+    </mat-card-actions>
+</mat-card>

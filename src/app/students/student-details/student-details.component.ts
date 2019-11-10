@@ -3,6 +3,8 @@ import { StudentsService } from '../../services/students.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from '../../models/student.model';
 import { Subscription } from 'rxjs';
+import { RateService } from '../../services/rates.service';
+import { Rate } from '../../models/rate';
 
 @Component({
   selector: 'app-student-details',
@@ -16,11 +18,13 @@ export class StudentDetailsComponent implements OnInit, OnDestroy {
 
   studentId: string;
   student: Student;
+  rate: Rate;
 
   // private sub: Subscription;
 
   constructor(
     private studentService: StudentsService,
+    private rateService: RateService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -30,7 +34,13 @@ export class StudentDetailsComponent implements OnInit, OnDestroy {
     this.studentId = this.route.snapshot.paramMap.get('id');
     this.studentService.getStudent(this.studentId)
       .subscribe({
-        next: student => this.student = student,
+        next: student => {
+          this.student = student;
+          this.rateService.getRate(this.student.id)
+             .subscribe( (rate: Rate) => {
+               this.rate = rate;
+             });
+        },
         error: err => this.errorMessage = err
       });
   }

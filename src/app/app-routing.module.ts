@@ -21,7 +21,11 @@ const routes: Routes = [
     loadChildren: () => import('./courses/courses.module').then(mod => mod.CoursesModule)
   },
   {
-    path: ':id',
+    path: 'tarifas',
+    loadChildren: () => import('./rates/rates.module').then(mod => mod.RatesModule)
+  },
+  {
+    path: 'home',
     component: HomeComponent
   },
   {

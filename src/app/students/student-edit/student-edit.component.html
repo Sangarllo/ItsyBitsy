@@ -42,27 +42,23 @@
 
                 <mat-form-field>
                     <mat-label>Tarifa</mat-label>
-                    <mat-select formControlName="fare" [value]="studentForm.get('fare').value">
-                        <mat-option *ngFor="let fare of FARES" [value]="fare.name">
-                            {{fare.name}}
+                    <mat-select formControlName="rate" [value]="studentForm.get('rate').value">
+                        <mat-option *ngFor="let rate of RATES" [value]="rate.id">
+                            {{rate.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <button mat-raised-button [title]="studentForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!studentForm.valid" type="submit" color="primary">Guardar</button>
 
-                <button mat-raised-button type="button" (click)="onResetForm()" color="primary">Limpiar</button>
+                <button mat-raised-button [disabled]="student?.id !== '0'" type="button" (click)="onResetForm()" color="primary">Limpiar</button>
 
                 <button mat-raised-button type="button" (click)="gotoList()" color="primary">Ver listado</button>
 
-                <button mat-raised-button [disabled]="student.id !== '0'" type="button" (click)="onRandomPopulateForm()" color="primary">Random</button>
+                <button mat-raised-button [disabled]="student?.id !== '0'" type="button" (click)="onRandomPopulateForm()" color="primary">Random</button>
 
             </form>
 
         </div>
     </div>
 </div>
-
-<pre>
-  {{ this.student | json }}
-</pre>

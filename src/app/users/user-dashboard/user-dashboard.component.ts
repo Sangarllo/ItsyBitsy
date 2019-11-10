@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Student } from 'src/app/models/student.model';
 import { Course } from 'src/app/models/course.model';
 import { UserDetails } from '../../models/user.model';
+import { Rate } from '../../models/rate';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -34,5 +35,8 @@ export class UserDashboardComponent implements OnInit {
     this.router.navigate([`/${Course.PATH_URL}/calendar`]);
   }
 
+  gotoRates() {
+    this.router.navigate([`/${Rate.PATH_URL}`]);
+  }
 
 }

@@ -13,7 +13,9 @@
             <h4>{{ student.email }}</h4>
             <h4>{{ student.contact }}</h4>
             <h4>{{ student.phone }}</h4>
-            <h4>{{ student.fare }}</h4>
+
+            <h3 *ngIf="rate">{{ rate | json }}</h3>
+
             <br/><br/>
             <button mat-raised-button color="primary" (click)="gotoEdition()">Editar</button>&nbsp;
             <button mat-raised-button color="primary" (click)="gotoList()">Ver listado</button>

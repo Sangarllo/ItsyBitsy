@@ -3,8 +3,9 @@ import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControl
 import { Observable, Subscription, fromEvent, merge } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StudentsService } from '../../services/students.service';
+import { RateService } from '../../services/rates.service';
 import { Student } from '../../models/student.model';
-import { Fare } from '../../models/fare';
+import { Rate } from '../../models/rate';
 import { Avatar } from '../../models/image.model';
 import { GenericValidator } from '../../shared/generic-validator';
 import { RandomGenerator } from '../../shared/random-generator';
@@ -21,7 +22,9 @@ export class StudentEditComponent implements OnInit, OnDestroy {
   studentForm: FormGroup;
 
   student: Student;
-  FARES: Fare[] = Fare.getFares();
+  studentRate: Rate;
+
+  RATES: Rate[];
   AVATARES: Avatar[] = Avatar.getAvatares();
 
   private sub: Subscription;
@@ -33,6 +36,7 @@ export class StudentEditComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private rateService: RateService,
     private studentService: StudentsService) {
 
     // Defines all of the validation messages for the form.
@@ -57,24 +61,30 @@ export class StudentEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.studentForm = this.fb.group({
-      displayName: ['', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50)]],
-      photoURL: ['', Validators.required],
-      email: ['', Validators.email],
-      phone: [''],
-      contact: [''],
-      fare: [''],
-    });
 
-    // Read the student Id from the route parameter
-    this.sub = this.route.paramMap.subscribe(
-      params => {
-        const id = params.get('id');
-        this.getStudent(id);
-      }
-    );
+      this.studentForm = this.fb.group({
+        displayName: ['', [Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50)]],
+        photoURL: ['', Validators.required],
+        email: ['', Validators.email],
+        phone: [''],
+        contact: [''],
+        rate: [''],
+      });
+
+      // Read the student Id from the route parameter
+      this.sub = this.route.paramMap.subscribe(
+        params => {
+          const id = params.get('id');
+          this.getStudent(id);
+        }
+      );
+
+      this.rateService.getRates()
+        .subscribe((rates: Rate[]) => {
+          this.RATES = rates;
+        });
   }
 
   ngOnDestroy(): void {
@@ -86,7 +96,11 @@ export class StudentEditComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (student: Student) => {
           this.student = student;
-          this.displayStudent();
+          this.rateService.getRate(student.rate)
+            .subscribe( (rate: Rate) => {
+              this.studentRate = rate;
+              this.displayStudent();
+            });
         },
         error: err => this.errorMessage = err
       });
@@ -111,7 +125,7 @@ export class StudentEditComponent implements OnInit, OnDestroy {
       email: this.student.email,
       phone: this.student.phone,
       contact: this.student.contact,
-      fare: this.student.fare
+      rate: this.student.rate
     });
   }
 
@@ -136,13 +150,18 @@ export class StudentEditComponent implements OnInit, OnDestroy {
     this.student.phone = RandomGenerator.randomPhone();
     this.student.email = this.student.displayName.replace(' ', '.').toLowerCase() + '@gmail.com';
     this.student.photoURL = Avatar.getRandom().path;
-    this.student.fare = Fare.getRandom().name;
+    this.student.rate = Rate.getRandom().name;
 
     this.displayStudent();
   }
 
   onResetForm(): void {
     this.studentForm.reset();
+    // Update the data on the form, but the photo
+    this.studentForm.patchValue({
+      photoURL: this.student.photoURL,
+    });
+
   }
 
   onSaveForm(): void {

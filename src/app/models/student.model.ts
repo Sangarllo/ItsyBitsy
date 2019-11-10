@@ -4,7 +4,7 @@ export interface IStudentData {
   email: string;
   phone: string;
   contact: string;
-  fare: string;
+  rate: string;
 }
 
 export interface IStudent extends IStudentData {
@@ -21,7 +21,7 @@ export class Student implements IStudent {
   public static FIELD_EMAIL = 'email';
   public static FIELD_PHONE = 'phone';
   public static FIELD_CONTACT = 'contact';
-  public static FIELD_FARE = 'fare';
+  public static FIELD_RATE = 'rate';
 
   constructor(
     public id: string,
@@ -30,7 +30,7 @@ export class Student implements IStudent {
     public email: string,
     public phone: string,
     public contact: string,
-    public fare: string
+    public rate: string
      ) {
   }
 }

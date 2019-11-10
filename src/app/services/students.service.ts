@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule, A
 import { Observable, of } from 'rxjs';
 import { IStudent, Student, IStudentData } from '../models/student.model';
 import { Avatar } from '../models/image.model';
-import { Fare } from '../models/fare';
+import { Rate } from '../models/rate';
 import { map } from 'rxjs/operators';
 
 
@@ -60,7 +60,7 @@ export class StudentsService {
       email: '',
       phone: '',
       contact: '',
-      fare: Fare.getDefault().name
+      rate: Rate.getDefault().name
     };
   }
 }
