@@ -21,6 +21,8 @@ export class UserEditComponent implements OnInit, OnDestroy {
   userDetails: UserDetails;
   AVATARES: Avatar[] = Avatar.getAvatares();
 
+  isUser = true;
+
   private sub: Subscription;
 
   constructor(
@@ -37,9 +39,12 @@ export class UserEditComponent implements OnInit, OnDestroy {
         photoURL: ['', Validators.required],
         email: ['', Validators.email],
         nickName: [''],
-        rol: [Rol.Normal],
         creationDate: [new Date()],
-    });
+        isUser: false,
+        isAdmin: false,
+        isTeacher: false,
+        isStudent: false,
+      });
 
       // Read the student Id from the route parameter
       this.sub = this.route.paramMap.subscribe(
@@ -83,7 +88,10 @@ export class UserEditComponent implements OnInit, OnDestroy {
       photoURL: this.userDetails.photoURL,
       email: this.userDetails.email,
       nickName: this.userDetails.nickName,
-      rol: this.userDetails.rol,
+      isUser: this.userDetails.isUser,
+      isAdmin: this.userDetails.isAdmin,
+      isTeacher: this.userDetails.isTeacher,
+      isStudent: this.userDetails.isStudent,
       creationDate: this.userDetails.creationDate
     });
   }
@@ -109,7 +117,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.userDetails.email = this.userDetails.displayName.replace(' ', '.').toLowerCase() + '@gmail.com';
     this.userDetails.photoURL = Avatar.getRandom().path;
     this.userDetails.nickName = this.userDetails.displayName.split(' ')[0];
-    this.userDetails.rol = UserDetails.getRolRandom();
 
     this.displayUserDetails();
   }

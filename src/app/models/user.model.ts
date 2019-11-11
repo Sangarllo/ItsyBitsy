@@ -1,8 +1,10 @@
+import { DocumentReference } from '@angular/fire/firestore';
+
 export enum Rol {
-  Admin = 'admin',
-  Teacher = 'profesor',
-  Student = 'estudiante',
-  Normal = 'normal',
+  Normal, // 'normal',
+  Admin, // Admin = 'admin',
+  Teacher, // Teacher = 'profesor',
+  Student, // Student = 'estudiante',
 }
 
 export interface User {
@@ -14,8 +16,11 @@ export interface User {
 
 export interface IUserDetails extends User {
   nickName: string;
-  rol?: string;
   creationDate?: Date;
+  isUser: boolean;
+  isAdmin: boolean;
+  isTeacher: boolean;
+  isStudent: boolean;
   // lastDate?: Date; TODO: Auditoría? Lo quito por superar cuota de escritura
   // myCustomData?: string;
 }
@@ -29,8 +34,11 @@ export class UserDetails implements IUserDetails {
   public static FIELD_PHOTO_URL = 'photoURL';
   public static FIELD_EMAIL = 'email';
   public static FIELD_NICK_NAME = 'nickName';
-  public static FIELD_ROL = 'rol';
   public static FIELD_CREATION_DATE = 'creationDate';
+  public static FIELD_IS_USER = 'isUser';
+  public static FIELD_IS_ADMIN = 'isAdmin';
+  public static FIELD_IS_TEACHER = 'isTeacher';
+  public static FIELD_IS_STUDENT = 'isStudent';
 
   constructor(
     public uid: string,
@@ -38,30 +46,11 @@ export class UserDetails implements IUserDetails {
     public photoURL: string,
     public email: string,
     public nickName: string,
-    public rol: string,
-    public creationDate: Date
+    public creationDate: Date,
+    public isUser: boolean,
+    public isAdmin: boolean,
+    public isTeacher: boolean,
+    public isStudent: boolean,
      ) {
   }
-
-  // Roles
-
-  public static getRolDefault(): Rol {
-    return Rol.Normal;
-  }
-
-  public static getRoles(): Rol[] {
-    return [
-        Rol.Admin,
-        Rol.Teacher,
-        Rol.Student,
-        Rol.Normal
-    ];
-  }
-
-  public static getRolRandom(): Rol {
-    const ROLES: Rol[] = this.getRoles();
-    const index = Math.floor(Math.random() * ROLES.length);
-    return ROLES[index];
-  }
-
 }

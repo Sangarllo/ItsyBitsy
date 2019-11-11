@@ -36,9 +36,13 @@
                     <input matInput type="text" formControlName="nickName" placeholder="Nombre de usuario">
                 </mat-form-field>
 
-                <mat-form-field>
-                    <input matInput type="text" formControlName="rol" placeholder="Rol">
-                </mat-form-field>
+                <div>
+                    <mat-label>Roles</mat-label>
+                    <mat-checkbox class="checkbox-margin" formControlName="isUser">Es normal</mat-checkbox>
+                    <mat-checkbox class="checkbox-margin" formControlName="isAdmin">Es admin</mat-checkbox>
+                    <mat-checkbox class="checkbox-margin" formControlName="isTeacher">Es profesor</mat-checkbox>
+                    <mat-checkbox class="checkbox-margin" formControlName="isStudent">Es estudiante</mat-checkbox>
+                </div>
 
                 <button mat-raised-button [title]="userDetailsForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!userDetailsForm.valid" type="submit" color="primary">Guardar</button>
 
@@ -46,7 +50,9 @@
 
                 <button mat-raised-button type="button" (click)="gotoList()" color="primary">Ver listado</button>
 
+                <!--
                 <button mat-raised-button [disabled]="userDetails.uid !== '0'" type="button" (click)="onRandomPopulateForm()" color="primary">Random</button>
+                -->
 
             </form>
 

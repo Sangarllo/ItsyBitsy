@@ -27,8 +27,12 @@
                             </p>
                         </div>
                         <div class="col-md-6">
-                            <h6>Rol</h6>
-                            <a href="#" class="badge badge-dark badge-pill">{{userDetails.rol}}</a>
+                            <h6>Roles</h6>
+                            <a *ngIf="userDetails?.isUser" href="#" class="badge badge-dark badge-pill">normal</a>&nbsp;
+                            <a *ngIf="userDetails?.isAdmin" href="#" class="badge badge-dark badge-pill">admin</a>&nbsp;
+                            <a *ngIf="userDetails?.isTeacher" href="#" class="badge badge-dark badge-pill">profesor</a>&nbsp;
+                            <a *ngIf="userDetails?.isStudent" href="#" class="badge badge-dark badge-pill">estudiante</a>&nbsp;
+
                             <hr>
 
                             <button mat-raised-button color="primary" (click)="gotoEdition()">Editar Datos</button>
@@ -195,3 +199,7 @@
         </div>
     </div>
 </div>
+
+<pre *ngIf="userDetails">
+{{ userDetails | json }}
+</pre>

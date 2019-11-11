@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
-import { IUserDetails, Rol, UserDetails } from '../models/user.model';
+import { IUserDetails, UserDetails } from '../models/user.model';
 import { Observable, of } from 'rxjs';
 import { Avatar } from '../models/image.model';
 
@@ -61,8 +61,11 @@ export class UserService {
       photoURL: Avatar.getRandom().path,
       email: '',
       nickName: '',
-      rol: Rol.Normal,
-      creationDate: new Date()
+      creationDate: new Date(),
+      isUser: false,
+      isAdmin: false,
+      isTeacher: false,
+      isStudent: false
     };
   }
 }

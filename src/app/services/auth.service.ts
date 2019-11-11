@@ -62,7 +62,10 @@ export class AuthService {
             email: user.email,
             photoURL: user.photoURL,
             nickName: user.displayName.substring(0, user.displayName.indexOf(' ')),
-            rol: UserDetails.getRolDefault(),
+            isUser: true,
+            isAdmin: false,
+            isTeacher: false,
+            isStudent: false,
             creationDate: new Date(),
             // lastDate: null // new Date()
           };
