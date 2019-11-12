@@ -3,6 +3,8 @@ import { AuthService } from '../../services/auth.service';
 import { UserDetails } from '../../models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { Teacher } from 'src/app/models/teacher.model';
+import { Student } from 'src/app/models/student.model';
 
 
 @Component({
@@ -34,7 +36,17 @@ export class UserDetailsComponent implements OnInit {
       });
   }
 
-  gotoEdition() {
+  gotoUserEdition() {
     this.router.navigate([`/${UserDetails.PATH_URL}/${this.userDetailsId}/editar`]);
   }
+
+  gotoTeacherEdition() {
+    this.router.navigate([`/${Teacher.PATH_URL}/${this.userDetailsId}/editar`]);
+  }
+
+  gotoStudentEdition() {
+    this.router.navigate([`/${Student.PATH_URL}/${this.userDetailsId}/editar`]);
+  }
+
+
 }

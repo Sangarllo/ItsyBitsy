@@ -35,8 +35,6 @@
 
                             <hr>
 
-                            <button mat-raised-button color="primary" (click)="gotoEdition()">Editar Datos</button>
-
                         </div>
                         <div class="col-md-12">
                             <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span> Actividad reciente</h5>
@@ -187,6 +185,11 @@
                     </form>
                 </div>
             </div>
+
+            <button mat-raised-button color="primary" (click)="gotoUserEdition()">Editar Datos Personales</button>&nbsp;
+            <button *ngIf="userDetails?.isStudent" mat-raised-button color="primary" (click)="gotoStudentEdition()">Editar Estudiante</button>&nbsp;
+            <button *ngIf="userDetails?.isTeacher" mat-raised-button color="primary" (click)="gotoTeacherEdition()">Editar Profesor</button>
+
         </div>
 
         <div class="col-lg-4 order-lg-1 text-center">

@@ -11,6 +11,8 @@ export interface ITeacherExtended extends ITeacher {
 
 export class Teacher implements ITeacher {
 
+  public static PATH_URL = 'profesores';
+
   public static FIELD_DISPLAY_NAME = 'displayName';
   public static FIELD_PHOTO_URL = 'photoURL';
   public static FIELD_EMAIL = 'email';
