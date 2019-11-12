@@ -1,4 +1,10 @@
-<h3>Lista de Usuarios</h3>
+<h3>
+    Lista de Usuarios
+</h3>
+
+<button mat-raised-button color="primary" (click)="gotoNew()">Crear Nuevo</button>
+
+<br/>
 
 <div *ngFor="let userDetails of usersDetails | async">
     <mat-card (click)="gotoUserDetails(userDetails)">
@@ -15,5 +21,3 @@
         </mat-card-header>
     </mat-card>
 </div>
-
-<button mat-raised-button color="primary" (click)="gotoNew()">Crear Nuevo</button>
