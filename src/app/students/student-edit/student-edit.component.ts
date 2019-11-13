@@ -8,7 +8,8 @@ import { Student } from '../../models/student.model';
 import { Rate } from '../../models/rate';
 import { Avatar } from '../../models/image.model';
 import { GenericValidator } from '../../shared/generic-validator';
-import { RandomGenerator } from '../../shared/random-generator';
+import { UserDetails } from '../../models/user.model';
+
 
 @Component({
   selector: 'app-student-edit',
@@ -21,6 +22,7 @@ export class StudentEditComponent implements OnInit, OnDestroy {
   errorMessage: string;
   studentForm: FormGroup;
 
+  userDetailsId: string;
   student: Student;
   studentRate: Rate;
 
@@ -30,7 +32,6 @@ export class StudentEditComponent implements OnInit, OnDestroy {
   private sub: Subscription;
 
   private validationMessages: { [key: string]: { [key: string]: string } };
-  private genericValidator: GenericValidator;
 
   constructor(
     private fb: FormBuilder,
@@ -42,33 +43,18 @@ export class StudentEditComponent implements OnInit, OnDestroy {
     // Defines all of the validation messages for the form.
     // These could instead be retrieved from a file or database.
     this.validationMessages = {
-      studentDisplayName: {
-        required: 'El nombre es requerido.',
-        minlength: 'El nombre debe tener al menos 3 caracteres.',
-        maxlength: 'El nombre no puede exceder de 50 characters.'
+      contact: {
+        required: 'Una persona de contacto es requerida.'
       },
-      photoURL: {
-        required: 'Una imagen o foto es requerida.'
-      },
-      email: {
-        email: 'El formato del email no es correcto.'
+      rate: {
+        required: 'Una tasa es requerida.'
       }
     };
-
-    // Define an instance of the validator for use with this form,
-    // passing in this form's set of validation messages.
-    this.genericValidator = new GenericValidator(this.validationMessages);
   }
 
   ngOnInit() {
 
       this.studentForm = this.fb.group({
-        displayName: ['', [Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(50)]],
-        photoURL: ['', Validators.required],
-        email: ['', Validators.email],
-        phone: [''],
         contact: [''],
         rate: [''],
       });
@@ -77,6 +63,7 @@ export class StudentEditComponent implements OnInit, OnDestroy {
       this.sub = this.route.paramMap.subscribe(
         params => {
           const id = params.get('id');
+          this.userDetailsId = id;
           this.getStudent(id);
         }
       );
@@ -92,11 +79,13 @@ export class StudentEditComponent implements OnInit, OnDestroy {
   }
 
   getStudent(id: string): void {
+
     this.studentService.getStudent(id)
       .subscribe({
         next: (student: Student) => {
-          this.student = student;
-          this.rateService.getRate(student.rate)
+
+          this.student = ( student ) ? student : this.studentService.initialize();
+          this.rateService.getRate(this.student.rate)
             .subscribe( (rate: Rate) => {
               this.studentRate = rate;
               this.displayStudent();
@@ -120,10 +109,6 @@ export class StudentEditComponent implements OnInit, OnDestroy {
 
     // Update the data on the form
     this.studentForm.patchValue({
-      displayName: this.student.displayName,
-      photoURL: this.student.photoURL,
-      email: this.student.email,
-      phone: this.student.phone,
       contact: this.student.contact,
       rate: this.student.rate
     });
@@ -144,24 +129,8 @@ export class StudentEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  onRandomPopulateForm(): void {
-
-    this.student.displayName = RandomGenerator.randomDisplayName();
-    this.student.phone = RandomGenerator.randomPhone();
-    this.student.email = this.student.displayName.replace(' ', '.').toLowerCase() + '@gmail.com';
-    this.student.photoURL = Avatar.getRandom().path;
-    this.student.rate = Rate.getRandom().name;
-
-    this.displayStudent();
-  }
-
   onResetForm(): void {
     this.studentForm.reset();
-    // Update the data on the form, but the photo
-    this.studentForm.patchValue({
-      photoURL: this.student.photoURL,
-    });
-
   }
 
   onSaveForm(): void {
@@ -170,7 +139,7 @@ export class StudentEditComponent implements OnInit, OnDestroy {
         const item = { ...this.student, ...this.studentForm.value };
 
         if (item.id === '0') {
-          this.studentService.createStudent(item)
+          this.studentService.createStudent(this.userDetailsId, item)
             .subscribe({
               next: () => this.onSaveComplete(),
               error: err => this.errorMessage = err
@@ -194,13 +163,13 @@ export class StudentEditComponent implements OnInit, OnDestroy {
   onSaveComplete(): void {
     // Reset the form to clear the flags
     this.studentForm.reset();
-    this.router.navigate([`/${Student.PATH_URL}`]);
+    this.router.navigate([`/${UserDetails.PATH_URL}/${this.userDetailsId}`]);
   }
 
-  gotoList(): void {
+  gotoDetails(): void {
     // Reset the form to clear the flags
     this.studentForm.reset();
-    this.router.navigate([`/${Student.PATH_URL}`]);
+    this.router.navigate([`/${UserDetails.PATH_URL}/${this.userDetailsId}`]);
   }
 
 }

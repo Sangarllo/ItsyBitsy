@@ -7,6 +7,7 @@ import { StudentListComponent } from './student-list/student-list.component';
 import { MaterialConfigurationModule } from '../material-configuration/material-configuration.module';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { StudentEditComponent } from './student-edit/student-edit.component';
+import { UsersModule } from '../users/users.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { StudentEditComponent } from './student-edit/student-edit.component';
     SharedModule,
     StudentsRoutingModule,
     FormsModule,
+    UsersModule,
     ReactiveFormsModule,
     MaterialConfigurationModule
   ]

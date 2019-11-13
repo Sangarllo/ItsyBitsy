@@ -9,6 +9,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { UserViewComponent } from './user-view/user-view.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
     UserEditComponent,
     UserDetailsComponent,
     UserDashboardComponent,
+    UserViewComponent,
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,9 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
     ReactiveFormsModule,
     UsersRoutingModule,
     MaterialConfigurationModule
+  ],
+  exports: [
+    UserViewComponent
   ]
 })
 export class UsersModule { }

@@ -44,14 +44,14 @@ export class StudentsService {
     return of(student);
   }
 
-  createStudent(student: Student): Observable<Student> {
+  createStudent(userId: string, student: Student): Observable<Student> {
     // Persist a document id
-    student.id = this.afs.createId();
+    student.id = userId;
     this.studentCollection.doc(student.id).set(student);
     return of(student);
   }
 
-  private initialize(): Student {
+  initialize(): Student {
     // Return an initialized object
     return {
       id: '0',
