@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { IUserDetails, UserDetails } from '../../models/user.model';
+import { UserDetails } from '../../models/user.model';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -12,18 +11,13 @@ import { map } from 'rxjs/operators';
 })
 export class UserListComponent {
 
-  private userDetailsCollection: AngularFirestoreCollection<UserDetails>;
   usersDetails: Observable<UserDetails[]>;
 
-  constructor( afs: AngularFirestore, private router: Router) {
-    this.userDetailsCollection = afs.collection<UserDetails>('user-details');
-    this.usersDetails = this.userDetailsCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as UserDetails;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
-    );
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) {
+    this.usersDetails = this.userService.getUsersDetails();
   }
 
   applyStyles(userDetails: UserDetails) {

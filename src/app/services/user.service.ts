@@ -3,6 +3,7 @@ import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore 
 import { IUserDetails, UserDetails } from '../models/user.model';
 import { Observable, of } from 'rxjs';
 import { Avatar } from '../models/image.model';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -25,9 +26,35 @@ export class UserService {
     );
   }
 
-  getStudents(): Observable<UserDetails[]> {
-    return this.studentCollection.valueChanges();
+  getUsersDetails(): Observable<UserDetails[]> {
+
+    this.userDetailsCollection = this.afs.collection<UserDetails>(UserService.USER_DETAILS_COLLECTION);
+
+    return this.userDetailsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as UserDetails;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
   }
+
+  getStudents(): Observable<UserDetails[]> {
+
+    this.userDetailsCollection = this.afs.collection(
+      UserService.USER_DETAILS_COLLECTION,
+      ref => ref.where('isStudent', '==', true)
+    );
+
+    return this.userDetailsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as UserDetails;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+  }
+
 
   getUserDetails(userId: string): Observable<any> {
     if (userId === '0') {
