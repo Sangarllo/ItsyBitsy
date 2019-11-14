@@ -1,13 +1,23 @@
-<h3>Lista de Estudiantes</h3>
+<h3>
+    Lista de Estudiantes
+</h3>
 
-<div *ngFor="let student of students | async">
-    <mat-card (click)="gotoStudent(student)">
+<button mat-raised-button color="primary" (click)="gotoNew()">Crear Nuevo</button>
+
+<br/>
+
+<div *ngFor="let userDetails of usersDetails | async">
+    <mat-card (click)="gotoUserDetails(userDetails)">
         <mat-card-header>
-            <div mat-card-avatar [ngStyle]="applyStyles(student)"></div>
-            <mat-card-title>{{student.displayName}}</mat-card-title>
-            <mat-card-subtitle>{{student.email}}</mat-card-subtitle>
+            <div mat-card-avatar [ngStyle]="applyStyles(userDetails)"></div>
+            <mat-card-title>{{userDetails.displayName}}</mat-card-title>
+            <mat-card-subtitle>{{userDetails.email}}</mat-card-subtitle>
+            <mat-chip-list aria-label="Roles">
+                <mat-chip *ngIf="userDetails.isUser" color="primary">Registrado</mat-chip>
+                <mat-chip *ngIf="userDetails.isAdmin" color="primary">Administrador</mat-chip>
+                <mat-chip *ngIf="userDetails.isTeacher" color="primary">Profesor</mat-chip>
+                <mat-chip *ngIf="userDetails.isStudent" color="primary">Estudiante</mat-chip>
+            </mat-chip-list>
         </mat-card-header>
     </mat-card>
 </div>
-
-<button mat-raised-button color="primary" (click)="gotoNew()">Crear Nuevo</button>

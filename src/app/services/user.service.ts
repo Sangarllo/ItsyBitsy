@@ -13,14 +13,21 @@ export class UserService {
   static USER_DETAILS_COLLECTION = 'user-details';
 
   private userDetailsCollection: AngularFirestoreCollection<IUserDetails>;
+  private studentCollection: AngularFirestoreCollection<UserDetails>;
   private userDetailsDoc: AngularFirestoreDocument<IUserDetails>;
 
   constructor(private afs: AngularFirestore) {
     this.userDetailsCollection = afs.collection<IUserDetails>(UserService.USER_DETAILS_COLLECTION);
+
+    this.studentCollection = afs.collection(
+      UserService.USER_DETAILS_COLLECTION,
+      ref => ref.where('isStudent', '==', true)
+    );
   }
 
-  // TODO No implementado
-  // getUsersDetails(): {};
+  getStudents(): Observable<UserDetails[]> {
+    return this.studentCollection.valueChanges();
+  }
 
   getUserDetails(userId: string): Observable<any> {
     if (userId === '0') {
