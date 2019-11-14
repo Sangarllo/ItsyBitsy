@@ -7,7 +7,6 @@ import { RateService } from '../../services/rates.service';
 import { Student } from '../../models/student.model';
 import { Rate } from '../../models/rate';
 import { Avatar } from '../../models/image.model';
-import { GenericValidator } from '../../shared/generic-validator';
 import { UserDetails } from '../../models/user.model';
 
 
@@ -104,7 +103,7 @@ export class StudentEditComponent implements OnInit, OnDestroy {
     if (this.student.id === '0') {
       this.pageTitle = 'Creando un nuevo estudiante';
     } else {
-      this.pageTitle = `Editando el estudiante: ${this.student.displayName}`;
+      this.pageTitle = `Editando los datos del estudiante`;
     }
 
     // Update the data on the form
@@ -119,7 +118,7 @@ export class StudentEditComponent implements OnInit, OnDestroy {
       // Don't delete, it was never saved.
       this.onSaveComplete();
     } else {
-      if (confirm(`Realmente quieres eliminar: ${this.student.displayName}?`)) {
+      if (confirm(`Realmente quieres eliminar los datos de este estudiante`)) {
         this.studentService.deleteStudent(this.student.id)
           .subscribe({
             next: () => this.onSaveComplete(),

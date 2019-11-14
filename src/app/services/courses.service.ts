@@ -54,9 +54,9 @@ export class CoursesService {
       id: '0',
       name: '',
       image: Icon.getDefault().path,
-      startDate: new Date().toString(),
+      startDate: new Date().toString().substring(0, 10),
       startTime: '00:00',
-      endDate: new Date().toString(),
+      endDate: new Date().toString().substring(0, 10),
       endTime: '00:00',
       teacher: ''
     };

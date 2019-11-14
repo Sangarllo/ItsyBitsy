@@ -6,6 +6,8 @@ import { CoursesService } from '../../services/courses.service';
 import { Subscription } from 'rxjs';
 import { Icon } from '../../models/image.model';
 import { RandomGenerator } from '../../shared/random-generator';
+import { UserDetails } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-course-edit',
@@ -20,6 +22,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
 
   course: Course;
   ICONS: Icon[] = Icon.getIcons();
+  TEACHERS: UserDetails[];
 
   private sub: Subscription;
 
@@ -27,6 +30,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private userService: UserService,
     private courseService: CoursesService) { }
 
   ngOnInit() {
@@ -50,6 +54,12 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         this.getCourse(id);
       }
     );
+
+    this.userService.getTeachers()
+    .subscribe((teachers: UserDetails[]) => {
+      this.TEACHERS = teachers;
+    });
+
   }
 
   ngOnDestroy(): void {
@@ -107,20 +117,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  onRandomPopulateForm(): void {
-    this.course.current = true;
-    this.course.name = RandomGenerator.randomDisplayName();
-    this.course.image = Icon.getRandom().path;
-    this.course.startDate = new Date().toString();
-    this.course.startTime = '00:00';
-    this.course.endDate = new Date().toString();
-    this.course.endTime = '00:00';
-    this.course.teacher = 'Lourdes Menor';
-
-    this.displayCourse();
-  }
-
-  onResetForm(): void {
+   onResetForm(): void {
     this.courseForm.reset();
   }
 

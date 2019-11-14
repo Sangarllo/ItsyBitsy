@@ -55,12 +55,8 @@ export class StudentsService {
     // Return an initialized object
     return {
       id: '0',
-      displayName: '',
-      photoURL: Avatar.getRandom().path,
-      email: '',
-      phone: '',
       contact: '',
-      rate: Rate.getDefault().name
+      rate: Rate.getDefault().id
     };
   }
 }
