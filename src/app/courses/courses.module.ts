@@ -13,6 +13,8 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarHeaderComponent } from './calendar/calendar-header.component';
+import { CourseViewComponent } from './course-view/course-view.component';
+import { AddStudentComponent } from './add-student/add-student.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { CalendarHeaderComponent } from './calendar/calendar-header.component';
     LessonEditComponent,
     LessonDetailComponent,
     CalendarComponent,
-    CalendarHeaderComponent
+    CalendarHeaderComponent,
+    CourseViewComponent,
+    AddStudentComponent
   ],
   imports: [
     CommonModule,

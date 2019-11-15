@@ -7,6 +7,7 @@ import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { AddStudentComponent } from './add-student/add-student.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
     path: ':id/editar',
     // canDeactivate: [CourseEditGuard], TODO
     component: CourseEditComponent
+  },
+  {
+    path: ':id/estudiantes',
+    component: AddStudentComponent
   },
   {
     path: ':courseId/lessons',

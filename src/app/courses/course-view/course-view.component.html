@@ -1,0 +1,41 @@
+<div class="container" *ngIf="course">
+    <div class="row my-2">
+        <div class="col-lg-8 order-lg-2">
+            <div class="tab-content py-4">
+                <div class="tab-pane active" id="profile">
+                    <h5 class="mb-3">{{ course.name }}</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Nick</h6>
+                            <p>
+                                {{ course.name }}
+                            </p>
+                            <h6>Profesor</h6>
+                            <p>
+                                {{ course.teacher }}
+                            </p>
+                            <h6>Horario</h6>
+                            <p>
+                                {{ course.startTime }}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Listado de Estudiantes</h6>
+                            <hr>
+                        </div>
+                    </div>
+                    <!--/row-->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 order-lg-1 text-center">
+            <img [src]="course.image" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+            <h4 class="mt-2">{{course.name}}</h4>
+            <label class="custom-file">
+              <input type="file" id="file" class="custom-file-input">
+          </label>
+        </div>
+    </div>
+</div>

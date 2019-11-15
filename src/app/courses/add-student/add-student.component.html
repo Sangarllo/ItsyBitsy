@@ -1,0 +1,13 @@
+<div *ngIf="course">
+    <app-course-view [course]="course"></app-course-view>
+</div>
+
+<h4>Estudiantes asignados al curso</h4>
+<mat-form-field>
+    <mat-label>Posibles estudiantes</mat-label>
+    <mat-select>
+        <mat-option *ngFor="let student of STUDENTS" [value]="student.uid">
+            {{student.displayName}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

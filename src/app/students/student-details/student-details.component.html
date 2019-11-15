@@ -1,21 +1,13 @@
 <div *ngIf="student" class="container-fluid">
 
     <div class="row">
+        <app-user-view [userDetailsId]="student.id"></app-user-view>
+    </div>
 
-        <div class="col-12 col-md-6 col-lg-4" style="text-align: center;">
-            <img [src]="student.photoURL" style="height:80%" />
-        </div>
 
-        <div class="col-12 col-md-6 col-lg-8">
+    <div class="row">
 
-            <h3>{{ student.displayName }}</h3>
-            <br/><br/>
-            <h4>{{ student.email }}</h4>
-            <h4>{{ student.contact }}</h4>
-            <h4>{{ student.phone }}</h4>
-
-            <h3 *ngIf="rate">{{ rate | json }}</h3>
-
+        <div class="col-12">
             <br/><br/>
             <button mat-raised-button color="primary" (click)="gotoEdition()">Editar</button>&nbsp;
             <button mat-raised-button color="primary" (click)="gotoList()">Ver listado</button>
