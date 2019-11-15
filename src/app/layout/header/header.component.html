@@ -17,17 +17,26 @@
 
         <a (click)="gotoProfile()">
             <mat-icon class="header-icon" aria-hidden="false" aria-label="Profile">how_to_reg</mat-icon>
-            &nbsp;&nbsp;<span class="align-top">Ver Perfil</span>
+            &nbsp;&nbsp;
+            <!--
+              <span class="align-top">Ver Perfil</span>
+            -->
         </a>
 
         <a (click)="logout()">
             <mat-icon class="header-icon" aria-hidden="false" aria-label="Exit">exit_to_app</mat-icon>
-            &nbsp;&nbsp;<span class="align-top">Salir</span>
+            &nbsp;&nbsp;
+            <!--
+              <span class="align-top">Salir</span>
+            -->
         </a>
 
         <a (click)="gotoDashboard()">
             <mat-icon class="header-icon" aria-hidden="false" aria-label="Panel">grid_on</mat-icon>
-            &nbsp;&nbsp;<span class="align-top">Panel</span>
+            &nbsp;&nbsp;
+            <!--
+              <span class="align-top">Panel</span>
+            -->
         </a>
 
     </div>
@@ -37,10 +46,9 @@
 <ng-template #showLogin>
     <a (click)="login()">
         <mat-icon class="header-icon" aria-hidden="false" aria-label="Login">account_circle</mat-icon>
-        &nbsp;&nbsp;<span class="align-top">Entrar</span>
-    </a>
-    <a (click)="login()">
-        <mat-icon class="header-icon" aria-hidden="false" aria-label="Register">how_to_reg</mat-icon>
-        &nbsp;&nbsp;<span class="align-top">Registrarte</span>
+        &nbsp;&nbsp;
+        <!--
+          <span class="align-top">Entrar</span>
+        -->
     </a>
 </ng-template>
