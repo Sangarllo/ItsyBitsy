@@ -1,13 +1,21 @@
-<h3>Lista de Cursos</h3>
+<h3>
+    Lista de Cursos
+</h3>
+
+<button mat-raised-button color="primary" (click)="gotoNew()">Crear</button>
+<br/>
 
 <div *ngFor="let course of courses | async">
     <mat-card (click)="gotoCourse(course)">
         <mat-card-header>
             <div mat-card-avatar [ngStyle]="applyStyles(course)"></div>
             <mat-card-title>{{course.name}}</mat-card-title>
-            <mat-card-subtitle>{{course.teacher}}</mat-card-subtitle>
+            <mat-card-subtitle>{{course.teacher?.displayName}}</mat-card-subtitle>
         </mat-card-header>
+        <mat-card-content>
+            <p>
+                {{ course?.studentList?.length }} estudiantes. Próxima clase: ?
+            </p>
+        </mat-card-content>
     </mat-card>
 </div>
-
-<button mat-raised-button color="primary" (click)="gotoNew()">Crear</button>

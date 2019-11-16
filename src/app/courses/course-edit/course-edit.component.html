@@ -27,23 +27,18 @@
                     </mat-select>
                 </mat-form-field>
 
+                <!--
                 <mat-form-field>
                     <input matInput formControlName="startDate" [matDatepicker]="pickerStart" placeholder="Escoge la fecha de inicio">
                     <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
                     <mat-datepicker #pickerStart></mat-datepicker>
                     <mat-error *ngIf="!!courseForm.get('startDate').errors?.required">Es necesario incluir esta información</mat-error>
                 </mat-form-field>
+                -->
 
                 <mat-form-field>
                     <input matInput type="time" formControlName="startTime" placeholder="Escoge la hora de inicio">
                     <mat-error *ngIf="!!courseForm.get('startTime').errors?.required">Es necesario incluir esta información</mat-error>
-                </mat-form-field>
-
-                <mat-form-field>
-                    <input matInput formControlName="endDate" [matDatepicker]="pickerEnd" placeholder="Escoge la fecha de fin">
-                    <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-                    <mat-datepicker #pickerEnd></mat-datepicker>
-                    <mat-error *ngIf="!!courseForm.get('endDate').errors?.required">Es necesario incluir esta información</mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
@@ -54,7 +49,7 @@
                 <mat-form-field>
                     <mat-label>Profesor</mat-label>
                     <mat-select formControlName="teacher" [value]="courseForm.get('teacher').value">
-                        <mat-option *ngFor="let teacher of TEACHERS" [value]="teacher.uid">
+                        <mat-option *ngFor="let teacher of TEACHERS" [value]="teacher">
                             {{teacher.displayName}}
                         </mat-option>
                     </mat-select>
@@ -75,8 +70,3 @@
         </div>
     </div>
 </div>
-
-
-<pre>
-  {{ course | json }}
-</pre>

@@ -6,15 +6,15 @@
                     <h5 class="mb-3">{{ course.name }}</h5>
                     <div class="row">
                         <div class="col-md-6">
-                            <h6>Nick</h6>
+                            <h6>Nombre</h6>
                             <p>
                                 {{ course.name }}
                             </p>
-                            <h6>Profesor</h6>
+                            <h6>Profesor del Curso</h6>
                             <p>
-                                {{ course.teacher }}
+                                {{ course?.teacher?.displayName }}
                             </p>
-                            <h6>Horario</h6>
+                            <h6>Horario habitual</h6>
                             <p>
                                 {{ course.startTime }}
                             </p>
@@ -24,7 +24,6 @@
                             <hr>
                         </div>
                     </div>
-                    <!--/row-->
                 </div>
             </div>
 

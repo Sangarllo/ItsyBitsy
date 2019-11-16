@@ -40,9 +40,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         Validators.minLength(3),
         Validators.maxLength(50)]],
       image: ['', Validators.required],
-      startDate: ['', Validators.required],
       startTime: ['', Validators.required],
-      endDate: ['', Validators.required],
       endTime: ['', Validators.required],
       teacher: ['', Validators.required],
     });
@@ -94,9 +92,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
       current: this.course.current,
       name: this.course.name,
       image: this.course.image,
-      startDate: this.course.startDate,
       startTime: this.course.startTime,
-      endDate: this.course.endDate,
       endTime: this.course.endTime,
       teacher: this.course.teacher
     });

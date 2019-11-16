@@ -5,11 +5,11 @@ export interface ICourse {
   current: boolean;
   name: string;
   image: string;
-  startDate: string;
-  endDate: string;
+  // startDate: string;
+  // endDate: string;
   startTime: string;
   endTime: string;
-  teacher: string; // Teacher TODO
+  teacher: Teacher;
   studentList: UserDetails[];
 }
 
@@ -25,8 +25,6 @@ export class Course implements ICourse {
   public static FIELD_CURRENT = 'current';
   public static FIELD_NAME = 'name';
   public static FIELD_IMAGE = 'image';
-  public static FIELD_START_DATE = 'startDate';
-  public static FIELD_END_DATE = 'endDate';
   public static FIELD_START_TIME = 'startTime';
   public static FIELD_END_TIME = 'endTime';
   public static FIELD_TEACHER = 'teacher';
@@ -37,11 +35,9 @@ export class Course implements ICourse {
     public current: boolean,
     public name: string,
     public image: string,
-    public startDate: string,
-    public endDate: string,
     public startTime: string,
     public endTime: string,
-    public teacher: string,
+    public teacher: Teacher,
     public studentList: UserDetails[]
      ) {
   }

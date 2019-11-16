@@ -13,7 +13,9 @@
 
     <div #menu class="nav navbar-nav navbar-right" *ngIf="afAuth.user | async as user; else showLogin">
 
-        <span>Hola {{ user.displayName }} </span>
+        <!--
+        <span>Hola {{ user.nickName }} </span>
+        -->
 
         <a (click)="gotoProfile()">
             <mat-icon class="header-icon" aria-hidden="false" aria-label="Profile">how_to_reg</mat-icon>
