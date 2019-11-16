@@ -62,7 +62,7 @@ export class LessonsService {
       current: true,
       courseId: course.id,
       status: Status.Planificada,
-      date: new Date().toString(),
+      date: new Date(),
       teacherId: course.teacherId,
       material: '',
       startTime: course.startTime,

@@ -7,7 +7,8 @@ import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import { CourseAddStudentComponent } from './add-student/course-add-student.component';
+import { CourseAddStudentComponent } from './course-add-student/course-add-student.component';
+import { LessonAddStudentComponent } from './lesson-add-student/lesson-add-student.component';
 
 const routes: Routes = [
   {
@@ -42,7 +43,12 @@ const routes: Routes = [
   {
     path: ':courseId/lessons/:id/editar',
     component: LessonEditComponent
-  }
+  },
+  {
+    path: ':courseId/lessons/:id/estudiantes',
+    component: LessonAddStudentComponent
+  },
+
 ];
 
 @NgModule({

@@ -14,8 +14,10 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarHeaderComponent } from './calendar/calendar-header.component';
 import { CourseViewComponent } from './course-view/course-view.component';
-import { CourseAddStudentComponent } from './add-student/course-add-student.component';
+import { CourseAddStudentComponent } from './course-add-student/course-add-student.component';
 import { SharedModule } from '../shared/shared.module';
+import { LessonAddStudentComponent } from './lesson-add-student/lesson-add-student.component';
+import { LessonViewComponent } from './lesson-view/lesson-view.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { SharedModule } from '../shared/shared.module';
     CalendarComponent,
     CalendarHeaderComponent,
     CourseViewComponent,
-    CourseAddStudentComponent
+    CourseAddStudentComponent,
+    LessonAddStudentComponent,
+    LessonViewComponent
   ],
   imports: [
     SharedModule,

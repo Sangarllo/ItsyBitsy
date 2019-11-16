@@ -15,7 +15,7 @@ export interface ILesson {
   current: boolean;
   courseId: string;
   status: string;
-  date: string;
+  date: Date;
   teacherId: string;
   material: string;
   startTime: string;
@@ -46,7 +46,7 @@ export class Lesson implements ILesson {
     public id: string,
     public current: boolean,
     public courseId: string,
-    public date: string,
+    public date: Date,
     public status: Status,
     public teacherId: string,
     public material: string,
