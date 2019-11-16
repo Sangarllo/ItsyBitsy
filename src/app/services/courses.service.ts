@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs';
 import { ICourse, Course } from '../models/course.model';
 import { ICON_REGISTRY_PROVIDER } from '@angular/material/icon';
 import { Icon } from '../models/image.model';
+import { UserDetails } from 'src/app/models/user.model';
+import { map } from 'rxjs/operators';
 
 const COURSE_COLLECTION = 'courses';
 
@@ -47,6 +49,7 @@ export class CoursesService {
     return of({});
   }
 
+
   private initialize(): Course {
     // Return an initialized object
     return {
@@ -58,7 +61,8 @@ export class CoursesService {
       startTime: '00:00',
       endDate: new Date().toString().substring(0, 10),
       endTime: '00:00',
-      teacher: ''
+      teacher: '',
+      studentList: []
     };
   }
 }

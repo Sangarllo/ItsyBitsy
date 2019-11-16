@@ -7,7 +7,7 @@ import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import { AddStudentComponent } from './add-student/add-student.component';
+import { CourseAddStudentComponent } from './add-student/course-add-student.component';
 
 const routes: Routes = [
   {
@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: ':id/estudiantes',
-    component: AddStudentComponent
+    component: CourseAddStudentComponent
   },
   {
     path: ':courseId/lessons',

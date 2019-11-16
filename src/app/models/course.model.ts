@@ -1,4 +1,5 @@
 import { Teacher } from './teacher.model';
+import { UserDetails } from './user.model';
 
 export interface ICourse {
   current: boolean;
@@ -9,6 +10,7 @@ export interface ICourse {
   startTime: string;
   endTime: string;
   teacher: string; // Teacher TODO
+  studentList: UserDetails[];
 }
 
 export interface ICourseExtended extends ICourse {
@@ -28,6 +30,7 @@ export class Course implements ICourse {
   public static FIELD_START_TIME = 'startTime';
   public static FIELD_END_TIME = 'endTime';
   public static FIELD_TEACHER = 'teacher';
+  public static FIELD_STUDENT_LIST = 'studentList';
 
   constructor(
     public id: string,
@@ -38,7 +41,8 @@ export class Course implements ICourse {
     public endDate: string,
     public startTime: string,
     public endTime: string,
-    public teacher: string
+    public teacher: string,
+    public studentList: UserDetails[]
      ) {
   }
 }

@@ -1,0 +1,16 @@
+<div class="container">
+    <h4>Listado de Estudiantes</h4>
+    <div class="row">
+        <div class="col-12">
+            <button mat-raised-button (click)="onClick()" color="primary" [disabled]="!selectedStudent">Añadir</button> &nbsp;&nbsp;
+            <mat-form-field>
+                <mat-label>Posibles estudiantes</mat-label>
+                <mat-select [(ngModel)]="selectedStudent">
+                    <mat-option *ngFor="let student of STUDENTS" [value]="student">
+                        {{student.displayName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

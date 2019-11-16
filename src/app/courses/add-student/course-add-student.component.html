@@ -1,0 +1,22 @@
+<div *ngIf="course">
+    <app-course-view [course]="course"></app-course-view>
+</div>
+
+<div class="row">
+    <div class="col-4">
+        <sh-add-student (selectStudent)="selectStudent($event)"></sh-add-student>
+    </div>
+    <div class="col-8">
+        <div class="row">
+            <div class="col-12" *ngFor="let userDetails of course?.studentList">
+                <mat-card (click)="gotoUserDetails(userDetails)">
+                    <mat-card-header>
+                        <div mat-card-avatar [ngStyle]="applyStyles(userDetails)"></div>
+                        <mat-card-title>{{userDetails.displayName}}</mat-card-title>
+                        <mat-card-subtitle>{{userDetails.email}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

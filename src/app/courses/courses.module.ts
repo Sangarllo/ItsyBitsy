@@ -14,7 +14,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarHeaderComponent } from './calendar/calendar-header.component';
 import { CourseViewComponent } from './course-view/course-view.component';
-import { AddStudentComponent } from './add-student/add-student.component';
+import { CourseAddStudentComponent } from './add-student/course-add-student.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,18 +28,15 @@ import { AddStudentComponent } from './add-student/add-student.component';
     CalendarComponent,
     CalendarHeaderComponent,
     CourseViewComponent,
-    AddStudentComponent
+    CourseAddStudentComponent
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     CoursesRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
-    MaterialConfigurationModule
   ],
   providers: [
     DatePipe,
