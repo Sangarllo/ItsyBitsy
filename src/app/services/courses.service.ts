@@ -6,7 +6,6 @@ import { ICON_REGISTRY_PROVIDER } from '@angular/material/icon';
 import { Icon } from '../models/image.model';
 import { UserDetails } from 'src/app/models/user.model';
 import { map } from 'rxjs/operators';
-import { Teacher } from '../models/teacher.model';
 
 const COURSE_COLLECTION = 'courses';
 
@@ -58,9 +57,10 @@ export class CoursesService {
       id: '0',
       name: '',
       image: Icon.getDefault().path,
+      weekDay: Course.getDefaultWeekDay(),
       startTime: '00:00',
       endTime: '00:00',
-      teacher: Teacher.getDefault(),
+      teacherId: '',
       studentList: []
     };
   }

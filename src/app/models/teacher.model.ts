@@ -18,6 +18,7 @@ export class Teacher implements ITeacher {
   public static FIELD_EMAIL = 'email';
   public static FIELD_PHONE = 'phone';
 
+  /*
   public static getDefault(): Teacher {
     return {
       displayName: 'Lourdes Menor',
@@ -26,6 +27,7 @@ export class Teacher implements ITeacher {
       phone: '666777888'
     };
   }
+  */
 
   constructor(
     public displayName: string,

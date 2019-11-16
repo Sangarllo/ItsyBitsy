@@ -38,7 +38,7 @@ export class LessonDetailComponent implements OnInit {
     });
 
     this.lessonId = this.route.snapshot.paramMap.get('id');
-    this.lessonsService.getLesson(this.lessonId)
+    this.lessonsService.getLesson(this.lessonId, this.course)
     .subscribe({
       next: lesson => this.lesson = lesson,
       error: err => this.errorMessage = err

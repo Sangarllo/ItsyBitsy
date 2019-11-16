@@ -37,6 +37,15 @@
                 -->
 
                 <mat-form-field>
+                    <mat-label>Día de la Semana</mat-label>
+                    <mat-select formControlName="weekDay" [value]="courseForm.get('weekDay').value">
+                        <mat-option *ngFor="let weekDay of WEEK_DAY_ARRAY" [value]="weekDay">
+                            {{weekDay}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
                     <input matInput type="time" formControlName="startTime" placeholder="Escoge la hora de inicio">
                     <mat-error *ngIf="!!courseForm.get('startTime').errors?.required">Es necesario incluir esta información</mat-error>
                 </mat-form-field>
@@ -48,8 +57,8 @@
 
                 <mat-form-field>
                     <mat-label>Profesor</mat-label>
-                    <mat-select formControlName="teacher" [value]="courseForm.get('teacher').value">
-                        <mat-option *ngFor="let teacher of TEACHERS" [value]="teacher">
+                    <mat-select formControlName="teacherId" [value]="courseForm.get('teacherId').value">
+                        <mat-option *ngFor="let teacher of TEACHERS" [value]="teacher.uid">
                             {{teacher.displayName}}
                         </mat-option>
                     </mat-select>

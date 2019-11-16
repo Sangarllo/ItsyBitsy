@@ -14,9 +14,12 @@ export class UserService {
   static USER_DETAILS_COLLECTION = 'user-details';
 
   private userDetailsCollection: AngularFirestoreCollection<IUserDetails>;
+  private studentsCollection: AngularFirestoreCollection<IUserDetails>;
+  private teachersCollection: AngularFirestoreCollection<IUserDetails>;
   private userDetailsDoc: AngularFirestoreDocument<IUserDetails>;
 
   constructor(private afs: AngularFirestore) {
+    this.userDetailsCollection = this.afs.collection<UserDetails>(UserService.USER_DETAILS_COLLECTION);
   }
 
   getUsersDetails(): Observable<UserDetails[]> {
@@ -34,12 +37,12 @@ export class UserService {
 
   getStudents(): Observable<UserDetails[]> {
 
-    this.userDetailsCollection = this.afs.collection(
+    this.studentsCollection = this.afs.collection(
       UserService.USER_DETAILS_COLLECTION,
       ref => ref.where('isStudent', '==', true)
     );
 
-    return this.userDetailsCollection.snapshotChanges().pipe(
+    return this.studentsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as UserDetails;
         const id = a.payload.doc.id;
@@ -50,12 +53,12 @@ export class UserService {
 
   getTeachers(): Observable<UserDetails[]> {
 
-    this.userDetailsCollection = this.afs.collection(
+    this.teachersCollection = this.afs.collection(
       UserService.USER_DETAILS_COLLECTION,
       ref => ref.where('isTeacher', '==', true)
     );
 
-    return this.userDetailsCollection.snapshotChanges().pipe(
+    return this.teachersCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as UserDetails;
         const id = a.payload.doc.id;

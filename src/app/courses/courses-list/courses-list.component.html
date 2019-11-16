@@ -10,11 +10,11 @@
         <mat-card-header>
             <div mat-card-avatar [ngStyle]="applyStyles(course)"></div>
             <mat-card-title>{{course.name}}</mat-card-title>
-            <mat-card-subtitle>{{course.teacher?.displayName}}</mat-card-subtitle>
+            <mat-card-subtitle>Próxima clase: ?</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
             <p>
-                {{ course?.studentList?.length }} estudiantes. Próxima clase: ?
+                {{ course?.studentList?.length }} estudiantes.
             </p>
         </mat-card-content>
     </mat-card>

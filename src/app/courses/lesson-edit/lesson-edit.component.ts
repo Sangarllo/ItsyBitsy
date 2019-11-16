@@ -8,6 +8,8 @@ import { Lesson, Status } from '../../models/lesson.model';
 import { CoursesService } from '../../services/courses.service';
 import { LessonsService } from '../../services/lessons.service';
 import { Course } from '../../models/course.model';
+import { UserDetails } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-lesson-edit',
@@ -27,6 +29,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
 
   STATUS_ARRAY: Status[] = Lesson.getAllStatus();
   ICONS: Icon[] = Icon.getIcons();
+  TEACHERS: UserDetails[];
 
   private sub: Subscription;
 
@@ -34,6 +37,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private userService: UserService,
     private lessonService: LessonsService,
     private coursesService: CoursesService
     ) { }
@@ -50,13 +54,12 @@ export class LessonEditComponent implements OnInit, OnDestroy {
 
         this.lessonForm = this.fb.group({
           courseId: [course.id, Validators.required],
-          name: [course.name, Validators.required],
           status: ['', Validators.required],
-          teacher: ['', Validators.required],
+          teacherId: [course.teacherId, Validators.required],
           material: ['', Validators.required],
           date: ['', Validators.required],
-          startTime: ['', Validators.required],
-          endTime: ['', Validators.required],
+          startTime: [course.startTime, Validators.required],
+          endTime: [course.endTime, Validators.required],
         });
 
         // Read the student Id from the route parameter
@@ -66,6 +69,11 @@ export class LessonEditComponent implements OnInit, OnDestroy {
             this.getLesson(id);
           }
         );
+
+        this.userService.getTeachers()
+        .subscribe((teachers: UserDetails[]) => {
+          this.TEACHERS = teachers;
+        });
 
       },
       error: err => this.errorMessage = err
@@ -77,7 +85,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
   }
 
   getLesson(id: string): void {
-    this.lessonService.getLesson(id)
+    this.lessonService.getLesson(id, this.course)
       .subscribe({
         next: (lesson: Lesson) => {
           this.lesson = lesson;
@@ -102,14 +110,15 @@ export class LessonEditComponent implements OnInit, OnDestroy {
     // Update the data on the form
     this.lessonForm.patchValue({
       courseId: this.lesson.courseId,
-      name: this.lesson.name,
       status: this.lesson.status,
-      teacher: this.lesson.teacher,
+      teacherId: this.lesson.teacherId,
       material: this.lesson.material,
       date: this.lesson.date,
       startTime: this.lesson.startTime,
       endTime: this.lesson.endTime
     });
+
+    this.lessonForm.controls[Lesson.FIELD_TEACHER_ID].setValue(this.lesson.teacherId);
   }
 
   deleteLesson(): void {

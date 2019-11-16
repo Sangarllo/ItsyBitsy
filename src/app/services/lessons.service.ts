@@ -4,6 +4,9 @@ import { Observable, of } from 'rxjs';
 import { ICON_REGISTRY_PROVIDER } from '@angular/material/icon';
 import { Icon } from '../models/image.model';
 import { ILesson, Lesson, Status } from '../models/lesson.model';
+import { UserDetails } from '../models/user.model';
+import { Teacher } from '../models/teacher.model';
+import { Course } from '../models/course.model';
 
 const LESSON_COLLECTION = 'lessons';
 
@@ -25,9 +28,9 @@ export class LessonsService {
   }
 
 
-  getLesson(id: string): Observable<any> {
+  getLesson(id: string, course: Course): Observable<any> {
     if (id === '0') {
-      return of(this.initialize());
+      return of(this.initialize(course));
     } else {
       return this.lessonCollection.doc(id).valueChanges();
     }
@@ -52,18 +55,19 @@ export class LessonsService {
     return of({});
   }
 
-  private initialize(): Lesson {
+  private initialize(course: Course): Lesson {
     // Return an initialized object
     return {
       id: '0',
-      name: '',
-      courseId: '0',
+      current: true,
+      courseId: course.id,
       status: Status.Planificada,
-      teacher: '',
-      material: '',
       date: new Date().toString(),
-      startTime: '00:00',
-      endTime: '00:00',
+      teacherId: course.teacherId,
+      material: '',
+      startTime: course.startTime,
+      endTime: course.endTime,
+      studentList: course.studentList
     };
   }
 }

@@ -22,6 +22,8 @@ export class CourseEditComponent implements OnInit, OnDestroy {
 
   course: Course;
   ICONS: Icon[] = Icon.getIcons();
+  WEEK_DAY_ARRAY = Course.getAllWeekDay();
+
   TEACHERS: UserDetails[];
 
   private sub: Subscription;
@@ -40,9 +42,10 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         Validators.minLength(3),
         Validators.maxLength(50)]],
       image: ['', Validators.required],
+      weekDay: ['', Validators.required],
       startTime: ['', Validators.required],
       endTime: ['', Validators.required],
-      teacher: ['', Validators.required],
+      teacherId: ['', Validators.required],
     });
 
     // Read the student Id from the route parameter
@@ -92,10 +95,13 @@ export class CourseEditComponent implements OnInit, OnDestroy {
       current: this.course.current,
       name: this.course.name,
       image: this.course.image,
+      weekDay: this.course.weekDay,
       startTime: this.course.startTime,
       endTime: this.course.endTime,
-      teacher: this.course.teacher
+      teacherId: this.course.teacherId
     });
+
+    this.courseForm.controls[Course.FIELD_TEACHER_ID].setValue(this.course.teacherId);
   }
 
   deleteCourse(): void {
@@ -151,4 +157,5 @@ export class CourseEditComponent implements OnInit, OnDestroy {
     this.courseForm.reset();
     this.router.navigate([`/${Course.PATH_URL}`]);
   }
+
 }
