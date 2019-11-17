@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddStudentComponent } from './add-student/add-student.component';
 import { MaterialConfigurationModule } from '../material-configuration/material-configuration.module';
+import { ShUserListComponent } from './sh-user-list/sh-user-list.component';
 
 @NgModule({
   declarations: [
-    AddStudentComponent
+    AddStudentComponent,
+    ShUserListComponent
   ],
   imports: [
     CommonModule,
@@ -16,6 +18,7 @@ import { MaterialConfigurationModule } from '../material-configuration/material-
   ],
   exports: [
     AddStudentComponent,
+    ShUserListComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
