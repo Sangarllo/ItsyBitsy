@@ -46,7 +46,6 @@ export class LessonAddStudentComponent implements OnInit {
   }
 
   selectStudent(userDetails: UserDetails) {
-    console.log(`Student selected on lesson-add-student: ${userDetails.displayName}`);
 
     if (!this.isInArray(userDetails)) {
       this.lesson.studentList.push(userDetails);
@@ -55,19 +54,6 @@ export class LessonAddStudentComponent implements OnInit {
           this.lesson = lesson;
         });
     }
-  }
-
-  applyStyles(userDetails: UserDetails) {
-    const styles = {
-      'background-image': `url("${userDetails.photoURL}")`,
-      'background-size': 'cover'
-    };
-    return styles;
-  }
-
-  gotoUserDetails(userDetails: UserDetails) {
-    console.log(`goto ${userDetails.uid}`);
-    this.router.navigate([`${UserDetails.PATH_URL}/${userDetails.uid}`]);
   }
 
   private isInArray(userDetails: UserDetails): boolean {

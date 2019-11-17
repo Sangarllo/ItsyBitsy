@@ -48,4 +48,9 @@ export class LessonDetailComponent implements OnInit {
   gotoEdition() {
     this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/${Lesson.PATH_URL}/${this.lessonId}/editar`]);
   }
+
+  gotoEditStudentList() {
+    this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/${Lesson.PATH_URL}/${this.lessonId}/estudiantes`]);
+  }
+
 }

@@ -56,7 +56,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
           courseId: [course.id, Validators.required],
           status: ['', Validators.required],
           teacherId: [course.teacherId, Validators.required],
-          material: ['', Validators.required],
+          material: '',
           date: ['', Validators.required],
           startTime: [course.startTime, Validators.required],
           endTime: [course.endTime, Validators.required],

@@ -1,17 +1,7 @@
-<mat-card *ngIf="lesson" class="example-card">
-    <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Algo pondremos aquí</mat-card-title>
-        <mat-card-subtitle>De {{ lesson.startTime }} a {{ lesson.endTime }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <p>
-            Material: {{ lesson.material }}
-        </p>
-    </mat-card-content>
-    <mat-card-actions>
+<mat-card *ngIf="lesson">
+    <app-lesson-view [lesson]="lesson"></app-lesson-view>
 
-        <button mat-raised-button color="primary" (click)="gotoEdition()">Editar</button>
+    <button mat-raised-button color="primary" (click)="gotoEdition()">Editar Datos</button> &nbsp;&nbsp;
+    <button mat-raised-button color="primary" (click)="gotoEditStudentList()">Asignar Estudiantes </button> &nbsp;&nbsp;
 
-    </mat-card-actions>
 </mat-card>

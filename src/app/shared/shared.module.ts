@@ -4,11 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddStudentComponent } from './add-student/add-student.component';
 import { MaterialConfigurationModule } from '../material-configuration/material-configuration.module';
 import { ShUserListComponent } from './sh-user-list/sh-user-list.component';
+import { ShUserListChipsComponent } from './sh-user-list-chips/sh-user-list-chips.component';
 
 @NgModule({
   declarations: [
     AddStudentComponent,
-    ShUserListComponent
+    ShUserListComponent,
+    ShUserListChipsComponent
   ],
   imports: [
     CommonModule,
@@ -19,11 +21,11 @@ import { ShUserListComponent } from './sh-user-list/sh-user-list.component';
   exports: [
     AddStudentComponent,
     ShUserListComponent,
+    ShUserListChipsComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialConfigurationModule
-
   ]
 })
 export class SharedModule { }
