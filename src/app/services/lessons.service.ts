@@ -7,6 +7,7 @@ import { ILesson, Lesson, Status } from '../models/lesson.model';
 import { UserDetails } from '../models/user.model';
 import { Teacher } from '../models/teacher.model';
 import { Course } from '../models/course.model';
+import { map } from 'rxjs/operators';
 
 const LESSON_COLLECTION = 'lessons';
 
@@ -20,36 +21,74 @@ export class LessonsService {
   private lessonDoc: AngularFirestoreDocument<ILesson>;
 
   constructor(private afs: AngularFirestore) {
-    this.lessonCollection = afs.collection<ILesson>(LESSON_COLLECTION);
   }
 
-  getAllLessons(): Observable<ILesson[]> {
-      return this.lessonCollection.valueChanges();
+  getAllLessons(course: Course): Observable<ILesson[]> {
+    this.lessonCollection = this.afs.collection(
+      LESSON_COLLECTION,
+      ref => ref.where('courseId', '==', course.id)
+    );
+
+    return this.lessonCollection.valueChanges();
   }
 
 
-  getLesson(id: string, course: Course): Observable<any> {
+  getLessonsByCourseId(course: Course): Observable<ILesson[]> {
+
+    this.lessonCollection = this.afs.collection(
+      LESSON_COLLECTION,
+      ref => ref.where('courseId', '==', course.id)
+    );
+
+    return this.lessonCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as ILesson;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+  }
+
+
+  getLesson(course: Course, id: string): Observable<any> {
     if (id === '0') {
       return of(this.initialize(course));
     } else {
+      this.lessonCollection = this.afs.collection(
+        LESSON_COLLECTION,
+        ref => ref.where('courseId', '==', course.id)
+      );
       return this.lessonCollection.doc(id).valueChanges();
     }
   }
 
-  updateLesson(lesson: Lesson): Observable<Lesson> {
+  updateLesson(course: Course, lesson: Lesson): Observable<Lesson> {
+    this.lessonCollection = this.afs.collection(
+      LESSON_COLLECTION,
+      ref => ref.where('courseId', '==', course.id)
+    );
     this.lessonDoc = this.lessonCollection.doc(lesson.id);
     this.lessonDoc.update(lesson);
     return of(lesson);
   }
 
-  createLesson(lesson: Lesson): Observable<Lesson> {
+  createLesson(course: Course, lesson: Lesson): Observable<Lesson> {
     // Persist a document id
     lesson.id = this.afs.createId();
+    this.lessonCollection = this.afs.collection(
+      LESSON_COLLECTION,
+      ref => ref.where('courseId', '==', course.id)
+    );
     this.lessonCollection.doc(lesson.id).set(lesson);
     return of(lesson);
   }
 
-  deleteLesson(id: string): Observable<{}> {
+  deleteLesson(course: Course, id: string): Observable<{}> {
+    this.lessonCollection = this.afs.collection(
+      LESSON_COLLECTION,
+      ref => ref.where('courseId', '==', course.id)
+    );
+
     this.lessonDoc = this.lessonCollection.doc(id);
     this.lessonDoc.delete();
     return of({});

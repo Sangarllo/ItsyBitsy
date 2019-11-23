@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Course } from '../../models/course.model';
 import { CoursesService } from '../../services/courses.service';
+import { LessonsService } from '../../services/lessons.service';
 
 @Component({
   selector: 'app-lesson-list',
@@ -24,27 +25,23 @@ export class LessonListComponent implements OnInit {
   lessons: Observable<ILesson[]>;
 
   constructor(
-    afs: AngularFirestore,
     private coursesService: CoursesService,
+    private lessonsService: LessonsService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.lessonCollection = afs.collection<Lesson>('lessons');
-    this.lessons = this.lessonCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Lesson;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
-    );
   }
 
   ngOnInit() {
 
     this.courseId = this.route.snapshot.paramMap.get('courseId');
+
     this.coursesService.getCourse(this.courseId)
     .subscribe({
-      next: course => this.course = course,
+      next: course => {
+        this.course = course;
+        this.lessons = this.lessonsService.getLessonsByCourseId(this.course);
+      },
       error: err => this.errorMessage = err
     });
   }

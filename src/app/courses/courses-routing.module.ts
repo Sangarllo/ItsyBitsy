@@ -37,15 +37,15 @@ const routes: Routes = [
     component: LessonListComponent
   },
   {
-    path: ':courseId/lessons/:id',
+    path: ':courseId/lessons/:lessonId',
     component: LessonDetailComponent
   },
   {
-    path: ':courseId/lessons/:id/editar',
+    path: ':courseId/lessons/:lessonId/editar',
     component: LessonEditComponent
   },
   {
-    path: ':courseId/lessons/:id/estudiantes',
+    path: ':courseId/lessons/:lessonId/estudiantes',
     component: LessonAddStudentComponent
   },
 

@@ -31,25 +31,28 @@ export class LessonAddStudentComponent implements OnInit {
   ngOnInit() {
 
     this.courseId = this.route.snapshot.paramMap.get('courseId');
+    this.lessonId = this.route.snapshot.paramMap.get('lessonId');
+
     this.coursesService.getCourse(this.courseId)
     .subscribe({
-      next: course => this.course = course,
+      next: course => {
+        this.course = course;
+        this.lessonsService.getLesson(this.course, this.lessonId)
+        .subscribe({
+          next: lesson => this.lesson = lesson,
+          error: err => this.errorMessage = err
+        });
+      },
       error: err => this.errorMessage = err
     });
 
-    this.lessonId = this.route.snapshot.paramMap.get('id');
-    this.lessonsService.getLesson(this.lessonId, this.course)
-    .subscribe({
-      next: lesson => this.lesson = lesson,
-      error: err => this.errorMessage = err
-    });
   }
 
   selectStudent(userDetails: UserDetails) {
 
     if (!this.isInArray(userDetails)) {
       this.lesson.studentList.push(userDetails);
-      this.lessonsService.updateLesson(this.lesson)
+      this.lessonsService.updateLesson(this.course, this.lesson)
         .subscribe( (lesson: Lesson) => {
           this.lesson = lesson;
         });

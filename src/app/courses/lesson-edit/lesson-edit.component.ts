@@ -65,7 +65,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
         // Read the student Id from the route parameter
         this.sub = this.route.paramMap.subscribe(
           params => {
-            const id = params.get('id');
+            const id = params.get('lessonId');
             this.getLesson(id);
           }
         );
@@ -85,7 +85,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
   }
 
   getLesson(id: string): void {
-    this.lessonService.getLesson(id, this.course)
+    this.lessonService.getLesson(this.course, id)
       .subscribe({
         next: (lesson: Lesson) => {
           this.lesson = lesson;
@@ -127,7 +127,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
       this.onSaveComplete();
     } else {
       if (confirm(`Realmente quieres eliminar la clase del día: ${this.lesson.date}?`)) {
-        this.lessonService.deleteLesson(this.lesson.id)
+        this.lessonService.deleteLesson(this.course, this.lesson.id)
           .subscribe({
             next: () => this.onSaveComplete(),
             error: err => this.errorMessage = err
@@ -146,13 +146,13 @@ export class LessonEditComponent implements OnInit, OnDestroy {
         const item = { ...this.lesson, ...this.lessonForm.value };
 
         if (item.id === '0') {
-          this.lessonService.createLesson(item)
+          this.lessonService.createLesson(this.course, item)
             .subscribe({
               next: () => this.onSaveComplete(),
               error: err => this.errorMessage = err
             });
         } else {
-          this.lessonService.updateLesson(item)
+          this.lessonService.updateLesson(this.course, item)
             .subscribe({
               next: () => this.onSaveComplete(),
               error: err => this.errorMessage = err
