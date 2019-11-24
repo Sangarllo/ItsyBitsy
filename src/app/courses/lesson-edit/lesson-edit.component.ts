@@ -9,8 +9,8 @@ import { LessonsService } from '../../services/lessons.service';
 import { Course } from '../../models/course.model';
 import { UserDetails } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
-import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
+import { DatesService } from '../../services/dates.service';
 
 @Component({
   selector: 'app-lesson-edit',
@@ -41,14 +41,10 @@ export class LessonEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
+    private datesService: DatesService,
     private lessonService: LessonsService,
     private coursesService: CoursesService
     ) {
-      moment.locale('es');
-      const now = moment();
-      console.log('hello world', now.format('LLLL'));
-      console.log(now.add(7, 'days').format('LLLL'));
-      console.log(now.add(7, 'days').format('MMMM Do YYYY, h:mm:ss a'));
     }
 
   ngOnInit() {
@@ -61,15 +57,12 @@ export class LessonEditComponent implements OnInit, OnDestroy {
         this.course = course;
         this.courseTitle = `Curso ${this.course.name}`;
 
-        const now = moment();
-        const oneWeek = now.add(7, 'days');
-
         this.lessonForm = this.fb.group({
           courseId: [course.id, Validators.required],
           status: ['', Validators.required],
           teacherId: [course.teacherId, Validators.required],
           material: '',
-          date: [oneWeek, Validators.required],
+          date: ['', Validators.required], // TODO Calcular!
           startTime: [course.startTime, Validators.required],
           endTime: [course.endTime, Validators.required],
         });
@@ -119,13 +112,14 @@ export class LessonEditComponent implements OnInit, OnDestroy {
       this.pageTitle = `Editando una clase existente`;
     }
 
+
     // Update the data on the form
     this.lessonForm.patchValue({
       courseId: this.lesson.courseId,
       status: this.lesson.status,
       teacherId: this.lesson.teacherId,
       material: this.lesson.material,
-      date: this.lesson.date,
+      date: this.datesService.fromFirebaseDate(this.lesson.date),
       startTime: this.lesson.startTime,
       endTime: this.lesson.endTime
     });
@@ -154,6 +148,10 @@ export class LessonEditComponent implements OnInit, OnDestroy {
 
   onSaveForm(): void {
     if (this.lessonForm.valid) {
+
+
+        this.lesson.date = new Date(2019, 11, 19);
+        // this.datesService.toFirebaseDate(this.lesson.date);
 
         const item = { ...this.lesson, ...this.lessonForm.value };
 

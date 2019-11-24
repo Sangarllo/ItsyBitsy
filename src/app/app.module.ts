@@ -50,10 +50,7 @@ registerLocaleData(localeEs);
     BrowserAnimationsModule,
     MaterialConfigurationModule
   ],
-  providers: [{
-    provide: MAT_DATE_LOCALE,
-    useValue: 'es-ES'
-  },
+  providers: [
   { provide: LOCALE_ID, useValue: 'es-ES' }],
   bootstrap: [
     AppComponent
