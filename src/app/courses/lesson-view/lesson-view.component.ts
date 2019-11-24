@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { UserDetails } from '../../models/user.model';
 import { Lesson } from '../../models/lesson.model';
 import { Course } from '../../models/course.model';
+import { DatesService } from '../../services/dates.service';
 
 @Component({
   selector: 'app-lesson-view',
@@ -17,12 +18,13 @@ export class LessonViewComponent implements OnInit {
   teacher: UserDetails;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private datesService: DatesService
   ) {
   }
 
   ngOnInit() {
-    console.log(`teacherId: ${this.lesson.teacherId}`);
+    this.lesson.date = this.datesService.fromFirebaseDate(this.lesson.date);
     this.userService.getUserDetails(this.lesson.teacherId)
     .subscribe( (teacher: UserDetails) => {
       this.teacher = teacher;

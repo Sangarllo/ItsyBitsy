@@ -4,10 +4,9 @@ import { Attendance } from './attendance.model';
 
 export enum Status {
   Eliminada = 'eliminada',
+  Programada = 'programada',
   Anulada = 'anulada',
   Realizada = 'realizada',
-  Planificada = 'planificada',
-  Futura = 'futura'
 }
 
 // TODO: Type (speaking, examen, repaso, especial...)
@@ -60,14 +59,13 @@ export class Lesson implements ILesson {
   static getAllStatus(): Status[] {
     return [
       Status.Eliminada,
+      Status.Programada,
       Status.Anulada,
-      Status.Realizada,
-      Status.Planificada,
-      Status.Futura,
+      Status.Realizada
     ];
   }
 
   static getDefaultStatus(): string {
-    return Status.Planificada;
+    return Status.Programada;
   }
 }

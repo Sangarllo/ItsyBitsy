@@ -1,7 +1,7 @@
 export enum Status {
   Eliminada = 'eliminada',
   Anulada = 'anulada',
-  Planificada = 'planificada',
+  Programada = 'programada',
   Ausentada = 'ausentada',
   Confirmada = 'confirmada'
 }
@@ -46,13 +46,13 @@ export class Attendance implements IAttendance {
     return [
       Status.Eliminada,
       Status.Anulada,
-      Status.Planificada,
+      Status.Programada,
       Status.Ausentada,
       Status.Confirmada,
     ];
   }
 
   static getDefaultStatus(): string {
-    return Status.Planificada;
+    return Status.Programada;
   }
 }

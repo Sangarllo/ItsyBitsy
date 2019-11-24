@@ -16,13 +16,13 @@ export interface ICourse {
   current: boolean;
   name: string;
   image: string;
-  // startDate: string;
-  // endDate: string;
   weekDay: WeekDay;
   startTime: string;
   endTime: string;
   teacherId: string;
   studentList: UserDetails[];
+  lastLesson?: string;
+  nextLesson?: string;
 }
 
 export interface ICourseExtended extends ICourse {
@@ -42,6 +42,8 @@ export class Course implements ICourse {
   public static FIELD_END_TIME = 'endTime';
   public static FIELD_TEACHER_ID = 'teacherId';
   public static FIELD_STUDENT_LIST = 'studentList';
+  public static FIELD_LAST_LESSON = 'lastLesson';
+  public static FIELD_NEXT_LESSON = 'nextLesson';
 
   constructor(
     public id: string,
@@ -52,7 +54,9 @@ export class Course implements ICourse {
     public startTime: string,
     public endTime: string,
     public teacherId: string,
-    public studentList: UserDetails[]
+    public studentList: UserDetails[],
+    public lastLesson: string,
+    public nextLesson: string
      ) {
   }
 

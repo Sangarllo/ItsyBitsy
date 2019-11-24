@@ -45,7 +45,4 @@ export class CourseDetailComponent implements OnInit {
     this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/${Lesson.PATH_URL}`]);
   }
 
-  gotoNewLesson() {
-    this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/${Lesson.PATH_URL}/0/editar`]);
-  }
 }

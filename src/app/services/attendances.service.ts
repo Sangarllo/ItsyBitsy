@@ -16,7 +16,7 @@ const ATTENDANCES: Attendance[] = [{
     studentId: 'tKYNcTLPvbHFrZdChxb9',
     studentName: 'María Pérez',
     studentImage: 'assets/avatar/063-girl-7.png',
-    status: Status.Planificada,
+    status: Status.Programada,
     comment: '',
   },  {
     id: '1',
@@ -34,7 +34,7 @@ const ATTENDANCES: Attendance[] = [{
     studentId: '2I7F1hzAPHloVkNqomPU',
     studentName: 'Pedro Fernández',
     studentImage: 'assets/avatar/068-girl-8.png',
-    status: Status.Planificada,
+    status: Status.Programada,
     comment: '',
   },
 ];
@@ -130,7 +130,7 @@ export class AttendancesService {
       studentId: student.uid,
       studentName: student.displayName,
       studentImage: student.photoURL,
-      status: Status.Planificada,
+      status: Status.Programada,
       comment: ''
     };
   }

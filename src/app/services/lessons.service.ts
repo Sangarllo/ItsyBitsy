@@ -107,7 +107,7 @@ export class LessonsService {
       id: '0',
       current: true,
       courseId: course.id,
-      status: Status.Planificada,
+      status: Status.Programada,
       date: new Date(),
       teacherId: course.teacherId,
       material: '',
