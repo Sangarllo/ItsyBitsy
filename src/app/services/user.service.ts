@@ -99,11 +99,11 @@ export class UserService {
     return of({});
   }
 
-  private initialize(): IUserDetails {
+  public initialize(): UserDetails {
     // Return an initialized object
     return {
       uid: '0',
-      displayName: '',
+      displayName: 'Usuario Defecto',
       photoURL: Avatar.getRandom().path,
       email: '',
       nickName: '',

@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserDetails } from '../../models/user.model';
 import { Course } from '../../models/course.model';
 import { LessonsService } from '../../services/lessons.service';
+import { Attendance } from '../../models/attendance.model';
+import { AttendancesService } from '../../services/attendances.service';
 
 @Component({
   selector: 'app-lesson-add-student',
@@ -24,6 +26,7 @@ export class LessonAddStudentComponent implements OnInit {
   constructor(
     private coursesService: CoursesService,
     private lessonsService: LessonsService,
+    private attendanceService: AttendancesService,
     private route: ActivatedRoute,
     private router: Router,
   ) { }
@@ -51,19 +54,26 @@ export class LessonAddStudentComponent implements OnInit {
   selectStudent(userDetails: UserDetails) {
 
     if (!this.isInArray(userDetails)) {
-      this.lesson.studentList.push(userDetails);
-      this.lessonsService.updateLesson(this.course, this.lesson)
-        .subscribe( (lesson: Lesson) => {
-          this.lesson = lesson;
+
+      const newAttendance = this.attendanceService.initialize(this.lesson, userDetails);
+
+      this.attendanceService.createAttendance(this.lesson, newAttendance)
+        .subscribe( (attendance: Attendance) => {
+
+          this.lesson.attendanceList.push(attendance);
+          this.lessonsService.updateLesson(this.course, this.lesson)
+            .subscribe( (lesson: Lesson) => {
+              this.lesson = lesson;
+            });
         });
     }
   }
 
   private isInArray(userDetails: UserDetails): boolean {
     let isInArray: boolean = false;
-    this.lesson.studentList.forEach(student => {
-      console.log(`comparing: ${student.uid} === ${userDetails.uid}`);
-      if ( student.uid === userDetails.uid ) {
+    this.lesson.attendanceList.forEach(attendance => {
+      console.log(`comparing: ${attendance.studentId} === ${userDetails.uid}`);
+      if ( attendance.studentId === userDetails.uid ) {
         isInArray = true;
       }
     });

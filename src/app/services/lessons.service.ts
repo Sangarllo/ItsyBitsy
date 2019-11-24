@@ -8,6 +8,9 @@ import { UserDetails } from '../models/user.model';
 import { Teacher } from '../models/teacher.model';
 import { Course } from '../models/course.model';
 import { map } from 'rxjs/operators';
+import { UserService } from './user.service';
+import { Attendance } from '../models/attendance.model';
+import { AttendancesService } from './attendances.service';
 
 const LESSON_COLLECTION = 'lessons';
 
@@ -20,7 +23,9 @@ export class LessonsService {
   private lessonCollection: AngularFirestoreCollection<ILesson>;
   private lessonDoc: AngularFirestoreDocument<ILesson>;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(
+    private afs: AngularFirestore,
+    private attendanceService: AttendancesService) {
   }
 
   getAllLessons(course: Course): Observable<ILesson[]> {
@@ -108,7 +113,7 @@ export class LessonsService {
       material: '',
       startTime: course.startTime,
       endTime: course.endTime,
-      studentList: course.studentList
+      attendanceList: this.attendanceService.fromUserToAttendanceArray(course.studentList)
     };
   }
 }

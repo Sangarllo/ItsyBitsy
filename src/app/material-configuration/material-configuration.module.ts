@@ -10,6 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTableModule } from '@angular/material/table';
 
 const matModules = [
   MatCardModule,
@@ -23,6 +24,7 @@ const matModules = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatChipsModule,
+  MatTableModule
 ];
 
 @NgModule({

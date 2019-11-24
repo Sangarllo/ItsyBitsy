@@ -1,9 +1,10 @@
 import { Teacher } from './teacher.model';
 import { UserDetails } from './user.model';
+import { Attendance } from './attendance.model';
 
 export enum Status {
   Eliminada = 'eliminada',
-  Suspendida = 'suspendida',
+  Anulada = 'anulada',
   Realizada = 'realizada',
   Planificada = 'planificada',
   Futura = 'futura'
@@ -20,7 +21,7 @@ export interface ILesson {
   material: string;
   startTime: string;
   endTime: string;
-  studentList: UserDetails[];
+  attendanceList: Attendance[];
 }
 
 export interface ILessonExtended extends ILesson {
@@ -40,7 +41,7 @@ export class Lesson implements ILesson {
   public static FIELD_MATERIAL = 'material';
   public static FIELD_START_TIME = 'startTime';
   public static FIELD_END_TIME = 'endTime';
-  public static FIELD_STUDENT_LIST = 'studentList';
+  public static FIELD_ATTENDANCE_LIST = 'attendanceList';
 
   constructor(
     public id: string,
@@ -52,14 +53,14 @@ export class Lesson implements ILesson {
     public material: string,
     public startTime: string,
     public endTime: string,
-    public studentList: UserDetails[]
+    public attendanceList: Attendance[]
      ) {
   }
 
   static getAllStatus(): Status[] {
     return [
       Status.Eliminada,
-      Status.Suspendida,
+      Status.Anulada,
       Status.Realizada,
       Status.Planificada,
       Status.Futura,
