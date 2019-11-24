@@ -5,8 +5,8 @@
         <mat-card (click)="gotoLesson(lesson)">
             <mat-card-header>
                 <div mat-card-avatar [ngStyle]="applyStyles(lesson)"></div>
-                <mat-card-title>Curso {{course.name}}</mat-card-title>
-                <mat-card-subtitle>{{lesson.material}}. De {{lesson.startTime}} a {{lesson.endTime}}</mat-card-subtitle>
+                <mat-card-title>{{ lesson.date.toDate() | date:'fullDate' }}, de {{lesson.startTime}} a {{lesson.endTime}}</mat-card-title>
+                <mat-card-subtitle>{{ lesson.status }}</mat-card-subtitle>
             </mat-card-header>
         </mat-card>
     </div>

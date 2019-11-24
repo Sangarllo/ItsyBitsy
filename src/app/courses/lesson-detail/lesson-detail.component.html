@@ -1,5 +1,5 @@
 <mat-card *ngIf="lesson">
-    <app-lesson-view [lesson]="lesson"></app-lesson-view>
+    <app-lesson-view [course]="course" [lesson]="lesson"></app-lesson-view>
 
     <button mat-raised-button color="primary" (click)="gotoEdition()">Editar Datos</button> &nbsp;&nbsp;
     <button mat-raised-button color="primary" (click)="gotoEditStudentList()">Asignar Estudiantes </button> &nbsp;&nbsp;

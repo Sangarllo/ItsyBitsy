@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,12 @@ import { MaterialConfigurationModule } from './material-configuration/material-c
 import { HeaderComponent } from './layout/header/header.component';
 import { HomeComponent } from './home/home.component';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
+
+import { MAT_DATE_LOCALE } from '@angular/material';
+
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
@@ -44,8 +50,11 @@ import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
     BrowserAnimationsModule,
     MaterialConfigurationModule
   ],
-  providers: [
-  ],
+  providers: [{
+    provide: MAT_DATE_LOCALE,
+    useValue: 'es-ES'
+  },
+  { provide: LOCALE_ID, useValue: 'es-ES' }],
   bootstrap: [
     AppComponent
   ]

@@ -3,18 +3,20 @@ import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControl
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Icon } from '../../models/image.model';
-import { RandomGenerator } from '../../shared/random-generator';
 import { Lesson, Status } from '../../models/lesson.model';
 import { CoursesService } from '../../services/courses.service';
 import { LessonsService } from '../../services/lessons.service';
 import { Course } from '../../models/course.model';
 import { UserDetails } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-lesson-edit',
   templateUrl: './lesson-edit.component.html',
-  styleUrls: ['./lesson-edit.component.scss']
+  styleUrls: ['./lesson-edit.component.scss'],
+  providers: [ DatePipe ]
 })
 export class LessonEditComponent implements OnInit, OnDestroy {
 
@@ -34,13 +36,20 @@ export class LessonEditComponent implements OnInit, OnDestroy {
   private sub: Subscription;
 
   constructor(
+    public datepipe: DatePipe,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
     private lessonService: LessonsService,
     private coursesService: CoursesService
-    ) { }
+    ) {
+      moment.locale('es');
+      const now = moment();
+      console.log('hello world', now.format('LLLL'));
+      console.log(now.add(7, 'days').format('LLLL'));
+      console.log(now.add(7, 'days').format('MMMM Do YYYY, h:mm:ss a'));
+    }
 
   ngOnInit() {
 
@@ -52,12 +61,15 @@ export class LessonEditComponent implements OnInit, OnDestroy {
         this.course = course;
         this.courseTitle = `Curso ${this.course.name}`;
 
+        const now = moment();
+        const oneWeek = now.add(7, 'days');
+
         this.lessonForm = this.fb.group({
           courseId: [course.id, Validators.required],
           status: ['', Validators.required],
           teacherId: [course.teacherId, Validators.required],
           material: '',
-          date: ['', Validators.required],
+          date: [oneWeek, Validators.required],
           startTime: [course.startTime, Validators.required],
           endTime: [course.endTime, Validators.required],
         });
@@ -104,7 +116,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
     if (this.lesson.id === '0') {
       this.pageTitle = `Creando una nueva clase`;
     } else {
-      this.pageTitle = `Editando la clase del día: ${this.lesson.date}`;
+      this.pageTitle = `Editando una clase existente`;
     }
 
     // Update the data on the form

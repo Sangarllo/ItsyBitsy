@@ -27,6 +27,7 @@ export class LessonsService {
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,
       ref => ref.where('courseId', '==', course.id)
+                .orderBy('date')
     );
 
     return this.lessonCollection.valueChanges();
@@ -38,6 +39,7 @@ export class LessonsService {
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,
       ref => ref.where('courseId', '==', course.id)
+                .orderBy('date')
     );
 
     return this.lessonCollection.snapshotChanges().pipe(

@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { UserDetails } from '../../models/user.model';
 import { Lesson } from '../../models/lesson.model';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'app-lesson-view',
@@ -11,6 +12,7 @@ import { Lesson } from '../../models/lesson.model';
 })
 export class LessonViewComponent implements OnInit {
 
+  @Input() course: Course;
   @Input() lesson: Lesson;
   teacher: UserDetails;
 

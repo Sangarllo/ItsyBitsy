@@ -27,15 +27,6 @@
                     </mat-select>
                 </mat-form-field>
 
-                <!--
-                <mat-form-field>
-                    <input matInput formControlName="startDate" [matDatepicker]="pickerStart" placeholder="Escoge la fecha de inicio">
-                    <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-                    <mat-datepicker #pickerStart></mat-datepicker>
-                    <mat-error *ngIf="!!courseForm.get('startDate').errors?.required">Es necesario incluir esta información</mat-error>
-                </mat-form-field>
-                -->
-
                 <mat-form-field>
                     <mat-label>Día de la Semana</mat-label>
                     <mat-select formControlName="weekDay" [value]="courseForm.get('weekDay').value">
