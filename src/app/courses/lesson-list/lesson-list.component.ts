@@ -35,7 +35,6 @@ export class LessonListComponent implements OnInit {
   ngOnInit() {
 
     this.courseId = this.route.snapshot.paramMap.get('courseId');
-
     this.coursesService.getCourse(this.courseId)
     .subscribe({
       next: course => {
@@ -55,7 +54,6 @@ export class LessonListComponent implements OnInit {
   }
 
   gotoLesson(lesson) {
-    console.log(`goto ${lesson.id}`);
     this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Lesson.PATH_URL}/${lesson.id}`]);
   }
 

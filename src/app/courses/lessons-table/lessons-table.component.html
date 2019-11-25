@@ -1,0 +1,50 @@
+<mat-toolbar color="primary" *ngIf="course">
+    <span>Clases del curso {{ course.name }}</span>
+    <span class="fill-remaining-space"></span>
+
+    <mat-form-field class="filter-form-field">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="gotoNew()">Crear Nueva</button>
+</mat-toolbar>
+
+<table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- date Column -->
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+        <td mat-cell *matCellDef="let element"> {{element.date | date:'fullDate' }} </td>
+    </ng-container>
+
+    <!-- starTime Column -->
+    <ng-container matColumnDef="startTime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Comienzo </th>
+        <td mat-cell *matCellDef="let element"> {{element.startTime}} </td>
+    </ng-container>
+
+    <!-- endTime Column -->
+    <ng-container matColumnDef="endTime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Fin </th>
+        <td mat-cell *matCellDef="let element"> {{element.endTime}} </td>
+    </ng-container>
+
+    <!-- status Column -->
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>
+
+    <!-- material Column -->
+    <ng-container matColumnDef="material">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Material </th>
+        <td mat-cell *matCellDef="let element"> {{element.material}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" (click)="onRowClicked(row)">
+    </tr>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</table>

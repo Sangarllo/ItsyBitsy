@@ -9,10 +9,16 @@ import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { CourseAddStudentComponent } from './course-add-student/course-add-student.component';
 import { LessonAddStudentComponent } from './lesson-add-student/lesson-add-student.component';
+import { CoursesTableComponent } from './courses-table/courses-table.component';
+import { LessonsTableComponent } from './lessons-table/lessons-table.component';
 
 const routes: Routes = [
   {
     path: '',
+    component: CoursesTableComponent
+  },
+  {
+    path: 'list',
     component: CoursesListComponent
   },
   {
@@ -34,6 +40,10 @@ const routes: Routes = [
   },
   {
     path: ':courseId/lessons',
+    component: LessonsTableComponent
+  },
+  {
+    path: ':courseId/lessons/list',
     component: LessonListComponent
   },
   {

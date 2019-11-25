@@ -22,6 +22,22 @@ export class CoursesService {
     this.courseCollection = afs.collection<ICourse>(COURSE_COLLECTION);
   }
 
+  getAllCourses(): Observable<Course[]> {
+    this.courseCollection = this.afs.collection(
+      COURSE_COLLECTION,
+      ref => ref.where('current', '==', true)
+                .orderBy('name')
+    );
+
+    return this.courseCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Course;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+  }
+
   getCourse(id: string): Observable<any> {
     if (id === '0') {
       return of(this.initialize());
