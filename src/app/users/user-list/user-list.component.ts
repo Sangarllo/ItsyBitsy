@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { UserDetails } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { FilterPipe } from '../pipes/filter.pipe';
 
 @Component({
   selector: 'app-user-list',
@@ -12,12 +13,13 @@ import { UserService } from '../../services/user.service';
 export class UserListComponent {
 
   usersDetails: Observable<UserDetails[]>;
+  searchText = '';
 
   constructor(
     private userService: UserService,
     private router: Router
   ) {
-    this.usersDetails = this.userService.getUsersDetails();
+    this.usersDetails = this.userService.getAllUsersDetails();
   }
 
   applyStyles(userDetails: UserDetails) {

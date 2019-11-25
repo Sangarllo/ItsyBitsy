@@ -10,7 +10,7 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserViewComponent } from './user-view/user-view.component';
-
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,7 @@ import { UserViewComponent } from './user-view/user-view.component';
     UserDetailsComponent,
     UserDashboardComponent,
     UserViewComponent,
+    FilterPipe,
   ],
   imports: [
     CommonModule,

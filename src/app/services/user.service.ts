@@ -22,16 +22,20 @@ export class UserService {
     this.userDetailsCollection = this.afs.collection<UserDetails>(UserService.USER_DETAILS_COLLECTION);
   }
 
-  getUsersDetails(): Observable<UserDetails[]> {
+  getAllUsersDetails(): Observable<UserDetails[]> {
 
-    this.userDetailsCollection = this.afs.collection<UserDetails>(UserService.USER_DETAILS_COLLECTION);
+    this.userDetailsCollection = this.afs.collection<UserDetails>(
+        UserService.USER_DETAILS_COLLECTION,
+        ref => ref.orderBy('displayName')
+    );
 
     return this.userDetailsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as UserDetails;
         const id = a.payload.doc.id;
         return { id, ...data };
-      }))
+      })
+      )
     );
   }
 

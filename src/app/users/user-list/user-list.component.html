@@ -1,12 +1,16 @@
-<h3>
-    Lista de Usuarios
-</h3>
+<mat-toolbar color="primary">
+    <span>Usuarios</span>
+    <span class="fill-remaining-space"></span>
 
-<button mat-raised-button color="primary" (click)="gotoNew()">Crear Nuevo</button>
+    <mat-form-field class="filter-form-field">
+        <input matInput type="text" placeholder="Filtro de Búsqueda" [(ngModel)]="searchText">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
 
-<br/>
+    <button mat-raised-button color="primary" (click)="gotoNew()">Crear Nuevo</button>
+</mat-toolbar>
 
-<div *ngFor="let userDetails of usersDetails | async">
+<div *ngFor="let userDetails of usersDetails | async | filter:searchText">
     <mat-card (click)="gotoUserDetails(userDetails)">
         <mat-card-header>
             <div mat-card-avatar [ngStyle]="applyStyles(userDetails)"></div>
