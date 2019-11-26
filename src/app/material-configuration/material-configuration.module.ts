@@ -13,8 +13,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatTabsModule } from '@angular/material';
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 const matModules = [
   MatCardModule,
@@ -31,7 +31,8 @@ const matModules = [
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatTabsModule
+  MatTabsModule,
+  MatGridListModule
 ];
 
 @NgModule({

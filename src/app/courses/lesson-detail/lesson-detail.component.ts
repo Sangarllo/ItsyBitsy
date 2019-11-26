@@ -4,6 +4,7 @@ import { CoursesService } from '../../services/courses.service';
 import { LessonsService } from '../../services/lessons.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/models/course.model';
+import { DatesService } from '../../services/dates.service';
 
 @Component({
   selector: 'app-lesson-detail',
@@ -22,6 +23,7 @@ export class LessonDetailComponent implements OnInit {
   lesson: Lesson;
 
   constructor(
+    private dateSvc: DatesService,
     private lessonsService: LessonsService,
     private coursesService: CoursesService,
     private route: ActivatedRoute,
@@ -39,7 +41,10 @@ export class LessonDetailComponent implements OnInit {
         this.course = course;
         this.lessonsService.getLesson(this.course, this.lessonId)
         .subscribe({
-          next: lesson => this.lesson = lesson,
+          next: lesson => {
+            this.lesson = lesson;
+            this.lesson.date = this.dateSvc.fromFirebaseDate(this.lesson.date);
+          },
           error: err => this.errorMessage = err
         });
       },
@@ -48,12 +53,21 @@ export class LessonDetailComponent implements OnInit {
 
   }
 
+  applyStyles(course: Course) {
+    const styles = {
+      'background-image': `url("${course.image}")`,
+      'background-size': 'cover'
+    };
+    return styles;
+  }
+
   gotoEdition() {
     this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/${Lesson.PATH_URL}/${this.lessonId}/editar`]);
   }
 
-  gotoEditStudentList() {
-    this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/${Lesson.PATH_URL}/${this.lessonId}/estudiantes`]);
+  gotoCourse() {
+    this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/${Lesson.PATH_URL}/${this.lessonId}/editar`]);
   }
+
 
 }

@@ -1,65 +1,14 @@
-<div class="card-deck">
-    <div class="card" (click)="gotoUsersList()">
-        <!--
-          <img src="..." class="card-img-top" alt="...">
-        -->
-        <div class="card-body">
-            <h5 class="card-title">Listado de Usuarios</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-    </div>
-    <div class="card" (click)="gotoStudentsList()">
-        <!--
-          <img src="..." class="card-img-top" alt="...">
-        -->
-        <div class="card-body">
-            <h5 class="card-title">Listado de Estudiantes</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        </div>
-        <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-    </div>
-    <div class="card" (click)="gotoCoursesList()">
-        <!--
-          <img src="..." class="card-img-top" alt="...">
-        -->
-        <div class="card-body">
-            <h5 class="card-title">Listado de Cursos</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-    </div>
-    <div class="card" (click)="gotoCalendar()">
-        <!--
-        <img src="..." class="card-img-top" alt="...">
-      -->
-        <div class="card-body">
-            <h5 class="card-title">Calendario</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-    </div>
-
-    <div class="card" (click)="gotoRates()">
-        <!--
-      <img src="..." class="card-img-top" alt="...">
-    -->
-        <div class="card-body">
-            <h5 class="card-title">Tarifas</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-    </div>
-
-
-</div>
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile (click)="gotoUsersList()">
+        <h2>Usuarios</h2>
+    </mat-grid-tile>
+    <mat-grid-tile (click)="gotoUsersList()">
+        <h2>Estudiantes</h2>
+    </mat-grid-tile>
+    <mat-grid-tile (click)="gotoCoursesList()">
+        <h2>Cursos</h2>
+    </mat-grid-tile>
+    <mat-grid-tile (click)="gotoRates()">
+        <h2>Tasas</h2>
+    </mat-grid-tile>
+</mat-grid-list>
