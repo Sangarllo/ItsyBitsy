@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, Input} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Course } from '../../models/course.model';
@@ -10,37 +10,29 @@ import { LessonsService } from '../../services/lessons.service';
 import { Observable } from 'rxjs';
 import { DatesService } from '../../services/dates.service';
 
+
 @Component({
-  selector: 'app-lessons-table',
-  templateUrl: './lessons-table.component.html',
-  styleUrls: ['./lessons-table.component.scss']
+  selector: 'sh-lessons-table',
+  templateUrl: './sh-lessons-table.component.html',
+  styleUrls: ['./sh-lessons-table.component.scss']
 })
-export class LessonsTableComponent implements OnInit {
+export class ShLessonsTableComponent implements OnInit {
 
   columnsToDisplay = ['date', 'startTime', 'endTime', 'status', 'material'];
   dataSource: MatTableDataSource<Lesson>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  courseId: string;
-  course: Course;
+  @Input() course: Course;
   lessons: Lesson[];
-  errorMessage: string;
 
   constructor(
-    private coursesSvc: CoursesService,
     private lessonsSvc: LessonsService,
     private dateSvc: DatesService,
-    private route: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit() {
 
-    this.courseId = this.route.snapshot.paramMap.get('courseId');
-    this.coursesSvc.getCourse(this.courseId)
-    .subscribe({
-      next: course => {
-        this.course = course;
         this.lessonsSvc.getLessonsByCourseId(this.course).subscribe(
           (lessons: Lesson[]) => {
 
@@ -52,9 +44,6 @@ export class LessonsTableComponent implements OnInit {
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
           });
-      },
-      error: err => this.errorMessage = err
-    });
   }
 
   applyFilter(filterValue: string) {
@@ -66,7 +55,7 @@ export class LessonsTableComponent implements OnInit {
   }
 
   gotoNew() {
-    this.router.navigate([`${Lesson.PATH_URL}/0/editar`]);
+    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Lesson.PATH_URL}/0/editar`]);
   }
 
   onRowClicked(lesson) {

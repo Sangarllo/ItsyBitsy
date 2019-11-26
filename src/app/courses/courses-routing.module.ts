@@ -10,7 +10,6 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { CourseAddStudentComponent } from './course-add-student/course-add-student.component';
 import { LessonAddStudentComponent } from './lesson-add-student/lesson-add-student.component';
 import { CoursesTableComponent } from './courses-table/courses-table.component';
-import { LessonsTableComponent } from './lessons-table/lessons-table.component';
 
 const routes: Routes = [
   {
@@ -37,10 +36,6 @@ const routes: Routes = [
   {
     path: ':id/estudiantes',
     component: CourseAddStudentComponent
-  },
-  {
-    path: ':courseId/lessons',
-    component: LessonsTableComponent
   },
   {
     path: ':courseId/lessons/list',

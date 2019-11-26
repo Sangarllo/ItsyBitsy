@@ -20,7 +20,6 @@ import { LessonAddStudentComponent } from './lesson-add-student/lesson-add-stude
 import { LessonViewComponent } from './lesson-view/lesson-view.component';
 import { AttendancesViewComponent } from './attendances-view/attendances-view.component';
 import { CoursesTableComponent } from './courses-table/courses-table.component';
-import { LessonsTableComponent } from './lessons-table/lessons-table.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +36,7 @@ import { LessonsTableComponent } from './lessons-table/lessons-table.component';
     LessonAddStudentComponent,
     LessonViewComponent,
     AttendancesViewComponent,
-    CoursesTableComponent,
-    LessonsTableComponent
+    CoursesTableComponent
   ],
   imports: [
     SharedModule,

@@ -6,13 +6,15 @@ import { MaterialConfigurationModule } from '../material-configuration/material-
 import { ShUserListComponent } from './sh-user-list/sh-user-list.component';
 import { ShUserListChipsComponent } from './sh-user-list-chips/sh-user-list-chips.component';
 import { ShAttendanceListComponent } from './sh-attendance-list/sh-attendance-list.component';
+import { ShLessonsTableComponent } from './sh-lessons-table/sh-lessons-table.component';
 
 @NgModule({
   declarations: [
     AddStudentComponent,
     ShUserListComponent,
     ShUserListChipsComponent,
-    ShAttendanceListComponent
+    ShAttendanceListComponent,
+    ShLessonsTableComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,7 @@ import { ShAttendanceListComponent } from './sh-attendance-list/sh-attendance-li
     ShUserListComponent,
     ShUserListChipsComponent,
     ShAttendanceListComponent,
+    ShLessonsTableComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

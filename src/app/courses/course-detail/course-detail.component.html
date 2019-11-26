@@ -1,7 +1,19 @@
-<div *ngIf="course">
+<mat-card *ngIf="course">
+
+    <mat-card-title>Curso: {{course.name}}</mat-card-title>
+
+
     <app-course-view [course]="course"></app-course-view>
 
-    <button mat-raised-button color="primary" (click)="gotoEdition()">Editar Datos</button> &nbsp;&nbsp;
-    <button mat-raised-button color="primary" (click)="gotoEditStudentList()">Asignar Estudiantes </button> &nbsp;&nbsp;
-    <button mat-raised-button color="primary" (click)="gotoLessons()">Ver Clases </button>
-</div>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="gotoEdition()">Editar Datos</button> &nbsp;&nbsp;
+        <button mat-raised-button color="primary" (click)="gotoEditStudentList()">Asignar Estudiantes</button> &nbsp;&nbsp;
+        <button mat-raised-button color="primary" (click)="gotoCourses()">Ver Cursos</button>
+    </mat-card-actions>
+
+    <mat-card-content>
+        <sh-lessons-table [course]="course">
+        </sh-lessons-table>
+    </mat-card-content>
+
+</mat-card>
