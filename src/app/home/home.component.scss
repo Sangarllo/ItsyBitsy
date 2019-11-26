@@ -1,7 +1,9 @@
-body {
+.flex-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 800px;
     background-color: #9fd960;
 }
 
-img#logo {
-    margin-top: 100px;
-}
+.flex-box img {}
