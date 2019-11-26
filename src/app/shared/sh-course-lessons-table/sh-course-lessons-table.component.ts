@@ -2,21 +2,19 @@ import { Component, OnInit, ViewChild, Input} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Course } from '../../models/course.model';
-import { CoursesService } from '../../services/courses.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { Lesson } from '../../models/lesson.model';
 import { LessonsService } from '../../services/lessons.service';
-import { Observable } from 'rxjs';
 import { DatesService } from '../../services/dates.service';
 
 
 @Component({
-  selector: 'sh-lessons-table',
-  templateUrl: './sh-lessons-table.component.html',
-  styleUrls: ['./sh-lessons-table.component.scss']
+  selector: 'sh-course-lessons-table',
+  templateUrl: './sh-course-lessons-table.component.html',
+  styleUrls: ['./sh-course-lessons-table.component.scss']
 })
-export class ShLessonsTableComponent implements OnInit {
+export class ShCourseLessonsTableComponent implements OnInit {
 
   columnsToDisplay = ['date', 'startTime', 'endTime', 'status', 'material'];
   dataSource: MatTableDataSource<Lesson>;

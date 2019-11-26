@@ -1,19 +1,29 @@
 <mat-card *ngIf="course">
-
-    <mat-card-title>Curso: {{course.name}}</mat-card-title>
-
+    <mat-card-header>
+        <div mat-card-avatar [ngStyle]="applyStyles(course)"></div>
+        <mat-card-title>Curso: {{ course.name }}</mat-card-title>
+        <mat-card-subtitle>{{ course.weekDay }}, de {{ course.startTime }} a {{ course.endTime }}</mat-card-subtitle>
+    </mat-card-header>
 
     <app-course-view [course]="course"></app-course-view>
 
     <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="gotoEdition()">Editar Datos</button> &nbsp;&nbsp;
-        <button mat-raised-button color="primary" (click)="gotoEditStudentList()">Asignar Estudiantes</button> &nbsp;&nbsp;
-        <button mat-raised-button color="primary" (click)="gotoCourses()">Ver Cursos</button>
+        <button mat-raised-button color="primary" (click)="gotoEdition()">
+      Editar Datos
+    </button> &nbsp;&nbsp;
+        <button mat-raised-button color="primary" (click)="gotoCourses()">
+      Ver Cursos
+    </button>
     </mat-card-actions>
 
     <mat-card-content>
-        <sh-lessons-table [course]="course">
-        </sh-lessons-table>
+        <mat-tab-group>
+            <mat-tab label="Estudiantes">
+                <sh-course-users-table [course]="course"></sh-course-users-table>
+            </mat-tab>
+            <mat-tab label="Clases">
+                <sh-course-lessons-table [course]="course"> </sh-course-lessons-table>
+            </mat-tab>
+        </mat-tab-group>
     </mat-card-content>
-
 </mat-card>

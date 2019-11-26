@@ -33,12 +33,16 @@ export class CourseDetailComponent implements OnInit {
     });
   }
 
-  gotoEdition() {
-    this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/editar`]);
+  applyStyles(course: Course) {
+    const styles = {
+      'background-image': `url("${course.image}")`,
+      'background-size': 'cover'
+    };
+    return styles;
   }
 
-  gotoEditStudentList() {
-    this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/estudiantes`]);
+  gotoEdition() {
+    this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/editar`]);
   }
 
   gotoCourses() {

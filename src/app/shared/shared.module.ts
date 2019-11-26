@@ -4,17 +4,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddStudentComponent } from './add-student/add-student.component';
 import { MaterialConfigurationModule } from '../material-configuration/material-configuration.module';
 import { ShUserListComponent } from './sh-user-list/sh-user-list.component';
-import { ShUserListChipsComponent } from './sh-user-list-chips/sh-user-list-chips.component';
 import { ShAttendanceListComponent } from './sh-attendance-list/sh-attendance-list.component';
-import { ShLessonsTableComponent } from './sh-lessons-table/sh-lessons-table.component';
+import { ShCourseLessonsTableComponent } from './sh-course-lessons-table/sh-course-lessons-table.component';
+import { ShCourseUsersTableComponent } from './sh-course-users-table/sh-course-users-table.component';
 
 @NgModule({
   declarations: [
     AddStudentComponent,
     ShUserListComponent,
-    ShUserListChipsComponent,
+    ShCourseUsersTableComponent,
     ShAttendanceListComponent,
-    ShLessonsTableComponent
+    ShCourseLessonsTableComponent,
   ],
   imports: [
     CommonModule,
@@ -25,9 +25,9 @@ import { ShLessonsTableComponent } from './sh-lessons-table/sh-lessons-table.com
   exports: [
     AddStudentComponent,
     ShUserListComponent,
-    ShUserListChipsComponent,
+    ShCourseUsersTableComponent,
     ShAttendanceListComponent,
-    ShLessonsTableComponent,
+    ShCourseLessonsTableComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
