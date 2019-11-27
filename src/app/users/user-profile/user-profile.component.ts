@@ -17,7 +17,6 @@ export class UserProfileComponent implements OnInit {
   userDetailsId: string;
   userDetails: UserDetails;
 
-
   constructor(
     public auth: AuthService,
     private router: Router,
@@ -40,7 +39,20 @@ export class UserProfileComponent implements OnInit {
     );
   }
 
+
+  applyStyles(userDetails: UserDetails) {
+    const styles = {
+      'background-image': `url("assets/section/user-icon.png")`,
+      'background-size': 'cover'
+    };
+    return styles;
+  }
+
   gotoEdition() {
     this.router.navigate([`/${UserDetails.PATH_URL}/${this.userDetailsId}/editar`]);
+  }
+
+  gotoDashboard() {
+    this.router.navigate([`/usuarios/dashboard`]);
   }
 }
