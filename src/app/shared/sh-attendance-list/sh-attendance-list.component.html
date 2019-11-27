@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-12" *ngFor="let attendance of attendanceList">
-        <mat-card (click)="gotoAttendance(attendance)">
+        <mat-card>
             <mat-card-header>
                 <div mat-card-avatar [ngStyle]="applyStyles(attendance)"></div>
-                <mat-card-title>{{attendance.studentName}}</mat-card-title>
-                <mat-card-subtitle>{{attendance.status}}</mat-card-subtitle>
+                <mat-card-title>{{ attendance.studentName }}</mat-card-title>
+                <mat-card-subtitle>{{ attendance.status }}</mat-card-subtitle>
             </mat-card-header>
         </mat-card>
     </div>

@@ -1,5 +1,3 @@
-import { Teacher } from './teacher.model';
-import { UserDetails } from './user.model';
 import { Attendance } from './attendance.model';
 
 export enum Status {
