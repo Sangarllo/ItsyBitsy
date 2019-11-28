@@ -182,6 +182,6 @@ export class LessonEditComponent implements OnInit, OnDestroy {
   gotoList(): void {
     // Reset the form to clear the flags
     this.lessonForm.reset();
-    this.router.navigate([`/${Lesson.PATH_URL}`]);
+    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/`]);
   }
 }

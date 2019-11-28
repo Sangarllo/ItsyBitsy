@@ -57,7 +57,7 @@ export class LessonAddStudentComponent implements OnInit {
 
       const newAttendance = this.attendanceService.initialize(this.lesson, userDetails);
 
-      this.attendanceService.createAttendance(this.lesson, newAttendance)
+      this.attendanceService.createAttendance(this.lesson.id, newAttendance)
         .subscribe( (attendance: Attendance) => {
 
           this.lesson.attendanceList.push(attendance);

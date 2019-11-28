@@ -57,15 +57,15 @@ export class LessonsService {
   }
 
 
-  getLesson(course: Course, id: string): Observable<any> {
-    if (id === '0') {
-      return of(this.initialize(course));
+  getLesson(course: Course, lessonId: string): Observable<any> {
+    if (lessonId === '0') {
+      return of(this.initialize(course, lessonId));
     } else {
       this.lessonCollection = this.afs.collection(
         LESSON_COLLECTION,
         ref => ref.where('courseId', '==', course.id)
       );
-      return this.lessonCollection.doc(id).valueChanges();
+      return this.lessonCollection.doc(lessonId).valueChanges();
     }
   }
 
@@ -101,7 +101,7 @@ export class LessonsService {
     return of({});
   }
 
-  private initialize(course: Course): Lesson {
+  private initialize(course: Course, lessonId: string): Lesson {
     // Return an initialized object
     return {
       id: '0',
@@ -113,7 +113,7 @@ export class LessonsService {
       material: '',
       startTime: course.startTime,
       endTime: course.endTime,
-      attendanceList: this.attendanceService.fromUserToAttendanceArray(course.studentList)
+      attendanceList: this.attendanceService.fromUserToAttendanceArray(course, lessonId)
     };
   }
 }

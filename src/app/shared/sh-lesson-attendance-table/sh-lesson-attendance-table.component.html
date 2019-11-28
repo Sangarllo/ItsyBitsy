@@ -10,7 +10,7 @@
     <mat-form-field>
         <mat-label>Estado a Aplicar</mat-label>
         <mat-select [(value)]="statusToApply">
-            <mat-option *ngFor="let status of statusAttendance" value="status">{{ status }}</mat-option>
+            <mat-option *ngFor="let status of statusAttendance" [value]="status">{{ status }}</mat-option>
         </mat-select>
     </mat-form-field>
 
@@ -30,6 +30,13 @@
             </mat-checkbox>
         </td>
     </ng-container>
+
+    <!-- studentName Column -->
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> #Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
 
     <!-- studentName Column -->
     <ng-container matColumnDef="studentName">

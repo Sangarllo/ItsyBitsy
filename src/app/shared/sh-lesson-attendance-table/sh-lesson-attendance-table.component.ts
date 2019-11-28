@@ -8,6 +8,7 @@ import { UserDetails } from '../../models/user.model';
 import { Course } from '../../models/course.model';
 import { Attendance, Status } from '../../models/attendance.model';
 import { Lesson } from '../../models/lesson.model';
+import { AttendancesService } from '../../services/attendances.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { Lesson } from '../../models/lesson.model';
 })
 export class ShLessonAttendanceTableComponent implements OnInit {
 
-  columnsToDisplay = ['select', 'studentName', 'status'];
+  columnsToDisplay = ['id', 'select', 'studentName', 'status'];
   dataSource: MatTableDataSource<Attendance>;
   selection = new SelectionModel<Attendance>(true, []);
   statusAttendance: Status[];
@@ -27,7 +28,8 @@ export class ShLessonAttendanceTableComponent implements OnInit {
   @Input() lesson: Lesson;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private attendancesSvc: AttendancesService
   ) { }
 
   ngOnInit() {
@@ -69,8 +71,26 @@ export class ShLessonAttendanceTableComponent implements OnInit {
   }
 
   gotoApply() {
-    console.log(`TODO: Aplicar ${this.statusToApply} a todas las opciones seleccionadas`);
-    this.router.navigate([`/${Course.PATH_URL}/${this.lesson.id}/${UserDetails.PATH_URL}/0/editar`]);
+
+    if ( this.selection.selected.length > 0 ) {
+
+      const newStatus = this.statusToApply;
+      console.log(`Aplicar ${this.statusToApply} a las ${this.selection.selected.length} asistencias seleccionadas`);
+
+      this.selection.selected.forEach(attendance => {
+        attendance.status = Attendance.toStatus(newStatus);
+        console.log(`Actualizando: ${JSON.stringify(attendance)} a ${attendance.status}`);
+        this.attendancesSvc.updateAttendance(this.lesson, attendance)
+          .subscribe((updAttendance: Attendance) => {
+            console.log(`Modificada: ${JSON.stringify(updAttendance)}`);
+          });
+      });
+
+    } else {
+      console.log(`No hay asistencias que actualizar`);
+    }
+
+    // console.log(`Selection: ${JSON.stringify(this.selection)}`);
   }
 
   onRowClicked(user) {

@@ -52,6 +52,23 @@ export class Attendance implements IAttendance {
     ];
   }
 
+  static toStatus(value: string): Status {
+    switch (value) {
+      case 'eliminada':
+        return Status.Eliminada;
+      case 'anulada':
+        return Status.Anulada;
+      case 'programada':
+          return Status.Programada;
+      case 'ausentada':
+          return Status.Ausentada;
+      case 'confirmada':
+          return Status.Confirmada;
+      default:
+          return Status.Programada;
+    }
+  }
+
   static getDefaultStatus(): string {
     return Status.Programada;
   }
