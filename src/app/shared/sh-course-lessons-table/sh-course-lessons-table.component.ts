@@ -16,7 +16,7 @@ import { DatesService } from '../../services/dates.service';
 })
 export class ShCourseLessonsTableComponent implements OnInit {
 
-  columnsToDisplay = ['date', 'startTime', 'endTime', 'status', 'material'];
+  columnsToDisplay = ['date', 'startTime', 'endTime', 'material', 'status'];
   dataSource: MatTableDataSource<Lesson>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

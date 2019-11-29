@@ -32,16 +32,21 @@
             <td mat-cell *matCellDef="let element"> {{element.endTime}} </td>
         </ng-container>
 
-        <!-- status Column -->
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-        </ng-container>
-
         <!-- material Column -->
         <ng-container matColumnDef="material">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Material </th>
             <td mat-cell *matCellDef="let element"> {{element.material}} </td>
+        </ng-container>
+
+        <!-- status Column -->
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="{
+              'is-eliminada': element.status === 'eliminada',
+              'is-anulada': element.status === 'anulada',
+              'is-programada': element.status === 'programada',
+              'is-realizada': element.status === 'realizada'
+            }"> {{element.status}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
