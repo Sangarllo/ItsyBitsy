@@ -63,8 +63,7 @@ getAttendance(lesson: Lesson, attendanceId: string): Observable<any> {
     attendance: Attendance
   ): Observable<Attendance> {
     this.attendanceCollection = this.afs.collection(
-      ATTENDANCE_COLLECTION,
-      ref => ref.where("lessonId", "==", lesson.id)
+      ATTENDANCE_COLLECTION
     );
     this.attendanceDoc = this.attendanceCollection.doc(attendance.id);
     this.attendanceDoc.update(attendance);

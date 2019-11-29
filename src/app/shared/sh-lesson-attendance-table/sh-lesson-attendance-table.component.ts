@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
 })
 export class ShLessonAttendanceTableComponent implements OnInit {
 
-  columnsToDisplay = ['id', 'select', 'studentName', 'status'];
+  columnsToDisplay = ['id', 'select', 'studentName', 'status', 'actions'];
   dataSource: MatTableDataSource<Attendance>;
   selection = new SelectionModel<Attendance>(true, []);
   statusAttendance: Status[];
@@ -105,5 +105,39 @@ export class ShLessonAttendanceTableComponent implements OnInit {
 
   onRowClicked(user) {
     this.router.navigate([`/${UserDetails.PATH_URL}/${user.uid}`]);
+  }
+
+  addComment(attendance) {
+    Swal.fire({
+      title: 'Añade un comentario',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      showLoaderOnConfirm: true,
+      preConfirm: (commentAdded) => {
+        attendance.comment = commentAdded;
+        this.attendancesSvc.updateAttendance(this.lesson, attendance)
+          .subscribe((updAttendance: Attendance) => {
+            console.log(`Asistencia modificada: ${JSON.stringify(updAttendance)}`);
+          });
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    });
+  }
+
+  viewComment(attendance) {
+    Swal.fire({
+      title: `Nota sobre ${attendance.studentName}:`,
+      text: `${attendance.comment}`,
+      showClass: {
+        popup: 'animated fadeInDown faster'
+      },
+      hideClass: {
+        popup: 'animated fadeOutUp faster'
+      }
+    });
   }
 }

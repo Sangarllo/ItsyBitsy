@@ -71,7 +71,8 @@ Every toolbar row uses a flexbox row layout. */
     background-color: #f8d7da !important;
 }
 
-.is-confirmada .is-realizada {
+.is-confirmada,
+.is-realizada {
     padding-left: 20px !important;
     color: #155724 !important;
     background-color: #d4edda !important;
