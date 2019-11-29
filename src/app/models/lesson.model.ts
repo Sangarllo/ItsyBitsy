@@ -1,5 +1,3 @@
-import { Attendance } from './attendance.model';
-
 export enum Status {
   Eliminada = 'eliminada',
   Programada = 'programada',
@@ -18,7 +16,7 @@ export interface ILesson {
   material: string;
   startTime: string;
   endTime: string;
-  attendanceList: Attendance[];
+  attendancesIds: string[];
 }
 
 export interface ILessonExtended extends ILesson {
@@ -38,7 +36,7 @@ export class Lesson implements ILesson {
   public static FIELD_MATERIAL = 'material';
   public static FIELD_START_TIME = 'startTime';
   public static FIELD_END_TIME = 'endTime';
-  public static FIELD_ATTENDANCE_LIST = 'attendanceList';
+  public static FIELD_ATTENDANCES_IDS = 'attendancesIds';
 
   constructor(
     public id: string,
@@ -50,7 +48,7 @@ export class Lesson implements ILesson {
     public material: string,
     public startTime: string,
     public endTime: string,
-    public attendanceList: Attendance[]
+    public attendancesIds: string[]
      ) {
   }
 

@@ -22,11 +22,12 @@ export class LessonAddStudentComponent implements OnInit {
   lesson: Lesson;
   courseId: string;
   course: Course;
+  lessonAttendances: Attendance[];
 
   constructor(
     private coursesService: CoursesService,
     private lessonsService: LessonsService,
-    private attendanceService: AttendancesService,
+    private attendanceSvc: AttendancesService,
     private route: ActivatedRoute,
     private router: Router,
   ) { }
@@ -42,7 +43,13 @@ export class LessonAddStudentComponent implements OnInit {
         this.course = course;
         this.lessonsService.getLesson(this.course, this.lessonId)
         .subscribe({
-          next: lesson => this.lesson = lesson,
+          next: lesson => {
+            this.lesson = lesson;
+            this.attendanceSvc.getAttendancesByLesson(lesson)
+              .subscribe((attendances: Attendance[]) => {
+                this.lessonAttendances = attendances;
+              });
+          },
           error: err => this.errorMessage = err
         });
       },
@@ -55,12 +62,12 @@ export class LessonAddStudentComponent implements OnInit {
 
     if (!this.isInArray(userDetails)) {
 
-      const newAttendance = this.attendanceService.initialize(this.lesson, userDetails);
+      const newAttendance = this.attendanceSvc.initialize(this.lesson, userDetails);
 
-      this.attendanceService.createAttendance(this.lesson.id, newAttendance)
+      this.attendanceSvc.createAttendance(this.lesson.id, newAttendance)
         .subscribe( (attendance: Attendance) => {
-
-          this.lesson.attendanceList.push(attendance);
+          this.lessonAttendances.push(attendance);
+          this.lesson.attendancesIds.push(attendance.id);
           this.lessonsService.updateLesson(this.course, this.lesson)
             .subscribe( (lesson: Lesson) => {
               this.lesson = lesson;
@@ -71,7 +78,7 @@ export class LessonAddStudentComponent implements OnInit {
 
   private isInArray(userDetails: UserDetails): boolean {
     let isInArray: boolean = false;
-    this.lesson.attendanceList.forEach(attendance => {
+    this.lessonAttendances.forEach(attendance => {
       console.log(`comparing: ${attendance.studentId} === ${userDetails.uid}`);
       if ( attendance.studentId === userDetails.uid ) {
         isInArray = true;

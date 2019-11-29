@@ -8,7 +8,7 @@ import { Attendance } from '../../models/attendance.model';
 })
 export class ShAttendanceListComponent {
 
-  @Input() attendanceList: Attendance[];
+  @Input() attendancesArray: Attendance[];
 
   constructor(
   ) { }

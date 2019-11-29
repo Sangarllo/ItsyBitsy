@@ -26,18 +26,26 @@ export class ShLessonAttendanceTableComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @Input() lesson: Lesson;
+  attendances: Attendance[] = [];
 
   constructor(
+    private attendancesSvc: AttendancesService,
     private router: Router,
-    private attendancesSvc: AttendancesService
   ) { }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.lesson.attendanceList);
+    this.statusAttendance = Attendance.getAllStatus();
+    this.dataSource = new MatTableDataSource(this.attendances);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
-    this.statusAttendance = Attendance.getAllStatus();
+    this.attendancesSvc.getAllAttendances(this.lesson)
+    .subscribe((attendances: Attendance[]) => {
+      console.log(`Lesson Detail. Found ${attendances.length} results`);
+      this.attendances = attendances;
+      console.log(`Sh Lesson Attendance Table: ${this.attendances.length} results`);
+      this.dataSource = new MatTableDataSource(this.attendances);
+    });
   }
 
   applyFilter(filterValue: string) {

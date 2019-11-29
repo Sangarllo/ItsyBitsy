@@ -5,6 +5,8 @@ import { LessonsService } from '../../services/lessons.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/models/course.model';
 import { DatesService } from '../../services/dates.service';
+import { Attendance } from '../../models/attendance.model';
+import { AttendancesService } from '../../services/attendances.service';
 
 @Component({
   selector: 'app-lesson-detail',
@@ -24,8 +26,9 @@ export class LessonDetailComponent implements OnInit {
 
   constructor(
     private dateSvc: DatesService,
-    private lessonsService: LessonsService,
     private coursesService: CoursesService,
+    private lessonsService: LessonsService,
+    private attendancesSvc: AttendancesService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -66,7 +69,7 @@ export class LessonDetailComponent implements OnInit {
   }
 
   gotoCourse() {
-    this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/${Lesson.PATH_URL}/${this.lessonId}/editar`]);
+    this.router.navigate([`/${Course.PATH_URL}/${this.courseId}`]);
   }
 
 

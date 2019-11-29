@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserDetails } from '../../models/user.model';
 import { Course } from '../../models/course.model';
+import { Student } from 'src/app/models/student.model';
 
 @Component({
   selector: 'sh-course-users-table',
@@ -38,7 +39,7 @@ export class ShCourseUsersTableComponent implements OnInit {
   }
 
   gotoNew() {
-    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${UserDetails.PATH_URL}/0/editar`]);
+    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Student.PATH_URL}`]); // /0/editar
   }
 
   onRowClicked(user) {

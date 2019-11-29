@@ -16,13 +16,36 @@ const ATTENDANCE_COLLECTION = 'attendances';
 })
 export class AttendancesService {
 
-  private attendanceCollection: AngularFirestoreCollection<IAttendance>;
-  private attendanceDoc: AngularFirestoreDocument<IAttendance>;
+  private attendanceCollection: AngularFirestoreCollection<Attendance>;
+  private attendanceDoc: AngularFirestoreDocument<Attendance>;
 
   constructor(
     private afs: AngularFirestore,
     private userService: UserService,
   ) {
+  }
+
+  getAllAttendances(lesson: Lesson): Observable<Attendance[]> {
+    console.log(`lessonId: ${lesson.id}`);
+    /*
+    this.attendanceCollection = this.afs.collection(
+      ATTENDANCE_COLLECTION,
+      ref => ref.where('lessonId', '==', lesson.id)
+                .orderBy('date')
+    );
+*/
+    this.attendanceCollection = this.afs.collection(
+      ATTENDANCE_COLLECTION
+    );
+
+    return this.attendanceCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Attendance;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })
+      )
+    );
   }
 
   getAttendancesByLesson(lesson: Lesson): Observable<IAttendance[]> {
@@ -66,12 +89,14 @@ export class AttendancesService {
   }
 
   createAttendance(lessonId: string, attendance: Attendance): Observable<Attendance> {
-    // Persist a document id
-    attendance.id = this.afs.createId();
-    this.attendanceCollection = this.afs.collection(
-      ATTENDANCE_COLLECTION,
-      ref => ref.where('lessonId', '==', lessonId)
-    );
+
+    if ( attendance.id === '0') {
+      // If uid is not asigned, we get a GUID (item exists on UserDetails, not in Users)
+      attendance.id = this.afs.createId();
+    }
+
+    this.attendanceCollection = this.afs.collection<Attendance>(ATTENDANCE_COLLECTION);
+
     this.attendanceCollection.doc(attendance.id).set(attendance);
     return of(attendance);
   }
@@ -88,12 +113,12 @@ export class AttendancesService {
     return of({});
   }
 
-  public initialize(lesson: Lesson | null, student: UserDetails): Attendance {
+  public initialize(lesson: Lesson, student: UserDetails): Attendance {
     // Return an initialized object
     return {
       id: '0',
       current: true,
-      lessonId: (lesson == null) ? '0' : lesson.id,
+      lessonId: lesson.id,
       studentId: student.uid,
       studentName: student.displayName,
       studentImage: student.photoURL,
@@ -102,16 +127,19 @@ export class AttendancesService {
     };
   }
 
-  public fromUserToAttendanceArray(course: Course, lessonId: string): Attendance[] {
+  public createAttendancesFromStudentList(course: Course, lessonId: string): string[] {
 
     const studentList: UserDetails[] = course.studentList;
-    const attendanceArray: Attendance[] = [];
+    const attendancesIds: string[] = [];
 
     studentList.forEach(userDetail => {
+      const newAttendanceId = this.afs.createId();
+      attendancesIds.push(newAttendanceId);
       const newAttendance: Attendance = {
-        id: this.afs.createId(),
+        id: newAttendanceId,
         current: true,
-        lessonId,
+        // tslint:disable-next-line:object-literal-shorthand
+        lessonId: lessonId,
         studentId: userDetail.uid,
         studentName: userDetail.displayName,
         studentImage: userDetail.photoURL,
@@ -121,12 +149,12 @@ export class AttendancesService {
 
       this.createAttendance(lessonId, newAttendance)
         .subscribe((attendanceCreated: Attendance) => {
-          attendanceArray.push(attendanceCreated);
+          console.log(` -> New attendance ${newAttendance.id} created`);
+          // attendancesIds.push(attendanceCreated);
       });
-
     });
 
-    return attendanceArray;
+    return attendancesIds;
   }
 
 }

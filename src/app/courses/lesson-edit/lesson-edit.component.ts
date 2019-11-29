@@ -11,6 +11,7 @@ import { UserDetails } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { DatePipe } from '@angular/common';
 import { DatesService } from '../../services/dates.service';
+import { AttendancesService } from '../../services/attendances.service';
 
 @Component({
   selector: 'app-lesson-edit',
@@ -41,6 +42,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
+    private attendacesSvc: AttendancesService,
     private datesService: DatesService,
     private lessonService: LessonsService,
     private coursesService: CoursesService
@@ -149,7 +151,6 @@ export class LessonEditComponent implements OnInit, OnDestroy {
   onSaveForm(): void {
     if (this.lessonForm.valid) {
 
-
         this.lesson.date = new Date(2019, 11, 19);
         // this.datesService.toFirebaseDate(this.lesson.date);
 
@@ -158,7 +159,17 @@ export class LessonEditComponent implements OnInit, OnDestroy {
         if (item.id === '0') {
           this.lessonService.createLesson(this.course, item)
             .subscribe({
-              next: () => this.onSaveComplete(),
+              next: (lesson: Lesson) => {
+
+                // 1. Creamos las attendances
+                const attendancesIds = this.attendacesSvc.createAttendancesFromStudentList(this.course, lesson.id);
+
+                // 2. Las asignamos a la lección
+                // this.lesson.attendancesIds = attendancesIds; // TODO: Es necesario?
+
+                // 3. Damos por cerrado el formulario
+                this.onSaveComplete();
+              },
               error: err => this.errorMessage = err
             });
         } else {

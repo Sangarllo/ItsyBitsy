@@ -113,7 +113,7 @@ export class LessonsService {
       material: '',
       startTime: course.startTime,
       endTime: course.endTime,
-      attendanceList: this.attendanceService.fromUserToAttendanceArray(course, lessonId)
+      attendancesIds: []
     };
   }
 }
