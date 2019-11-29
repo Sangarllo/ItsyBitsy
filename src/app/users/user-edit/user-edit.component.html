@@ -1,16 +1,17 @@
-<div class="container-fluid">
+<mat-toolbar color="primary">
+    <span>{{pageTitle}}</span>
+    <span class="fill-remaining-space"></span>
+    <button mat-raised-button color="accent" (click)="goBack()">Volver</button>
+</mat-toolbar>
+
+<mat-card>
 
     <div class="row">
-        <h3>{{pageTitle}}</h3>
-    </div>
-
-    <div class="row">
-
-        <div class="col-12 col-md-6 col-lg-4" style="text-align: center;">
+        <div class="col-lg-6 col-12" style="text-align: center;">
             <img [src]="userDetailsForm.get('photoURL').value" style="height:80%" />
         </div>
 
-        <div class="col-12 col-md-6 col-lg-8">
+        <div class="col-lg-6 col-12">
 
             <form [formGroup]="userDetailsForm" class="form-container" (ngSubmit)="onSaveForm()">
 
@@ -36,26 +37,21 @@
                     <input matInput type="text" formControlName="nickName" placeholder="Nombre de usuario">
                 </mat-form-field>
 
-                <div>
+                <mat-card-content>
                     <mat-label>Roles</mat-label>
-                    <mat-checkbox class="checkbox-margin" formControlName="isUser">Es normal</mat-checkbox>
-                    <mat-checkbox class="checkbox-margin" formControlName="isAdmin">Es admin</mat-checkbox>
-                    <mat-checkbox class="checkbox-margin" formControlName="isTeacher">Es profesor</mat-checkbox>
-                    <mat-checkbox class="checkbox-margin" formControlName="isStudent">Es estudiante</mat-checkbox>
-                </div>
+                    <br/>
+                    <mat-checkbox color="warn" disabled class="checkbox-margin" formControlName="isUser">Está registrado</mat-checkbox>
+                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isAdmin">Es admin</mat-checkbox>
+                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isTeacher">Es profesor</mat-checkbox>
+                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isStudent">Es estudiante</mat-checkbox>
+                </mat-card-content>
 
-                <button mat-raised-button [title]="userDetailsForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!userDetailsForm.valid" type="submit" color="primary">Guardar</button>
-
-                <button mat-raised-button type="button" (click)="onResetForm()" color="primary">Limpiar</button>
-
-                <button mat-raised-button type="button" (click)="gotoList()" color="primary">Ver listado</button>
-
-                <!--
-                <button mat-raised-button [disabled]="userDetails.uid !== '0'" type="button" (click)="onRandomPopulateForm()" color="primary">Random</button>
-                -->
+                <mat-card-actions>
+                    <button mat-raised-button [title]="userDetailsForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!userDetailsForm.valid" type="submit" color="primary">Guardar</button>
+                    <button mat-raised-button type="button" (click)="goBack()" color="primary">Volver sin guardar</button><button mat-raised-button type="button" (click)="gotoList()" color="primary">Ver Usuarios</button>
+                </mat-card-actions>
 
             </form>
-
         </div>
     </div>
-</div>
+</mat-card>

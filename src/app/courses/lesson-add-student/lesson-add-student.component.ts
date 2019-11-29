@@ -45,7 +45,7 @@ export class LessonAddStudentComponent implements OnInit {
         .subscribe({
           next: lesson => {
             this.lesson = lesson;
-            this.attendanceSvc.getAttendancesByLesson(lesson)
+            this.attendanceSvc.getAllAttendances(lesson)
               .subscribe((attendances: Attendance[]) => {
                 this.lessonAttendances = attendances;
               });

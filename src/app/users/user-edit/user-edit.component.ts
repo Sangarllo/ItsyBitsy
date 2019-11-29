@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs';
 import { Avatar } from '../../models/image.model';
 import { RandomGenerator } from '../../shared/random-generator';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-edit',
@@ -151,6 +152,12 @@ export class UserEditComponent implements OnInit, OnDestroy {
   onSaveComplete(): void {
     // Reset the form to clear the flags
     this.userDetailsForm.reset();
+    Swal.fire({
+      icon: 'success',
+      title: 'Datos guardados con éxito',
+      text: `Los datos de ${this.userDetails.displayName} se han guardado correctamente`,
+      // footer: '<a href>Why do I have this issue?</a>'
+    });
     this.router.navigate([`/${UserDetails.PATH_URL}`]);
   }
 
@@ -158,5 +165,11 @@ export class UserEditComponent implements OnInit, OnDestroy {
     // Reset the form to clear the flags
     this.userDetailsForm.reset();
     this.router.navigate([`/${UserDetails.PATH_URL}`]);
+  }
+
+  goBack(): void {
+    // Reset the form to clear the flags
+    this.userDetailsForm.reset();
+    this.router.navigate([`/${UserDetails.PATH_URL}/${this.userDetails.uid}`]);
   }
 }

@@ -9,6 +9,7 @@ import { Course } from '../../models/course.model';
 import { Attendance, Status } from '../../models/attendance.model';
 import { Lesson } from '../../models/lesson.model';
 import { AttendancesService } from '../../services/attendances.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -78,27 +79,28 @@ export class ShLessonAttendanceTableComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.studentId + 1}`; // TODO: Undestand!
   }
 
-  gotoApply() {
+  applyStatus() {
 
     if ( this.selection.selected.length > 0 ) {
 
       const newStatus = this.statusToApply;
-      console.log(`Aplicar ${this.statusToApply} a las ${this.selection.selected.length} asistencias seleccionadas`);
-
       this.selection.selected.forEach(attendance => {
         attendance.status = Attendance.toStatus(newStatus);
-        console.log(`Actualizando: ${JSON.stringify(attendance)} a ${attendance.status}`);
         this.attendancesSvc.updateAttendance(this.lesson, attendance)
           .subscribe((updAttendance: Attendance) => {
             console.log(`Modificada: ${JSON.stringify(updAttendance)}`);
           });
       });
 
+      Swal.fire({
+        icon: 'success',
+        title: 'Actualización realizada',
+        text: `Se han ${newStatus} un total de ${this.selection.selected.length} asistencias`,
+        // footer: '<a href>Why do I have this issue?</a>'
+      });
     } else {
-      console.log(`No hay asistencias que actualizar`);
+      Swal.fire('No has seleccionado asistencias para actualizar');
     }
-
-    // console.log(`Selection: ${JSON.stringify(this.selection)}`);
   }
 
   onRowClicked(user) {

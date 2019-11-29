@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    <h2>Itsy Bitsy</h2>
+    <h2 [routerLink]="['/home']">Itsy Bitsy</h2>
     <span class="fill-remaining-space"></span>
 
     <div *ngIf="afAuth.user | async as user; else showLogin">

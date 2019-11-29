@@ -21,7 +21,7 @@ export class ShCourseLessonsTableComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @Input() course: Course;
-  lessons: Lesson[];
+  lessons: Lesson[] = [];
 
   constructor(
     private lessonsSvc: LessonsService,
@@ -38,7 +38,8 @@ export class ShCourseLessonsTableComponent implements OnInit {
               lesson.date = this.dateSvc.fromFirebaseDate(lesson.date);
             });
 
-            this.dataSource = new MatTableDataSource(lessons);
+            this.lessons = lessons;
+            this.dataSource = new MatTableDataSource(this.lessons);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
           });

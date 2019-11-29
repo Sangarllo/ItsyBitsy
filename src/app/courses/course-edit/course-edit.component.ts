@@ -8,6 +8,7 @@ import { Icon } from '../../models/image.model';
 import { RandomGenerator } from '../../shared/random-generator';
 import { UserDetails } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-course-edit',
@@ -149,6 +150,12 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   onSaveComplete(): void {
     // Reset the form to clear the flags
     this.courseForm.reset();
+    Swal.fire({
+      icon: 'success',
+      title: 'Datos guardados con éxito',
+      text: `Los datos de ${this.course.name} se han guardado correctamente`,
+      // footer: '<a href>Why do I have this issue?</a>'
+    });
     this.router.navigate([`/${Course.PATH_URL}`]);
   }
 
@@ -156,6 +163,12 @@ export class CourseEditComponent implements OnInit, OnDestroy {
     // Reset the form to clear the flags
     this.courseForm.reset();
     this.router.navigate([`/${Course.PATH_URL}`]);
+  }
+
+  goBack(): void {
+    // Reset the form to clear the flags
+    this.courseForm.reset();
+    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}`]);
   }
 
 }

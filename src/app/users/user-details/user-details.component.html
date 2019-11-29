@@ -1,204 +1,67 @@
-<div class="container" *ngIf="userDetails">
-    <div class="row my-2">
-        <div class="col-lg-8 order-lg-2">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Perfil</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Información de Contacto</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Otra info</a>
-                </li>
-            </ul>
-            <div class="tab-content py-4">
-                <div class="tab-pane active" id="profile">
-                    <h5 class="mb-3">{{ userDetails.displayName }}</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h6>Nick</h6>
-                            <p>
-                                {{ userDetails.nickName }}
-                            </p>
-                            <h6>Email</h6>
-                            <p>
-                                {{ userDetails.email }}
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <h6>Roles</h6>
-                            <a *ngIf="userDetails?.isUser" href="#" class="badge badge-dark badge-pill">normal</a>&nbsp;
-                            <a *ngIf="userDetails?.isAdmin" href="#" class="badge badge-dark badge-pill">admin</a>&nbsp;
-                            <a *ngIf="userDetails?.isTeacher" href="#" class="badge badge-dark badge-pill">profesor</a>&nbsp;
-                            <a *ngIf="userDetails?.isStudent" href="#" class="badge badge-dark badge-pill">estudiante</a>&nbsp;
+<mat-card *ngIf="userDetails">
 
-                            <hr>
+    <div class="container">
 
-                        </div>
-                        <div class="col-md-12">
-                            <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span> Actividad reciente</h5>
-                            <table class="table table-sm table-hover table-striped">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong>Próxima clase</strong> el próximo lunes
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Acudió a clase <strong>el pasado martes</strong>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Más info</strong> aquí.
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!--/row-->
-                </div>
-                <div class="tab-pane" id="messages">
-                    <div class="alert alert-info alert-dismissable">
-                        <a class="panel-close close" data-dismiss="alert">×</a> This is an <strong>.alert</strong>. Use this to show important messages to the user.
-                    </div>
-                    <table class="table table-hover table-striped">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <span class="float-right font-weight-bold">3 hrs ago</span> Here is your a link to the latest summary report from the..
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="float-right font-weight-bold">Yesterday</span> There has been a request on your account since that was..
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="float-right font-weight-bold">9/10</span> Porttitor vitae ultrices quis, dapibus id dolor. Morbi venenatis lacinia rhoncus.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="float-right font-weight-bold">9/4</span> Vestibulum tincidunt ullamcorper eros eget luctus.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="float-right font-weight-bold">9/4</span> Maxamillion ais the fix for tibulum tincidunt ullamcorper eros.
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tab-pane" id="edit">
-                    <form role="form">
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">First name</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text" value="Jane">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text" value="Bishop">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Email</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="email" value="email@gmail.com">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Company</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text" value="">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Website</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="url" value="">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Address</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text" value="" placeholder="Street">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
-                            <div class="col-lg-6">
-                                <input class="form-control" type="text" value="" placeholder="City">
-                            </div>
-                            <div class="col-lg-3">
-                                <input class="form-control" type="text" value="" placeholder="State">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Time Zone</label>
-                            <div class="col-lg-9">
-                                <select id="user_time_zone" class="form-control" size="0">
-                                    <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                                    <option value="Alaska">(GMT-09:00) Alaska</option>
-                                    <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                                    <option value="Arizona">(GMT-07:00) Arizona</option>
-                                    <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                                    <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
-                                    <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                                    <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Username</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text" value="janeuser">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Password</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="password" value="11111122333">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="password" value="11111122333">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
-                            <div class="col-lg-9">
-                                <input type="reset" class="btn btn-secondary" value="Cancel">
-                                <input type="button" class="btn btn-primary" value="Save Changes">
-                            </div>
-                        </div>
-                    </form>
-                </div>
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <mat-card-header>
+                    <div mat-card-avatar [ngStyle]="applyStyles(userDetails)"></div>
+                    <mat-card-title>{{ userDetails.displayName }}</mat-card-title>
+                    <mat-card-subtitle>{{ userDetails.email }}</mat-card-subtitle>
+                </mat-card-header>
+
+
+                <img [src]="userDetails.photoURL" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+
+                <hr>
+
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" (click)="gotoEdition()">Editar Datos</button>
+                </mat-card-actions>
+
+                <mat-card-content>
+                    <mat-chip-list aria-label="Roles">
+                        <mat-chip *ngIf="userDetails.isUser" color="primary">Registrado</mat-chip>
+                        <mat-chip *ngIf="userDetails.isAdmin" color="primary">Administrador</mat-chip>
+                        <mat-chip *ngIf="userDetails.isTeacher" color="primary">Profesor</mat-chip>
+                        <mat-chip *ngIf="userDetails.isStudent" color="primary">Estudiante</mat-chip>
+                    </mat-chip-list>
+                </mat-card-content>
+
             </div>
 
-            <button mat-raised-button color="primary" (click)="gotoUserEdition()">Editar Datos Personales</button>&nbsp;
-            <button *ngIf="userDetails?.isStudent" mat-raised-button color="primary" (click)="gotoStudentEdition()">Editar Estudiante</button>&nbsp;
-            <button *ngIf="userDetails?.isTeacher" mat-raised-button color="primary" (click)="gotoTeacherEdition()">Editar Profesor</button>
+            <div class="col-lg-6 col-12">
+                <mat-card-content>
+                    <mat-tab-group>
+                        <mat-tab label="Datos Personales">
 
+                            <br>
+
+                            <h6>Nick</h6>
+                            <mat-card-title>
+                                {{ userDetails.nickName }}
+                            </mat-card-title>
+
+                            <h6>Email</h6>
+                            <mat-card-title>
+                                {{ userDetails.email }}
+                            </mat-card-title>
+
+
+                        </mat-tab>
+                        <mat-tab *ngIf="userDetails.isAdmin" label="Administrador">
+                            2
+                        </mat-tab>
+                        <mat-tab *ngIf="userDetails.isTeacher" label="Profesor">
+                            3
+                        </mat-tab>
+                        <mat-tab *ngIf="userDetails.isStudent" label="Estudiante">
+                            4
+                        </mat-tab>
+                    </mat-tab-group>
+                </mat-card-content>
+            </div>
         </div>
 
-        <div class="col-lg-4 order-lg-1 text-center">
-            <img [src]="userDetails.photoURL" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-            <h4 class="mt-2">{{userDetails.displayName}}</h4>
-            <label class="custom-file">
-                <input type="file" id="file" class="custom-file-input">
-                <span class="custom-file-control">Cambiar la imagen (to do)</span>
-            </label>
-        </div>
     </div>
-</div>
+</mat-card>

@@ -36,17 +36,15 @@ export class UserDetailsComponent implements OnInit {
       });
   }
 
-  gotoUserEdition() {
+  applyStyles(userDetails: UserDetails) {
+    const styles = {
+      'background-image': `url("assets/section/user-icon.png")`,
+      'background-size': 'cover'
+    };
+    return styles;
+  }
+
+  gotoEdition() {
     this.router.navigate([`/${UserDetails.PATH_URL}/${this.userDetailsId}/editar`]);
   }
-
-  gotoTeacherEdition() {
-    this.router.navigate([`/${Teacher.PATH_URL}/${this.userDetailsId}/editar`]);
-  }
-
-  gotoStudentEdition() {
-    this.router.navigate([`/${Student.PATH_URL}/${this.userDetailsId}/editar`]);
-  }
-
-
 }
