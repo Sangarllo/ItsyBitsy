@@ -11,6 +11,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { UsersTableComponent } from './users-table/users-table.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     UserDashboardComponent,
     UserViewComponent,
     FilterPipe,
+    UsersTableComponent,
   ],
   imports: [
     CommonModule,

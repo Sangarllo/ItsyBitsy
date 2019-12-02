@@ -7,12 +7,18 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserViewComponent } from './user-view/user-view.component';
+import { UsersTableComponent } from './users-table/users-table.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: UserListComponent
+    component: UsersTableComponent
+  },
+  {
+    path: 'lista',
+    component: UserListComponent,
+    canActivate: [AngularFireAuthGuard]
   },
   {
     path: 'perfil',

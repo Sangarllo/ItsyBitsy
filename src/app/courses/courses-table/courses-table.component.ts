@@ -5,6 +5,7 @@ import { Course } from '../../models/course.model';
 import { CoursesService } from '../../services/courses.service';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-courses-table',
@@ -13,7 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class CoursesTableComponent implements OnInit {
 
-  columnsToDisplay = ['name', 'weekDay', 'startTime', 'endTime'];
+  columnsToDisplay = ['name', 'weekDay', 'startTime', 'endTime', 'actions'];
   dataSource: MatTableDataSource<Course>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -44,8 +45,32 @@ export class CoursesTableComponent implements OnInit {
     this.router.navigate([`${Course.PATH_URL}/0/editar`]);
   }
 
-  onRowClicked(course) {
-    console.log('Row clicked: ', course);
+  viewCourse(course) {
     this.router.navigate([`${Course.PATH_URL}/${course.id}`]);
   }
+
+  editCourse(course) {
+    this.router.navigate([`${Course.PATH_URL}/${course.id}/editar`]);
+  }
+
+  deleteCourse(course: Course) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `Si pulsas OK, el curso ${course.name} quedará eliminado y no podrás revertir dicha acción`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, ¡bórralo!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Borrado!',
+          `El usuario ${course.name} ha sido eliminado.`,
+          'success'
+        );
+      }
+    });
+  }
+
 }
