@@ -10,8 +10,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
-import { StudentsModule } from './students/students.module';
-import { TeachersModule } from './teachers/teachers.module';
 import { UsersModule } from './users/users.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -44,8 +42,6 @@ registerLocaleData(localeEs);
     ReactiveFormsModule,
     FormsModule,
 
-    StudentsModule,
-    TeachersModule,
     UsersModule,
     BrowserAnimationsModule,
     MaterialConfigurationModule

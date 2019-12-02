@@ -31,10 +31,6 @@ export class UserDashboardComponent implements OnInit {
     this.router.navigate([`/${Course.PATH_URL}`]);
   }
 
-  gotoCalendar() {
-    this.router.navigate([`/${Course.PATH_URL}/calendar`]);
-  }
-
   gotoRates() {
     this.router.navigate([`/${Rate.PATH_URL}`]);
   }
