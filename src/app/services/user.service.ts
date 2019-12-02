@@ -39,11 +39,11 @@ export class UserService {
     );
   }
 
-  getStudents(): Observable<UserDetails[]> {
+  getAllStudents(): Observable<UserDetails[]> {
 
     this.studentsCollection = this.afs.collection(
       UserService.USER_DETAILS_COLLECTION,
-      ref => ref.where('isStudent', '==', true)
+      ref => ref.where('isStudent', '==', true).orderBy('displayName')
     );
 
     return this.studentsCollection.snapshotChanges().pipe(
@@ -55,11 +55,11 @@ export class UserService {
     );
   }
 
-  getTeachers(): Observable<UserDetails[]> {
+  getAllTeachers(): Observable<UserDetails[]> {
 
     this.teachersCollection = this.afs.collection(
       UserService.USER_DETAILS_COLLECTION,
-      ref => ref.where('isTeacher', '==', true)
+      ref => ref.where('isTeacher', '==', true).orderBy('displayName')
     );
 
     return this.teachersCollection.snapshotChanges().pipe(

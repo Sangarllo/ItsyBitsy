@@ -77,7 +77,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
           }
         );
 
-        this.userService.getTeachers()
+        this.userService.getAllTeachers()
         .subscribe((teachers: UserDetails[]) => {
           this.TEACHERS = teachers;
         });

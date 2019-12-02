@@ -17,7 +17,7 @@ export class StudentListComponent {
     private userService: UserService,
     private router: Router,
   ) {
-    this.usersDetails = this.userService.getStudents();
+    this.usersDetails = this.userService.getAllStudents();
   }
 
   applyStyles(userDetails: UserDetails) {

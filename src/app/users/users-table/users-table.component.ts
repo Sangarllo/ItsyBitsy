@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ViewChildren, QueryList} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
@@ -15,9 +15,12 @@ import Swal from 'sweetalert2';
 export class UsersTableComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = ['photoURL', 'displayName', 'email', 'actions'];
-  dataSource = new MatTableDataSource();
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  dataSourceAll = new MatTableDataSource();
+  dataSourceStudents = new MatTableDataSource();
+  dataSourceTeachers = new MatTableDataSource();
+  @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
+  @ViewChildren(MatSort) sort = new QueryList<MatSort>();
 
   constructor(
     private router: Router,
@@ -27,20 +30,47 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.userSvc.getAllUsersDetails().subscribe(
       (users: UserDetails[]) => {
-        this.dataSource.data = users;
+        this.dataSourceAll.data = users;
+    });
+
+    this.userSvc.getAllStudents().subscribe(
+      (users: UserDetails[]) => {
+        this.dataSourceStudents.data = users;
+    });
+
+    this.userSvc.getAllTeachers().subscribe(
+      (users: UserDetails[]) => {
+        this.dataSourceTeachers.data = users;
     });
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSourceAll.paginator = this.paginator.toArray()[0];
+    this.dataSourceAll.sort = this.sort.toArray()[0];
+    this.dataSourceStudents.paginator = this.paginator.toArray()[1];
+    this.dataSourceStudents.sort = this.sort.toArray()[1];
+    this.dataSourceTeachers.paginator = this.paginator.toArray()[2];
+    this.dataSourceTeachers.sort = this.sort.toArray()[2];
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilterAll(filterValue: string) {
+    this.dataSourceAll.filter = filterValue.trim().toLowerCase();
+    if (this.dataSourceAll.paginator) {
+      this.dataSourceAll.paginator.firstPage();
+    }
+  }
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  applyFilterStudents(filterValue: string) {
+    this.dataSourceStudents.filter = filterValue.trim().toLowerCase();
+    if (this.dataSourceStudents.paginator) {
+      this.dataSourceStudents.paginator.firstPage();
+    }
+  }
+
+  applyFilterTeachers(filterValue: string) {
+    this.dataSourceTeachers.filter = filterValue.trim().toLowerCase();
+    if (this.dataSourceTeachers.paginator) {
+      this.dataSourceTeachers.paginator.firstPage();
     }
   }
 

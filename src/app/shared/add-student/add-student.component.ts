@@ -19,7 +19,7 @@ export class AddStudentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getStudents()
+    this.userService.getAllStudents()
     .subscribe((students: UserDetails[]) => {
       this.STUDENTS = students;
     });
