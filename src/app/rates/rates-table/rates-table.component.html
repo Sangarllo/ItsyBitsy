@@ -1,0 +1,49 @@
+<mat-toolbar color="primary">
+    <span>Tarifas Actuales</span>
+    <span class="fill-remaining-space"></span>
+
+    <mat-form-field class="filter-form-field">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" (click)="gotoNew()">Crear Nueva</button>
+</mat-toolbar>
+
+<table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- type Column -->
+    <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+
+    <!-- prize Column -->
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+        <td mat-cell *matCellDef="let element"> {{element.price}}€ </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+            &nbsp;
+            <button mat-mini-fab color="warn" (click)="viewRate(element)"><mat-icon>pageview</mat-icon></button> &nbsp;
+            <button mat-mini-fab color="warn" (click)="editRate(element)"><mat-icon>edit</mat-icon></button> &nbsp;
+            <button mat-mini-fab color="warn" (click)="deleteRate(element)"><mat-icon>delete</mat-icon></button> &nbsp;
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">
+    </tr>
+
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
