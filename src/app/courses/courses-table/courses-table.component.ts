@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class CoursesTableComponent implements OnInit {
 
-  columnsToDisplay = ['name', 'weekDay', 'startTime', 'endTime', 'actions'];
+  columnsToDisplay = ['name', 'schedule', 'actions'];
   dataSource: MatTableDataSource<Course>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

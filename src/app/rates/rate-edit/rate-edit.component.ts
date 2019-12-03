@@ -135,4 +135,10 @@ export class RateEditComponent implements OnInit, OnDestroy {
     this.rateForm.reset();
     this.router.navigate([`/${Rate.PATH_URL}`]);
   }
+
+  goBack(): void {
+    // Reset the form to clear the flags
+    this.rateForm.reset();
+    this.router.navigate([`/${Rate.PATH_URL}/${this.rate.id}`]);
+  }
 }

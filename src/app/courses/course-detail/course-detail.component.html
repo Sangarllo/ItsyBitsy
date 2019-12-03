@@ -18,10 +18,18 @@
 
     <mat-card-content>
         <mat-tab-group>
-            <mat-tab label="Clases">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>event</mat-icon>
+                    &nbsp;&nbsp;Clases
+                </ng-template>
                 <sh-course-lessons-table [course]="course"> </sh-course-lessons-table>
             </mat-tab>
-            <mat-tab label="Estudiantes">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>people_outline</mat-icon>
+                    &nbsp;&nbsp;Estudiantes
+                </ng-template>
                 <sh-course-users-table [course]="course"></sh-course-users-table>
             </mat-tab>
         </mat-tab-group>
