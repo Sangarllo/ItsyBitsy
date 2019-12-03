@@ -1,7 +1,7 @@
 <div *ngIf="lessons.length > 0; else noData">
 
     <mat-toolbar color="primary" *ngIf="course">
-        <span>Clases del curso {{ course.name }}</span>
+        <span>Sus Clases <!-- del curso {{ course.name }} --></span>
         <span class="fill-remaining-space"></span>
 
         <mat-form-field class="filter-form-field">
@@ -13,6 +13,17 @@
     </mat-toolbar>
 
     <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- status Column -->
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="{
+              'is-eliminada': element.status === 'eliminada',
+              'is-anulada': element.status === 'anulada',
+              'is-programada': element.status === 'programada',
+              'is-realizada': element.status === 'realizada'
+            }"> {{element.status}} </td>
+        </ng-container>
 
         <!-- schedule Column -->
         <ng-container matColumnDef="schedule">
@@ -26,19 +37,18 @@
             <td mat-cell *matCellDef="let element"> {{element.material}} </td>
         </ng-container>
 
-        <!-- status Column -->
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-            <td mat-cell *matCellDef="let element" [ngClass]="{
-              'is-eliminada': element.status === 'eliminada',
-              'is-anulada': element.status === 'anulada',
-              'is-programada': element.status === 'programada',
-              'is-realizada': element.status === 'realizada'
-            }"> {{element.status}} </td>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+            <td mat-cell *matCellDef="let element">
+                &nbsp;
+                <button mat-mini-fab color="warn" (click)="viewLesson(element)"><mat-icon>pageview</mat-icon></button> &nbsp;
+                <button mat-mini-fab color="warn" (click)="editLesson(element)"><mat-icon>edit</mat-icon></button> &nbsp;
+                <button mat-mini-fab color="warn" (click)="deleteLesson(element)"><mat-icon>delete</mat-icon></button> &nbsp;
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" (click)="onRowClicked(row)">
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">
         </tr>
 
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

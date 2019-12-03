@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Lesson } from '../../models/lesson.model';
 import { LessonsService } from '../../services/lessons.service';
 import { DatesService } from '../../services/dates.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'sh-course-lessons-table',
@@ -16,7 +16,7 @@ import { DatesService } from '../../services/dates.service';
 })
 export class ShCourseLessonsTableComponent implements OnInit {
 
-  columnsToDisplay = ['schedule', 'material', 'status'];
+  columnsToDisplay = ['status', 'schedule', 'material', 'actions'];
   dataSource: MatTableDataSource<Lesson>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -57,7 +57,32 @@ export class ShCourseLessonsTableComponent implements OnInit {
     this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Lesson.PATH_URL}/0/editar`]);
   }
 
-  onRowClicked(lesson) {
+  viewLesson(lesson: Lesson) {
     this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Lesson.PATH_URL}/${lesson.id}`]);
   }
+
+  editLesson(lesson: Lesson) {
+    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Lesson.PATH_URL}/${lesson.id}/editar`]);
+  }
+
+  deleteUser(lesson: Lesson) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `Si pulsas OK, la clase del día ${lesson.date} quedará eliminada y no podrás revertir dicha acción`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, ¡anúlala!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Borrado!',
+          `La lección ha sido anulada.`,
+          'success'
+        );
+      }
+    });
+  }
+
 }

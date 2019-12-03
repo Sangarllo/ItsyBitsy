@@ -20,10 +20,18 @@
 
     <mat-card-content>
         <mat-tab-group>
-            <mat-tab label="Asistencia a la Clase">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>check_box</mat-icon>
+                    &nbsp;&nbsp;Asistencia a la Clase
+                </ng-template>
                 <sh-lesson-attendance-table [lesson]="lesson"></sh-lesson-attendance-table>
             </mat-tab>
-            <mat-tab label="Estudiantes del Curso">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>people_outline</mat-icon>
+                    &nbsp;&nbsp;Estudiantes del Curso
+                </ng-template>
                 <sh-course-users-table [course]="course"></sh-course-users-table>
             </mat-tab>
         </mat-tab-group>

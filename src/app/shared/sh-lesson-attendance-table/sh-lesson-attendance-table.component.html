@@ -31,19 +31,6 @@
         </td>
     </ng-container>
 
-    <!-- studentName Column -->
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> #Id</th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-
-
-    <!-- studentName Column -->
-    <ng-container matColumnDef="studentName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre</th>
-        <td mat-cell *matCellDef="let element"> {{element.studentName}} </td>
-    </ng-container>
-
     <!-- status Column -->
     <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado</th>
@@ -56,11 +43,17 @@
         }"> {{element.status}} </td>
     </ng-container>
 
+    <!-- studentName Column -->
+    <ng-container matColumnDef="studentName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre</th>
+        <td mat-cell *matCellDef="let element"> {{element.studentName}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Comentario</th>
         <td mat-cell *matCellDef="let element">
             &nbsp;
-            <button mat-mini-fab color="warn" (click)="addComment(element)"><mat-icon>edit</mat-icon></button> &nbsp;
+            <button mat-mini-fab color="warn" (click)="addComment(element)"><mat-icon>message</mat-icon></button> &nbsp;
             <button *ngIf="element.comment!=''" (click)="viewComment(element)" mat-mini-fab color="warn"><mat-icon>pageview</mat-icon></button> &nbsp;
         </td>
     </ng-container>

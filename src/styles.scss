@@ -60,12 +60,14 @@ Every toolbar row uses a flexbox row layout. */
 
 .is-programada {
     padding-left: 20px !important;
+    padding-right: 20px !important;
     color: #856404 !important;
     background-color: #fff3cd !important;
 }
 
 .is-ausentada {
     padding-left: 20px !important;
+    padding-right: 20px !important;
     color: #721c24 !important;
     background-color: #f8d7da !important;
 }
@@ -73,6 +75,7 @@ Every toolbar row uses a flexbox row layout. */
 .is-confirmada,
 .is-realizada {
     padding-left: 20px !important;
+    padding-right: 20px !important;
     color: #155724 !important;
     background-color: #d4edda !important;
 }

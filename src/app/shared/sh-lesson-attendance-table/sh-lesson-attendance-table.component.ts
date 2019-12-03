@@ -5,7 +5,6 @@ import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserDetails } from '../../models/user.model';
-import { Course } from '../../models/course.model';
 import { Attendance, Status } from '../../models/attendance.model';
 import { Lesson } from '../../models/lesson.model';
 import { AttendancesService } from '../../services/attendances.service';
@@ -19,7 +18,7 @@ import Swal from 'sweetalert2';
 })
 export class ShLessonAttendanceTableComponent implements OnInit {
 
-  columnsToDisplay = ['id', 'select', 'studentName', 'status', 'actions'];
+  columnsToDisplay = [ 'select', 'status', 'studentName', 'actions'];
   dataSource: MatTableDataSource<Attendance>;
   selection = new SelectionModel<Attendance>(true, []);
   statusAttendance: Status[];

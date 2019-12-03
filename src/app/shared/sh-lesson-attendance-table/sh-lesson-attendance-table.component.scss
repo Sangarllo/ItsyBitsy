@@ -21,4 +21,16 @@ table {
 
 .mat-column-status {
     border: 3px solid white;
+    width: 120px;
+}
+
+.mat-column-select {
+    border: 3px solid white;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 50px;
+}
+
+.mat-column-studentName {
+    padding-left: 20px;
 }
