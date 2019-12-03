@@ -54,17 +54,17 @@
                         <input matInput formControlName="date" [matDatepicker]="pickerStart" placeholder="Escoge la fecha de inicio">
                         <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
                         <mat-datepicker #pickerStart></mat-datepicker>
-                        <mat-error *ngIf="!!lessonForm.get('date').errors?.required">Es necesario incluir esta información</mat-error>
+                        <mat-error *ngIf="!!lessonForm.get('date').hasError('required')">Es necesario incluir esta información</mat-error>
                     </mat-form-field>
 
                     <mat-form-field class="col-3">
                         <input matInput type="time" formControlName="startTime" placeholder="Escoge la hora de inicio">
-                        <mat-error *ngIf="!!lessonForm.get('startTime').errors?.required">Es necesario incluir esta información</mat-error>
+                        <mat-error *ngIf="!!lessonForm.get('startTime').hasError('required')">Es necesario incluir esta información</mat-error>
                     </mat-form-field>
 
                     <mat-form-field class="col-3">
                         <input matInput type="time" formControlName="endTime" placeholder="Escoge la hora de fin">
-                        <mat-error *ngIf="!!lessonForm.get('endTime').errors?.required">Es necesario incluir esta información</mat-error>
+                        <mat-error *ngIf="!!lessonForm.get('endTime').hasError('required')">Es necesario incluir esta información</mat-error>
                     </mat-form-field>
 
                 </div>

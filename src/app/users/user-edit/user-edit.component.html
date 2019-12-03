@@ -30,7 +30,7 @@
 
                 <mat-form-field>
                     <input matInput type="text" formControlName="email" placeholder="Correo Electrónico">
-                    <mat-error *ngIf="!!userDetailsForm.get('email').errors?.email">{{ errorMessage }}</mat-error>
+                    <mat-error *ngIf="!!userDetailsForm.get('email').hasError('required')">{{ errorMessage }}</mat-error>
                 </mat-form-field>
 
                 <mat-form-field>

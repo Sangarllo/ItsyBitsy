@@ -65,7 +65,7 @@ export class ShCourseLessonsTableComponent implements OnInit {
     this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Lesson.PATH_URL}/${lesson.id}/editar`]);
   }
 
-  deleteUser(lesson: Lesson) {
+  deleteLesson(lesson: Lesson) {
     Swal.fire({
       title: '¿Estás seguro?',
       text: `Si pulsas OK, la clase del día ${lesson.date} quedará eliminada y no podrás revertir dicha acción`,
