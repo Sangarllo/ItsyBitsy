@@ -39,7 +39,7 @@ export class ShLessonAttendanceTableComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
-    this.attendancesSvc.getAllAttendances(this.lesson)
+    this.attendancesSvc.getAllAttendancesByLesson(this.lesson)
     .subscribe((attendances: Attendance[]) => {
       console.log(`Lesson Detail. Found ${attendances.length} results`);
       this.attendances = attendances;

@@ -1,0 +1,36 @@
+<mat-card>
+
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+
+        <div *ngIf="showStudentList; else hideStudentList">
+            <mat-form-field class="filter-form-field">
+                <mat-label>Escoge un estudiante</mat-label>
+                <mat-select [(ngModel)]="selectedStudent">
+                    <mat-option *ngFor="let student of STUDENTS" [value]="student">
+                        {{student.displayName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            &nbsp;&nbsp;
+            <button mat-raised-button color="accent" [disabled]="!selectedStudent" (click)="getReport()">Crear Informe</button>
+        </div>
+    </mat-toolbar>
+
+
+    <sh-user-attendance-table *ngIf="student; else noReport" [student]="student"></sh-user-attendance-table>
+
+</mat-card>
+
+<ng-template #noReport>
+    <br>
+    <div class="alert alert-danger text-center" role="alert">
+        Selecciona un estudiante para generar el informe asociado
+        <br/>
+    </div>
+</ng-template>
+
+<ng-template #hideStudentList>
+    <button mat-raised-button color="accent" (click)="showList()">Otro Informe</button>
+</ng-template>

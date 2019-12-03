@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+}
+
+.fill-remaining-space {
+    /* This fills the remaining space, by using flexbox.
+Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
+
+.mat-form-field {
+    width: 200px;
+    margin-top: 30px;
+    margin-right: 30px;
+    font-size: 14px;
+}
+
+.mat-column-actions {
+    width: 140px;
+}
+
+.mat-column-status {
+    border: 3px solid white;
+    width: 120px;
+}
+
+.mat-column-schedule {
+    padding-left: 20px;
+}

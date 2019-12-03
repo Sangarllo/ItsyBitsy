@@ -28,10 +28,27 @@ export class AttendancesService {
     private userService: UserService
   ) {}
 
-  getAllAttendances(lesson: Lesson): Observable<Attendance[]> {
+  getAllAttendancesByLesson(lesson: Lesson): Observable<Attendance[]> {
     this.attendanceCollection = this.afs.collection(
       ATTENDANCE_COLLECTION,
       ref => ref.where('lessonId', '==', lesson.id)
+    );
+
+    return this.attendanceCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as Attendance;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+  }
+
+  getAllAttendancesByUser(userDetails: UserDetails): Observable<Attendance[]> {
+    this.attendanceCollection = this.afs.collection(
+      ATTENDANCE_COLLECTION,
+      ref => ref.where('studentId', '==', userDetails.uid)
     );
 
     return this.attendanceCollection.snapshotChanges().pipe(

@@ -17,6 +17,10 @@ const routes: Routes = [
     loadChildren: () => import('./rates/rates.module').then(mod => mod.RatesModule)
   },
   {
+    path: 'informes',
+    loadChildren: () => import('./reports/reports.module').then(mod => mod.ReportsModule)
+  },
+  {
     path: 'home',
     component: HomeComponent
   },

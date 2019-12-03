@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Student } from 'src/app/models/student.model';
 import { Course } from 'src/app/models/course.model';
@@ -10,17 +10,14 @@ import { Rate } from '../../models/rate';
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.scss']
 })
-export class UserDashboardComponent implements OnInit {
+export class UserDashboardComponent {
 
   constructor(
     private router: Router,
   ) { }
 
-  ngOnInit() {
-  }
-
-  gotoStudentsList() {
-    this.router.navigate([`/${Student.PATH_URL}`]);
+  gotoReports() {
+    this.router.navigate([`/informes`]);
   }
 
   gotoUsersList() {

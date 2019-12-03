@@ -8,6 +8,7 @@ import { ShAttendanceListComponent } from './sh-attendance-list/sh-attendance-li
 import { ShCourseLessonsTableComponent } from './sh-course-lessons-table/sh-course-lessons-table.component';
 import { ShCourseUsersTableComponent } from './sh-course-users-table/sh-course-users-table.component';
 import { ShLessonAttendanceTableComponent } from './sh-lesson-attendance-table/sh-lesson-attendance-table.component';
+import { ShUserAttendanceTableComponent } from './sh-user-attendance-table/sh-user-attendance-table.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ShLessonAttendanceTableComponent } from './sh-lesson-attendance-table/s
     ShAttendanceListComponent,
     ShCourseLessonsTableComponent,
     ShLessonAttendanceTableComponent,
+    ShUserAttendanceTableComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,7 @@ import { ShLessonAttendanceTableComponent } from './sh-lesson-attendance-table/s
     ShAttendanceListComponent,
     ShCourseLessonsTableComponent,
     ShLessonAttendanceTableComponent,
+    ShUserAttendanceTableComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
