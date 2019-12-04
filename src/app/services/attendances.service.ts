@@ -1,23 +1,23 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
   AngularFirestoreModule,
   AngularFirestoreDocument
-} from "@angular/fire/firestore";
-import { Observable, of } from "rxjs";
-import { map } from "rxjs/operators";
-import { IAttendance, Attendance, Status } from "../models/attendance.model";
-import { Lesson } from "../models/lesson.model";
-import { UserDetails } from "../models/user.model";
-import { UserService } from "./user.service";
-import { LessonsService } from "./lessons.service";
-import { Course } from "../models/course.model";
+} from '@angular/fire/firestore';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { IAttendance, Attendance, Status } from '../models/attendance.model';
+import { Lesson } from '../models/lesson.model';
+import { UserDetails } from '../models/user.model';
+import { UserService } from './user.service';
+import { LessonsService } from './lessons.service';
+import { Course } from '../models/course.model';
 
-const ATTENDANCE_COLLECTION = "attendances";
+const ATTENDANCE_COLLECTION = 'attendances';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AttendancesService {
   private attendanceCollection: AngularFirestoreCollection<Attendance>;
@@ -63,13 +63,13 @@ export class AttendancesService {
   }
 
 getAttendance(lesson: Lesson, attendanceId: string): Observable<any> {
-    if (attendanceId === "0") {
+    if (attendanceId === '0') {
       const studentDefault = this.userService.initialize();
       return of(this.initialize(lesson, studentDefault));
     } else {
       this.attendanceCollection = this.afs.collection(
         ATTENDANCE_COLLECTION,
-        ref => ref.where("lessonId", "==", lesson.id)
+        ref => ref.where('lessonId', '==', lesson.id)
       );
       return this.attendanceCollection.doc(attendanceId).valueChanges();
     }
@@ -88,10 +88,9 @@ getAttendance(lesson: Lesson, attendanceId: string): Observable<any> {
   }
 
   createAttendance(
-    lessonId: string,
     attendance: Attendance
   ): Observable<Attendance> {
-    if (attendance.id === "0") {
+    if (attendance.id === '0') {
       // If uid is not asigned, we get a GUID (item exists on UserDetails, not in Users)
       attendance.id = this.afs.createId();
     }
@@ -108,7 +107,7 @@ getAttendance(lesson: Lesson, attendanceId: string): Observable<any> {
   deleteAttendance(lesson: Lesson, id: string): Observable<{}> {
     this.attendanceCollection = this.afs.collection(
       ATTENDANCE_COLLECTION,
-      ref => ref.where("lessonId", "==", lesson.id)
+      ref => ref.where('lessonId', '==', lesson.id)
     );
 
     this.attendanceDoc = this.attendanceCollection.doc(id);
@@ -119,20 +118,22 @@ getAttendance(lesson: Lesson, attendanceId: string): Observable<any> {
   public initialize(lesson: Lesson, student: UserDetails): Attendance {
     // Return an initialized object
     return {
-      id: "0",
+      id: '0',
       current: true,
       lessonId: lesson.id,
+      lessonDate: lesson.date,
       studentId: student.uid,
       studentName: student.displayName,
       studentImage: student.photoURL,
       status: Status.Programada,
-      comment: ""
+      comment: ''
     };
   }
 
   public createAttendancesFromStudentList(
     course: Course,
-    lessonId: string
+    lessonId: string,
+    lessonDate: Date
   ): string[] {
     const studentList: UserDetails[] = course.studentList;
     const attendancesIds: string[] = [];
@@ -145,17 +146,18 @@ getAttendance(lesson: Lesson, attendanceId: string): Observable<any> {
         current: true,
         // tslint:disable-next-line:object-literal-shorthand
         lessonId: lessonId,
+        // tslint:disable-next-line:object-literal-shorthand
+        lessonDate: lessonDate,
         studentId: userDetail.uid,
         studentName: userDetail.displayName,
         studentImage: userDetail.photoURL,
         status: Status.Programada,
-        comment: ""
+        comment: ''
       };
 
-      this.createAttendance(lessonId, newAttendance).subscribe(
-        (attendanceCreated: Attendance) => {
+      this.createAttendance(newAttendance).subscribe(
+        () => {
           console.log(` -> New attendance ${newAttendance.id} created`);
-          // attendancesIds.push(attendanceCreated);
         }
       );
     });

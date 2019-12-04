@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
 export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = [ 'select', 'status', 'studentName', 'actions'];
-  dataSource: MatTableDataSource<Attendance>;
+  dataSource = new MatTableDataSource();
   selection = new SelectionModel<Attendance>(true, []);
   statusAttendance: Status[];
   statusToApply = Attendance.getDefaultStatus();
@@ -39,10 +39,9 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
 
     this.attendancesSvc.getAllAttendancesByLesson(this.lesson)
     .subscribe((attendances: Attendance[]) => {
-      console.log(`Lesson Detail. Found ${attendances.length} results`);
       this.attendances = attendances;
-      console.log(`Sh Lesson Attendance Table: ${this.attendances.length} results`);
-      this.dataSource = new MatTableDataSource(this.attendances);
+      console.log(`Num Attendances: ${this.attendances.length}`);
+      this.dataSource.data = this.attendances;
     });
   }
 
@@ -70,7 +69,7 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
   masterToggle() {
     this.isAllSelected() ?
         this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+        this.dataSource.data.forEach((row: Attendance) => this.selection.select(row));
   }
 
   /** The label for the checkbox on the passed row */

@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = ['status', 'schedule', 'material', 'actions'];
-  dataSource: MatTableDataSource<Lesson>;
+  dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @Input() course: Course;
@@ -39,7 +39,7 @@ export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
             });
 
             this.lessons = lessons;
-            this.dataSource = new MatTableDataSource(this.lessons);
+            this.dataSource.data = this.lessons;
           });
   }
 

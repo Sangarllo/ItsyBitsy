@@ -15,7 +15,7 @@ import { Student } from 'src/app/models/student.model';
 export class ShCourseUsersTableComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = ['photoURL', 'displayName', 'email'];
-  dataSource: MatTableDataSource<UserDetails>;
+  dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @Input() course: Course;
@@ -25,7 +25,7 @@ export class ShCourseUsersTableComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.course.studentList);
+    this.dataSource.data = this.course.studentList;
   }
 
   ngAfterViewInit(): void {

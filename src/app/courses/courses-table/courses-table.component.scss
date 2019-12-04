@@ -12,3 +12,15 @@ table {
 .mat-column-actions {
     width: 180px;
 }
+
+.mat-column-name {
+    padding-left: 30px;
+}
+
+.mat-column-image {
+    border: 3px solid white;
+    width: 80px;
+    .img-thumbnail {
+        width: 48px;
+    }
+}

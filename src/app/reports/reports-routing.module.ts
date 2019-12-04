@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ReportingDashboardComponent } from './reporting-dashboard/reporting-dashboard.component';
 import { StudentAttendancesReportComponent } from './student-attendances-report/student-attendances-report.component';
+import { MonthStudentAttendancesReportComponent } from './month-student-attendances-report/month-student-attendances-report.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,10 @@ const routes: Routes = [
     path: 'asistencias/estudiantes',
     component: StudentAttendancesReportComponent
   },
-
+  {
+    path: 'asistencias/estudiantes/mes',
+    component: MonthStudentAttendancesReportComponent
+  }
 ];
 
 @NgModule({

@@ -14,8 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class CoursesTableComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['name', 'schedule', 'actions'];
-  dataSource: MatTableDataSource<Course>;
+  columnsToDisplay = ['image', 'name', 'schedule', 'actions'];
+  dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -27,7 +27,7 @@ export class CoursesTableComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.courseSvc.getAllCourses().subscribe(
       (courses: Course[]) => {
-        this.dataSource = new MatTableDataSource(courses);
+        this.dataSource.data = courses;
       });
   }
 

@@ -17,6 +17,6 @@ export class ReportingDashboardComponent {
   }
 
   gotoReportByMonth() {
-    throw new Error('NotImplementedException');
+    this.router.navigate([`informes/asistencias/estudiantes/mes`]);
   }
 }

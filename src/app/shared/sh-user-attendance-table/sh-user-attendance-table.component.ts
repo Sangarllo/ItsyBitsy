@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 export class ShUserAttendanceTableComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = [ 'status', 'schedule', 'actions'];
-  dataSource: MatTableDataSource<Attendance>;
+  dataSource = new MatTableDataSource();
   selection = new SelectionModel<Attendance>(true, []);
   statusAttendance: Status[];
   statusToApply = Attendance.getDefaultStatus();
@@ -39,7 +39,7 @@ export class ShUserAttendanceTableComponent implements OnInit, AfterViewInit {
     this.attendancesSvc.getAllAttendancesByUser(this.student)
     .subscribe((attendances: Attendance[]) => {
       this.attendances = attendances;
-      this.dataSource = new MatTableDataSource(this.attendances);
+      this.dataSource.data = this.attendances;
     });
   }
 

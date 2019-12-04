@@ -162,7 +162,8 @@ export class LessonEditComponent implements OnInit, OnDestroy {
               next: (lesson: Lesson) => {
 
                 // 1. Creamos las attendances
-                const attendancesIds = this.attendacesSvc.createAttendancesFromStudentList(this.course, lesson.id);
+                const attendancesIds = this.attendacesSvc.createAttendancesFromStudentList(               this.course,
+                  lesson.id, lesson.date );
 
                 // 2. Las asignamos a la lección
                 // this.lesson.attendancesIds = attendancesIds; // TODO: Es necesario?

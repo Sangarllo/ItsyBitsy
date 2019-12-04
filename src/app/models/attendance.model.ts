@@ -9,10 +9,11 @@ export enum Status {
 export interface IAttendance {
   id: string;
   current: boolean;
+  lessonId: string;
+  lessonDate: Date;
   studentId: string;
   studentName: string;
   studentImage: string;
-  lessonId: string;
   status: string;
   comment: string;
 }
@@ -24,6 +25,7 @@ export class Attendance implements IAttendance {
   public static FIELD_ID = 'id';
   public static FIELD_CURRENT = 'current';
   public static FIELD_LESSON_ID = 'lessonId';
+  public static FIELD_LESSON_DATE = 'lessonDate';
   public static FIELD_STUDENT_ID = 'studentId';
   public static FIELD_STUDENT_NAME = 'studentName';
   public static FIELD_STUDENT_DISPLAY = 'studentDisplay';
@@ -34,6 +36,7 @@ export class Attendance implements IAttendance {
     public id: string,
     public current: boolean,
     public lessonId: string,
+    public lessonDate: Date,
     public studentId: string,
     public studentName: string,
     public studentImage: string,
