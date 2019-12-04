@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit, ViewChild, Input} from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
   templateUrl: './sh-user-attendance-table.component.html',
   styleUrls: ['./sh-user-attendance-table.component.scss']
 })
-export class ShUserAttendanceTableComponent implements OnInit {
+export class ShUserAttendanceTableComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = [ 'status', 'schedule', 'actions'];
   dataSource: MatTableDataSource<Attendance>;
@@ -35,14 +35,17 @@ export class ShUserAttendanceTableComponent implements OnInit {
   ngOnInit() {
     this.statusAttendance = Attendance.getAllStatus();
     this.dataSource = new MatTableDataSource(this.attendances);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
 
     this.attendancesSvc.getAllAttendancesByUser(this.student)
     .subscribe((attendances: Attendance[]) => {
       this.attendances = attendances;
       this.dataSource = new MatTableDataSource(this.attendances);
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input} from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Course } from '../../models/course.model';
@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
   templateUrl: './sh-course-lessons-table.component.html',
   styleUrls: ['./sh-course-lessons-table.component.scss']
 })
-export class ShCourseLessonsTableComponent implements OnInit {
+export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = ['status', 'schedule', 'material', 'actions'];
   dataSource: MatTableDataSource<Lesson>;
@@ -40,9 +40,12 @@ export class ShCourseLessonsTableComponent implements OnInit {
 
             this.lessons = lessons;
             this.dataSource = new MatTableDataSource(this.lessons);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
           });
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {

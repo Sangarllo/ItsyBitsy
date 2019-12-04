@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit, ViewChild, Input} from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
   templateUrl: './sh-lesson-attendance-table.component.html',
   styleUrls: ['./sh-lesson-attendance-table.component.scss']
 })
-export class ShLessonAttendanceTableComponent implements OnInit {
+export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = [ 'select', 'status', 'studentName', 'actions'];
   dataSource: MatTableDataSource<Attendance>;
@@ -36,8 +36,6 @@ export class ShLessonAttendanceTableComponent implements OnInit {
   ngOnInit() {
     this.statusAttendance = Attendance.getAllStatus();
     this.dataSource = new MatTableDataSource(this.attendances);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
 
     this.attendancesSvc.getAllAttendancesByLesson(this.lesson)
     .subscribe((attendances: Attendance[]) => {
@@ -46,6 +44,11 @@ export class ShLessonAttendanceTableComponent implements OnInit {
       console.log(`Sh Lesson Attendance Table: ${this.attendances.length} results`);
       this.dataSource = new MatTableDataSource(this.attendances);
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {

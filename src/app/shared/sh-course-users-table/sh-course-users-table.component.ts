@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input} from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Student } from 'src/app/models/student.model';
   templateUrl: './sh-course-users-table.component.html',
   styleUrls: ['./sh-course-users-table.component.scss']
 })
-export class ShCourseUsersTableComponent implements OnInit {
+export class ShCourseUsersTableComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = ['photoURL', 'displayName', 'email'];
   dataSource: MatTableDataSource<UserDetails>;
@@ -26,6 +26,9 @@ export class ShCourseUsersTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource(this.course.studentList);
+  }
+
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
