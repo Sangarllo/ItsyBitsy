@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressSpinnerModule } from '@angular/material';
 
 const matModules = [
   MatCardModule,
@@ -32,7 +33,8 @@ const matModules = [
   MatPaginatorModule,
   MatSortModule,
   MatTabsModule,
-  MatGridListModule
+  MatGridListModule,
+  MatProgressSpinnerModule
 ];
 
 @NgModule({

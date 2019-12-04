@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="students$ | async as students; else loading">
 
     <mat-toolbar color="primary">
         <span>{{pageTitle}}</span>
@@ -8,7 +8,7 @@
             <mat-form-field class="filter-form-field">
                 <mat-label>Escoge un estudiante</mat-label>
                 <mat-select [(ngModel)]="selectedStudent">
-                    <mat-option *ngFor="let student of STUDENTS" [value]="student">
+                    <mat-option *ngFor="let student of students" [value]="student">
                         {{student.displayName}}
                     </mat-option>
                 </mat-select>
@@ -33,4 +33,11 @@
 
 <ng-template #hideStudentList>
     <button mat-raised-button color="accent" (click)="showList()">Otro Informe</button>
+</ng-template>
+
+
+<ng-template #loading>
+    <div class="container-spinner">
+        <mat-spinner></mat-spinner>
+    </div>
 </ng-template>

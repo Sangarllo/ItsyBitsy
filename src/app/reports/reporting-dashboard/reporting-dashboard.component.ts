@@ -13,7 +13,7 @@ export class ReportingDashboardComponent {
   ) { }
 
   gotoReportByStudent() {
-    this.router.navigate([`informes/asistencias/estudiantes/asdf`]);
+    this.router.navigate([`informes/asistencias/estudiantes`]);
   }
 
   gotoReportByMonth() {

@@ -10,7 +10,7 @@ const routes: Routes = [
     component: ReportingDashboardComponent
   },
   {
-    path: 'asistencias/estudiantes/:id',
+    path: 'asistencias/estudiantes',
     component: StudentAttendancesReportComponent
   },
 

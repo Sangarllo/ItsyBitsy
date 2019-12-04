@@ -79,3 +79,10 @@ Every toolbar row uses a flexbox row layout. */
     color: #155724 !important;
     background-color: #d4edda !important;
 }
+
+.container-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}

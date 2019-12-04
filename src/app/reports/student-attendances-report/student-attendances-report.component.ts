@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UserDetails } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-student-attendances-report',
@@ -14,7 +15,7 @@ export class StudentAttendancesReportComponent implements OnInit {
   errorMessage: string;
   student: UserDetails = null;
   selectedStudent: UserDetails;
-  STUDENTS: UserDetails[] = [];
+  students$: Observable<UserDetails[]>;
   showStudentList: boolean = true;
 
   constructor(
@@ -24,11 +25,7 @@ export class StudentAttendancesReportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    this.userSvc.getAllStudents()
-    .subscribe((students: UserDetails[]) => {
-      this.STUDENTS = students;
-    });
+    this.students$ = this.userSvc.getAllStudents();
   }
 
   getReport() {
