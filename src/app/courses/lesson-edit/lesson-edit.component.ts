@@ -159,14 +159,22 @@ export class LessonEditComponent implements OnInit, OnDestroy {
         if (item.id === '0') {
           this.lessonService.createLesson(this.course, item)
             .subscribe({
-              next: (lesson: Lesson) => {
+              next: (createdLesson: Lesson) => {
 
                 // 1. Creamos las attendances
-                const attendancesIds = this.attendacesSvc.createAttendancesFromStudentList(               this.course,
-                  lesson.id, lesson.date );
+                const attendancesIds = this.attendacesSvc.createAttendancesFromStudentList(
+                  this.course,
+                  createdLesson
+                );
 
                 // 2. Las asignamos a la lección
-                // this.lesson.attendancesIds = attendancesIds; // TODO: Es necesario?
+                /*
+                  TODO:
+                    De momento la relación es attendnance -> lesson
+                    pero no lesson -> attendance*
+
+                  this.lesson.attendancesIds = attendancesIds;
+                */
 
                 // 3. Damos por cerrado el formulario
                 this.onSaveComplete();

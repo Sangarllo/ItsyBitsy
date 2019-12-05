@@ -4,8 +4,27 @@
         <span>{{pageTitle}}</span>
         <span class="fill-remaining-space"></span>
 
-        <div *ngIf="showStudentList; else hideStudentList">
-            <mat-form-field class="filter-form-field">
+        <div *ngIf="showReportFilters; else hideStudentList">
+
+            <mat-form-field class="filter-form-field filter-year" *ngIf="YEARS">
+                <mat-label>Escoge un año</mat-label>
+                <mat-select [(ngModel)]="selectedYear">
+                    <mat-option *ngFor="let year of YEARS" [value]="year">
+                        {{year}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="filter-form-field filter-month" *ngIf="MONTHS">
+                <mat-label>Escoge un mes</mat-label>
+                <mat-select [(ngModel)]="selectedMonth.int">
+                    <mat-option *ngFor="let month of MONTHS" [value]="month.int">
+                        {{month.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="filter-form-field filter-student">
                 <mat-label>Escoge un estudiante</mat-label>
                 <mat-select [(ngModel)]="selectedStudent">
                     <mat-option *ngFor="let student of students" [value]="student">
@@ -18,8 +37,7 @@
         </div>
     </mat-toolbar>
 
-
-    <sh-user-attendance-table *ngIf="student; else noReport" [student]="student"></sh-user-attendance-table>
+    <sh-user-attendance-table *ngIf="student; else noReport" [student]="student" [dateIni]="dateIni" [dateEnd]="dateEnd"></sh-user-attendance-table>
 
 </mat-card>
 

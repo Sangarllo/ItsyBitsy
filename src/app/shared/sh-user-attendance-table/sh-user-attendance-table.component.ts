@@ -8,6 +8,7 @@ import { UserDetails } from '../../models/user.model';
 import { Attendance, Status } from '../../models/attendance.model';
 import { AttendancesService } from '../../services/attendances.service';
 import Swal from 'sweetalert2';
+import { DatesService } from '../../services/dates.service';
 
 @Component({
   selector: 'sh-user-attendance-table',
@@ -16,29 +17,39 @@ import Swal from 'sweetalert2';
 })
 export class ShUserAttendanceTableComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = [ 'status', 'schedule', 'actions'];
+  columnsToDisplay = [ 'status', 'courseName', 'lessonDate', 'actions'];
   dataSource = new MatTableDataSource();
   selection = new SelectionModel<Attendance>(true, []);
   statusAttendance: Status[];
   statusToApply = Attendance.getDefaultStatus();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @Input() dateIni: Date;
+  @Input() dateEnd: Date;
   @Input() student: UserDetails;
   attendances: Attendance[] = [];
 
   constructor(
+    private dateSvc: DatesService,
     private attendancesSvc: AttendancesService,
     private router: Router,
   ) { }
 
 
   ngOnInit() {
+
+    console.log(`dateIni: ${this.dateIni}`);
+    console.log(`dateEnd: ${this.dateEnd}`);
+
     this.statusAttendance = Attendance.getAllStatus();
     this.dataSource = new MatTableDataSource(this.attendances);
 
-    this.attendancesSvc.getAllAttendancesByUser(this.student)
+    this.attendancesSvc.getAllAttendancesByUser(this.student, this.dateIni, this.dateEnd)
     .subscribe((attendances: Attendance[]) => {
       this.attendances = attendances;
+      this.attendances.forEach((attendance: Attendance) => {
+        attendance.lessonDate = this.dateSvc.fromFirebaseDate(attendance.lessonDate);
+      });
       this.dataSource.data = this.attendances;
     });
   }

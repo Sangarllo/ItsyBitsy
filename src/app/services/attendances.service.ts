@@ -45,10 +45,12 @@ export class AttendancesService {
     );
   }
 
-  getAllAttendancesByUser(userDetails: UserDetails): Observable<Attendance[]> {
+  getAllAttendancesByUser(userDetails: UserDetails, dateIni: Date, dateEnd: Date): Observable<Attendance[]> {
     this.attendanceCollection = this.afs.collection(
       ATTENDANCE_COLLECTION,
       ref => ref.where('studentId', '==', userDetails.uid)
+                .where('lessonDate', '>=', dateIni)
+                .where('lessonDate', '<=', dateEnd)
     );
 
     return this.attendanceCollection.snapshotChanges().pipe(
@@ -62,14 +64,15 @@ export class AttendancesService {
     );
   }
 
-getAttendance(lesson: Lesson, attendanceId: string): Observable<any> {
+getAttendance(course: Course, lesson: Lesson, attendanceId: string): Observable<any> {
     if (attendanceId === '0') {
       const studentDefault = this.userService.initialize();
-      return of(this.initialize(lesson, studentDefault));
+      return of(this.initialize(course, lesson, studentDefault));
     } else {
       this.attendanceCollection = this.afs.collection(
         ATTENDANCE_COLLECTION,
         ref => ref.where('lessonId', '==', lesson.id)
+                  .where('courseId', '==', course.id)
       );
       return this.attendanceCollection.doc(attendanceId).valueChanges();
     }
@@ -115,11 +118,13 @@ getAttendance(lesson: Lesson, attendanceId: string): Observable<any> {
     return of({});
   }
 
-  public initialize(lesson: Lesson, student: UserDetails): Attendance {
+  public initialize(course: Course, lesson: Lesson, student: UserDetails): Attendance {
     // Return an initialized object
     return {
       id: '0',
       current: true,
+      courseId: course.id,
+      courseName: course.name,
       lessonId: lesson.id,
       lessonDate: lesson.date,
       studentId: student.uid,
@@ -130,11 +135,7 @@ getAttendance(lesson: Lesson, attendanceId: string): Observable<any> {
     };
   }
 
-  public createAttendancesFromStudentList(
-    course: Course,
-    lessonId: string,
-    lessonDate: Date
-  ): string[] {
+  public createAttendancesFromStudentList( course: Course, createdLesson: Lesson ): string[] {
     const studentList: UserDetails[] = course.studentList;
     const attendancesIds: string[] = [];
 
@@ -144,10 +145,10 @@ getAttendance(lesson: Lesson, attendanceId: string): Observable<any> {
       const newAttendance: Attendance = {
         id: newAttendanceId,
         current: true,
-        // tslint:disable-next-line:object-literal-shorthand
-        lessonId: lessonId,
-        // tslint:disable-next-line:object-literal-shorthand
-        lessonDate: lessonDate,
+        courseId: course.id,
+        courseName: course.name,
+        lessonId: createdLesson.id,
+        lessonDate: createdLesson.date,
         studentId: userDetail.uid,
         studentName: userDetail.displayName,
         studentImage: userDetail.photoURL,

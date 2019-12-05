@@ -62,7 +62,7 @@ export class LessonAddStudentComponent implements OnInit {
 
     if (!this.isInArray(userDetails)) {
 
-      const newAttendance = this.attendanceSvc.initialize(this.lesson, userDetails);
+      const newAttendance = this.attendanceSvc.initialize(this.course, this.lesson, userDetails);
 
       this.attendanceSvc.createAttendance(newAttendance)
         .subscribe( (attendance: Attendance) => {
