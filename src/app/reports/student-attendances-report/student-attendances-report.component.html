@@ -4,7 +4,7 @@
         <span>{{pageTitle}}</span>
         <span class="fill-remaining-space"></span>
 
-        <div *ngIf="showStudentList; else hideStudentList">
+        <div *ngIf="showReportFilters; else hideStudentList">
             <mat-form-field class="filter-form-field">
                 <mat-label>Escoge un estudiante</mat-label>
                 <mat-select [(ngModel)]="selectedStudent">
@@ -19,7 +19,7 @@
     </mat-toolbar>
 
 
-    <sh-user-attendance-table *ngIf="student; else noReport" [student]="student"></sh-user-attendance-table>
+    <sh-user-attendance-table *ngIf="student; else noReport" [student]="student" [dateIni]="dateIni" [dateEnd]="dateEnd"></sh-user-attendance-table>
 
 </mat-card>
 

@@ -16,7 +16,9 @@ export class StudentAttendancesReportComponent implements OnInit {
   student: UserDetails = null;
   selectedStudent: UserDetails;
   students$: Observable<UserDetails[]>;
-  showStudentList: boolean = true;
+  showReportFilters: boolean = true;
+  dateIni: Date = new Date(2000, 1, 1);
+  dateEnd: Date = new Date(3000, 1, 1);
 
   constructor(
     public auth: AuthService,
@@ -31,13 +33,13 @@ export class StudentAttendancesReportComponent implements OnInit {
   getReport() {
     this.student = this.selectedStudent;
     this.pageTitle = `Informe de asistencias de ${this.student.displayName}`;
-    this.showStudentList = false;
+    this.showReportFilters = false;
   }
 
   showList() {
     this.student = null;
     this.pageTitle = 'Informe de Estudiantes';
-    this.showStudentList = true;
+    this.showReportFilters = true;
   }
 
 }

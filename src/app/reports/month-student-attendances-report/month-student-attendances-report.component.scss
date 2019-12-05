@@ -15,3 +15,15 @@
 .filter-student {
     width: 200px;
 }
+
+.summary {
+    margin-top: 20px;
+    .img-thumbnail {
+        width: 64px;
+        float: left;
+        margin-right: 12px;
+    }
+    .data-summary {
+        margin-top: 10px;
+    }
+}

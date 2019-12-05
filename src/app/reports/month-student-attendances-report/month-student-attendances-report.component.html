@@ -37,6 +37,36 @@
         </div>
     </mat-toolbar>
 
+    <div class="container summary" *ngIf="student">
+        <div class="row">
+
+            <div class="col-4 text-left">
+                <img [src]="student.photoURL" [alt]="student.displayName" class="img-thumbnail">
+                <div class="data-summary">
+                    <h6>Asistencias de {{student.displayName}}</h6>
+                    <h6>{{infoReport}}</h6>
+                </div>
+            </div>
+
+            <div class="col-4 text-left">
+                <img [src]="'assets/section/curso.png'" class="img-thumbnail" />
+                <div class="data-summary">
+                    <h6>{{infoCourses}}</h6>
+                    <h6>{{infoLessons}}</h6>
+                </div>
+            </div>
+
+            <div class="col-4 text-left">
+                <img [src]="'assets/section/rate.png'" class="img-thumbnail" />
+                <div class="data-summary">
+                    <h6>Tarifa aplicada:</h6>
+                    <h6>Total a cobrar:</h6>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <sh-user-attendance-table *ngIf="student; else noReport" [student]="student" [dateIni]="dateIni" [dateEnd]="dateEnd"></sh-user-attendance-table>
 
 </mat-card>

@@ -13,6 +13,7 @@ import { DatesService, Month } from '../../services/dates.service';
 export class MonthStudentAttendancesReportComponent implements OnInit {
 
   pageTitle = 'Informe de Estudiantes por Mes';
+  infoReport = '';
   errorMessage: string;
   student: UserDetails = null;
   selectedStudent: UserDetails;
@@ -38,15 +39,18 @@ export class MonthStudentAttendancesReportComponent implements OnInit {
 
   getReport() {
     this.student = this.selectedStudent;
+
+    this.infoReport = `durante ${this.selectedMonth.name} ${this.selectedYear}`;
+    this.pageTitle = `Informe de asistencias de ${this.student.displayName} durante ${this.selectedMonth.name} ${this.selectedYear}`;
+
     this.dateIni = new Date(this.selectedYear, this.selectedMonth.int - 1, 1);
     this.dateEnd = ( this.selectedMonth.int === 12 ) ?
       new Date(this.selectedYear + 1, 0, 1) :
       new Date(this.selectedYear, this.selectedMonth.int, 1);
-    console.log(`dateIni: ${this.dateIni}`);
-    console.log(`dateEnd: ${this.dateEnd}`);
-    this.pageTitle = `Informe de asistencias de ${this.student.displayName} durante ${this.selectedMonth.name} ${this.selectedYear}`;
+
     this.showReportFilters = false;
   }
+
 
   showList() {
     this.student = null;
