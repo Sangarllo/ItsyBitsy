@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { UserDetails } from '../../models/user.model';
-import { UserService } from '../../services/user.service';
-import { Observable } from 'rxjs';
 import { DatesService, Month } from '../../services/dates.service';
-import { ReportSummary } from '../../models/report-summary';
 import { RateService } from '../../services/rates.service';
 import { Rate } from 'src/app/models/rate';
 import Swal from 'sweetalert2';
+import { Attendance } from '../../models/attendance.model';
 
 @Component({
   selector: 'app-month-attendances-report',
@@ -35,6 +32,8 @@ export class MonthAttendancesReportComponent implements OnInit {
 
   reportErrors: string[];
 
+  attendances: Attendance[];
+
   constructor(
     public auth: AuthService,
     private dateSvc: DatesService,
@@ -58,43 +57,25 @@ export class MonthAttendancesReportComponent implements OnInit {
     this.showReportFilters = false;
   }
 
-  reportSummary(reportSummary: ReportSummary) {
+  reportSummary(attendances: Attendance[]) {
 
-    // Número de Cursos y Asistencias
-    this.infoCourses = ( reportSummary.courses.length === 1 ) ?
-      `Curso: ${reportSummary.courses[0]}` :
-      `Cursos Asistidos: ${reportSummary.courses.length}`;
-
-    this.infoLessons = `${reportSummary.nAttendancesConfirmed} asistencias confirmadas`;
-
-    if ( ( reportSummary.nAttendancesConfirmed <= 0 ) ||
-         ( reportSummary.nAttendances <= 0 ) ) {
-      this.addError('No se han encontrado asistencias a clase');
-    }
-
-
-    console.log(`Info: ${reportSummary.info}`);
-    console.log(`Selected: ${JSON.stringify(reportSummary)}`);
-
-    if ( this.reportErrors.length > 0 ) {
       Swal.fire({
-        icon: 'error',
-        title: 'Hubo algún error',
-        text: 'Resuelve los errores detectados para generar informes válidos'
+        icon: 'success',
+        title: 'Obtenidas asistencias',
+        text: `Se han encontrado ${attendances.length} asistencias`
       });
-    }
+
+      this.attendances = attendances;
+
   }
 
   showList() {
-    this.pageTitle = 'Informe de Estudiantes por Mes';
+    this.pageTitle = 'Informe de Asistencias por Mes';
     this.showReportFilters = true;
     this.reportErrors = null;
     this.dateIni = null;
     this.dateEnd = null;
-  }
-
-  private addError(newError: string) {
-    this.reportErrors.push(newError);
+    this.attendances = null;
   }
 
 }

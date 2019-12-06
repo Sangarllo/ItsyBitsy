@@ -9,23 +9,20 @@ import { DatesService } from '../../services/dates.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'sh-month-attendance-table',
-  templateUrl: './sh-month-attendance-table.component.html',
-  styleUrls: ['./sh-month-attendance-table.component.scss']
+  selector: 'sh-month-attendance-table-summary',
+  templateUrl: './sh-month-attendance-table-summary.component.html',
+  styleUrls: ['./sh-month-attendance-table-summary.component.scss']
 })
-export class ShMonthAttendanceTableComponent implements OnInit, AfterViewInit {
+export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterViewInit {
 
-  @Output() reportSummary = new EventEmitter<Attendance[]>();
-  columnsToDisplay = [ 'status', 'studentName', 'courseName', 'lessonDate', 'actions'];
+  columnsToDisplay = ['photoURL', 'displayName', 'studentId', 'numAsistencias'];
   dataSource = new MatTableDataSource();
-  selection = new SelectionModel<Attendance>(true, []);
-  statusAttendance: Status[];
-  statusToApply = Attendance.getDefaultStatus();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @Input() dateIni: Date;
-  @Input() dateEnd: Date;
-  attendances: Attendance[] = [];
+  @Input() attendances: Attendance[];
+
+  studentsIds: string[] = [];
+  studentsArray = [];
 
   constructor(
     private dateSvc: DatesService,
@@ -34,31 +31,34 @@ export class ShMonthAttendanceTableComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    this.statusAttendance = Attendance.getAllStatus();
 
-    this.attendancesSvc.getAllAttendancesByMonth( this.dateIni, this.dateEnd)
-    .subscribe((attendances: Attendance[]) => {
-      this.attendances = attendances;
+    // Listamos los usuarios diferentes
+    this.attendances.forEach((attendance: Attendance) => {
+        const studentId = attendance.studentId;
 
-      const coursesNames: string[] = [];
-      let nAttendances = 0;
-      let nAttendancesConfirmed = 0;
-      this.attendances.forEach((attendance: Attendance) => {
-        attendance.lessonDate = this.dateSvc.fromFirebaseDate(attendance.lessonDate);
-
-        nAttendances = nAttendances + 1;
-        if ( !coursesNames.includes(attendance.courseName) ) {
-          coursesNames.push(attendance.courseName);
-        }
-
-        if ( attendance.status === Status.Confirmada ) {
-          nAttendancesConfirmed++;
+        const indStudent = this.studentsIds.indexOf(studentId);
+        if ( indStudent < 0 ) {
+          // TODO: habría que buscar la tarifa
+          this.studentsIds.push(studentId);
+          const data = {
+            studentId: attendance.studentId,
+            photoURL: attendance.studentImage,
+            displayName: attendance.studentName,
+            numAsistencias: 1 // TODO: Tendrán que ser confirmadas
+          };
+          this.studentsArray.push(data);
+        } else {
+          const data = {
+            studentId: attendance.studentId,
+            photoURL: attendance.studentImage,
+            displayName: attendance.studentName,
+            numAsistencias: this.studentsArray[indStudent].numAsistencias + 1
+          };
         }
       });
 
-      this.dataSource.data = this.attendances;
-      this.reportSummary.emit(this.attendances);
-    });
+    // Los asociamos a la MatTable
+    this.dataSource.data = this.studentsArray;
   }
 
   ngAfterViewInit(): void {

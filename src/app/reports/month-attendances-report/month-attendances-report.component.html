@@ -30,6 +30,8 @@
 
     <sh-month-attendance-table *ngIf="dateIni && dateEnd; else noReport" [dateIni]="dateIni" [dateEnd]="dateEnd" (reportSummary)="reportSummary($event)"></sh-month-attendance-table>
 
+    <sh-month-attendance-table-summary *ngIf="attendances" [attendances]="attendances"></sh-month-attendance-table-summary>
+
 </mat-card>
 
 <ng-template #noReport>
