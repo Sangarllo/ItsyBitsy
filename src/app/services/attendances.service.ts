@@ -64,6 +64,24 @@ export class AttendancesService {
     );
   }
 
+  getAllAttendancesByMonth(dateIni: Date, dateEnd: Date): Observable<Attendance[]> {
+    this.attendanceCollection = this.afs.collection(
+      ATTENDANCE_COLLECTION,
+      ref => ref.where('lessonDate', '>=', dateIni)
+                .where('lessonDate', '<=', dateEnd)
+    );
+
+    return this.attendanceCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as Attendance;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+  }
+
 getAttendance(course: Course, lesson: Lesson, attendanceId: string): Observable<any> {
     if (attendanceId === '0') {
       const studentDefault = this.userService.initialize();

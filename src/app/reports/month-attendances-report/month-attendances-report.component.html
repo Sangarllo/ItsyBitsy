@@ -1,0 +1,52 @@
+<mat-card>
+
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+
+        <div *ngIf="showReportFilters; else hideReportFilters">
+
+            <mat-form-field class="filter-form-field filter-year" *ngIf="YEARS">
+                <mat-label>Escoge un año</mat-label>
+                <mat-select [(ngModel)]="selectedYear">
+                    <mat-option *ngFor="let year of YEARS" [value]="year">
+                        {{year}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="filter-form-field filter-month" *ngIf="MONTHS">
+                <mat-label>Escoge un mes</mat-label>
+                <mat-select [(ngModel)]="selectedMonth.int">
+                    <mat-option *ngFor="let month of MONTHS" [value]="month.int">
+                        {{month.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            &nbsp;&nbsp;
+            <button mat-raised-button color="accent" (click)="getReport()">Crear Informe</button>
+        </div>
+    </mat-toolbar>
+
+    <sh-month-attendance-table *ngIf="dateIni && dateEnd; else noReport" [dateIni]="dateIni" [dateEnd]="dateEnd" (reportSummary)="reportSummary($event)"></sh-month-attendance-table>
+
+</mat-card>
+
+<ng-template #noReport>
+    <br>
+    <div class="alert alert-danger text-center" role="alert">
+        Selecciona un mes y año para generar el informe asociado
+        <br/>
+    </div>
+</ng-template>
+
+<ng-template #hideReportFilters>
+    <button mat-raised-button color="accent" (click)="showList()">Otro Informe</button>
+</ng-template>
+
+
+<ng-template #loading>
+    <div class="container-spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>

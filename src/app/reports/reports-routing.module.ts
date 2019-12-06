@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReportingDashboardComponent } from './reporting-dashboard/reporting-dashboard.component';
 import { StudentAttendancesReportComponent } from './student-attendances-report/student-attendances-report.component';
 import { MonthStudentAttendancesReportComponent } from './month-student-attendances-report/month-student-attendances-report.component';
+import { MonthAttendancesReportComponent } from './month-attendances-report/month-attendances-report.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'asistencias/estudiantes/mes',
     component: MonthStudentAttendancesReportComponent
+  },
+  {
+    path: 'asistencias/mes',
+    component: MonthAttendancesReportComponent
   }
 ];
 

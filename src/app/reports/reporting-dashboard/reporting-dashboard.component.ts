@@ -16,7 +16,11 @@ export class ReportingDashboardComponent {
     this.router.navigate([`informes/asistencias/estudiantes`]);
   }
 
-  gotoReportByMonth() {
+  gotoReportByStudentMonth() {
     this.router.navigate([`informes/asistencias/estudiantes/mes`]);
+  }
+
+  gotoReportByMonth() {
+    this.router.navigate([`informes/asistencias/mes`]);
   }
 }

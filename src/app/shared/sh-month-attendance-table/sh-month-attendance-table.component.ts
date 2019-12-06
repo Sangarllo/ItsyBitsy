@@ -2,24 +2,22 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserDetails } from '../../models/user.model';
 import { Attendance, Status } from '../../models/attendance.model';
 import { AttendancesService } from '../../services/attendances.service';
-import Swal from 'sweetalert2';
 import { DatesService } from '../../services/dates.service';
 import { ReportSummary } from '../../models/report-summary';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'sh-user-attendance-table',
-  templateUrl: './sh-user-attendance-table.component.html',
-  styleUrls: ['./sh-user-attendance-table.component.scss']
+  selector: 'sh-month-attendance-table',
+  templateUrl: './sh-month-attendance-table.component.html',
+  styleUrls: ['./sh-month-attendance-table.component.scss']
 })
-export class ShUserAttendanceTableComponent implements OnInit, AfterViewInit {
+export class ShMonthAttendanceTableComponent implements OnInit, AfterViewInit {
 
   @Output() reportSummary = new EventEmitter<ReportSummary>();
-  columnsToDisplay = [ 'status', 'courseName', 'lessonDate', 'actions'];
+  columnsToDisplay = [ 'status', 'studentName', 'courseName', 'lessonDate', 'actions'];
   dataSource = new MatTableDataSource();
   selection = new SelectionModel<Attendance>(true, []);
   statusAttendance: Status[];
@@ -28,22 +26,23 @@ export class ShUserAttendanceTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @Input() dateIni: Date;
   @Input() dateEnd: Date;
-  @Input() student: UserDetails;
   attendances: Attendance[] = [];
 
   constructor(
     private dateSvc: DatesService,
     private attendancesSvc: AttendancesService,
-    private router: Router,
   ) { }
 
 
   ngOnInit() {
 
+    console.log(`dateIni: ${this.dateIni}`);
+    console.log(`dateEnd: ${this.dateEnd}`);
+
     this.statusAttendance = Attendance.getAllStatus();
     this.dataSource = new MatTableDataSource(this.attendances);
 
-    this.attendancesSvc.getAllAttendancesByUser(this.student, this.dateIni, this.dateEnd)
+    this.attendancesSvc.getAllAttendancesByMonth( this.dateIni, this.dateEnd)
     .subscribe((attendances: Attendance[]) => {
       this.attendances = attendances;
 
