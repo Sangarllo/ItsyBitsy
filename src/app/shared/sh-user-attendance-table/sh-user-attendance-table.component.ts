@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit, ViewChild, Input, AfterViewInit} from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { Attendance, Status } from '../../models/attendance.model';
 import { AttendancesService } from '../../services/attendances.service';
 import Swal from 'sweetalert2';
 import { DatesService } from '../../services/dates.service';
+import { ReportSummary } from '../../models/report-summary';
 
 @Component({
   selector: 'sh-user-attendance-table',
@@ -17,6 +18,7 @@ import { DatesService } from '../../services/dates.service';
 })
 export class ShUserAttendanceTableComponent implements OnInit, AfterViewInit {
 
+  @Output() reportSummary = new EventEmitter<ReportSummary>();
   columnsToDisplay = [ 'status', 'courseName', 'lessonDate', 'actions'];
   dataSource = new MatTableDataSource();
   selection = new SelectionModel<Attendance>(true, []);
@@ -47,10 +49,34 @@ export class ShUserAttendanceTableComponent implements OnInit, AfterViewInit {
     this.attendancesSvc.getAllAttendancesByUser(this.student, this.dateIni, this.dateEnd)
     .subscribe((attendances: Attendance[]) => {
       this.attendances = attendances;
+
+      const coursesNames: string[] = [];
+      let nAttendances = 0;
+      let nAttendancesConfirmed = 0;
       this.attendances.forEach((attendance: Attendance) => {
         attendance.lessonDate = this.dateSvc.fromFirebaseDate(attendance.lessonDate);
+
+        nAttendances = nAttendances + 1;
+        if ( !coursesNames.includes(attendance.courseName) ) {
+          coursesNames.push(attendance.courseName);
+        }
+
+        if ( attendance.status === Status.Confirmada ) {
+          nAttendancesConfirmed++;
+        }
       });
+
       this.dataSource.data = this.attendances;
+
+      const dataReportSummary: ReportSummary = {
+        info: 'hola colega',
+        // tslint:disable-next-line:object-literal-shorthand
+        nAttendances: nAttendances,
+        // tslint:disable-next-line:object-literal-shorthand
+        nAttendancesConfirmed: nAttendancesConfirmed,
+        courses: coursesNames,
+      };
+      this.reportSummary.emit(dataReportSummary);
     });
   }
 

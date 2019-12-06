@@ -67,7 +67,7 @@
         </div>
     </div>
 
-    <sh-user-attendance-table *ngIf="student; else noReport" [student]="student" [dateIni]="dateIni" [dateEnd]="dateEnd"></sh-user-attendance-table>
+    <sh-user-attendance-table *ngIf="student; else noReport" [student]="student" [dateIni]="dateIni" [dateEnd]="dateEnd" (reportSummary)="reportSummary($event)"></sh-user-attendance-table>
 
 </mat-card>
 

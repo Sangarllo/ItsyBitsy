@@ -4,6 +4,7 @@ import { UserDetails } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { Observable } from 'rxjs';
 import { DatesService, Month } from '../../services/dates.service';
+import { ReportSummary } from '../../models/report-summary';
 
 @Component({
   selector: 'app-month-student-attendances-report',
@@ -19,6 +20,8 @@ export class MonthStudentAttendancesReportComponent implements OnInit {
   selectedStudent: UserDetails;
   students$: Observable<UserDetails[]>;
   showReportFilters: boolean = true;
+  infoCourses: string;
+  infoLessons: string;
 
   selectedYear = new Date().getFullYear();
   YEARS: number[] = this.dateSvc.getYears();
@@ -51,6 +54,18 @@ export class MonthStudentAttendancesReportComponent implements OnInit {
     this.showReportFilters = false;
   }
 
+  reportSummary(reportSummary: ReportSummary) {
+    // this.reportSummary = reportSummary;
+    this.infoCourses = ( reportSummary.courses.length === 1 ) ?
+      `Curso: ${reportSummary.courses[0]}` :
+      `Cursos Asistidos: ${reportSummary.courses.length}`;
+
+    this.infoLessons = `${reportSummary.nAttendancesConfirmed} asistencias confirmadas`;
+
+
+    console.log(`Info: ${reportSummary.info}`);
+    console.log(`Selected: ${JSON.stringify(reportSummary)}`);
+  }
 
   showList() {
     this.student = null;

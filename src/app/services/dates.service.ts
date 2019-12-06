@@ -50,7 +50,7 @@ export class DatesService {
     const thisMonth: number = new Date().getMonth();
     return {
       int: thisMonth + 1,
-      name: this.MONTH_NAMES[thisMonth - 1]
+      name: this.MONTH_NAMES[thisMonth]
     };
   }
 
