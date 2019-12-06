@@ -3,10 +3,12 @@ import { UserDetails, Rol } from 'src/app/models/user.model';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Avatar } from '../../models/image.model';
-import { RandomGenerator } from '../../shared/random-generator';
 import Swal from 'sweetalert2';
+import { RateService } from '../../services/rates.service';
+import { Rate } from 'src/app/models/rate';
+import { DatesService } from '../../services/dates.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -18,9 +20,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
   pageTitle = 'Edición de Usuario';
   errorMessage: string;
   userDetailsForm: FormGroup;
-
   userDetails: UserDetails;
   AVATARES: Avatar[] = Avatar.getAvatares();
+  rates$: Observable<Rate[]>;
 
   isUser = true;
 
@@ -30,30 +32,41 @@ export class UserEditComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private dateSvc: DatesService,
+    private rateSvc: RateService,
     private userService: UserService) { }
 
   ngOnInit() {
-      this.userDetailsForm = this.fb.group({
+
+    this.rates$ = this.rateSvc.getAllRates();
+
+    this.userDetailsForm = this.fb.group({
         displayName: ['', [Validators.required,
           Validators.minLength(3),
           Validators.maxLength(50)]],
         photoURL: ['', Validators.required],
         email: ['', Validators.email],
         nickName: [''],
+        birthday: [''],
+        location: ['', Validators.required],
         creationDate: [new Date()],
         isUser: false,
         isAdmin: false,
         isTeacher: false,
         isStudent: false,
-      });
+        contactPerson: ['', Validators.required],
+        telephone: [''],
+        rateId: ['', Validators.required],
+        paymentMethod: ['', Validators.required],
+    });
 
-      // Read the student Id from the route parameter
-      this.sub = this.route.paramMap.subscribe(
+    // Read the student Id from the route parameter
+    this.sub = this.route.paramMap.subscribe(
         params => {
           const id = params.get('id');
           this.getUserDetails(id);
         }
-      );
+    );
   }
 
   ngOnDestroy(): void {
@@ -89,10 +102,16 @@ export class UserEditComponent implements OnInit, OnDestroy {
       photoURL: this.userDetails.photoURL,
       email: this.userDetails.email,
       nickName: this.userDetails.nickName,
+      birthday: this.dateSvc.fromFirebaseDate(this.userDetails.birthday),
+      location: this.userDetails.location,
       isUser: this.userDetails.isUser,
       isAdmin: this.userDetails.isAdmin,
       isTeacher: this.userDetails.isTeacher,
       isStudent: this.userDetails.isStudent,
+      contactPerson: this.userDetails.contactPerson,
+      telephone: this.userDetails.telephone,
+      rateId: (this.userDetails.rateId) ? 'no-aplica' : this.userDetails.rateId,
+      paymentMethod: this.userDetails.paymentMethod,
       creationDate: this.userDetails.creationDate
     });
   }
@@ -110,16 +129,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
           });
       }
     }
-  }
-
-  onRandomPopulateForm(): void {
-
-    this.userDetails.displayName = RandomGenerator.randomDisplayName();
-    this.userDetails.email = this.userDetails.displayName.replace(' ', '.').toLowerCase() + '@gmail.com';
-    this.userDetails.photoURL = Avatar.getRandom().path;
-    this.userDetails.nickName = this.userDetails.displayName.split(' ')[0];
-
-    this.displayUserDetails();
   }
 
   onResetForm(): void {

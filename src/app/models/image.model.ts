@@ -47,7 +47,7 @@ const AVATARES = [
   {path: 'assets/avatar/041-woman-11.png', name: 'Mujer 11'},
   {path: 'assets/avatar/042-vampire.png', name: 'Vampiro'},
   {path: 'assets/avatar/043-chef.png', name: 'Cocinero'},
-  {path: 'assets/avatar/044-farmer.png', name: 'HOmbre Chino'},
+  {path: 'assets/avatar/044-farmer.png', name: 'Hombre Chino'},
   {path: 'assets/avatar/045-man-12.png', name: 'Hombre 12'},
   {path: 'assets/avatar/046-woman-12.png', name: 'Mujer 12'},
   {path: 'assets/avatar/047-man-13.png', name: 'Hombre 13'},

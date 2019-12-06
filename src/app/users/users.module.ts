@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialConfigurationModule } from '../material-configuration/material-configuration.module';
-
+import { SharedModule } from '../shared/shared.module';
 import { UsersRoutingModule } from './users-routing.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
@@ -23,11 +20,8 @@ import { UsersTableComponent } from './users-table/users-table.component';
     UsersTableComponent,
   ],
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    SharedModule,
     UsersRoutingModule,
-    MaterialConfigurationModule
   ],
   exports: [
     UserViewComponent

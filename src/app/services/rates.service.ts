@@ -15,19 +15,27 @@ export class RateService {
   private rateDoc: AngularFirestoreDocument<Rate>;
 
   constructor(private afs: AngularFirestore) {
-    this.rateCollection = afs.collection<Rate>(RATE_COLLECTION);
   }
 
-  getRates(): Observable<Rate[]> {
+  getAllRates(): Observable<Rate[]> {
+    this.rateCollection = this.afs.collection(
+      RATE_COLLECTION,
+      ref => ref.where('current', '==', true)
+                .orderBy('name')
+    );
+
     return this.rateCollection.valueChanges();
   }
 
-
-  getRate(id: string): Observable<any> {
-    if (id === '0') {
+  getRate(rateId: string): Observable<any> {
+    if (rateId === '0') {
       return of(this.initialize());
     } else {
-      return this.rateCollection.doc(id).valueChanges();
+      this.rateCollection = this.afs.collection(
+        RATE_COLLECTION,
+        ref => ref.where('current', '==', true)
+      );
+      return this.rateCollection.doc(rateId).valueChanges();
     }
   }
 

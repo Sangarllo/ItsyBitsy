@@ -5,7 +5,6 @@ import { Observable, of } from 'rxjs';
 import { Avatar } from '../models/image.model';
 import { map } from 'rxjs/operators';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +17,9 @@ export class UserService {
   private teachersCollection: AngularFirestoreCollection<IUserDetails>;
   private userDetailsDoc: AngularFirestoreDocument<IUserDetails>;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(
+    private afs: AngularFirestore,
+  ) {
     this.userDetailsCollection = this.afs.collection<UserDetails>(UserService.USER_DETAILS_COLLECTION);
   }
 
@@ -107,15 +108,21 @@ export class UserService {
     // Return an initialized object
     return {
       uid: '0',
-      displayName: 'Usuario Defecto',
+      displayName: '',
       photoURL: Avatar.getRandom().path,
       email: '',
       nickName: '',
+      birthday: new Date(),
+      location: '',
       creationDate: new Date(),
       isUser: false,
       isAdmin: false,
       isTeacher: false,
-      isStudent: false
+      isStudent: false,
+      rateId: 'no-aplica',
+      telephone: '',
+      contactPerson: '-',
+      paymentMethod: 'No Aplica'
     };
   }
 }

@@ -1,0 +1,14 @@
+.data-detail {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    input {
+        color: black;
+    }
+}
+
+.data-detail>* {
+    width: 100%;
+}

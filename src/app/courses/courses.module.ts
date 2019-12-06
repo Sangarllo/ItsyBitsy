@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialConfigurationModule } from '../material-configuration/material-configuration.module';
+import { DatePipe } from '@angular/common';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { CourseEditComponent } from './course-edit/course-edit.component';

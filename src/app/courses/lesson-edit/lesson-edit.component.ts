@@ -152,7 +152,6 @@ export class LessonEditComponent implements OnInit, OnDestroy {
     if (this.lessonForm.valid) {
 
         this.lesson.date = new Date(2019, 11, 19);
-        // this.datesService.toFirebaseDate(this.lesson.date);
 
         const item = { ...this.lesson, ...this.lessonForm.value };
 

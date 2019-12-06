@@ -15,7 +15,9 @@ export interface User {
 }
 
 export interface IUserDetails extends User {
-  nickName: string;
+  nickName?: string;
+  birthday?: Date;
+  location?: string;
   creationDate?: Date;
   isUser: boolean;
   isAdmin: boolean;
@@ -23,6 +25,11 @@ export interface IUserDetails extends User {
   isStudent: boolean;
   // lastDate?: Date; TODO: Auditoría? Lo quito por superar cuota de escritura
   // myCustomData?: string;
+  // StudentData
+  rateId?: string;
+  telephone?: string;
+  contactPerson?: string;
+  paymentMethod?: string;
 }
 
 export class UserDetails implements IUserDetails {
@@ -34,11 +41,17 @@ export class UserDetails implements IUserDetails {
   public static FIELD_PHOTO_URL = 'photoURL';
   public static FIELD_EMAIL = 'email';
   public static FIELD_NICK_NAME = 'nickName';
+  public static FIELD_BIRTHDAY = 'birthday';
+  public static FIELD_LOCATION = 'location';
   public static FIELD_CREATION_DATE = 'creationDate';
   public static FIELD_IS_USER = 'isUser';
   public static FIELD_IS_ADMIN = 'isAdmin';
   public static FIELD_IS_TEACHER = 'isTeacher';
   public static FIELD_IS_STUDENT = 'isStudent';
+
+  public static FIELD_RATE_ID = 'rateId';
+  public static FIELD_TELEPHONE = 'telephone';
+  public static FIELD_CONTACT_PERSON = 'contactPerson';
 
   constructor(
     public uid: string,
@@ -46,11 +59,17 @@ export class UserDetails implements IUserDetails {
     public photoURL: string,
     public email: string,
     public nickName: string,
+    public birthday: Date,
+    public location: string,
     public creationDate: Date,
     public isUser: boolean,
     public isAdmin: boolean,
     public isTeacher: boolean,
     public isStudent: boolean,
+    public rateId: string,
+    public telephone: string,
+    public contactPerson: string,
+    public paymentMethod: string,
      ) {
   }
 }

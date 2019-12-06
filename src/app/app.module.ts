@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +12,6 @@ import { environment } from '../environments/environment';
 import { UsersModule } from './users/users.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MaterialConfigurationModule } from './material-configuration/material-configuration.module';
 import { HeaderComponent } from './layout/header/header.component';
 import { HomeComponent } from './home/home.component';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
@@ -22,6 +20,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
 
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { SharedModule } from './shared/shared.module';
 registerLocaleData(localeEs);
 
 @NgModule({
@@ -39,12 +38,9 @@ registerLocaleData(localeEs);
     AngularFireAuthGuardModule, // used for AngularFireAuthGuard
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
 
-    ReactiveFormsModule,
-    FormsModule,
-
     UsersModule,
     BrowserAnimationsModule,
-    MaterialConfigurationModule
+    SharedModule,
   ],
   providers: [
   { provide: LOCALE_ID, useValue: 'es-ES' }],

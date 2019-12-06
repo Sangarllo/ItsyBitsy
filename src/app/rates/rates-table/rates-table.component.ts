@@ -26,7 +26,7 @@ export class RatesTableComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.rateSvc.getRates().subscribe(
+    this.rateSvc.getAllRates().subscribe(
       (rates: Rate[]) => {
         this.dataSource.data = rates;
     });
