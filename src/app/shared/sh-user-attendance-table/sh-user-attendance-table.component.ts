@@ -69,7 +69,7 @@ export class ShUserAttendanceTableComponent implements OnInit, AfterViewInit {
       this.dataSource.data = this.attendances;
 
       const dataReportSummary: ReportSummary = {
-        info: 'hola colega',
+        info: '',
         // tslint:disable-next-line:object-literal-shorthand
         nAttendances: nAttendances,
         // tslint:disable-next-line:object-literal-shorthand

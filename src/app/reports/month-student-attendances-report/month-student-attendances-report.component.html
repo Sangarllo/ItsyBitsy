@@ -59,12 +59,21 @@
             <div class="col-4 text-left">
                 <img [src]="'assets/section/rate.png'" class="img-thumbnail" />
                 <div class="data-summary">
-                    <h6>Tarifa aplicada:</h6>
-                    <h6>Total a cobrar:</h6>
+                    <h6>Tarifa aplicada: {{infoRate}}</h6>
+                    <h6>Total a cobrar: {{infoPayment}}</h6>
                 </div>
             </div>
 
         </div>
+    </div>
+
+    <div id="report-errors" class="alert alert-danger" role="alert" *ngIf="reportErrors?.length > 0">
+        <h4 class="alert-heading">Errores en el informe</h4>
+        <p>Se ha detectado algún error en la generación del informe o en la información asociada al estudiante que deberás corregir para conseguir un informe adecuado.</p>
+        <hr>
+        <p *ngFor="let error of reportErrors">
+            - {{ error }}
+        </p>
     </div>
 
     <sh-user-attendance-table *ngIf="student; else noReport" [student]="student" [dateIni]="dateIni" [dateEnd]="dateEnd" (reportSummary)="reportSummary($event)"></sh-user-attendance-table>

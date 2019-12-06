@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { Rate, RateType } from '../models/rate';
+import { BrowserStack } from 'protractor/built/driverProviders';
 
 
 const RATE_COLLECTION = 'rates';
@@ -36,6 +37,19 @@ export class RateService {
         ref => ref.where('current', '==', true)
       );
       return this.rateCollection.doc(rateId).valueChanges();
+    }
+  }
+
+  calculatePayment(rate: Rate, nAttendances: number): number {
+    switch (rate.type) {
+      case RateType.porAsistencia:
+        return nAttendances * rate.price;
+
+      case RateType.cuotaFijaMensual:
+        return rate.price;
+
+      default:
+        return -1;
     }
   }
 
