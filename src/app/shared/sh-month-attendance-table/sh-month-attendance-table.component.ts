@@ -7,6 +7,8 @@ import { Attendance, Status } from '../../models/attendance.model';
 import { AttendancesService } from '../../services/attendances.service';
 import { DatesService } from '../../services/dates.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'sh-month-attendance-table',
@@ -28,6 +30,7 @@ export class ShMonthAttendanceTableComponent implements OnInit, AfterViewInit {
   attendances: Attendance[] = [];
 
   constructor(
+    private router: Router,
     private dateSvc: DatesService,
     private attendancesSvc: AttendancesService,
   ) { }
@@ -86,4 +89,12 @@ export class ShMonthAttendanceTableComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  gotoLesson(attendance: Attendance) {
+    const courseId = attendance.courseId;
+    const lessonId = attendance.lessonId;
+    this.router.navigate([`/${Course.PATH_URL}/${courseId}/lessons/${lessonId}`]);
+  }
+
+
 }
