@@ -3,13 +3,12 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-lg-6 col-12">
+            <div class="col-lg-4 col-md6 col-12">
                 <mat-card-header>
                     <div mat-card-avatar [ngStyle]="applyStyles(userDetails)"></div>
                     <mat-card-title>{{ userDetails.displayName }}</mat-card-title>
                     <mat-card-subtitle>{{ userDetails.email }}</mat-card-subtitle>
                 </mat-card-header>
-
 
                 <img [src]="userDetails.photoURL" class="mx-auto img-fluid img-circle d-block" alt="avatar">
 
@@ -17,7 +16,6 @@
 
                 <mat-card-actions>
                     <button mat-raised-button color="primary" (click)="gotoEdition()">Editar Datos</button>
-                    <button mat-raised-button color="primary" (click)="gotoDashboard()">Ir al Panel</button>
                 </mat-card-actions>
 
                 <mat-card-content>
@@ -31,20 +29,62 @@
 
             </div>
 
-            <div class="col-lg-6 col-12">
+            <div class="col-lg-8 col-md-6 col-12">
                 <mat-card-content>
                     <mat-tab-group>
-                        <mat-tab *ngIf="userDetails.isUser" label="Usuario">
-                            1
+                        <mat-tab class="tab-data-detail" label="Datos Personales">
+
+                            <mat-form-field class="data-detail">
+                                <input matInput type="text" disabled="true" [value]="userDetails.displayName" placeholder="Nombre Completo" />
+                                <mat-icon matSuffix>assignment_ind</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail">
+                                <input matInput type="text" disabled="true" [value]="userDetails.nickName" placeholder="Nombre Corto" />
+                                <mat-icon matSuffix>face</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail" *ngIf="userDetails.birthday">
+                                <input matInput type="text" disabled="true" [value]="userDetails.birthday  | date:'fullDate'" placeholder="Cumpleaños" />
+                                <mat-icon matSuffix>cake</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail" *ngIf="userDetails.location">
+                                <input matInput type="text" disabled="true" [value]="userDetails.location" placeholder="Localidad" />
+                                <mat-icon matSuffix>location_city</mat-icon>
+                            </mat-form-field>
+
                         </mat-tab>
-                        <mat-tab *ngIf="userDetails.isAdmin" label="Administrador">
-                            2
+
+                        <mat-tab label="Datos de Contacto">
+
+                            <mat-form-field class="data-detail" *ngIf="userDetails.contactPerson">
+                                <input matInput type="text" disabled="true" [value]="userDetails.contactPerson" placeholder="Persona de Contacto" />
+                                <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail" *ngIf="userDetails.telephone">
+                                <input matInput type="text" disabled="true" [value]="userDetails.telephone" placeholder="Teléfono" />
+                                <mat-icon matSuffix>phone</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail">
+                                <input matInput type="text" disabled="true" [value]="userDetails.email" placeholder="Email" />
+                                <mat-icon matSuffix>email</mat-icon>
+                            </mat-form-field>
+
                         </mat-tab>
-                        <mat-tab *ngIf="userDetails.isTeacher" label="Profesor">
-                            3
-                        </mat-tab>
-                        <mat-tab *ngIf="userDetails.isStudent" label="Estudiante">
-                            4
+
+                        <mat-tab label="Datos de Facturación">
+                            <mat-form-field class="data-detail" *ngIf="rateName">
+                                <input matInput type="text" disabled="true" [value]="rateName" placeholder="Tarifa" />
+                                <mat-icon matSuffix>local_offer</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail" *ngIf="userDetails.paymentMethod">
+                                <input matInput type="text" disabled="true" [value]="userDetails.paymentMethod" placeholder="Modo de Pago" />
+                                <mat-icon matSuffix>payment</mat-icon>
+                            </mat-form-field>
                         </mat-tab>
                     </mat-tab-group>
                 </mat-card-content>
