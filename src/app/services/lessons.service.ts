@@ -110,6 +110,7 @@ export class LessonsService {
       status: Status.Programada,
       date: new Date(),
       teacherId: course.teacherId,
+      classRoom: course.classRoom,
       material: '',
       startTime: course.startTime,
       endTime: course.endTime,

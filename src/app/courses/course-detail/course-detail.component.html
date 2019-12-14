@@ -2,7 +2,7 @@
     <mat-card-header>
         <div mat-card-avatar [ngStyle]="applyStyles(course)"></div>
         <mat-card-title>Curso: {{ course.name }}</mat-card-title>
-        <mat-card-subtitle>{{ course.weekDay }}, de {{ course.startTime }} a {{ course.endTime }}</mat-card-subtitle>
+        <mat-card-subtitle>{{ course.type }}</mat-card-subtitle>
     </mat-card-header>
 
     <app-course-view [course]="course"></app-course-view>

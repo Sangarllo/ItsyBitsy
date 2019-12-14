@@ -68,15 +68,21 @@ export class CoursesService {
 
   private initialize(): Course {
     // Return an initialized object
+    const typeDefault = Course.getDefaultCourseType();
+    const imageDefault = `assets/courses/${typeDefault}.png`;
+    const classRoomDefault = Course.getDefaultClassRoom();
+
     return {
       current: true,
       id: '0',
       name: '',
-      image: Icon.getDefault().path,
+      type: typeDefault,
+      image: imageDefault,
       weekDay: Course.getDefaultWeekDay(),
       startTime: '00:00',
       endTime: '00:00',
       teacherId: '',
+      classRoom: classRoomDefault,
       studentList: [],
       lastLesson: null,
       nextLesson: null

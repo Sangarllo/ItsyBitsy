@@ -4,11 +4,11 @@
     <button mat-raised-button color="accent" (click)="goBack()">Ver Curso</button>
 </mat-toolbar>
 
-<mat-card>
+<mat-card *ngIf="course">
 
     <div class="row">
         <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
-            <img [src]="courseForm.get('image').value" class="img-thumbnail" />
+            <img [src]="course.image" class="img-thumbnail">
         </div>
 
         <div class="col-lg-9 col-md-8 col-12">
@@ -20,10 +20,10 @@
                     </mat-form-field>
 
                     <mat-form-field>
-                        <mat-label>Image</mat-label>
-                        <mat-select formControlName="image" [value]="courseForm.get('image').value">
-                            <mat-option *ngFor="let icon of ICONS" [value]="icon.path">
-                                {{icon.name}}
+                        <mat-label>Tipo de Curso</mat-label>
+                        <mat-select formControlName="type" (selectionChange)="changeImage($event)" [value]="courseForm.get('type').value">
+                            <mat-option *ngFor="let type of COURSE_TYPE_ARRAY" [value]="type">
+                                {{type}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -57,6 +57,14 @@
                     </mat-form-field>
                 </mat-card-content>
 
+                <mat-form-field>
+                    <mat-label>Aulas</mat-label>
+                    <mat-select formControlName="classRoom" [value]="courseForm.get('classRoom').value">
+                        <mat-option *ngFor="let classRoom of CLASSROOM_ARRAY" [value]="classRoom">
+                            {{classRoom}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
                 <mat-card-actions>
 
@@ -71,4 +79,5 @@
             </form>
         </div>
     </div>
+
 </mat-card>

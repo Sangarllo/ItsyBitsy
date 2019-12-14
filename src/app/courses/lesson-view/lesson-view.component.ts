@@ -24,7 +24,6 @@ export class LessonViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.lesson.date = this.datesService.fromFirebaseDate(this.lesson.date);
     this.userService.getUserDetails(this.lesson.teacherId)
     .subscribe( (teacher: UserDetails) => {
       this.teacher = teacher;

@@ -1,3 +1,4 @@
+import { ClassRoom } from './classroom';
 export enum Status {
   Eliminada = 'eliminada',
   Programada = 'programada',
@@ -13,14 +14,11 @@ export interface ILesson {
   status: string;
   date: Date;
   teacherId: string;
+  classRoom: ClassRoom;
   material: string;
   startTime: string;
   endTime: string;
   attendancesIds: string[];
-}
-
-export interface ILessonExtended extends ILesson {
-  id: string;
 }
 
 export class Lesson implements ILesson {
@@ -33,6 +31,7 @@ export class Lesson implements ILesson {
   public static FIELD_STATUS = 'status';
   public static FIELD_DATE = 'date';
   public static FIELD_TEACHER_ID = 'teacherId';
+  public static FIELD_CLASS_ROOM = 'classRoom';
   public static FIELD_MATERIAL = 'material';
   public static FIELD_START_TIME = 'startTime';
   public static FIELD_END_TIME = 'endTime';
@@ -45,6 +44,7 @@ export class Lesson implements ILesson {
     public date: Date,
     public status: Status,
     public teacherId: string,
+    public classRoom: ClassRoom,
     public material: string,
     public startTime: string,
     public endTime: string,

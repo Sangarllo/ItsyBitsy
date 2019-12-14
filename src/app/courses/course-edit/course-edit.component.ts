@@ -24,6 +24,8 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   course: Course;
   ICONS: Icon[] = Icon.getIcons();
   WEEK_DAY_ARRAY = Course.getAllWeekDay();
+  COURSE_TYPE_ARRAY = Course.getAllCourseType();
+  CLASSROOM_ARRAY = Course.getAllClassRoom();
 
   TEACHERS: UserDetails[];
 
@@ -42,11 +44,12 @@ export class CourseEditComponent implements OnInit, OnDestroy {
       name: ['', [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)]],
-      image: ['', Validators.required],
+      type: ['', Validators.required],
       weekDay: ['', Validators.required],
       startTime: ['', Validators.required],
       endTime: ['', Validators.required],
       teacherId: ['', Validators.required],
+      classRoom: ['', Validators.required],
     });
 
     // Read the student Id from the route parameter
@@ -62,6 +65,11 @@ export class CourseEditComponent implements OnInit, OnDestroy {
       this.TEACHERS = teachers;
     });
 
+  }
+
+  changeImage(event) {
+    const courseType = this.courseForm.get('type').value;
+    this.course.image = `assets/courses/${courseType}.png`;
   }
 
   ngOnDestroy(): void {
@@ -95,11 +103,12 @@ export class CourseEditComponent implements OnInit, OnDestroy {
     this.courseForm.patchValue({
       current: this.course.current,
       name: this.course.name,
-      image: this.course.image,
+      type: this.course.type,
       weekDay: this.course.weekDay,
       startTime: this.course.startTime,
       endTime: this.course.endTime,
-      teacherId: this.course.teacherId
+      teacherId: this.course.teacherId,
+      classRoom: this.course.classRoom
     });
 
     this.courseForm.controls[Course.FIELD_TEACHER_ID].setValue(this.course.teacherId);

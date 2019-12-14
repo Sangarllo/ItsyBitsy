@@ -5,9 +5,7 @@
         <mat-card-subtitle>Curso: {{ course.name }}</mat-card-subtitle>
     </mat-card-header>
 
-    <!--
-    <app-course-view [course]="course"></app-course-view>
-    -->
+    <app-lesson-view [course]="course" [lesson]="lesson"></app-lesson-view>
 
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="gotoEdition()">

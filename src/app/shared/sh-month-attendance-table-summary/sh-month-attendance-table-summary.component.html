@@ -1,3 +1,17 @@
+<mat-toolbar>
+    <!--
+    <span>Resumen de Asistencias</span>
+    -->
+    <span class="fill-remaining-space"></span>
+
+    <mat-form-field class="filter-form-field">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+</mat-toolbar>
+
+
+
 <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- studentId Column -->

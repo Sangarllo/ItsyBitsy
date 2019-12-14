@@ -1,37 +1,23 @@
-<div class="container" *ngIf="lesson">
-    <div class="row my-2">
-        <div class="col-lg-8 order-lg-2">
-            <div class="tab-content py-4">
-                <div class="tab-pane active" id="profile">
-                    <h5 class="mb-3">Curso {{ course?.name }}</h5>
-                    <h5 class="mb-3">Clase del {{ lesson.date | date:'fullDate' }}</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h6>Profesor de la Clase</h6>
-                            <p>
-                                {{ teacher?.displayName }}
-                            </p>
-                            <h6>Material</h6>
-                            <p>
-                                {{ lesson.material }}
-                            </p>
-                            <h6>Fecha y horario</h6>
-                            <p>
-                                {{ lesson.date | date:'fullDate' }}
-                                <br/>de {{ lesson.startTime }} a {{ lesson.endTime }}
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <h6>Asistencia a la Clase</h6>
-                            <hr>
-                            <!-- TODO ¿Este componente se usa
-                            <app-attendances-view [attendanceArray]="lesson?.attendanceList"></app-attendances-view>
-                            -->
-                        </div>
-                    </div>
-                </div>
-            </div>
+<mat-card *ngIf="course && lesson">
+    <div class="col-6">
+        <h6>Profesor de la Clase</h6>
+        <p>
+            {{ teacher?.displayName }}
+        </p>
+        <h6>Aula</h6>
+        <p>{{ lesson.classRoom }}</p>
 
-        </div>
+        <h6>Material</h6>
+        <p>{{ lesson.material }}</p>
+        <h6>Fecha y horario</h6>
+        <p>
+            {{ lesson.date | date:'fullDate' }}
+            <br/>de {{ lesson.startTime }} a {{ lesson.endTime }}
+        </p>
     </div>
-</div>
+    <div class="col-6">
+        <h6>Más cosas:</h6>
+    </div>
+
+
+</mat-card>
