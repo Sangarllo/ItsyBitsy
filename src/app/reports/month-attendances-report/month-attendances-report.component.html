@@ -28,9 +28,26 @@
         </div>
     </mat-toolbar>
 
-    <sh-month-attendance-table *ngIf="dateIni && dateEnd; else noReport" [dateIni]="dateIni" [dateEnd]="dateEnd" (reportSummary)="reportSummary($event)"></sh-month-attendance-table>
+    <mat-tab-group>
 
-    <sh-month-attendance-table-summary *ngIf="attendances" [attendances]="attendances"></sh-month-attendance-table-summary>
+        <mat-tab class="tab-data-detail" *ngIf="attendances && users && rates">
+            <ng-template mat-tab-label>
+                <mat-icon>view_list</mat-icon>
+                &nbsp;&nbsp;Resumen de Asistencias
+            </ng-template>
+            <sh-month-attendance-table-summary [attendances]="attendances" [users]="users" [rates]="rates"></sh-month-attendance-table-summary>
+        </mat-tab>
+
+        <mat-tab class="tab-data-detail" *ngIf="dateIni && dateEnd; else noReport">
+            <ng-template mat-tab-label>
+                <mat-icon>view_headline</mat-icon>
+                &nbsp;&nbsp;Listado de Asistencias
+            </ng-template>
+
+            <sh-month-attendance-table [dateIni]="dateIni" [dateEnd]="dateEnd" (reportSummary)="reportSummary($event)"></sh-month-attendance-table>
+        </mat-tab>
+
+    </mat-tab-group>
 
 </mat-card>
 

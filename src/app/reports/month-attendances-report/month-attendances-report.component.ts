@@ -5,6 +5,8 @@ import { RateService } from '../../services/rates.service';
 import { Rate } from 'src/app/models/rate';
 import Swal from 'sweetalert2';
 import { Attendance } from '../../models/attendance.model';
+import { UserDetails } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-month-attendances-report',
@@ -33,14 +35,27 @@ export class MonthAttendancesReportComponent implements OnInit {
   reportErrors: string[];
 
   attendances: Attendance[];
+  users: UserDetails[] = [];
+  rates: Rate[] = [];
+
 
   constructor(
     public auth: AuthService,
     private dateSvc: DatesService,
+    private userSvc: UserService,
     private rateSvc: RateService
   ) { }
 
   ngOnInit() {
+    this.userSvc.getAllUsersDetails().subscribe(
+      (data: UserDetails[]) => {
+        this.users = data;
+      });
+
+    this.rateSvc.getAllRates().subscribe(
+        (data: Rate[]) => {
+          this.rates = data;
+      });
   }
 
   getReport() {
