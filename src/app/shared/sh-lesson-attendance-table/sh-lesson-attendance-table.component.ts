@@ -8,7 +8,11 @@ import { UserDetails } from '../../models/user.model';
 import { Attendance, Status } from '../../models/attendance.model';
 import { Lesson } from '../../models/lesson.model';
 import { AttendancesService } from '../../services/attendances.service';
+import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { ShAddStudentDialogComponent } from '../sh-add-student-dialog/sh-add-student-dialog.component';
+import { LessonsService } from '../../services/lessons.service';
+import { Course } from '../../models/course.model';
 
 
 @Component({
@@ -20,20 +24,25 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = [ 'select', 'status', 'studentName', 'actions'];
   dataSource = new MatTableDataSource();
+  newStudent: UserDetails;
   selection = new SelectionModel<Attendance>(true, []);
   statusAttendance: Status[];
   statusToApply = Attendance.getDefaultStatus();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @Input() course: Course;
   @Input() lesson: Lesson;
   attendances: Attendance[] = [];
 
   constructor(
+    public dialog: MatDialog,
+    private lessonsSvc: LessonsService,
     private attendancesSvc: AttendancesService,
     private router: Router,
   ) { }
 
   ngOnInit() {
+
     this.statusAttendance = Attendance.getAllStatus();
     this.dataSource = new MatTableDataSource(this.attendances);
 
@@ -141,4 +150,49 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  openDialogToAddStudent(): void {
+
+    const dialogRef = this.dialog.open(ShAddStudentDialogComponent, {
+      width: '500px',
+      data: {  course: this.course }
+    });
+
+    dialogRef.afterClosed().subscribe(student => {
+      console.log('The dialog was closed');
+      this.newStudent = student;
+      console.log(`new student: ${JSON.stringify(this.newStudent)}`);
+
+      if (!this.isInArray(this.newStudent)) {
+
+        const newAttendance = this.attendancesSvc.initialize(this.course, this.lesson, this.newStudent);
+
+        this.attendancesSvc.createAttendance(newAttendance)
+          .subscribe( (attendance: Attendance) => {
+            this.attendances.push(attendance);
+            this.lesson.attendancesIds.push(attendance.id);
+            this.lessonsSvc.updateLesson(this.course, this.lesson)
+              .subscribe( (lesson: Lesson) => {
+                this.lesson = lesson;
+                this.dataSource.data = this.attendances;
+              });
+          });
+      } else {
+        Swal.fire('Este estudiante ya asistía al curso');
+
+      }
+
+    });
+}
+
+private isInArray(userDetails: UserDetails): boolean {
+  let isInArray: boolean = false;
+  this.attendances.forEach(attendance => {
+    console.log(`comparing: ${attendance.studentId} === ${userDetails.uid}`);
+    if ( attendance.studentId === userDetails.uid ) {
+      isInArray = true;
+    }
+  });
+  return isInArray;
+}
 }

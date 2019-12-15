@@ -21,6 +21,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { SharedModule } from './shared/shared.module';
+import { ShAddStudentDialogComponent } from './shared/sh-add-student-dialog/sh-add-student-dialog.component';
 registerLocaleData(localeEs);
 
 @NgModule({
@@ -46,6 +47,9 @@ registerLocaleData(localeEs);
   { provide: LOCALE_ID, useValue: 'es-ES' }],
   bootstrap: [
     AppComponent
-  ]
+  ],
+  entryComponents: [
+    ShAddStudentDialogComponent
+ ]
 })
 export class AppModule { }

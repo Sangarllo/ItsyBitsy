@@ -14,7 +14,9 @@
         </mat-select>
     </mat-form-field>
 
-    <button mat-raised-button color="accent" (click)="applyStatus()">Aplicar</button>
+    <button mat-raised-button color="accent" (click)="applyStatus()">Aplicar</button> &nbsp;
+    <button mat-raised-button color="accent" (click)="openDialogToAddStudent()">Añadir Asistente</button>
+
 </mat-toolbar>
 
 <table mat-table [dataSource]="dataSource" matSort>

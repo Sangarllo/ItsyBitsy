@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Añadir un nuevo estudiante al curso</h1>
+<div mat-dialog-content>
+
+    <mat-form-field>
+        <mat-label>Posibles estudiantes</mat-label>
+        <mat-select [(ngModel)]="selectedStudent">
+            <mat-option *ngFor="let student of STUDENTS" [value]="student">
+                {{student.displayName}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No , gracias</button>
+    <button mat-button [mat-dialog-close]="selectedStudent" cdkFocusInitial>Ok</button>
+</div>

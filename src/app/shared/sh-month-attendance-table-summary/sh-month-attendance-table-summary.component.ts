@@ -82,7 +82,7 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
         rateName: ( dataRate ) ? dataRate.rate.name : null,
         ratePrice: ( dataRate ) ? dataRate.rate.Price : null,
         paymentMethod: ( dataRate ) ? dataRate.paymentMethod : null,
-        paymentAmmout: this.rateSvc.calculatePayment(dataRate.rate, value.numAsistencias)
+        paymentAmmout: ( dataRate ) ? this.rateSvc.calculatePayment(dataRate.rate, value.numAsistencias) : null
       };
 
       this.studentsArray.push(data);
