@@ -7,9 +7,7 @@ import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 import { CourseViewComponent } from './course-view/course-view.component';
-import { CourseAddStudentComponent } from './course-add-student/course-add-student.component';
 import { SharedModule } from '../shared/shared.module';
-import { LessonAddStudentComponent } from './lesson-add-student/lesson-add-student.component';
 import { LessonViewComponent } from './lesson-view/lesson-view.component';
 import { AttendancesViewComponent } from './attendances-view/attendances-view.component';
 import { CoursesTableComponent } from './courses-table/courses-table.component';
@@ -22,8 +20,6 @@ import { CoursesTableComponent } from './courses-table/courses-table.component';
     LessonEditComponent,
     LessonDetailComponent,
     CourseViewComponent,
-    CourseAddStudentComponent,
-    LessonAddStudentComponent,
     LessonViewComponent,
     AttendancesViewComponent,
     CoursesTableComponent

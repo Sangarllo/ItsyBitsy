@@ -5,8 +5,6 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
 import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
-import { CourseAddStudentComponent } from './course-add-student/course-add-student.component';
-import { LessonAddStudentComponent } from './lesson-add-student/lesson-add-student.component';
 import { CoursesTableComponent } from './courses-table/courses-table.component';
 
 const routes: Routes = [
@@ -24,10 +22,6 @@ const routes: Routes = [
     component: CourseEditComponent
   },
   {
-    path: ':id/estudiantes',
-    component: CourseAddStudentComponent
-  },
-  {
     path: ':courseId/lessons/list',
     component: LessonListComponent
   },
@@ -39,11 +33,6 @@ const routes: Routes = [
     path: ':courseId/lessons/:lessonId/editar',
     component: LessonEditComponent
   },
-  {
-    path: ':courseId/lessons/:lessonId/estudiantes',
-    component: LessonAddStudentComponent
-  },
-
 ];
 
 @NgModule({

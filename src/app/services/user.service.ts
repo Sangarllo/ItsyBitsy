@@ -15,6 +15,7 @@ export class UserService {
   private userDetailsCollection: AngularFirestoreCollection<IUserDetails>;
   private studentsCollection: AngularFirestoreCollection<IUserDetails>;
   private teachersCollection: AngularFirestoreCollection<IUserDetails>;
+  private adminsCollection: AngularFirestoreCollection<IUserDetails>;
   private userDetailsDoc: AngularFirestoreDocument<IUserDetails>;
 
   constructor(
@@ -64,6 +65,23 @@ export class UserService {
     );
 
     return this.teachersCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as UserDetails;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+  }
+
+
+  getAllAdmins(): Observable<UserDetails[]> {
+
+    this.adminsCollection = this.afs.collection(
+      UserService.USER_DETAILS_COLLECTION,
+      ref => ref.where('isAdmin', '==', true).orderBy('displayName')
+    );
+
+    return this.adminsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as UserDetails;
         const id = a.payload.doc.id;

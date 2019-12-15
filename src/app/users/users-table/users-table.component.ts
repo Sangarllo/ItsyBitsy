@@ -19,6 +19,7 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   dataSourceAll = new MatTableDataSource();
   dataSourceStudents = new MatTableDataSource();
   dataSourceTeachers = new MatTableDataSource();
+  dataSourceAdmins = new MatTableDataSource();
   @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
 
@@ -42,6 +43,12 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
       (users: UserDetails[]) => {
         this.dataSourceTeachers.data = users;
     });
+
+    this.userSvc.getAllAdmins().subscribe(
+      (users: UserDetails[]) => {
+        this.dataSourceAdmins.data = users;
+        console.log(`Número de administradores: ${users.length}`);
+    });
   }
 
   ngAfterViewInit(): void {
@@ -51,6 +58,8 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
     this.dataSourceStudents.sort = this.sort.toArray()[1];
     this.dataSourceTeachers.paginator = this.paginator.toArray()[2];
     this.dataSourceTeachers.sort = this.sort.toArray()[2];
+    this.dataSourceAdmins.paginator = this.paginator.toArray()[3];
+    this.dataSourceAdmins.sort = this.sort.toArray()[3];
   }
 
   applyFilterAll(filterValue: string) {
@@ -71,6 +80,13 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
     this.dataSourceTeachers.filter = filterValue.trim().toLowerCase();
     if (this.dataSourceTeachers.paginator) {
       this.dataSourceTeachers.paginator.firstPage();
+    }
+  }
+
+  applyFilterAdmins(filterValue: string) {
+    this.dataSourceAdmins.filter = filterValue.trim().toLowerCase();
+    if (this.dataSourceAdmins.paginator) {
+      this.dataSourceAdmins.paginator.firstPage();
     }
   }
 
