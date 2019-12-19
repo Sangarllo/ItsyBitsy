@@ -17,7 +17,10 @@ export class HeaderComponent {
     public afAuth: AngularFireAuth) {}
 
   public login() {
-    this.auth.googleSignin();
+    this.auth.googleSignin()
+      .then(() => {
+        this.gotoProfile();
+      });
   }
 
   logout() {

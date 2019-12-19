@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { AngularFireAuthGuard, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
+
 import { AuthGuard } from './services/auth.guard';
+
+const redirectUnauthorizedToHome = () => redirectUnauthorizedTo(['home']);
 
 const routes: Routes = [
   {
@@ -10,14 +14,20 @@ const routes: Routes = [
   },
   {
     path: 'cursos',
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToHome },
     loadChildren: () => import('./courses/courses.module').then(mod => mod.CoursesModule)
   },
   {
     path: 'tarifas',
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToHome },
     loadChildren: () => import('./rates/rates.module').then(mod => mod.RatesModule)
   },
   {
     path: 'informes',
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToHome },
     loadChildren: () => import('./reports/reports.module').then(mod => mod.ReportsModule)
   },
   {
