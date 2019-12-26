@@ -7,12 +7,14 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { UsersTableComponent } from './users-table/users-table.component';
+import { AdminGuard } from '../services/admin.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: UsersTableComponent
+    component: UsersTableComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'perfil',
