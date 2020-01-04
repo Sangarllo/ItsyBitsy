@@ -48,4 +48,7 @@ Thumbs.db
 # Other files
 files/logo-itsy-bitsy.png
 files/logo.svg
+
+# Firebase
+/.firebase/
 .firebase/hosting.*.cache
