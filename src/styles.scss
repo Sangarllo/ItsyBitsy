@@ -58,9 +58,19 @@ Every toolbar row uses a flexbox row layout. */
     background-color: #f8d7da !important;
 }
 
+.action-is-anulada {
+    color: #721c24 !important;
+    background-color: #f8d7da !important;
+}
+
 .is-programada {
     padding-left: 20px !important;
     padding-right: 20px !important;
+    color: #856404 !important;
+    background-color: #fff3cd !important;
+}
+
+.action-is-programada {
     color: #856404 !important;
     background-color: #fff3cd !important;
 }
@@ -80,9 +90,19 @@ Every toolbar row uses a flexbox row layout. */
     background-color: #d4edda !important;
 }
 
+.action-is-realizada {
+    color: #155724 !important;
+    background-color: #d4edda !important;
+}
+
 .container-spinner {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
+}
+
+.action-is-disabled {
+    color: whitesmoke !important;
+    background-color: white !important;
 }

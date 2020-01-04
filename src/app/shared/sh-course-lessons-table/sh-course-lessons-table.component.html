@@ -25,25 +25,29 @@
             }"> {{element.status}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="actionsStatus">
+            <th mat-header-cell *matHeaderCellDef>Cambio Estado</th>
+            <td mat-cell *matCellDef="let element">
+                &nbsp;
+                <button mat-mini-fab color="accent" [ngClass]="(element.status === 'programada')?'action-is-disabled':'action-is-programada'" (click)="changeStatus(element, 'programada')"><mat-icon>arrow_forward</mat-icon></button> &nbsp;
+                <button mat-mini-fab color="accent" [ngClass]="(element.status === 'realizada')?'action-is-disabled':'action-is-realizada'" (click)="changeStatus(element, 'realizada')"><mat-icon>check</mat-icon></button> &nbsp;
+                <button mat-mini-fab color="accent" [ngClass]="(element.status === 'anulada')?'action-is-disabled':'action-is-anulada'" (click)="changeStatus(element, 'anulada')"><mat-icon>close</mat-icon></button>
+            </td>
+        </ng-container>
+
         <!-- schedule Column -->
         <ng-container matColumnDef="schedule">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Horario </th>
             <td mat-cell *matCellDef="let element"> {{element.date | date:'fullDate' }}, de {{element.startTime}} a {{element.endTime}} </td>
         </ng-container>
 
-        <!-- material Column -->
-        <ng-container matColumnDef="material">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Material </th>
-            <td mat-cell *matCellDef="let element"> {{element.material}} </td>
-        </ng-container>
-
         <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
             <td mat-cell *matCellDef="let element">
                 &nbsp;
                 <button mat-mini-fab color="warn" (click)="viewLesson(element)"><mat-icon>pageview</mat-icon></button> &nbsp;
                 <button mat-mini-fab color="warn" (click)="editLesson(element)"><mat-icon>edit</mat-icon></button> &nbsp;
-                <button mat-mini-fab color="warn" (click)="deleteLesson(element)"><mat-icon>delete</mat-icon></button> &nbsp;
+                <button mat-mini-fab color="warn" (click)="deleteLesson(element)"><mat-icon>delete</mat-icon></button>
             </td>
         </ng-container>
 

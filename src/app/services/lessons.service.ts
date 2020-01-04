@@ -74,7 +74,10 @@ export class LessonsService {
       LESSON_COLLECTION,
       ref => ref.where('courseId', '==', course.id)
     );
+    console.log(`lesson id: ${lesson.id}`);
+    console.log(`lesson status: ${lesson.status}`);
     this.lessonDoc = this.lessonCollection.doc(lesson.id);
+    console.log(`lesson updated: ${JSON.stringify(lesson)}`);
     this.lessonDoc.update(lesson);
     return of(lesson);
   }

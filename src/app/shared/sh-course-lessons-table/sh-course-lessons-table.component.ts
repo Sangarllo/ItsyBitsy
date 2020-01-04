@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { Course } from '../../models/course.model';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { Lesson } from '../../models/lesson.model';
+import { Lesson, Status } from '../../models/lesson.model';
 import { LessonsService } from '../../services/lessons.service';
 import { DatesService } from '../../services/dates.service';
 import Swal from 'sweetalert2';
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['status', 'schedule', 'material', 'actions'];
+  columnsToDisplay = ['status', 'schedule', 'actions', 'actionsStatus'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -84,6 +84,42 @@ export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
           `La lección ha sido anulada.`,
           'success'
         );
+      }
+    });
+  }
+
+  changeStatus(lesson: Lesson, status: string) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `Si pulsas OK, la clase del día ${lesson.date} quedará ${status}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: `Sí, ¡${status}!`
+    }).then((result) => {
+      if (result.value) {
+
+        switch ( status ) {
+          case 'programada':
+            lesson.status = Status.Programada;
+            break;
+          case 'realizada':
+            lesson.status = Status.Realizada;
+            break;
+          case 'anulada':
+            lesson.status = Status.Anulada;
+            break;
+        }
+
+        this.lessonsSvc.updateLesson(this.course, lesson)
+          .subscribe( () => {
+            Swal.fire(
+              status,
+              `La lección se ha quedado como ${status}.`,
+              'success'
+            );
+          });
       }
     });
   }
