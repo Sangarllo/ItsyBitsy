@@ -67,11 +67,27 @@ export class CoursesTableComponent implements OnInit, AfterViewInit {
       confirmButtonText: 'Sí, ¡bórralo!'
     }).then((result) => {
       if (result.value) {
-        Swal.fire(
-          'Borrado!',
-          `El usuario ${course.name} ha sido eliminado.`,
-          'success'
-        );
+
+        course.current = false;
+        this.courseSvc.updateCourse(course)
+        .subscribe({
+          next: () => {
+            Swal.fire(
+              'Borrado!',
+              `El curso ${course.name} ha sido eliminado.`,
+              'success'
+            );
+          },
+          error: err => {
+            Swal.fire(
+              'Ups!',
+              `El curso ${course.name} no ha podido ser eliminado.`,
+              'error'
+            );
+          },
+        });
+
+
       }
     });
   }
