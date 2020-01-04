@@ -68,11 +68,25 @@ export class RatesTableComponent implements OnInit, AfterViewInit {
       confirmButtonText: 'Sí, ¡bórrala!'
     }).then((result) => {
       if (result.value) {
-        Swal.fire(
-          'Borrado!',
-          `El usuario ${rate.name} ha sido eliminada.`,
-          'success'
-        );
+
+        rate.current = false;
+        this.rateSvc.updateRate(rate)
+        .subscribe({
+          next: () => {
+            Swal.fire(
+              'Borrado!',
+              `La tarifa ${rate.name} ha sido eliminada.`,
+              'success'
+            );
+          },
+          error: err => {
+            Swal.fire(
+              'Ups!',
+              `La tarifa ${rate.name} no ha podido ser eliminada.`,
+              'error'
+            );
+          },
+        });
       }
     });
   }
