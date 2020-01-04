@@ -16,7 +16,10 @@ export class AdminGuard implements CanActivate {
     private userSvc: UserService,
     private router: Router) {}
 
-    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    canActivate(
+      next: ActivatedRouteSnapshot,
+      state: RouterStateSnapshot
+    ): Observable<boolean> {
 
       return this.auth.user$.pipe(
              take(1),
@@ -35,7 +38,7 @@ export class AdminGuard implements CanActivate {
              tap(isAdmin => {
                if (!isAdmin) {
                  console.log('is not admin');
-                 this.router.navigate(['/login']);
+                 this.router.navigate(['/error-403']);
                }
            })
       );

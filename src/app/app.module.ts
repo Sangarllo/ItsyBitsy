@@ -14,6 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HeaderComponent } from './layout/header/header.component';
 import { HomeComponent } from './home/home.component';
+import { Page401Component } from './page401/page401.component';
+import { Page403Component } from './page403/page403.component';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 
 import { MAT_DATE_LOCALE } from '@angular/material';
@@ -29,6 +31,8 @@ registerLocaleData(localeEs);
     AppComponent,
     HeaderComponent,
     HomeComponent,
+    Page403Component,
+    Page401Component,
   ],
   imports: [
     BrowserModule,

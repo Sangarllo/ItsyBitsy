@@ -3,21 +3,26 @@ import { Routes, RouterModule } from '@angular/router';
 import { RateDetailComponent } from './rate-detail/rate-detail.component';
 import { RateEditComponent } from './rate-edit/rate-edit.component';
 import { RatesTableComponent } from './rates-table/rates-table.component';
+import { AdminGuard } from '../services/admin.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: RatesTableComponent
+    component: RatesTableComponent,
+    canActivate: [AdminGuard]
+
   },
   {
     path: ':id',
-    component: RateDetailComponent
+    component: RateDetailComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: ':id/editar',
     // canDeactivate: [CourseEditGuard], TODO
-    component: RateEditComponent
+    component: RateEditComponent,
+    canActivate: [AdminGuard]
   }
 ];
 

@@ -8,6 +8,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { UserViewComponent } from './user-view/user-view.component';
 import { UsersTableComponent } from './users-table/users-table.component';
 import { AdminGuard } from '../services/admin.guard';
+import { AuthGuard } from '../services/auth.guard';
 
 
 const routes: Routes = [
@@ -19,24 +20,27 @@ const routes: Routes = [
   {
     path: 'perfil',
     component: UserProfileComponent,
-    canActivate: [AngularFireAuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'dashboard',
     component: UserDashboardComponent,
-    canActivate: [AngularFireAuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: ':id',
-    component: UserDetailsComponent
+    component: UserDetailsComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: ':id/view',
-    component: UserViewComponent
+    component: UserViewComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: ':id/editar',
-    component: UserEditComponent
+    component: UserEditComponent,
+    canActivate: [AdminGuard]
   },
 
 ];

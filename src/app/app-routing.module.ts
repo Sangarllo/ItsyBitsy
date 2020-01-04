@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { Page401Component } from './page401/page401.component';
+import { Page403Component } from './page403/page403.component';
 import { AngularFireAuthGuard, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
-
-import { AuthGuard } from './services/auth.guard';
 
 const redirectUnauthorizedToHome = () => redirectUnauthorizedTo(['home']);
 
@@ -29,6 +29,14 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToHome },
     loadChildren: () => import('./reports/reports.module').then(mod => mod.ReportsModule)
+  },
+  {
+    path: 'error-401',
+    component: Page401Component
+  },
+  {
+    path: 'error-403',
+    component: Page403Component
   },
   {
     path: 'home',
