@@ -32,6 +32,7 @@ export class LessonsService {
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,
       ref => ref.where('courseId', '==', course.id)
+                .where('current', '==', true)
                 .orderBy('date')
     );
 
@@ -44,6 +45,7 @@ export class LessonsService {
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,
       ref => ref.where('courseId', '==', course.id)
+                .where('current', '==', true)
                 .orderBy('date')
     );
 
@@ -69,15 +71,26 @@ export class LessonsService {
     }
   }
 
+  getNextLessons(course: Course, limit: number): Observable<ILesson[]> { {
+      this.lessonCollection = this.afs.collection(
+        LESSON_COLLECTION,
+        ref => ref.where('courseId', '==', course.id)
+                  .where('current', '==', true)
+                  .where('date', '>=', new Date())
+                  .limit(limit)
+                  .orderBy('date', 'asc')
+      );
+      return this.lessonCollection.valueChanges();
+    }
+  }
+
+
   updateLesson(course: Course, lesson: Lesson): Observable<Lesson> {
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,
       ref => ref.where('courseId', '==', course.id)
     );
-    console.log(`lesson id: ${lesson.id}`);
-    console.log(`lesson status: ${lesson.status}`);
     this.lessonDoc = this.lessonCollection.doc(lesson.id);
-    console.log(`lesson updated: ${JSON.stringify(lesson)}`);
     this.lessonDoc.update(lesson);
     return of(lesson);
   }

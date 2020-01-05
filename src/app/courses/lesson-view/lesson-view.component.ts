@@ -58,6 +58,7 @@ export class LessonViewComponent implements OnInit {
             lesson.status = Status.Anulada;
             break;
           case 'eliminada':
+            lesson.current = false;
             lesson.status = Status.Eliminada;
             break;
         }
