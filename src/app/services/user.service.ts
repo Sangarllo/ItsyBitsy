@@ -131,7 +131,7 @@ export class UserService {
       email: '',
       nickName: '',
       birthday: new Date(),
-      location: '',
+      location: 'Rincón de Soto',
       creationDate: new Date(),
       isUser: false,
       isAdmin: false,
