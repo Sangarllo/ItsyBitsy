@@ -1,18 +1,30 @@
 <mat-card *ngIf="course && lesson">
-    <div class="col-6">
-        <h6>Profesor de la Clase</h6>
-        <p>
-            {{ teacher?.displayName }}
-        </p>
-        <h6>Aula</h6>
-        <p>{{ lesson.classRoom }}</p>
+    <div class="row">
+        <div class="col-3">
 
-        <h6>Material</h6>
-        <p>{{ lesson.material }}</p>
+            <p style="padding-top:12px;padding-bottom:12px" [ngClass]="{
+              'is-eliminada': lesson.status === 'eliminada',
+              'is-anulada': lesson.status === 'anulada',
+              'is-programada': lesson.status === 'programada',
+              'is-realizada': lesson.status === 'realizada'
+            }">Clase {{ lesson.status }}</p>
+
+            <p>
+                <button mat-mini-fab [ngClass]="(lesson.status === 'programada')?'action-is-disabled':'action-is-programada'" (click)="changeStatus(lesson, 'programada')"><mat-icon>arrow_forward</mat-icon></button> &nbsp;
+                <button mat-mini-fab [ngClass]="(lesson.status === 'realizada')?'action-is-disabled':'action-is-realizada'" (click)="changeStatus(lesson, 'realizada')"><mat-icon>check</mat-icon></button> &nbsp;
+                <button mat-mini-fab [ngClass]="(lesson.status === 'anulada')?'action-is-disabled':'action-is-anulada'" (click)="changeStatus(lesson, 'anulada')"><mat-icon>close</mat-icon></button>
+            </p>
+        </div>
+        <div class="col-9">
+            <h6>Profesor de la Clase</h6>
+            <p>
+                {{ teacher?.displayName }}
+            </p>
+            <h6>Aula</h6>
+            <p>{{ lesson.classRoom }}</p>
+
+            <h6 *ngIf="lesson.material">Material</h6>
+            <p>{{ lesson.material }}</p>
+        </div>
     </div>
-    <div class="col-6">
-        <h6>Más cosas:</h6>
-    </div>
-
-
 </mat-card>

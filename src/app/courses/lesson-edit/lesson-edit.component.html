@@ -1,84 +1,97 @@
-<div class="container-fluid">
+<mat-toolbar color="primary">
+    <span>{{pageTitle}} | {{courseTitle}}</span>
+    <span class="fill-remaining-space"></span>
+    <button mat-raised-button color="accent" (click)="gotoCourse()">Volver al Curso</button>
+</mat-toolbar>
+
+<mat-card *ngIf="course">
 
     <div class="row">
-        <h4>{{courseTitle}}</h4>
-    </div>
-    <div class="row">
-        <h3>{{pageTitle}}</h3>
-    </div>
+        <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
+            <img [src]="course.image" class="img-thumbnail">
 
-    <form *ngIf="course" [formGroup]="lessonForm" class="form-container" (ngSubmit)="onSaveForm()">
+            <br><br>
 
-        <div class="row">
-
-            <div *ngIf="course" class="col-12 col-md-4 col-lg-3" style="text-align: center;">
-                <img [src]="course.image" class="img-thumbnail" />
-            </div>
-
-            <div class="col-12 col-md-8 col-lg-9">
-
-                <div class="row">
-
-                    <mat-form-field style="display:none" class="col-12">
-                        <input matInput type="text" formControlName="courseId" placeholder="Curso asociado">
-                    </mat-form-field>
-
-                    <mat-form-field class="col-12">
-                        <mat-label>Status</mat-label>
-                        <mat-select formControlName="status" [value]="lessonForm.get('status').value">
-                            <mat-option *ngFor="let status of STATUS_ARRAY" [value]="status">
-                                {{status}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <mat-form-field class="col-12">
-                        <mat-label>Profesor</mat-label>
-                        <mat-select formControlName="teacherId" [value]="lessonForm.get('teacherId').value">
-                            <mat-option *ngFor="let teacher of TEACHERS" [value]="teacher.uid">
-                                {{teacher.displayName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <mat-form-field class="col-12">
-                        <input matInput type="text" formControlName="material" placeholder="Material">
-                    </mat-form-field>
-
-                </div>
-
-                <div class="row">
-
-                    <mat-form-field class="col-6">
-                        <input matInput formControlName="date" [matDatepicker]="pickerStart" placeholder="Escoge la fecha de inicio">
-                        <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerStart></mat-datepicker>
-                        <mat-error *ngIf="!!lessonForm.get('date').hasError('required')">Es necesario incluir esta información</mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field class="col-3">
-                        <input matInput type="time" formControlName="startTime" placeholder="Escoge la hora de inicio">
-                        <mat-error *ngIf="!!lessonForm.get('startTime').hasError('required')">Es necesario incluir esta información</mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field class="col-3">
-                        <input matInput type="time" formControlName="endTime" placeholder="Escoge la hora de fin">
-                        <mat-error *ngIf="!!lessonForm.get('endTime').hasError('required')">Es necesario incluir esta información</mat-error>
-                    </mat-form-field>
-
-                </div>
-
-
-
-                <button mat-raised-button [title]="lessonForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!lessonForm.valid" type="submit" color="primary">Guardar</button>
-
-                <button mat-raised-button type="button" (click)="onResetForm()" color="primary">Limpiar</button>
-
-                <button mat-raised-button type="button" (click)="gotoList()" color="primary">Ver listado</button>
-
-            </div>
+            <p style="padding-top:12px;padding-bottom:12px" [ngClass]="{
+              'is-eliminada': lessonForm.get('status').value === 'eliminada',
+              'is-anulada': lessonForm.get('status').value === 'anulada',
+              'is-programada': lessonForm.get('status').value === 'programada',
+              'is-realizada': lessonForm.get('status').value === 'realizada'
+            }">Clase {{ lessonForm.get('status').value }}</p>
 
         </div>
-    </form>
 
-</div>
+        <div class="col-lg-9 col-md-8 col-12">
+
+            <form [formGroup]="lessonForm" class="form-container" (ngSubmit)="onSaveForm()">
+
+                <mat-card-content>
+
+                    <div class="row">
+
+                        <mat-form-field style="display:none" class="col-12">
+                            <input matInput type="text" formControlName="courseId" placeholder="Curso asociado">
+                        </mat-form-field>
+
+                        <mat-form-field class="col-12">
+                            <mat-label>Estado</mat-label>
+                            <mat-select formControlName="status" [value]="lessonForm.get('status').value">
+                                <mat-option *ngFor="let status of STATUS_ARRAY" [value]="status">
+                                    {{status}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-12">
+                            <mat-label>Profesor</mat-label>
+                            <mat-select formControlName="teacherId" [value]="lessonForm.get('teacherId').value">
+                                <mat-option *ngFor="let teacher of TEACHERS" [value]="teacher.uid">
+                                    {{teacher.displayName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-12">
+                            <input matInput type="text" formControlName="material" placeholder="Material">
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="row">
+
+                        <mat-form-field class="col-6">
+                            <input matInput formControlName="date" [matDatepicker]="pickerStart" placeholder="Escoge la fecha de inicio">
+                            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerStart></mat-datepicker>
+                            <mat-error *ngIf="!!lessonForm.get('date').hasError('required')">Es necesario incluir esta información</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-3">
+                            <input matInput type="time" formControlName="startTime" placeholder="Escoge la hora de inicio">
+                            <mat-error *ngIf="!!lessonForm.get('startTime').hasError('required')">Es necesario incluir esta información</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-3">
+                            <input matInput type="time" formControlName="endTime" placeholder="Escoge la hora de fin">
+                            <mat-error *ngIf="!!lessonForm.get('endTime').hasError('required')">Es necesario incluir esta información</mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                </mat-card-content>
+
+                <mat-card-actions>
+
+                    <button mat-raised-button [title]="lessonForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!lessonForm.valid" type="submit" color="primary">Guardar</button>
+
+                    <button mat-raised-button type="button" (click)="onResetForm()" color="primary">Limpiar</button>
+
+                    <button mat-raised-button type="button" (click)="gotoCourse()" color="primary">Volver al curso</button>
+
+                </mat-card-actions>
+
+            </form>
+        </div>
+    </div>
+
+</mat-card>

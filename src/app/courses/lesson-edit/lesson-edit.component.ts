@@ -132,12 +132,12 @@ export class LessonEditComponent implements OnInit, OnDestroy {
   deleteLesson(): void {
     if (this.lesson.id === '0') {
       // Don't delete, it was never saved.
-      this.onSaveComplete();
+      this.gotoCourse();
     } else {
       if (confirm(`Realmente quieres eliminar la clase del día: ${this.lesson.date}?`)) {
         this.lessonService.deleteLesson(this.course, this.lesson.id)
           .subscribe({
-            next: () => this.onSaveComplete(),
+            next: () => this.gotoCourse(),
             error: err => this.errorMessage = err
           });
       }
@@ -176,14 +176,14 @@ export class LessonEditComponent implements OnInit, OnDestroy {
                 */
 
                 // 3. Damos por cerrado el formulario
-                this.onSaveComplete();
+                this.gotoCourse();
               },
               error: err => this.errorMessage = err
             });
         } else {
           this.lessonService.updateLesson(this.course, item)
             .subscribe({
-              next: () => this.onSaveComplete(),
+              next: () => this.gotoCourse(),
               error: err => this.errorMessage = err
             });
         }
@@ -192,13 +192,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSaveComplete(): void {
-    // Reset the form to clear the flags
-    this.lessonForm.reset();
-    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/`]);
-  }
-
-  gotoList(): void {
+  gotoCourse(): void {
     // Reset the form to clear the flags
     this.lessonForm.reset();
     this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/`]);

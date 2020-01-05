@@ -10,7 +10,7 @@
         <mat-card (click)="gotoLesson(lesson)">
             <mat-card-header>
                 <div mat-card-avatar [ngStyle]="applyStyles(lesson)"></div>
-                <mat-card-title>{{ lesson.date.toDate() | date:'fullDate' }}, de {{lesson.startTime}} a {{lesson.endTime}}</mat-card-title>
+                <mat-card-title>{{ lesson.date | date:'fullDate' }}, de {{lesson.startTime}} a {{lesson.endTime}}</mat-card-title>
                 <mat-card-subtitle>{{ lesson.status }}</mat-card-subtitle>
             </mat-card-header>
         </mat-card>

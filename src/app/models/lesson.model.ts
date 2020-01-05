@@ -54,7 +54,7 @@ export class Lesson implements ILesson {
 
   static getAllStatus(): Status[] {
     return [
-      Status.Eliminada,
+      // Status.Eliminada, No se lista
       Status.Programada,
       Status.Anulada,
       Status.Realizada

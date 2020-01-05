@@ -68,35 +68,17 @@ export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
     this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Lesson.PATH_URL}/${lesson.id}/editar`]);
   }
 
-  deleteLesson(lesson: Lesson) {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: `Si pulsas OK, la clase del día ${lesson.date} quedará eliminada y no podrás revertir dicha acción`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, ¡anúlala!'
-    }).then((result) => {
-      if (result.value) {
-        Swal.fire(
-          'Borrado!',
-          `La lección ha sido anulada.`,
-          'success'
-        );
-      }
-    });
-  }
-
   changeStatus(lesson: Lesson, status: string) {
     Swal.fire({
       title: '¿Estás seguro?',
-      text: `Si pulsas OK, la clase del día ${lesson.date} quedará ${status}`,
-      icon: 'warning',
+      text: `Si pulsas OK, esta clase será ${status}`,
+      icon: 'info',
+      html:
+      `Si pulsas OK, esta clase será <b>${status}</b>`,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: `Sí, ¡${status}!`
+      confirmButtonText: `OK`
     }).then((result) => {
       if (result.value) {
 
@@ -110,13 +92,16 @@ export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
           case 'anulada':
             lesson.status = Status.Anulada;
             break;
+          case 'eliminada':
+            lesson.status = Status.Eliminada;
+            break;
         }
 
         this.lessonsSvc.updateLesson(this.course, lesson)
           .subscribe( () => {
             Swal.fire(
               status,
-              `La lección se ha quedado como ${status}.`,
+              `La lección ha sido ${status}.`,
               'success'
             );
           });
