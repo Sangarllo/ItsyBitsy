@@ -27,10 +27,13 @@
             <td mat-cell *matCellDef="let element"> {{element.displayName}} </td>
         </ng-container>
 
-        <!-- email Column -->
-        <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
-            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        <!-- actions Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let element">
+                &nbsp;
+                <button mat-mini-fab color="warn" (click)="removeStudent(element)"><mat-icon>delete</mat-icon></button>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
@@ -49,3 +52,8 @@
         <button mat-raised-button color="warn" (click)="openDialogToAddStudent()">Añadir un primer estudiante</button>
     </div>
 </ng-template>
+
+
+<pre *ngIf="course.studentList">
+  {{ course.studentList | json }}
+</pre>

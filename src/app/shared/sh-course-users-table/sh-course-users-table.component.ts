@@ -18,7 +18,7 @@ import Swal from 'sweetalert2';
 })
 export class ShCourseUsersTableComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['photoURL', 'displayName', 'email'];
+  columnsToDisplay = ['photoURL', 'displayName', 'actions'];
   dataSource = new MatTableDataSource();
   newStudent: UserDetails;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -52,6 +52,29 @@ export class ShCourseUsersTableComponent implements OnInit, AfterViewInit {
     this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Student.PATH_URL}`]); // /0/editar
   }
 
+  removeStudent(removedStudent: UserDetails) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `Si pulsas OK, ${removedStudent.displayName} dejará de ser estudiante del curso`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: `OK`
+    }).then((result) => {
+      if (result.value) {
+
+        this.course.studentList = this.course.studentList.filter(student => student.uid !== removedStudent.uid );
+
+        this.courseSvc.updateCourse(this.course)
+        .subscribe( (course: Course) => {
+          this.course = course;
+          this.dataSource.data = this.course.studentList;
+        });
+      }
+    });
+  }
+
   openDialogToAddStudent(): void {
 
       const dialogRef = this.dialog.open(ShAddStudentDialogComponent, {
@@ -73,9 +96,7 @@ export class ShCourseUsersTableComponent implements OnInit, AfterViewInit {
             });
         } else {
           Swal.fire('Este estudiante ya asistía al curso');
-
         }
-
       });
   }
 
