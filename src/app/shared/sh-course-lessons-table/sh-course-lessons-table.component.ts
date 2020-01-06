@@ -93,6 +93,7 @@ export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
             lesson.status = Status.Anulada;
             break;
           case 'eliminada':
+            lesson.current = false;
             lesson.status = Status.Eliminada;
             break;
         }
