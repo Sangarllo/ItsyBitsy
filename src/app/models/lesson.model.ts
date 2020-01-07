@@ -9,6 +9,7 @@ export enum Status {
 // TODO: Type (speaking, examen, repaso, especial...)
 
 export interface ILesson {
+  id: string;
   current: boolean;
   courseId: string;
   status: string;

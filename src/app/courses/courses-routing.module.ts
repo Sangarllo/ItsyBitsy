@@ -6,12 +6,18 @@ import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { CoursesTableComponent } from './courses-table/courses-table.component';
+import { CourseDashboardComponent } from './course-dashboard/course-dashboard.component';
 import { AdminGuard } from '../services/admin.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: CoursesTableComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'dashboard',
+    component: CourseDashboardComponent,
     canActivate: [AdminGuard]
   },
   {

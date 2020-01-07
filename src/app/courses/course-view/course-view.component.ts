@@ -3,7 +3,7 @@ import { Course } from '../../models/course.model';
 import { UserService } from '../../services/user.service';
 import { UserDetails } from '../../models/user.model';
 import { LessonsService } from '../../services/lessons.service';
-import { Lesson, ILesson, Status } from '../../models/lesson.model';
+import { Lesson, Status } from '../../models/lesson.model';
 import { Router } from '@angular/router';
 import { DatesService } from '../../services/dates.service';
 import Swal from 'sweetalert2';
@@ -17,7 +17,8 @@ export class CourseViewComponent implements OnInit {
 
   @Input() course: Course;
   teacher: UserDetails;
-  nextLessons: ILesson[] = [];
+  nextLessons: Lesson[] = [];
+  lastLessons: Lesson[] = [];
 
   constructor(
     private userService: UserService,
@@ -36,14 +37,24 @@ export class CourseViewComponent implements OnInit {
     });
 
     this.lessonsSvc.getNextLessons(this.course, 1)
-      .subscribe( (lessons: ILesson[]) => {
+      .subscribe( (lessons: Lesson[]) => {
 
         lessons.forEach(lesson => {
           lesson.date = this.dateSvc.fromFirebaseDate(lesson.date);
         });
 
         this.nextLessons = lessons;
-      });
+    });
+
+    this.lessonsSvc.getLastLessons(this.course, 1)
+      .subscribe( (lessons: Lesson[]) => {
+
+        lessons.forEach(lesson => {
+          lesson.date = this.dateSvc.fromFirebaseDate(lesson.date);
+        });
+
+        this.lastLessons = lessons;
+    });
   }
 
   viewLesson(lesson: Lesson) {

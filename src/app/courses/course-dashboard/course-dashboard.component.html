@@ -1,0 +1,85 @@
+<mat-toolbar color="primary">
+    <span>Dashboard de Cursos Activos</span>
+    <span class="fill-remaining-space"></span>
+
+    <mat-form-field class="filter-form-field">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" (click)="gotoNew()">Crear Nuevo</button>
+</mat-toolbar>
+
+<table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+        <td mat-cell *matCellDef="let element">
+            <img [src]="element.image" class="img-thumbnail" alt="element.displayName">
+        </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Curso </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- lastLesson Column -->
+    <ng-container matColumnDef="lastLesson">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Última Clase</th>
+        <td mat-cell *matCellDef="let element"> <span *ngIf="element.lastLesson">{{element.lastLesson | date:'fullDate' }}</span> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastLessonStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'is-anulada': element.lastLessonStatus === 'anulada',
+          'is-programada': element.lastLessonStatus === 'programada',
+          'is-realizada': element.lastLessonStatus === 'realizada'
+        }"> <span *ngIf="element.lastLessonStatus">{{element.lastLessonStatus }}</span> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastLessonActions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let course">
+            &nbsp;
+            <button mat-mini-fab color="warn" *ngIf="course.lastLesson" (click)="viewLesson(course, course.lastLessonId )"><mat-icon>pageview</mat-icon></button>
+        </td>
+    </ng-container>
+
+
+
+    <!-- nextLesson Column -->
+    <ng-container matColumnDef="nextLesson">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Siguiente clase</th>
+        <td mat-cell *matCellDef="let element"> <span *ngIf="element.nextLesson">{{element.nextLesson | date:'fullDate' }}</span> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nextLessonStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'is-anulada': element.nextLessonStatus === 'anulada',
+          'is-programada': element.nextLessonStatus === 'programada',
+          'is-realizada': element.nextLessonStatus === 'realizada'
+        }"> <span *ngIf="element.nextLessonStatus">{{element.nextLessonStatus }}</span> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nextLessonActions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let course">
+            &nbsp;
+            <button mat-mini-fab color="warn" *ngIf="course.nextLesson" (click)="viewLesson(course, course.nextLessonId )"><mat-icon>pageview</mat-icon></button>
+            <button mat-mini-fab color="accent" *ngIf="!course.nextLesson" (click)="addLesson(course)"><mat-icon>add_box</mat-icon></button>
+        </td>
+    </ng-container>
+
+
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">
+    </tr>
+
+</table>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

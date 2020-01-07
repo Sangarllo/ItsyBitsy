@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ILesson, Lesson } from '../../models/lesson.model';
+import { Lesson } from '../../models/lesson.model';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -22,7 +22,7 @@ export class LessonListComponent implements OnInit {
   course: Course;
 
   private lessonCollection: AngularFirestoreCollection<Lesson>;
-  lessons: Observable<ILesson[]>;
+  lessons: Observable<Lesson[]>;
 
   constructor(
     private coursesService: CoursesService,

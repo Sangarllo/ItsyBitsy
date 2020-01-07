@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { LessonViewComponent } from './lesson-view/lesson-view.component';
 import { AttendancesViewComponent } from './attendances-view/attendances-view.component';
 import { CoursesTableComponent } from './courses-table/courses-table.component';
+import { CourseDashboardComponent } from './course-dashboard/course-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CoursesTableComponent } from './courses-table/courses-table.component';
     CourseViewComponent,
     LessonViewComponent,
     AttendancesViewComponent,
-    CoursesTableComponent
+    CoursesTableComponent,
+    CourseDashboardComponent
   ],
   imports: [
     SharedModule,

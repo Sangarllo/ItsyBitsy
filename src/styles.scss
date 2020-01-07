@@ -46,14 +46,23 @@ Every toolbar row uses a flexbox row layout. */
     flex: 1 1 auto;
 }
 
-.is-eliminada {
+.is-eliminada,
+.is-anulada,
+.is-ausentada,
+.is-confirmada,
+.is-realizada,
+.is-programada {
     padding-left: 20px !important;
+    padding-right: 20px !important;
+    text-align: center !important;
+}
+
+.is-eliminada {
     color: #721c24 !important;
     background-color: #f8d7da !important;
 }
 
 .is-anulada {
-    padding-left: 20px !important;
     color: #721c24 !important;
     background-color: #f8d7da !important;
 }
@@ -64,8 +73,6 @@ Every toolbar row uses a flexbox row layout. */
 }
 
 .is-programada {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
     color: #856404 !important;
     background-color: #fff3cd !important;
 }
@@ -76,16 +83,13 @@ Every toolbar row uses a flexbox row layout. */
 }
 
 .is-ausentada {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
     color: #721c24 !important;
     background-color: #f8d7da !important;
 }
 
 .is-confirmada,
 .is-realizada {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+    text-align: center !important;
     color: #155724 !important;
     background-color: #d4edda !important;
 }

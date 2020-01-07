@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule, A
 import { Observable, of } from 'rxjs';
 import { ICON_REGISTRY_PROVIDER } from '@angular/material/icon';
 import { Icon } from '../models/image.model';
-import { ILesson, Lesson, Status } from '../models/lesson.model';
+import { Lesson, Status } from '../models/lesson.model';
 import { UserDetails } from '../models/user.model';
 import { Teacher } from '../models/teacher.model';
 import { Course } from '../models/course.model';
@@ -20,15 +20,15 @@ const LESSON_COLLECTION = 'lessons';
 })
 export class LessonsService {
 
-  private lessonCollection: AngularFirestoreCollection<ILesson>;
-  private lessonDoc: AngularFirestoreDocument<ILesson>;
+  private lessonCollection: AngularFirestoreCollection<Lesson>;
+  private lessonDoc: AngularFirestoreDocument<Lesson>;
 
   constructor(
     private afs: AngularFirestore,
     private attendanceService: AttendancesService) {
   }
 
-  getAllLessons(course: Course): Observable<ILesson[]> {
+  getAllLessons(course: Course): Observable<Lesson[]> {
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,
       ref => ref.where('courseId', '==', course.id)
@@ -40,7 +40,7 @@ export class LessonsService {
   }
 
 
-  getLessonsByCourseId(course: Course): Observable<ILesson[]> {
+  getLessonsByCourseId(course: Course): Observable<Lesson[]> {
 
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,
@@ -51,7 +51,7 @@ export class LessonsService {
 
     return this.lessonCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as ILesson;
+        const data = a.payload.doc.data() as Lesson;
         const id = a.payload.doc.id;
         return { id, ...data };
       }))
@@ -71,18 +71,31 @@ export class LessonsService {
     }
   }
 
-  getNextLessons(course: Course, limit: number): Observable<ILesson[]> { {
+  getLastLessons(course: Course, limit: number): Observable<Lesson[]> { {
       this.lessonCollection = this.afs.collection(
         LESSON_COLLECTION,
         ref => ref.where('courseId', '==', course.id)
                   .where('current', '==', true)
-                  .where('date', '>=', new Date())
+                  .where('date', '<=', new Date())
                   .limit(limit)
                   .orderBy('date', 'asc')
       );
       return this.lessonCollection.valueChanges();
     }
   }
+
+  getNextLessons(course: Course, limit: number): Observable<Lesson[]> { {
+    this.lessonCollection = this.afs.collection(
+      LESSON_COLLECTION,
+      ref => ref.where('courseId', '==', course.id)
+                .where('current', '==', true)
+                .where('date', '>=', new Date())
+                .limit(limit)
+                .orderBy('date', 'asc')
+    );
+    return this.lessonCollection.valueChanges();
+  }
+}
 
 
   updateLesson(course: Course, lesson: Lesson): Observable<Lesson> {

@@ -14,16 +14,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12" *ngIf="nextLessons.length > 0">
+
+        <div class="col-6 col-md-6" *ngIf="nextLessons.length > 0">
             <hr />
             <b>Siguiente Clase:</b>
-
             <div class="next-lesson" *ngFor='let lesson of nextLessons'>
                 <button mat-mini-fab color="warn" (click)="viewLesson(lesson)"><mat-icon>pageview</mat-icon></button> &nbsp;
                 <button mat-mini-fab color="warn" (click)="editLesson(lesson)"><mat-icon>edit</mat-icon></button> &nbsp;
                 <button mat-mini-fab color="warn" (click)="deleteLesson(lesson)"><mat-icon>delete</mat-icon></button> &nbsp;&nbsp;
                 <span class="next-lesson-status" [ngClass]="{
-                      'is-eliminada': lesson.status === 'eliminada',
                       'is-anulada': lesson.status === 'anulada',
                       'is-programada': lesson.status === 'programada',
                       'is-realizada': lesson.status === 'realizada'
@@ -31,5 +30,22 @@
                 <span>{{lesson.date | date:'fullDate' }}</span>
             </div>
         </div>
+
+        <div class="col-6 col-md-6" *ngIf="lastLessons.length > 0">
+            <hr />
+            <b>Última Clase:</b>
+            <div class="last-lesson" *ngFor='let lesson of lastLessons'>
+                <button mat-mini-fab color="warn" (click)="viewLesson(lesson)"><mat-icon>pageview</mat-icon></button> &nbsp;
+                <button mat-mini-fab color="warn" (click)="editLesson(lesson)"><mat-icon>edit</mat-icon></button> &nbsp;
+                <button mat-mini-fab color="warn" (click)="deleteLesson(lesson)"><mat-icon>delete</mat-icon></button> &nbsp;&nbsp;
+                <span class="next-lesson-status" [ngClass]="{
+                    'is-anulada': lesson.status === 'anulada',
+                    'is-programada': lesson.status === 'programada',
+                    'is-realizada': lesson.status === 'realizada'
+                  }">{{lesson.status}}</span> &nbsp;&nbsp;
+                <span>{{lesson.date | date:'fullDate' }}</span>
+            </div>
+        </div>
+
     </div>
 </mat-card>
