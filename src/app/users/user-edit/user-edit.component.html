@@ -105,7 +105,12 @@
                             </mat-form-field>
 
                             <mat-form-field class="col-12">
-                                <input matInput type="text" formControlName="paymentMethod" placeholder="Método de pago">
+                                <mat-label>Método de Pago</mat-label>
+                                <mat-select formControlName="paymentMethod" [value]="userDetailsForm.get('paymentMethod').value">
+                                    <mat-option *ngFor="let paymentMethod of PAYMENT_METHOD_ARRAY" [value]="paymentMethod">
+                                        {{paymentMethod}}
+                                    </mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </div>
                     </div>

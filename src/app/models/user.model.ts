@@ -7,6 +7,12 @@ export enum Rol {
   Student, // Student = 'estudiante',
 }
 
+export enum PaymentMethod {
+  NoAplica = 'No Aplica',
+  Recibo = 'Recibo',
+  Domiciliación = 'Domiciliación'
+}
+
 export interface User {
   uid: string;
   displayName: string;
@@ -29,7 +35,7 @@ export interface IUserDetails extends User {
   rateId?: string;
   telephone?: string;
   contactPerson?: string;
-  paymentMethod?: string;
+  paymentMethod?: PaymentMethod;
 }
 
 export class UserDetails implements IUserDetails {
@@ -69,7 +75,20 @@ export class UserDetails implements IUserDetails {
     public rateId: string,
     public telephone: string,
     public contactPerson: string,
-    public paymentMethod: string,
+    public paymentMethod: PaymentMethod,
      ) {
   }
+
+  static getAllPaymentMethod(): PaymentMethod[] {
+    return [
+      PaymentMethod.NoAplica,
+      PaymentMethod.Recibo,
+      PaymentMethod.Domiciliación
+    ];
+  }
+
+  static getDefaultPaymentMethod(): PaymentMethod {
+    return PaymentMethod.NoAplica;
+  }
+
 }

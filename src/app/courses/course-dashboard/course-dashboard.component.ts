@@ -17,7 +17,7 @@ import { DatesService } from '../../services/dates.service';
 })
 export class CourseDashboardComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['image', 'name',
+  columnsToDisplay = ['image', 'name', 'aforo',
     'lastLesson', 'lastLessonStatus', 'lastLessonActions',
     'nextLesson', 'nextLessonStatus', 'nextLessonActions' ];
   dataSource = new MatTableDataSource();

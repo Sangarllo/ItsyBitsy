@@ -22,6 +22,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
   userDetailsForm: FormGroup;
   userDetails: UserDetails;
   AVATARES: Avatar[] = Avatar.getAvatares();
+  PAYMENT_METHOD_ARRAY = UserDetails.getAllPaymentMethod();
   rates$: Observable<Rate[]>;
 
   isUser = true;

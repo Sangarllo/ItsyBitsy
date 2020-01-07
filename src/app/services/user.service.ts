@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
-import { IUserDetails, UserDetails } from '../models/user.model';
+import { IUserDetails, UserDetails, PaymentMethod } from '../models/user.model';
 import { Observable, of } from 'rxjs';
 import { Avatar } from '../models/image.model';
 import { map } from 'rxjs/operators';
@@ -140,7 +140,7 @@ export class UserService {
       rateId: 'no-aplica',
       telephone: '',
       contactPerson: '-',
-      paymentMethod: 'No Aplica'
+      paymentMethod: PaymentMethod.NoAplica
     };
   }
 }
