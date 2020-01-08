@@ -32,6 +32,7 @@ export class ShCourseUsersTableComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
+    this.sortStudentList();
     this.dataSource.data = this.course.studentList;
   }
 
@@ -69,6 +70,7 @@ export class ShCourseUsersTableComponent implements OnInit, AfterViewInit {
         this.courseSvc.updateCourse(this.course)
         .subscribe( (course: Course) => {
           this.course = course;
+          this.sortStudentList();
           this.dataSource.data = this.course.studentList;
         });
       }
@@ -92,6 +94,7 @@ export class ShCourseUsersTableComponent implements OnInit, AfterViewInit {
           this.courseSvc.updateCourse(this.course)
             .subscribe( (course: Course) => {
               this.course = course;
+              this.sortStudentList();
               this.dataSource.data = this.course.studentList;
             });
         } else {
@@ -109,5 +112,10 @@ export class ShCourseUsersTableComponent implements OnInit, AfterViewInit {
       }
     });
     return isInArray;
+  }
+
+  private sortStudentList() {
+    // tslint:disable-next-line:max-line-length
+    this.course.studentList.sort((a, b) => (a.displayName > b.displayName) ? 1 : (a.displayName === b.displayName) ? ((a.displayName > b.displayName) ? 1 : -1) : -1 );
   }
 }

@@ -20,7 +20,8 @@ import { RateService } from '../../services/rates.service';
 })
 export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['photoURL', 'studentName', 'numAsistencias', 'rateName', 'paymentAmmout', 'paymentMethod' ];
+  columnsToDisplay = ['photoURL', 'studentName', 'numAsistencias',
+    'rateName', 'paymentAmmout', 'paymentMethod' ];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -53,7 +54,13 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
             studentId: oldData.studentId,
             studentImage: oldData.studentImage,
             studentName: oldData.studentName,
-            numAsistencias: oldData.numAsistencias + 1
+            numAsistencias: oldData.numAsistencias + 1,
+            numAsistenciasConfirmadas: ( attendance.status === 'confirmada' ) ?
+              oldData.numAsistenciasConfirmadas + 1 : oldData.numAsistenciasConfirmadas,
+            numAsistenciasProgramadas: ( attendance.status === 'programada' ) ?
+              oldData.numAsistenciasProgramadas + 1 : oldData.numAsistenciasProgramadas,
+            numAsistenciasAnuladas: ( attendance.status === 'anulada' ) ?
+              oldData.numAsistenciasAnuladas + 1 : oldData.numAsistenciasAnuladas,
           };
         } else {
 
@@ -61,7 +68,10 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
             studentId: attendance.studentId,
             studentImage: attendance.studentImage,
             studentName: attendance.studentName,
-            numAsistencias: 1
+            numAsistencias: 1,
+            numAsistenciasConfirmadas: ( attendance.status === 'confirmada' ) ? 1 : 0,
+            numAsistenciasProgramadas: ( attendance.status === 'programada' ) ? 1 : 0,
+            numAsistenciasAnuladas: ( attendance.status === 'anulada' ) ? 1 : 0,
           };
         }
         this.studentsMap.set(studentId, newData);
@@ -78,11 +88,14 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
         photoURL: value.studentImage,
         studentName: value.studentName,
         numAsistencias: value.numAsistencias,
+        numAsistenciasConfirmadas: value.numAsistenciasConfirmadas,
+        numAsistenciasProgramadas: value.numAsistenciasProgramadas,
+        numAsistenciasAnuladas: value.numAsistenciasAnuladas,
         // rateId: rate.id,
         rateName: ( dataRate ) ? dataRate.rate.name : null,
         ratePrice: ( dataRate ) ? dataRate.rate.Price : null,
         paymentMethod: ( dataRate ) ? dataRate.paymentMethod : null,
-        paymentAmmout: ( dataRate ) ? this.rateSvc.calculatePayment(dataRate.rate, value.numAsistencias) : null
+        paymentAmmout: ( dataRate ) ? this.rateSvc.calculatePayment(dataRate.rate, value.numAsistenciasConfirmadas) : null
       };
 
       this.studentsArray.push(data);
@@ -142,4 +155,5 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
 
     return dataRate;
   }
+
 }

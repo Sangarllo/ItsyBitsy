@@ -36,8 +36,8 @@
 
     <!-- numAsistencias Column -->
     <ng-container matColumnDef="numAsistencias">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> NumAsistencias</th>
-        <td mat-cell *matCellDef="let element"> {{element.numAsistencias}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Asistencias</th>
+        <td mat-cell *matCellDef="let element"> {{element.numAsistenciasConfirmadas}} confirmadas ( {{element.numAsistenciasProgramadas}} | {{element.numAsistenciasAnuladas}} ) </td>
     </ng-container>
 
     <!-- rateName Column -->

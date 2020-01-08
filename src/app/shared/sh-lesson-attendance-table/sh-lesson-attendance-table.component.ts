@@ -49,7 +49,7 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
     this.attendancesSvc.getAllAttendancesByLesson(this.lesson)
     .subscribe((attendances: Attendance[]) => {
       this.attendances = attendances;
-      console.log(`Num Attendances: ${this.attendances.length}`);
+      this.sortAttendances();
       this.dataSource.data = this.attendances;
     });
   }
@@ -174,6 +174,7 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
             this.lessonsSvc.updateLesson(this.course, this.lesson)
               .subscribe( (lesson: Lesson) => {
                 this.lesson = lesson;
+                this.sortAttendances();
                 this.dataSource.data = this.attendances;
               });
           });
@@ -183,16 +184,21 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
       }
 
     });
-}
+  }
 
-private isInArray(userDetails: UserDetails): boolean {
-  let isInArray: boolean = false;
-  this.attendances.forEach(attendance => {
-    console.log(`comparing: ${attendance.studentId} === ${userDetails.uid}`);
-    if ( attendance.studentId === userDetails.uid ) {
-      isInArray = true;
-    }
-  });
-  return isInArray;
-}
+  private isInArray(userDetails: UserDetails): boolean {
+    let isInArray: boolean = false;
+    this.attendances.forEach(attendance => {
+      console.log(`comparing: ${attendance.studentId} === ${userDetails.uid}`);
+      if ( attendance.studentId === userDetails.uid ) {
+        isInArray = true;
+      }
+    });
+    return isInArray;
+  }
+
+  private sortAttendances() {
+    // tslint:disable-next-line:max-line-length
+    this.attendances.sort((a, b) => (a.studentName > b.studentName) ? 1 : (a.studentName === b.studentName) ? ((a.studentName > b.studentName) ? 1 : -1) : -1 );
+  }
 }
