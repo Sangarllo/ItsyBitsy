@@ -4,7 +4,7 @@ import { ClassRoom } from './classroom';
 export enum WeekDay {
   Lunes = 'lunes',
   Martes = 'martes',
-  Miercoles = 'miercoles',
+  Miércoles = 'miércoles',
   Jueves = 'jueves',
   Viernes = 'viernes',
   Sábado = 'sábado',
@@ -85,7 +85,7 @@ export class Course implements ICourse {
     return [
       WeekDay.Lunes,
       WeekDay.Martes,
-      WeekDay.Miercoles,
+      WeekDay.Miércoles,
       WeekDay.Jueves,
       WeekDay.Viernes,
       WeekDay.Sábado,
@@ -97,6 +97,25 @@ export class Course implements ICourse {
     return WeekDay.Lunes;
   }
 
+  static getWeekDayNumber(weekday: WeekDay): number {
+    switch (weekday) {
+      case WeekDay.Lunes:
+        return 1;
+      case WeekDay.Martes:
+        return 2;
+      case WeekDay.Miércoles:
+        return 3;
+      case WeekDay.Jueves:
+        return 4;
+      case WeekDay.Viernes:
+        return 5;
+      case WeekDay.Sábado:
+        return 6;
+      case WeekDay.Domingo:
+      default:
+        return 0;
+    }
+  }
 
   static getAllCourseType(): CourseType[] {
     return [

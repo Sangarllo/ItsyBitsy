@@ -104,14 +104,18 @@ export class LessonEditComponent implements OnInit, OnDestroy {
 
   displayLesson(): void {
 
+    let lessonDate: Date;
+
     if (this.lessonForm) {
       this.lessonForm.reset();
     }
 
     if (this.lesson.id === '0') {
       this.pageTitle = `Creando una nueva clase`;
+      lessonDate = this.lesson.date;
     } else {
       this.pageTitle = `Editando una clase existente`;
+      lessonDate = this.datesService.fromFirebaseDate(this.lesson.date);
     }
 
 
@@ -121,7 +125,7 @@ export class LessonEditComponent implements OnInit, OnDestroy {
       status: this.lesson.status,
       teacherId: this.lesson.teacherId,
       material: this.lesson.material,
-      date: this.datesService.fromFirebaseDate(this.lesson.date),
+      date: lessonDate,
       startTime: this.lesson.startTime,
       endTime: this.lesson.endTime
     });

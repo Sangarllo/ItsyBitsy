@@ -132,12 +132,16 @@ export class LessonsService {
 
   private initialize(course: Course, lessonId: string): Lesson {
     // Return an initialized object
+
+    const newDate = new Date();
+    newDate.setDate(newDate.getDate() + (7 + Course.getWeekDayNumber(course.weekDay) - newDate.getDay()) % 7);
+
     return {
       id: '0',
       current: true,
       courseId: course.id,
       status: Status.Programada,
-      date: new Date(),
+      date: newDate,
       teacherId: course.teacherId,
       classRoom: course.classRoom,
       material: '',
