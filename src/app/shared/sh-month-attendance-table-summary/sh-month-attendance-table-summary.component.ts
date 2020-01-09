@@ -13,6 +13,9 @@ import { from } from 'rxjs';
 import { User } from '../../models/user.model';
 import { RateService } from '../../services/rates.service';
 
+import { ScriptService } from '../../services/script.service';
+declare let pdfMake: any ;
+
 @Component({
   selector: 'sh-month-attendance-table-summary',
   templateUrl: './sh-month-attendance-table-summary.component.html',
@@ -21,7 +24,7 @@ import { RateService } from '../../services/rates.service';
 export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = ['photoURL', 'studentName', 'numAsistencias',
-    'rateName', 'paymentAmmout', 'paymentMethod' ];
+    'rateName', 'paymentAmmout', 'paymentMethod', 'actions'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -29,16 +32,21 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
   @Input() attendances: Attendance[];
   @Input() users: User[];
   @Input() rates: Rate[];
+  @Input() month: string;
+  @Input() year: string;
 
   studentsIds: string[] = [];
-  studentsArray = [];
+  studentsArray: any[] = [];
   studentsMap = new Map();
 
 
   constructor(
+    private scriptSvc: ScriptService,
     private rateSvc: RateService
-  ) { }
-
+  ) {
+    console.log('Loading External Scripts');
+    this.scriptSvc.load('pdfMake', 'vfsFonts');
+  }
 
   ngOnInit() {
 
@@ -75,7 +83,6 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
           };
         }
         this.studentsMap.set(studentId, newData);
-        console.log(`StudentId ${studentId} -> dictionary lenght: ${this.studentsMap.size}`);
       });
 
     this.studentsArray = [];
@@ -154,6 +161,28 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
     });
 
     return dataRate;
+  }
+
+  printInfo(studentItem: any) {
+    // tslint:disable-next-line:no-string-literal
+    const studentName: string = studentItem['studentName'];
+    // tslint:disable-next-line:no-string-literal
+    const paymentAmmout: string = studentItem['paymentAmmout'];
+
+    const documentDefinition = this.scriptSvc.createReport(studentName, paymentAmmout, this.month, this.year);
+    const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
+    pdfMake.createPdf(documentDefinition).print();
+  }
+
+  downloadInfo(studentItem: any) {
+    // tslint:disable-next-line:no-string-literal
+    const studentName: string = studentItem['studentName'];
+    // tslint:disable-next-line:no-string-literal
+    const paymentAmmout: string = studentItem['paymentAmmout'];
+
+    const documentDefinition = this.scriptSvc.createReport(studentName, paymentAmmout, this.month, this.year);
+    const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
+    pdfMake.createPdf(documentDefinition).download(reportName);
   }
 
 }

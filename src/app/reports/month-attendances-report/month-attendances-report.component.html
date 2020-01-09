@@ -38,7 +38,7 @@
                 <mat-icon>view_list</mat-icon>
                 &nbsp;&nbsp;Resumen de Asistencias
             </ng-template>
-            <sh-month-attendance-table-summary [attendances]="attendances" [users]="users" [rates]="rates"></sh-month-attendance-table-summary>
+            <sh-month-attendance-table-summary [attendances]="attendances" [users]="users" [rates]="rates" [month]="selectedMonth.name" [year]="selectedYear"></sh-month-attendance-table-summary>
         </mat-tab>
 
         <mat-tab class="tab-data-detail" *ngIf="dateIni && dateEnd; else noReport">

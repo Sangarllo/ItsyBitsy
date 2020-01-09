@@ -58,6 +58,17 @@
         <td mat-cell *matCellDef="let element"> {{element.paymentMethod}}</td>
     </ng-container>
 
+    <!-- actions Column -->
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let studentItem">
+            &nbsp;
+            <button mat-mini-fab color="warn" (click)="printInfo(studentItem)"><mat-icon>print</mat-icon></button> &nbsp;
+            <button mat-mini-fab color="warn" (click)="downloadInfo(studentItem)"><mat-icon>cloud_download</mat-icon></button>
+        </td>
+    </ng-container>
+
+
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">
     </tr>
