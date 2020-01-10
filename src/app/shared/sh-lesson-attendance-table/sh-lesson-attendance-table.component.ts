@@ -86,7 +86,7 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.studentId + 1}`; // TODO: Undestand!
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`; // TODO: Undestand!
   }
 
   applyStatus() {
