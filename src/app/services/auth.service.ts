@@ -61,6 +61,7 @@ export class AuthService {
             displayName: user.displayName,
             email: user.email,
             photoURL: user.photoURL,
+            current: true,
             nickName: user.displayName.substring(0, user.displayName.indexOf(' ')),
             isUser: true,
             isAdmin: false,

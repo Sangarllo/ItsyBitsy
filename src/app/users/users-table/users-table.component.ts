@@ -110,7 +110,8 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   deleteUser(userDetails: UserDetails) {
     Swal.fire({
       title: '¿Estás seguro?',
-      text: `Si pulsas OK, el usuario ${userDetails.displayName} quedará eliminado y no podrás revertir dicha acción`,
+      // tslint:disable-next-line:max-line-length
+      text: `Si pulsas OK, el usuario ${userDetails.displayName} quedará eliminado de la base de datos (tanto si es estudiante, como profesor o administrador) y no podrás revertir dicha acción`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -118,11 +119,26 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
       confirmButtonText: 'Sí, ¡bórralo!'
     }).then((result) => {
       if (result.value) {
-        Swal.fire(
-          'Borrado!',
-          `El usuario ${userDetails.displayName} ha sido eliminado.`,
-          'success'
-        );
+
+        userDetails.current = false;
+        this.userSvc.updateUserDetails(userDetails)
+        .subscribe({
+          next: () => {
+            Swal.fire(
+              'Borrado!',
+              `El usuario ${userDetails.displayName} ha sido eliminado.`,
+              'success'
+            );
+          },
+          error: err => {
+            Swal.fire(
+              'Ups!',
+              `El usuario ${userDetails.displayName} no ha podido ser eliminado.`,
+              'error'
+            );
+          },
+        });
+
       }
     });
   }

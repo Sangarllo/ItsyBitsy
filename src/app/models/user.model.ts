@@ -21,6 +21,7 @@ export interface User {
 }
 
 export interface IUserDetails extends User {
+  current?: boolean;
   nickName?: string;
   birthday?: Date;
   location?: string;
@@ -43,6 +44,7 @@ export class UserDetails implements IUserDetails {
   public static PATH_URL = 'usuarios';
 
   public static FIELD_UID = 'uid';
+  public static FIELD_CURRENT = 'current';
   public static FIELD_DISPLAY_NAME = 'displayName';
   public static FIELD_PHOTO_URL = 'photoURL';
   public static FIELD_EMAIL = 'email';
@@ -61,6 +63,7 @@ export class UserDetails implements IUserDetails {
 
   constructor(
     public uid: string,
+    public current: boolean,
     public displayName: string,
     public photoURL: string,
     public email: string,

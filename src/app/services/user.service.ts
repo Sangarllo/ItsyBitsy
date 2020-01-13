@@ -28,7 +28,8 @@ export class UserService {
 
     this.userDetailsCollection = this.afs.collection<UserDetails>(
         UserService.USER_DETAILS_COLLECTION,
-        ref => ref.orderBy('displayName')
+        ref => ref.where('current', '==', true)
+                  .orderBy('displayName')
     );
 
     return this.userDetailsCollection.snapshotChanges().pipe(
@@ -45,7 +46,9 @@ export class UserService {
 
     this.studentsCollection = this.afs.collection(
       UserService.USER_DETAILS_COLLECTION,
-      ref => ref.where('isStudent', '==', true).orderBy('displayName')
+      ref => ref.where('isStudent', '==', true)
+                .where('current', '==', true)
+                .orderBy('displayName')
     );
 
     return this.studentsCollection.snapshotChanges().pipe(
@@ -61,8 +64,10 @@ export class UserService {
 
     this.teachersCollection = this.afs.collection(
       UserService.USER_DETAILS_COLLECTION,
-      ref => ref.where('isTeacher', '==', true).orderBy('displayName')
-    );
+      ref => ref.where('isTeacher', '==', true)
+                .where('current', '==', true)
+                .orderBy('displayName')
+      );
 
     return this.teachersCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -129,6 +134,7 @@ export class UserService {
       displayName: '',
       photoURL: Avatar.getRandom().path,
       email: '',
+      current: true,
       nickName: '',
       birthday: new Date(),
       location: 'Rincón de Soto',
