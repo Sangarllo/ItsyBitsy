@@ -37,6 +37,8 @@ export interface IUserDetails extends User {
   telephone?: string;
   contactPerson?: string;
   paymentMethod?: PaymentMethod;
+
+  coursesEnrolled?: string;
 }
 
 export class UserDetails implements IUserDetails {
@@ -79,6 +81,7 @@ export class UserDetails implements IUserDetails {
     public telephone: string,
     public contactPerson: string,
     public paymentMethod: PaymentMethod,
+    public coursesEnrolled: string
      ) {
   }
 

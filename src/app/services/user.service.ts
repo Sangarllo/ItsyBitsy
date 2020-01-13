@@ -146,7 +146,8 @@ export class UserService {
       rateId: 'no-aplica',
       telephone: '',
       contactPerson: '-',
-      paymentMethod: PaymentMethod.NoAplica
+      paymentMethod: PaymentMethod.NoAplica,
+      coursesEnrolled: ''
     };
   }
 }

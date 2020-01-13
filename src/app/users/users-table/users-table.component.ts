@@ -6,6 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from '../../services/user.service';
 import { UserDetails } from 'src/app/models/user.model';
 import Swal from 'sweetalert2';
+import { CoursesService } from '../../services/courses.service';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'app-users-table',
@@ -15,6 +17,7 @@ import Swal from 'sweetalert2';
 export class UsersTableComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = ['photoURL', 'displayName', 'email', 'actions'];
+  columnsToDisplayStudents = ['photoURL', 'displayName', 'coursesEnrolled', 'actions'];
 
   dataSourceAll = new MatTableDataSource();
   dataSourceStudents = new MatTableDataSource();
@@ -22,21 +25,19 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   dataSourceAdmins = new MatTableDataSource();
   @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
+  allStudents: UserDetails[] = [];
+  courses: Course[] = [];
 
   constructor(
     private router: Router,
-    private userSvc: UserService
+    private userSvc: UserService,
+    private courseSvc: CoursesService
   ) { }
 
   ngOnInit() {
     this.userSvc.getAllUsersDetails().subscribe(
       (users: UserDetails[]) => {
         this.dataSourceAll.data = users;
-    });
-
-    this.userSvc.getAllStudents().subscribe(
-      (users: UserDetails[]) => {
-        this.dataSourceStudents.data = users;
     });
 
     this.userSvc.getAllTeachers().subscribe(
@@ -48,6 +49,22 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
       (users: UserDetails[]) => {
         this.dataSourceAdmins.data = users;
         console.log(`Número de administradores: ${users.length}`);
+    });
+
+    this.courseSvc.getAllCourses().subscribe(
+      (courses: Course[]) => {
+        this.courses = courses;
+        console.log(`Número de cursos: ${courses.length}`);
+
+        this.userSvc.getAllStudents().subscribe(
+          (allStudents: UserDetails[]) => {
+
+            this.allStudents = allStudents;
+            this.allStudents.forEach(student => {
+              student.coursesEnrolled = this.getCoursesEnrolled(student);
+            });
+            this.dataSourceStudents.data = allStudents;
+        });
     });
   }
 
@@ -141,6 +158,19 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
 
       }
     });
+  }
+
+  private getCoursesEnrolled(student: UserDetails): string {
+    let coursesEnrolled: string = '';
+    this.courses.forEach( course => {
+      course.studentList.forEach( (item: UserDetails) => {
+        if ( item.uid === student.uid ) {
+          coursesEnrolled += ( coursesEnrolled === '' ) ? course.name : `, ${course.name}`;
+        }
+      });
+    });
+
+    return coursesEnrolled;
   }
 
 }
