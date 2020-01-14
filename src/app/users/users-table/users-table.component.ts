@@ -120,11 +120,6 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
     this.router.navigate([`${UserDetails.PATH_URL}/${userDetails.uid}/editar`]);
   }
 
-  /*
-      TODO: De momento lo tenemos deshabilitado, ¿tiene sentido borrar
-      un usuario? ¿desde dónde hay que borrarlo? Si lo borramos en la
-      tabla de profesor, ¿no quedará borrado del todo?
-  */
   deleteUser(userDetails: UserDetails) {
     Swal.fire({
       title: '¿Estás seguro?',

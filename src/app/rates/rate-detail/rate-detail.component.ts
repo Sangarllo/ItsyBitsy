@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RateService } from '../../services/rates.service';
+import { UserService } from '../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Rate } from '../../models/rate';
+import { UserDetails } from '../../models/user.model';
 
 
 @Component({
@@ -16,9 +18,11 @@ export class RateDetailComponent implements OnInit {
 
   rateId: string;
   rate: Rate;
+  students: UserDetails[];
 
   constructor(
     private rateService: RateService,
+    private userSvc: UserService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -27,7 +31,14 @@ export class RateDetailComponent implements OnInit {
     this.rateId = this.route.snapshot.paramMap.get('id');
     this.rateService.getRate(this.rateId)
     .subscribe({
-      next: course => this.rate = course,
+      next: rate => {
+        this.rate = rate;
+        this.userSvc.getStudentsByRate(rate.id).subscribe(
+          (students: UserDetails[]) => {
+            this.students = students;
+          }
+        );
+      },
       error: err => this.errorMessage = err
     });
   }

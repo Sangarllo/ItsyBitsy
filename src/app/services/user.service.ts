@@ -95,6 +95,23 @@ export class UserService {
     );
   }
 
+  getStudentsByRate(rateId: string): Observable<UserDetails[]> {
+
+    this.studentsCollection = this.afs.collection(
+      UserService.USER_DETAILS_COLLECTION,
+      ref => ref.where('isStudent', '==', true)
+                .where('rateId', '==', rateId)
+                .orderBy('displayName')
+    );
+
+    return this.studentsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as UserDetails;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+  }
 
   getUserDetails(userId: string): Observable<any> {
     if (userId === '0') {
