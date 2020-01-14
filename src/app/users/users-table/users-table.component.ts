@@ -16,6 +16,7 @@ import { Course } from '../../models/course.model';
 })
 export class UsersTableComponent implements OnInit, AfterViewInit {
 
+  columnsToDisplayUsers = ['photoURL', 'displayName', 'location', 'actions'];
   columnsToDisplay = ['photoURL', 'displayName', 'email', 'actions'];
   columnsToDisplayStudents = ['photoURL', 'displayName', 'coursesEnrolled', 'actions'];
 
