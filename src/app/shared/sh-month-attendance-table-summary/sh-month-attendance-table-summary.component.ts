@@ -185,4 +185,15 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
 
+  openInfo(studentItem: any) {
+    // tslint:disable-next-line:no-string-literal
+    const studentName: string = studentItem['studentName'];
+    // tslint:disable-next-line:no-string-literal
+    const paymentAmmout: string = studentItem['paymentAmmout'];
+
+    const documentDefinition = this.scriptSvc.createReport(studentName, paymentAmmout, this.month, this.year);
+    const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
+    pdfMake.createPdf(documentDefinition).open();
+  }
+
 }
