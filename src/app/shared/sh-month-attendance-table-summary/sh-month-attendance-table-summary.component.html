@@ -31,7 +31,7 @@
     <!-- studentName Column -->
     <ng-container matColumnDef="studentName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Estudiante</th>
-        <td mat-cell *matCellDef="let element"> {{element.studentName}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.studentName.toUpperCase()}} </td>
     </ng-container>
 
     <!-- numAsistencias Column -->

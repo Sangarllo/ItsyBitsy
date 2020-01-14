@@ -32,12 +32,12 @@ export class ShUserListComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  applyStyles(userDetails: UserDetails) {
-    const styles = {
-      'background-image': `url("${userDetails.photoURL}")`,
-      'background-size': 'cover'
-    };
-    return styles;
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   viewUser(userDetails: UserDetails) {
