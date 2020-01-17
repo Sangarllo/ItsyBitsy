@@ -7,6 +7,7 @@ import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { CoursesTableComponent } from './courses-table/courses-table.component';
 import { CourseDashboardComponent } from './course-dashboard/course-dashboard.component';
+import { LessonDashboardComponent } from './lesson-dashboard/lesson-dashboard.component';
 import { AdminGuard } from '../services/admin.guard';
 
 const routes: Routes = [
@@ -18,6 +19,11 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: CourseDashboardComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'lesson-dashboard',
+    component: LessonDashboardComponent,
     canActivate: [AdminGuard]
   },
   {

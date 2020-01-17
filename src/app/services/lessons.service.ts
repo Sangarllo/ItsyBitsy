@@ -39,6 +39,26 @@ export class LessonsService {
     return this.lessonCollection.valueChanges();
   }
 
+  getLessonsByTeacher(teacher: UserDetails, dateIni: Date, dateEnd: Date): Observable<Lesson[]> {
+
+    this.lessonCollection = this.afs.collection(
+      LESSON_COLLECTION,
+      ref => ref.where('teacherId', '==', teacher.uid)
+                .where('current', '==', true)
+                .where('date', '>=', dateIni)
+                .where('date', '<=', dateEnd)
+                .orderBy('date')
+    );
+
+    return this.lessonCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Lesson;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+  }
+
 
   getLessonsByCourseId(course: Course): Observable<Lesson[]> {
 

@@ -12,6 +12,7 @@ import { ShUserAttendanceTableComponent } from './sh-user-attendance-table/sh-us
 import { ShMonthAttendanceTableComponent } from './sh-month-attendance-table/sh-month-attendance-table.component';
 import { ShMonthAttendanceTableSummaryComponent } from './sh-month-attendance-table-summary/sh-month-attendance-table-summary.component';
 import { ShAddStudentDialogComponent } from './sh-add-student-dialog/sh-add-student-dialog.component';
+import { ShTeacherLessonsTableComponent } from './sh-teacher-lessons-table/sh-teacher-lessons-table.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ShAddStudentDialogComponent } from './sh-add-student-dialog/sh-add-stud
     ShCourseLessonsTableComponent,
     ShLessonAttendanceTableComponent,
     ShUserAttendanceTableComponent,
+    ShTeacherLessonsTableComponent,
     ShMonthAttendanceTableComponent,
     ShMonthAttendanceTableSummaryComponent,
   ],
@@ -41,6 +43,7 @@ import { ShAddStudentDialogComponent } from './sh-add-student-dialog/sh-add-stud
     ShCourseLessonsTableComponent,
     ShLessonAttendanceTableComponent,
     ShUserAttendanceTableComponent,
+    ShTeacherLessonsTableComponent,
     ShMonthAttendanceTableComponent,
     ShMonthAttendanceTableSummaryComponent,
     CommonModule,

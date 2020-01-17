@@ -27,4 +27,9 @@ export class ReportingDashboardComponent {
   gotoCoursesDashboard() {
     this.router.navigate([`cursos/dashboard`]);
   }
+
+  gotoLessonsDashboard() {
+    this.router.navigate([`cursos/lesson-dashboard`]);
+  }
+
 }

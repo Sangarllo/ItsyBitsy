@@ -1,0 +1,66 @@
+<mat-card *ngIf="teachers$ | async as teachers; else loading">
+
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+
+        <div *ngIf="showReportFilters; else hideTeacherList">
+
+            <mat-form-field class="filter-form-field filter-student">
+                <mat-label>Escoge un profesor</mat-label>
+                <mat-select [(ngModel)]="selectedTeacher">
+                    <mat-option *ngFor="let teacher of teachers" [value]="teacher">
+                        {{teacher.displayName.toUpperCase()}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            &nbsp;&nbsp;
+            <button mat-raised-button color="accent" [disabled]="!selectedTeacher" (click)="getReport()">Crear Informe</button>
+        </div>
+    </mat-toolbar>
+
+    <div class="container summary" *ngIf="teacher">
+        <div class="row">
+
+            <div class="col-6 text-left">
+                <img [src]="teacher.photoURL" [alt]="teacher.displayName" class="img-thumbnail">
+                <div class="data-summary">
+                    <h6>Clases de {{teacher.displayName}} durante esta semana</h6>
+                    <h6>{{infoLessons}}</h6>
+                </div>
+            </div>
+
+            <div class="col-6 text-left">
+                <img [src]="'assets/section/curso.png'" class="img-thumbnail" />
+                <div class="data-summary">
+                    <h6>Desde {{ this.dateIni | date:'fullDate' }}</h6>
+                    <h6>hasta {{ this.dateEnd | date:'fullDate' }}</h6>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <sh-teacher-lessons-table *ngIf="teacher; else noReport" [teacher]="teacher" [dateIni]="dateIni" [dateEnd]="dateEnd" (reportLessons)="reportLessons($event)"></sh-teacher-lessons-table>
+
+</mat-card>
+
+<ng-template #noReport>
+    <br>
+    <div class="alert alert-danger text-center" role="alert">
+        Selecciona un profesor para generar el informe asociado
+        <br/>
+    </div>
+</ng-template>
+
+<ng-template #hideTeacherList>
+    <button mat-raised-button color="accent" (click)="showList()">Otro Informe</button>
+</ng-template>
+
+
+<ng-template #loading>
+    <div class="container-spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
