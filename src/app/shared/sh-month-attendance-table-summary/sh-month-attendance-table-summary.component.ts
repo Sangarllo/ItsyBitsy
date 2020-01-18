@@ -14,6 +14,7 @@ import { User } from '../../models/user.model';
 import { RateService } from '../../services/rates.service';
 
 import { ScriptService } from '../../services/script.service';
+import { ReceiptData } from '../../models/report-summary';
 declare let pdfMake: any ;
 
 @Component({
@@ -169,7 +170,14 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
     // tslint:disable-next-line:no-string-literal
     const paymentAmmout: string = studentItem['paymentAmmout'];
 
-    const documentDefinition = this.scriptSvc.createReport(studentName, paymentAmmout, this.month, this.year);
+    const receiptData: ReceiptData = {
+      studentName,
+      paymentAmmout,
+      month: this.month,
+      year: this.year
+    };
+
+    const documentDefinition = this.scriptSvc.createReport(receiptData);
     const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
     pdfMake.createPdf(documentDefinition).print();
   }
@@ -180,7 +188,14 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
     // tslint:disable-next-line:no-string-literal
     const paymentAmmout: string = studentItem['paymentAmmout'];
 
-    const documentDefinition = this.scriptSvc.createReport(studentName, paymentAmmout, this.month, this.year);
+    const receiptData: ReceiptData = {
+      studentName,
+      paymentAmmout,
+      month: this.month,
+      year: this.year
+    };
+
+    const documentDefinition = this.scriptSvc.createReports(receiptData);
     const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
@@ -191,7 +206,14 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
     // tslint:disable-next-line:no-string-literal
     const paymentAmmout: string = studentItem['paymentAmmout'];
 
-    const documentDefinition = this.scriptSvc.createReport(studentName, paymentAmmout, this.month, this.year);
+    const receiptData: ReceiptData = {
+      studentName,
+      paymentAmmout,
+      month: this.month,
+      year: this.year
+    };
+
+    const documentDefinition = this.scriptSvc.createReport(receiptData);
     const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
     pdfMake.createPdf(documentDefinition).open();
   }

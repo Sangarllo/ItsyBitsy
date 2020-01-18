@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ReceiptData } from '../models/report-summary';
 
 interface Scripts {
   name: string;
@@ -52,7 +53,7 @@ export class ScriptService {
     });
   }
 
-  createReport(studentName: string, paymentAmmout: string, month: string, year: string): any {
+  createReports(receiptData: ReceiptData): any {
 
     return {
       content: [
@@ -75,17 +76,164 @@ export class ScriptService {
         {
           text: [
             { text: 'Recibí de ', style: 'normal' },
-            { text: `${studentName}`, style: 'hightlighted' },
+            { text: `${receiptData.studentName}`, style: 'hightlighted' },
           ]
         },
         {
           text: [
             { text: 'la cantidad de ', style: 'normal' },
-            { text: `...... ${paymentAmmout} € ......`, style: 'hightlighted' },
+            { text: `...... ${receiptData.paymentAmmout} € ......`, style: 'hightlighted' },
           ]
         },
         {
-          text: `por Clases de Inglés - ${month} de ${year}`,
+          text: `por Clases de Inglés - ${receiptData.month} de ${receiptData.year}`,
+          style: 'normal'
+        },
+        {
+          text: '',
+          style: 'empty'
+        },
+        {
+          text: '',
+          style: 'empty'
+        },
+
+        {
+          columns: [
+            [{
+                image: 'data:image/png;base64,' + this.getPrintedLogo(),
+                width: 300
+            }],
+            [{
+                image: 'data:image/png;base64,' + this.getPrintedReceiptNumber(),
+                width: 200
+            }]
+          ]
+        },
+        {
+          text: '',
+          style: 'empty'
+        },
+        {
+          text: [
+            { text: 'Recibí de ', style: 'normal' },
+            { text: `${receiptData.studentName}`, style: 'hightlighted' },
+          ]
+        },
+        {
+          text: [
+            { text: 'la cantidad de ', style: 'normal' },
+            { text: `...... ${receiptData.paymentAmmout} € ......`, style: 'hightlighted' },
+          ]
+        },
+        {
+          text: `por Clases de Inglés - ${receiptData.month} de ${receiptData.year}`,
+          style: 'normal'
+        },
+        {
+          text: '',
+          style: 'empty'
+        },
+        {
+          text: '',
+          style: 'empty'
+        },
+
+
+        {
+          columns: [
+            [{
+                image: 'data:image/png;base64,' + this.getPrintedLogo(),
+                width: 300
+            }],
+            [{
+                image: 'data:image/png;base64,' + this.getPrintedReceiptNumber(),
+                width: 200
+            }]
+          ]
+        },
+        {
+          text: '',
+          style: 'empty'
+        },
+        {
+          text: [
+            { text: 'Recibí de ', style: 'normal' },
+            { text: `${receiptData.studentName}`, style: 'hightlighted' },
+          ]
+        },
+        {
+          text: [
+            { text: 'la cantidad de ', style: 'normal' },
+            { text: `...... ${receiptData.paymentAmmout} € ......`, style: 'hightlighted' },
+          ]
+        },
+        {
+          text: `por Clases de Inglés - ${receiptData.month} de ${receiptData.year}`,
+          style: 'normal'
+        },
+        {
+          text: '',
+          style: 'empty'
+        },
+        {
+          text: '',
+          style: 'empty'
+        },
+
+
+      ],
+      styles: {
+          hightlighted: {
+            fontSize: 20,
+            decoration: 'underline',
+            bold: true,
+          },
+          normal: {
+            fontSize: 20,
+          },
+          empty: {
+            margin: [10, 20]
+          }
+        }
+    };
+  }
+
+
+  createReport(receiptData: ReceiptData): any {
+
+    return {
+      content: [
+        {
+          columns: [
+            [{
+                image: 'data:image/png;base64,' + this.getPrintedLogo(),
+                width: 300
+            }],
+            [{
+                image: 'data:image/png;base64,' + this.getPrintedReceiptNumber(),
+                width: 200
+            }]
+          ]
+        },
+        {
+          text: '',
+          style: 'empty'
+        },
+        {
+          text: [
+            { text: 'Recibí de ', style: 'normal' },
+            { text: `${receiptData.studentName}`, style: 'hightlighted' },
+          ]
+        },
+        {
+          text: [
+            { text: 'la cantidad de ', style: 'normal' },
+            { text: `...... ${receiptData.paymentAmmout} € ......`, style: 'hightlighted' },
+          ]
+        },
+        {
+          text: `por Clases de Inglés - ${receiptData.month} de ${receiptData.year}`,
           style: 'normal'
         },
       ],
@@ -104,6 +252,8 @@ export class ScriptService {
         }
     };
   }
+
+
 
   private getPrintedReceiptNumber(): string {
     // tslint:disable-next-line:max-line-length
