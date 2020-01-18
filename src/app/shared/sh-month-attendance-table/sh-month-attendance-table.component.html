@@ -31,13 +31,13 @@
     <!-- Estudiante Column -->
     <ng-container matColumnDef="studentName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Estudiante</th>
-        <td mat-cell *matCellDef="let element"> {{element.studentName}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.studentName.toUpperCase()}} </td>
     </ng-container>
 
     <!-- Course Column -->
     <ng-container matColumnDef="courseName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Curso</th>
-        <td mat-cell *matCellDef="let element"> {{element.courseName}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.courseName.toUpperCase()}} </td>
     </ng-container>
 
     <!-- lessonDate Column -->
