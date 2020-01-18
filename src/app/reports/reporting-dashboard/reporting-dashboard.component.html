@@ -1,17 +1,40 @@
-<mat-grid-list cols="3" rowHeight="3:2">
+<mat-grid-list cols="2" rowHeight="2:1">
+
+    <!--
     <mat-grid-tile (click)="gotoReportByStudent()">
-        <h2>Informe de Asistencias totales<br/>por Estudiante</h2>
+        <div>
+            <img id="logo1" src="assets/section/dash-report-attendances.png" alt="Area de Informes">
+            <h2>Informe: Asistencias Totales</h2>
+        </div>
     </mat-grid-tile>
+    -->
+
     <mat-grid-tile (click)="gotoReportByStudentMonth()">
-        <h2>Informe de Asistencias mensuales<br/>por Estudiante</h2>
+        <div>
+            <img id="logo2" src="assets/section/dash-report-attendances.png" alt="Area de Informes">
+            <h2>Informe: Asistencias</h2>
+        </div>
     </mat-grid-tile>
+
     <mat-grid-tile (click)="gotoReportByMonth()">
-        <h2>Informe de Asistencias mensuales</h2>
+        <div>
+            <img id="logo3" src="assets/section/dash-report-money.png" alt="Area de Informes">
+            <h2>Informe: Recibos</h2>
+        </div>
     </mat-grid-tile>
+
     <mat-grid-tile (click)="gotoCoursesDashboard()">
-        <h2>Tablero de Cursos</h2>
+        <div>
+            <img id="logo4" src="assets/section/dash-schedule.png" alt="Area de Informes">
+            <h2>Cursos: Próximas Clases</h2>
+        </div>
     </mat-grid-tile>
+
     <mat-grid-tile (click)="gotoLessonsDashboard()">
-        <h2>Tablero de Clases</h2>
+        <div>
+            <img id="logo5" src="assets/section/dash-teacher-lessons.png" alt="Area de Informes">
+            <h2>Profesores: Próximas Clases</h2>
+        </div>
     </mat-grid-tile>
+
 </mat-grid-list>
