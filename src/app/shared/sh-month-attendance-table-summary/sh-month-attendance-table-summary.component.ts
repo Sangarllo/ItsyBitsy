@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import { UserDetails } from 'src/app/models/user.model';
 import { Rate } from '../../models/rate';
 import { from } from 'rxjs';
-import { User } from '../../models/user.model';
+import { User, PaymentMethod } from '../../models/user.model';
 import { RateService } from '../../services/rates.service';
 
 import { ScriptService } from '../../services/script.service';
@@ -177,9 +177,34 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
       year: this.year
     };
 
-    const documentDefinition = this.scriptSvc.createReport(receiptData);
+    const receipts: ReceiptData[] = [
+      receiptData
+    ];
+
+    const documentDefinition = this.scriptSvc.createReports(receipts);
     const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
     pdfMake.createPdf(documentDefinition).print();
+  }
+
+  downloadAllInfo(): any {
+    const receipts: ReceiptData[] = [];
+    this.studentsArray.forEach(student => {
+
+      if ( ( student.paymentMethod ) && ( student.paymentMethod === 'Recibo' ) ) {
+        const receiptData: ReceiptData = {
+          studentName: student.studentName,
+          paymentAmmout: student.paymentAmmout,
+          month: this.month,
+          year: this.year
+        };
+
+        receipts.push(receiptData);
+      }
+    });
+
+    const documentDefinition = this.scriptSvc.createReports(receipts);
+    const reportName = `Recibo conjunto ${this.year}-${this.month}.pdf`;
+    pdfMake.createPdf(documentDefinition).download(reportName);
   }
 
   downloadInfo(studentItem: any) {
@@ -195,7 +220,11 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
       year: this.year
     };
 
-    const documentDefinition = this.scriptSvc.createReports(receiptData);
+    const receipts: ReceiptData[] = [
+      receiptData
+    ];
+
+    const documentDefinition = this.scriptSvc.createReports(receipts);
     const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
@@ -213,7 +242,11 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
       year: this.year
     };
 
-    const documentDefinition = this.scriptSvc.createReport(receiptData);
+    const receipts: ReceiptData[] = [
+      receiptData
+    ];
+
+    const documentDefinition = this.scriptSvc.createReports(receipts);
     const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
     pdfMake.createPdf(documentDefinition).open();
   }

@@ -53,149 +53,34 @@ export class ScriptService {
     });
   }
 
-  createReports(receiptData: ReceiptData): any {
+  createReports(receipts: ReceiptData[]): any {
+
+    const reportContent = [];
+    receipts.forEach(receipt => {
+      reportContent.push(this.addReciptHeader());
+      reportContent.push(this.addReceiptEmptyLine());
+      reportContent.push(this.addReceiptContent1(receipt));
+      reportContent.push(this.addReceiptContent2(receipt));
+      reportContent.push(this.addReceiptContent3(receipt));
+      reportContent.push(this.addReceiptEmptyLine());
+      reportContent.push(this.addReceiptEmptyLine());
+    });
 
     return {
-      content: [
-        {
-          columns: [
-            [{
-                image: 'data:image/png;base64,' + this.getPrintedLogo(),
-                width: 300
-            }],
-            [{
-                image: 'data:image/png;base64,' + this.getPrintedReceiptNumber(),
-                width: 200
-            }]
-          ]
-        },
-        {
-          text: '',
-          style: 'empty'
-        },
-        {
-          text: [
-            { text: 'Recibí de ', style: 'normal' },
-            { text: `${receiptData.studentName}`, style: 'hightlighted' },
-          ]
-        },
-        {
-          text: [
-            { text: 'la cantidad de ', style: 'normal' },
-            { text: `...... ${receiptData.paymentAmmout} € ......`, style: 'hightlighted' },
-          ]
-        },
-        {
-          text: `por Clases de Inglés - ${receiptData.month} de ${receiptData.year}`,
-          style: 'normal'
-        },
-        {
-          text: '',
-          style: 'empty'
-        },
-        {
-          text: '',
-          style: 'empty'
-        },
-
-        {
-          columns: [
-            [{
-                image: 'data:image/png;base64,' + this.getPrintedLogo(),
-                width: 300
-            }],
-            [{
-                image: 'data:image/png;base64,' + this.getPrintedReceiptNumber(),
-                width: 200
-            }]
-          ]
-        },
-        {
-          text: '',
-          style: 'empty'
-        },
-        {
-          text: [
-            { text: 'Recibí de ', style: 'normal' },
-            { text: `${receiptData.studentName}`, style: 'hightlighted' },
-          ]
-        },
-        {
-          text: [
-            { text: 'la cantidad de ', style: 'normal' },
-            { text: `...... ${receiptData.paymentAmmout} € ......`, style: 'hightlighted' },
-          ]
-        },
-        {
-          text: `por Clases de Inglés - ${receiptData.month} de ${receiptData.year}`,
-          style: 'normal'
-        },
-        {
-          text: '',
-          style: 'empty'
-        },
-        {
-          text: '',
-          style: 'empty'
-        },
-
-
-        {
-          columns: [
-            [{
-                image: 'data:image/png;base64,' + this.getPrintedLogo(),
-                width: 300
-            }],
-            [{
-                image: 'data:image/png;base64,' + this.getPrintedReceiptNumber(),
-                width: 200
-            }]
-          ]
-        },
-        {
-          text: '',
-          style: 'empty'
-        },
-        {
-          text: [
-            { text: 'Recibí de ', style: 'normal' },
-            { text: `${receiptData.studentName}`, style: 'hightlighted' },
-          ]
-        },
-        {
-          text: [
-            { text: 'la cantidad de ', style: 'normal' },
-            { text: `...... ${receiptData.paymentAmmout} € ......`, style: 'hightlighted' },
-          ]
-        },
-        {
-          text: `por Clases de Inglés - ${receiptData.month} de ${receiptData.year}`,
-          style: 'normal'
-        },
-        {
-          text: '',
-          style: 'empty'
-        },
-        {
-          text: '',
-          style: 'empty'
-        },
-
-
-      ],
+      content: reportContent,
       styles: {
-          hightlighted: {
-            fontSize: 20,
-            decoration: 'underline',
-            bold: true,
-          },
-          normal: {
-            fontSize: 20,
-          },
-          empty: {
-            margin: [10, 20]
-          }
+        hightlighted: {
+          fontSize: 20,
+          decoration: 'underline',
+          bold: true,
+        },
+        normal: {
+          fontSize: 20,
+        },
+        empty: {
+          margin: [10, 20]
         }
+      }
     };
   }
 
@@ -217,7 +102,7 @@ export class ScriptService {
           ]
         },
         {
-          text: '',
+          text: '.',
           style: 'empty'
         },
         {
@@ -253,6 +138,72 @@ export class ScriptService {
     };
   }
 
+
+  private addReceiptContent1(receiptData: ReceiptData): any {
+    return {
+      text: [
+        { text: 'Recibí de ', style: 'normal' },
+        { text: `${receiptData.studentName}`, style: 'hightlighted' },
+      ]
+    };
+  }
+
+  private addReceiptContent2(receiptData: ReceiptData): any {
+    return {
+      text: [
+        { text: 'la cantidad de ', style: 'normal' },
+        { text: `...... ${receiptData.paymentAmmout} € ......`, style: 'hightlighted' },
+      ]
+    };
+  }
+
+  private addReceiptContent3(receiptData: ReceiptData): any {
+    return {
+      text: `por Clases de Inglés - ${receiptData.month} de ${receiptData.year}`,
+      style: 'normal'
+    };
+  }
+
+  private addReciptHeader(): any {
+    return {
+      columns: [
+        [{
+            image: 'data:image/png;base64,' + this.getPrintedLogo(),
+            width: 300
+        }],
+        [{
+            image: 'data:image/png;base64,' + this.getPrintedReceiptNumber(),
+            width: 200
+        }]
+      ]
+    };
+  }
+
+  private addReceiptEmptyLine(): any {
+    return {
+      text: '',
+      style: 'empty'
+    };
+  }
+
+  private addReceiptStyles(): any {
+
+    return {
+      styles: {
+        hightlighted: {
+          fontSize: 20,
+          decoration: 'underline',
+          bold: true,
+        },
+        normal: {
+          fontSize: 20,
+        },
+        empty: {
+          margin: [10, 10]
+        }
+      }
+    };
+  }
 
 
   private getPrintedReceiptNumber(): string {
