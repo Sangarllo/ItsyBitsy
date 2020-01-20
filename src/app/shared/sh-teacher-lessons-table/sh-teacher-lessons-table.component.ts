@@ -11,6 +11,8 @@ import { Lesson } from '../../models/lesson.model';
 import { LessonsService } from '../../services/lessons.service';
 import { Course } from '../../models/course.model';
 import { CoursesService } from '../../services/courses.service';
+import { AttendancesService } from '../../services/attendances.service';
+import { Attendance } from '../../models/attendance.model';
 
 @Component({
   selector: 'sh-teacher-lessons-table',
@@ -20,7 +22,7 @@ import { CoursesService } from '../../services/courses.service';
 export class ShTeacherLessonsTableComponent implements OnInit, AfterViewInit {
 
   @Output() reportLessons = new EventEmitter<Lesson[]>();
-  columnsToDisplay = [ 'status', 'courseImage', 'courseName', 'date', 'startTime', 'endTime', 'classRoom', 'actions'];
+  columnsToDisplay = [ 'status', 'courseImage', 'courseName', 'date', 'startTime', 'endTime', 'attendancesNames', 'classRoom', 'actions'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -33,6 +35,7 @@ export class ShTeacherLessonsTableComponent implements OnInit, AfterViewInit {
     private dateSvc: DatesService,
     private lessonsSvc: LessonsService,
     private courseSvc: CoursesService,
+    private attendancesSvc: AttendancesService,
     private router: Router
   ) { }
 
@@ -54,6 +57,13 @@ export class ShTeacherLessonsTableComponent implements OnInit, AfterViewInit {
             lesson.courseName = course.name;
           });
 
+        this.attendancesSvc.getAllAttendancesByLesson(lesson)
+          .subscribe( (lessonAttendances: Attendance[] ) => {
+            lesson.attendancesNames = [];
+            lessonAttendances.forEach(attendance => {
+              lesson.attendancesNames.push(attendance.studentName);
+            });
+          });
       });
 
       this.dataSource.data = this.lessons;

@@ -23,7 +23,7 @@
     <!-- courseName Column -->
     <ng-container matColumnDef="courseName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Curso</th>
-        <td mat-cell *matCellDef="let element"> {{element.courseName.toUpperCase()}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.courseName?.toUpperCase()}} </td>
     </ng-container>
 
     <!-- date Column -->
@@ -44,6 +44,18 @@
         <td mat-cell *matCellDef="let element"> {{element.endTime }} </td>
     </ng-container>
 
+    <!-- Attendances Column -->
+    <ng-container matColumnDef="attendancesNames">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estudiantes</th>
+        <td mat-cell *matCellDef="let element">
+            <br/>
+            <ul>
+                <li *ngFor="let studentName of element.attendancesNames">
+                    {{ studentName }}
+                </li>
+            </ul>
+        </td>
+    </ng-container>
 
     <!-- classRoom Column -->
     <ng-container matColumnDef="classRoom">

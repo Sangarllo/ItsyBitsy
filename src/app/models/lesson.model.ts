@@ -20,6 +20,7 @@ export interface ILesson {
   startTime: string;
   endTime: string;
   attendancesIds: string[];
+  attendancesNames: string[];
   courseName?: string;
   courseImage?: string;
 }
@@ -52,6 +53,7 @@ export class Lesson implements ILesson {
     public startTime: string,
     public endTime: string,
     public attendancesIds: string[],
+    public attendancesNames: string[],
     public courseName?: string,
     public courseImage?: string,
      ) {

@@ -5,6 +5,10 @@ import { UserService } from '../../services/user.service';
 import { Observable } from 'rxjs';
 import { Lesson } from '../../models/lesson.model';
 import Swal from 'sweetalert2';
+import { LessonsService } from '../../services/lessons.service';
+import { Teacher } from '../../models/teacher.model';
+import { DatesService } from '../../services/dates.service';
+
 
 @Component({
   selector: 'app-lesson-dashboard',
@@ -20,6 +24,7 @@ export class LessonDashboardComponent implements OnInit {
   teachers$: Observable<UserDetails[]>;
   showReportFilters: boolean = true;
   infoLessons: string;
+  lessons: Lesson[];
 
   dateIni: Date = new Date();
   dateEnd: Date = new Date();
@@ -28,18 +33,13 @@ export class LessonDashboardComponent implements OnInit {
 
   constructor(
     public auth: AuthService,
-    private userSvc: UserService
+    private userSvc: UserService,
+    private dateSvc: DatesService,
+    private lessonSvc: LessonsService,
   ) { }
 
   ngOnInit() {
     this.teachers$ = this.userSvc.getAllTeachers();
-  }
-
-  getReport() {
-    this.reportErrors = [];
-    this.teacher = this.selectedTeacher;
-
-    this.pageTitle = `Informe de asistencias de ${this.teacher.displayName} esta semana`;
 
     // Lunes anterior
     this.dateIni = new Date();
@@ -48,7 +48,13 @@ export class LessonDashboardComponent implements OnInit {
     // Lunes próximo
     this.dateEnd = new Date();
     this.dateEnd.setDate(this.dateIni.getDate() + 6);
+  }
 
+  getReport() {
+    this.reportErrors = [];
+    this.teacher = this.selectedTeacher;
+
+    this.pageTitle = `Informe de asistencias de ${this.teacher.displayName} esta semana`;
 
     this.showReportFilters = false;
   }
