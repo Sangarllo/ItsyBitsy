@@ -74,8 +74,13 @@ export class ScriptService {
           decoration: 'underline',
           bold: true,
         },
+        justUnderlined: {
+          fontSize: 20,
+          decoration: 'underline',
+        },
         normal: {
           fontSize: 20,
+          alignment: 'center'
         },
         empty: {
           margin: [10, 20]
@@ -108,7 +113,7 @@ export class ScriptService {
         {
           text: [
             { text: 'Recibí de ', style: 'normal' },
-            { text: `${receiptData.studentName}`, style: 'hightlighted' },
+            { text: `${receiptData.studentName.toUpperCase()}`, style: 'hightlighted' },
           ]
         },
         {
@@ -118,8 +123,12 @@ export class ScriptService {
           ]
         },
         {
-          text: `por Clases de Inglés - ${receiptData.month} de ${receiptData.year}`,
+          text: `por clases de Inglés - `,
           style: 'normal'
+        },
+        {
+          text: `${receiptData.month} de ${receiptData.year}`,
+          style: 'justUnderlined'
         },
       ],
       styles: {
@@ -143,7 +152,7 @@ export class ScriptService {
     return {
       text: [
         { text: 'Recibí de ', style: 'normal' },
-        { text: `${receiptData.studentName}`, style: 'hightlighted' },
+        { text: `${receiptData.studentName.toUpperCase()}`, style: 'hightlighted' },
       ]
     };
   }
@@ -159,8 +168,16 @@ export class ScriptService {
 
   private addReceiptContent3(receiptData: ReceiptData): any {
     return {
-      text: `por Clases de Inglés - ${receiptData.month} de ${receiptData.year}`,
-      style: 'normal'
+      text: [
+        {
+          text: `por clases de Inglés - `,
+          style: 'normal'
+        },
+        {
+          text: `${receiptData.month} de ${receiptData.year}`,
+          style: 'justUnderlined'
+        }
+      ]
     };
   }
 
@@ -195,8 +212,13 @@ export class ScriptService {
           decoration: 'underline',
           bold: true,
         },
+        justUnderlined: {
+          fontSize: 20,
+          decoration: 'underline',
+        },
         normal: {
           fontSize: 20,
+          alignment: 'center'
         },
         empty: {
           margin: [10, 10]
