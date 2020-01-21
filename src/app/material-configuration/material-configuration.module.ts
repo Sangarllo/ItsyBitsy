@@ -18,8 +18,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 const matModules = [
+  MatAutocompleteModule,
   MatCardModule,
   MatButtonModule,
   MatCheckboxModule,

@@ -3,6 +3,10 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { UserDetails } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { Course } from '../../models/course.model';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { UserDetails } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-sh-add-student-dialog',
@@ -11,22 +15,51 @@ import { Course } from '../../models/course.model';
 })
 export class ShAddStudentDialogComponent implements OnInit {
 
-  selectedStudent: UserDetails;
   STUDENTS: UserDetails[];
+  filteredStudents$: Observable<UserDetails[]>;
+  studentCtrl = new FormControl();
+  selectedStudent: UserDetails;
 
   constructor(
     public dialogRef: MatDialogRef<ShAddStudentDialogComponent>,
+    private fb: FormBuilder,
     private userService: UserService,
-    @Inject(MAT_DIALOG_DATA) public data: Course) {}
+    @Inject(MAT_DIALOG_DATA) public data: Course) {
+    }
 
     ngOnInit() {
+
       this.userService.getAllStudents()
       .subscribe((students: UserDetails[]) => {
         this.STUDENTS = students;
+        this.filteredStudents$ = this.studentCtrl.valueChanges
+        .pipe(
+          startWith(''),
+          map(student => student ? this._filterStudents(student) : this.STUDENTS.slice())
+        );
       });
     }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  private _filterStudents(value: string): UserDetails[] {
+    const filterValue = value.toLowerCase();
+
+    return this.STUDENTS.filter(student => student.displayName.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  onSaveForm(): void {
+    console.log(`yepa!`);
+    console.log(`Selected: ${JSON.stringify(this.studentCtrl.value)}`);
+  }
+
+  onSelectionChange(event){
+    const displayNameSelected = event.option.value;
+    console.log('onSelectionChange called 1', displayNameSelected);
+    const arrayFiltered = this.STUDENTS.filter( x => x.displayName === displayNameSelected);
+    console.log(`Filtered -> ${JSON.stringify(arrayFiltered)}`);
+    this.selectedStudent = arrayFiltered[0];
   }
 }

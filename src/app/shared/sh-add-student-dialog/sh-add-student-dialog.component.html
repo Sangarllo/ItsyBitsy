@@ -1,22 +1,29 @@
 <h1 mat-dialog-title>Añadir un nuevo estudiante al curso</h1>
 <div mat-dialog-content>
 
-    <mat-form-field>
-        <mat-label>Posibles estudiantes</mat-label>
-        <mat-select [(ngModel)]="selectedStudent">
-            <mat-option *ngFor="let student of STUDENTS" [value]="student">
-                {{student.displayName}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+    <form class="form-container" (ngSubmit)="onSaveForm()">
+        <mat-form-field>
 
-    <div class="image-seleted-student" *ngIf="selectedStudent">
-        <img [src]="selectedStudent.photoURL" alt="selectedStudent.displayName" class="img-thumbnail">
-    </div>
+            <input matInput placeholder="Estudiante" aria-label="State" [formControl]="studentCtrl" [matAutocomplete]="auto">
+
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)">
+                <mat-option *ngFor="let student of filteredStudents$ | async" [value]="student.displayName">
+                    <img class="example-option-img" aria-hidden [src]="student.photoURL" height="25">
+                    <span>&nbsp;{{student.displayName.toUpperCase()}}</span>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <div class="image-seleted-student" *ngIf="selectedStudent">
+            <img [src]="selectedStudent.photoURL" alt="selectedStudent.displayName" class="img-thumbnail">
+        </div>
+
+    </form>
 
 </div>
 
+
 <div mat-dialog-actions>
     <button mat-raised-button color="primary" (click)="onNoClick()">No , gracias</button>
-    <button mat-raised-button color="primary" [mat-dialog-close]="selectedStudent" cdkFocusInitial>Ok</button>
+    <button *ngIf="selectedStudent" mat-raised-button color="primary" [mat-dialog-close]="selectedStudent" cdkFocusInitial>Ok</button>
 </div>
