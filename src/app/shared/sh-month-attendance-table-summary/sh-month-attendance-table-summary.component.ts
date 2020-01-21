@@ -181,7 +181,7 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
       receiptData
     ];
 
-    const documentDefinition = this.scriptSvc.createReports(receipts);
+    const documentDefinition = this.scriptSvc.createReports(receipts, 3);
     const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
     pdfMake.createPdf(documentDefinition).print();
   }
@@ -202,7 +202,7 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
       }
     });
 
-    const documentDefinition = this.scriptSvc.createReports(receipts);
+    const documentDefinition = this.scriptSvc.createReports(receipts, 5);
     const reportName = `Recibo conjunto ${this.year}-${this.month}.pdf`;
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
@@ -224,7 +224,7 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
       receiptData
     ];
 
-    const documentDefinition = this.scriptSvc.createReports(receipts);
+    const documentDefinition = this.scriptSvc.createReports(receipts, 3);
     const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
@@ -246,7 +246,7 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
       receiptData
     ];
 
-    const documentDefinition = this.scriptSvc.createReports(receipts);
+    const documentDefinition = this.scriptSvc.createReports(receipts, 3);
     const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
     pdfMake.createPdf(documentDefinition).open();
   }

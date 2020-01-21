@@ -6,7 +6,6 @@ import { Course } from '../../models/course.model';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { UserDetails } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-sh-add-student-dialog',

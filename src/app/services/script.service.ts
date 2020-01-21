@@ -53,34 +53,67 @@ export class ScriptService {
     });
   }
 
-  createReports(receipts: ReceiptData[]): any {
+  createReports(receipts: ReceiptData[], reportsPerPage: number): any {
 
     const reportContent = [];
-    receipts.forEach(receipt => {
-      reportContent.push(this.addReciptHeader());
-      reportContent.push(this.addReceiptEmptyLine());
-      reportContent.push(this.addReceiptContent1(receipt));
-      reportContent.push(this.addReceiptContent2(receipt));
-      reportContent.push(this.addReceiptContent3(receipt));
-      reportContent.push(this.addReceiptEmptyLine());
-      reportContent.push(this.addReceiptEmptyLine());
-    });
+
+    switch (reportsPerPage) {
+      case 3:
+
+        receipts.forEach(receipt => {
+          reportContent.push(this.addReciptHeader());
+          reportContent.push(this.addReceiptEmptyLine());
+          reportContent.push(this.addReceiptContent1(receipt));
+          reportContent.push(this.addReceiptContent2(receipt));
+          reportContent.push(this.addReceiptContent3(receipt));
+          reportContent.push(this.addReceiptEmptyLine());
+          reportContent.push(this.addReceiptEmptyLine());
+        });
+        break;
+
+      default:
+        receipts.forEach(receipt => {
+          reportContent.push(this.addReciptSmallHeader());
+          reportContent.push(this.addReceiptSmallEmptyLine());
+          reportContent.push(this.addReceiptContent12(receipt));
+          reportContent.push(this.addReceiptContent3(receipt));
+          reportContent.push(this.addReceiptSmallEmptyLine());
+          reportContent.push(this.addReceiptSmallEmptyLine());
+          reportContent.push(this.addReceiptSmallEmptyLine());
+        });
+        break;
+    }
 
     return {
       content: reportContent,
       styles: {
-        hightlighted: {
-          fontSize: 20,
+        smallHighlighted: {
+          fontSize: 18,
           decoration: 'underline',
+          alignment: 'center',
           bold: true,
         },
-        justUnderlined: {
+        highlighted: {
           fontSize: 20,
           decoration: 'underline',
+          alignment: 'center',
+          bold: true,
+        },
+        smallUnderline: {
+          fontSize: 18,
+          decoration: 'underline',
+          bold: false,
+        },
+        small: {
+          fontSize: 18,
+          alignment: 'center'
         },
         normal: {
           fontSize: 20,
           alignment: 'center'
+        },
+        smallEmpty: {
+          margin: [4, 8]
         },
         empty: {
           margin: [10, 20]
@@ -113,37 +146,61 @@ export class ScriptService {
         {
           text: [
             { text: 'Recibí de ', style: 'normal' },
-            { text: `${receiptData.studentName.toUpperCase()}`, style: 'hightlighted' },
+            { text: `${receiptData.studentName.toUpperCase()}`, style: 'highlighted' },
           ]
         },
         {
           text: [
             { text: 'la cantidad de ', style: 'normal' },
-            { text: `...... ${receiptData.paymentAmmout} € ......`, style: 'hightlighted' },
+            { text: `...... ${receiptData.paymentAmmout} € ......`, style: 'highlighted' },
           ]
         },
         {
-          text: `por clases de Inglés - `,
-          style: 'normal'
+          text: `por clases de inglés - `,
+          style: 'small'
         },
         {
           text: `${receiptData.month} de ${receiptData.year}`,
-          style: 'justUnderlined'
-        },
+          style: 'smallUnderline'
+        }
       ],
       styles: {
-          hightlighted: {
-            fontSize: 20,
-            decoration: 'underline',
-            bold: true,
-          },
-          normal: {
-            fontSize: 20,
-          },
-          empty: {
-            margin: [10, 20]
-          }
+        smallHighlighted: {
+          fontSize: 18,
+          decoration: 'underline',
+          bold: true,
+        },
+        highlighted: {
+          fontSize: 20,
+          decoration: 'underline',
+          bold: true,
+        },
+        smallUnderline: {
+          fontSize: 18,
+          decoration: 'underline',
+          bold: false,
+        },
+        small: {
+          fontSize: 18,
+        },
+        normal: {
+          fontSize: 20,
+        },
+        empty: {
+          margin: [10, 20]
         }
+      }
+    };
+  }
+
+  private addReceiptContent12(receiptData: ReceiptData): any {
+    return {
+      text: [
+        { text: 'Recibí de ', style: 'small' },
+        { text: `${receiptData.studentName.toUpperCase()}`, style: 'smallHighlighted' },
+        { text: ' la cantidad de ', style: 'small' },
+        { text: `... ${receiptData.paymentAmmout} € ...`, style: 'smallHighlighted' },
+      ]
     };
   }
 
@@ -152,7 +209,7 @@ export class ScriptService {
     return {
       text: [
         { text: 'Recibí de ', style: 'normal' },
-        { text: `${receiptData.studentName.toUpperCase()}`, style: 'hightlighted' },
+        { text: `${receiptData.studentName.toUpperCase()}`, style: 'highlighted' },
       ]
     };
   }
@@ -161,7 +218,7 @@ export class ScriptService {
     return {
       text: [
         { text: 'la cantidad de ', style: 'normal' },
-        { text: `...... ${receiptData.paymentAmmout} € ......`, style: 'hightlighted' },
+        { text: `...... ${receiptData.paymentAmmout} € ......`, style: 'highlighted' },
       ]
     };
   }
@@ -170,13 +227,28 @@ export class ScriptService {
     return {
       text: [
         {
-          text: `por clases de Inglés - `,
-          style: 'normal'
+          text: `por clases de inglés - `,
+          style: 'small'
         },
         {
           text: `${receiptData.month} de ${receiptData.year}`,
-          style: 'justUnderlined'
+          style: 'smallUnderline'
         }
+      ]
+    };
+  }
+
+  private addReciptSmallHeader(): any {
+    return {
+      columns: [
+        [{
+            image: 'data:image/png;base64,' + this.getPrintedLogo(),
+            width: 200
+        }],
+        [{
+            image: 'data:image/png;base64,' + this.getPrintedReceiptNumber(),
+            width: 200
+        }]
       ]
     };
   }
@@ -196,34 +268,17 @@ export class ScriptService {
     };
   }
 
+  private addReceiptSmallEmptyLine(): any {
+    return {
+      text: '',
+      style: 'smallEmpty'
+    };
+  }
+
   private addReceiptEmptyLine(): any {
     return {
       text: '',
       style: 'empty'
-    };
-  }
-
-  private addReceiptStyles(): any {
-
-    return {
-      styles: {
-        hightlighted: {
-          fontSize: 20,
-          decoration: 'underline',
-          bold: true,
-        },
-        justUnderlined: {
-          fontSize: 20,
-          decoration: 'underline',
-        },
-        normal: {
-          fontSize: 20,
-          alignment: 'center'
-        },
-        empty: {
-          margin: [10, 10]
-        }
-      }
     };
   }
 
