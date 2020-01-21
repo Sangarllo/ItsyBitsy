@@ -46,20 +46,12 @@ export class ShAddStudentDialogComponent implements OnInit {
 
   private _filterStudents(value: string): UserDetails[] {
     const filterValue = value.toLowerCase();
-
-    return this.STUDENTS.filter(student => student.displayName.toLowerCase().indexOf(filterValue) === 0);
-  }
-
-  onSaveForm(): void {
-    console.log(`yepa!`);
-    console.log(`Selected: ${JSON.stringify(this.studentCtrl.value)}`);
+    return this.STUDENTS.filter(student => student.displayName.toLowerCase().includes(filterValue));
   }
 
   onSelectionChange(event){
     const displayNameSelected = event.option.value;
-    console.log('onSelectionChange called 1', displayNameSelected);
     const arrayFiltered = this.STUDENTS.filter( x => x.displayName === displayNameSelected);
-    console.log(`Filtered -> ${JSON.stringify(arrayFiltered)}`);
     this.selectedStudent = arrayFiltered[0];
   }
 }
