@@ -1,0 +1,22 @@
+<div class="component">
+
+    <p>Today is {{today | date}}</p>
+
+    <p>Or if you prefer... </p>
+    <small>* Examples are given in en-US locale.</small>
+
+    <p>fullDate: {{today | date:'fullDate'}} - 'fullDate': equivalent to 'EEEE, MMMM d, y' (Monday, June 15, 2015).</p>
+    <p>short: {{ today | date:'short' }} - 'short': equivalent to 'M/d/yy, h:mm a' (6/15/15, 9:03 AM).</p>
+    <p>medium: {{ today | date:'medium' }} - 'medium': equivalent to 'MMM d, y, h:mm:ss a' (Jun 15, 2015, 9:03:01 AM).</p>
+    <p>long: {{ today | date:'long' }} - 'long': equivalent to 'MMMM d, y, h:mm:ss a z' (June 15, 2015 at 9:03:01 AM GMT+1).</p>
+    <p>full: {{ today | date:'full' }} - 'full': equivalent to 'EEEE, MMMM d, y, h:mm:ss a zzzz' (Monday, June 15, 2015 at 9:03:01 AM GMT+01:00).</p>
+    <p>shortDate: {{ today | date:'shortDate' }} - 'shortDate': equivalent to 'M/d/yy' (6/15/15).</p>
+    <p>mediumDate: {{ today | date:'mediumDate' }} - 'mediumDate': equivalent to 'MMM d, y' (Jun 15, 2015).</p>
+    <p>longDate: {{ today | date:'longDate' }} - 'longDate': equivalent to 'MMMM d, y' (June 15, 2015).</p>
+    <p>shortTime: {{ today | date:'shortTime' }} - 'shortTime': equivalent to 'h:mm a' (9:03 AM).</p>
+    <p>mediumTime: {{ today | date:'mediumTime' }} - 'mediumTime': equivalent to 'h:mm:ss a' (9:03:01 AM).</p>
+    <p>longTime: {{ today | date:'longTime' }} - 'longTime': equivalent to 'h:mm:ss a z' (9:03:01 AM GMT+1).</p>
+    <p>fullTime: {{ today | date:'fullTime' }} - 'fullTime': equivalent to 'h:mm:ss a zzzz' (9:03:01 AM GMT+01:00).</p>
+    <p>h:mm a z: {{ today | date:'h:mm a z' }} -</p>
+
+</div>
