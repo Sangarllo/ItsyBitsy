@@ -163,7 +163,9 @@ export class UserService {
       rateId: 'no-aplica',
       telephone: '',
       contactPerson: '-',
+      contactPersonNif: '',
       paymentMethod: PaymentMethod.NoAplica,
+      address: '',
       coursesEnrolled: ''
     };
   }

@@ -36,7 +36,10 @@ export interface IUserDetails extends User {
   rateId?: string;
   telephone?: string;
   contactPerson?: string;
+  contactPersonNif?: string;
   paymentMethod?: PaymentMethod;
+  address?: string;
+
 
   coursesEnrolled?: string;
 }
@@ -44,24 +47,6 @@ export interface IUserDetails extends User {
 export class UserDetails implements IUserDetails {
 
   public static PATH_URL = 'usuarios';
-
-  public static FIELD_UID = 'uid';
-  public static FIELD_CURRENT = 'current';
-  public static FIELD_DISPLAY_NAME = 'displayName';
-  public static FIELD_PHOTO_URL = 'photoURL';
-  public static FIELD_EMAIL = 'email';
-  public static FIELD_NICK_NAME = 'nickName';
-  public static FIELD_BIRTHDAY = 'birthday';
-  public static FIELD_LOCATION = 'location';
-  public static FIELD_CREATION_DATE = 'creationDate';
-  public static FIELD_IS_USER = 'isUser';
-  public static FIELD_IS_ADMIN = 'isAdmin';
-  public static FIELD_IS_TEACHER = 'isTeacher';
-  public static FIELD_IS_STUDENT = 'isStudent';
-
-  public static FIELD_RATE_ID = 'rateId';
-  public static FIELD_TELEPHONE = 'telephone';
-  public static FIELD_CONTACT_PERSON = 'contactPerson';
 
   constructor(
     public uid: string,
@@ -80,7 +65,9 @@ export class UserDetails implements IUserDetails {
     public rateId: string,
     public telephone: string,
     public contactPerson: string,
+    public contactPersonNif: string,
     public paymentMethod: PaymentMethod,
+    public address: string,
     public coursesEnrolled: string
      ) {
   }

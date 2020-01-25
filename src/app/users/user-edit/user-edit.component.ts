@@ -56,7 +56,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
         isTeacher: false,
         isStudent: false,
         contactPerson: ['', Validators.required],
+        contactPersonNif: '',
         telephone: [''],
+        address:  [''],
         rateId: ['', Validators.required],
         paymentMethod: ['', Validators.required],
     });
@@ -110,7 +112,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
       isTeacher: this.userDetails.isTeacher,
       isStudent: this.userDetails.isStudent,
       contactPerson: this.userDetails.contactPerson,
+      contactPersonNif: this.userDetails.contactPersonNif,
       telephone: this.userDetails.telephone,
+      address: this.userDetails.address,
       rateId: (this.userDetails.rateId) ? 'no-aplica' : this.userDetails.rateId,
       paymentMethod: this.userDetails.paymentMethod,
       creationDate: this.userDetails.creationDate

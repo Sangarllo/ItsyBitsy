@@ -63,9 +63,19 @@
                                 <mat-icon matSuffix>supervised_user_circle</mat-icon>
                             </mat-form-field>
 
+                            <mat-form-field class="data-detail" *ngIf="userDetails.contactPersonNif">
+                                <input matInput type="text" disabled="true" [value]="userDetails.contactPersonNif" placeholder="NIF Persona de Contacto" />
+                                <mat-icon matSuffix>assignment_ind</mat-icon>
+                            </mat-form-field>
+
                             <mat-form-field class="data-detail" *ngIf="userDetails.telephone">
                                 <input matInput type="text" disabled="true" [value]="userDetails.telephone" placeholder="Teléfono" />
                                 <mat-icon matSuffix>phone</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail" *ngIf="userDetails.address">
+                                <input matInput type="text" disabled="true" [value]="userDetails.address" placeholder="Dirección" />
+                                <mat-icon matSuffix>home</mat-icon>
                             </mat-form-field>
 
                             <mat-form-field class="data-detail">

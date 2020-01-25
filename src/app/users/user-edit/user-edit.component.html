@@ -76,13 +76,26 @@
                                 <mat-error *ngIf="!!userDetailsForm.get('email').hasError('required')">{{ errorMessage }}</mat-error>
                             </mat-form-field>
 
-                            <mat-form-field class="col-6">
+                            <mat-form-field class="col-4">
                                 <input matInput type="text" formControlName="contactPerson" placeholder="Persona de Contacto">
                             </mat-form-field>
 
-                            <mat-form-field class="col-6">
+                            <mat-form-field class="col-4">
+                                <input matInput type="text" formControlName="contactPersonNif" placeholder="Nif Persona de Contacto">
+                            </mat-form-field>
+
+                            <mat-form-field class="col-4">
                                 <input matInput type="text" formControlName="telephone" placeholder="Teléfono de Contacto">
                             </mat-form-field>
+                        </div>
+
+                        <div class="row">
+
+                            <mat-form-field class="col-12">
+                                <input matInput type="text" formControlName="address" placeholder="Dirección postal">
+                                <mat-error *ngIf="!!userDetailsForm.get('address').hasError('required')">{{ errorMessage }}</mat-error>
+                            </mat-form-field>
+
                         </div>
                     </div>
 
