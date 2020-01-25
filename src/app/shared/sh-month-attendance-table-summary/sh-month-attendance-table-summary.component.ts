@@ -51,6 +51,9 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
 
   ngOnInit() {
 
+    // TODO: Mantengo lo de "programada" porque aún hay datos con ese valor,
+    // en lugar de "prevista"
+
     // Listamos los usuarios diferentes
     this.attendances.forEach((attendance: Attendance) => {
         const studentId = attendance.studentId;
@@ -64,11 +67,11 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
             studentImage: oldData.studentImage,
             studentName: oldData.studentName,
             numAsistencias: oldData.numAsistencias + 1,
-            numAsistenciasConfirmadas: ( attendance.status === 'confirmada' ) ?
+            numAsistenciasConfirmadas: ( attendance.status === 'presente' ) ?
               oldData.numAsistenciasConfirmadas + 1 : oldData.numAsistenciasConfirmadas,
-            numAsistenciasProgramadas: ( attendance.status === 'programada' ) ?
+            numAsistenciasProgramadas: ( (attendance.status === 'prevista') || (attendance.status === 'programada') ) ?
               oldData.numAsistenciasProgramadas + 1 : oldData.numAsistenciasProgramadas,
-            numAsistenciasAnuladas: ( attendance.status === 'anulada' ) ?
+            numAsistenciasAnuladas: ( attendance.status === 'ausente' ) ?
               oldData.numAsistenciasAnuladas + 1 : oldData.numAsistenciasAnuladas,
           };
         } else {
@@ -78,9 +81,9 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
             studentImage: attendance.studentImage,
             studentName: attendance.studentName,
             numAsistencias: 1,
-            numAsistenciasConfirmadas: ( attendance.status === 'confirmada' ) ? 1 : 0,
-            numAsistenciasProgramadas: ( attendance.status === 'programada' ) ? 1 : 0,
-            numAsistenciasAnuladas: ( attendance.status === 'anulada' ) ? 1 : 0,
+            numAsistenciasConfirmadas: ( attendance.status === 'presente' ) ? 1 : 0,
+            numAsistenciasProgramadas: ( (attendance.status === 'prevista') || (attendance.status === 'programada') ) ? 1 : 0,
+            numAsistenciasAnuladas: ( attendance.status === 'ausente' ) ? 1 : 0,
           };
         }
         this.studentsMap.set(studentId, newData);

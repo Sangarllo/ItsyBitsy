@@ -108,6 +108,8 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
         text: `Se han ${newStatus} un total de ${this.selection.selected.length} asistencias`,
         // footer: '<a href>Why do I have this issue?</a>'
       });
+
+      this.selection.clear();
     } else {
       Swal.fire('No has seleccionado asistencias para actualizar');
     }

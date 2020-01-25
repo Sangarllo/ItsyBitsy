@@ -148,7 +148,7 @@ getAttendance(course: Course, lesson: Lesson, attendanceId: string): Observable<
       studentId: student.uid,
       studentName: student.displayName,
       studentImage: student.photoURL,
-      status: Status.Programada,
+      status: Status.Prevista,
       comment: ''
     };
   }
@@ -170,7 +170,7 @@ getAttendance(course: Course, lesson: Lesson, attendanceId: string): Observable<
         studentId: userDetail.uid,
         studentName: userDetail.displayName,
         studentImage: userDetail.photoURL,
-        status: Status.Programada,
+        status: Status.Prevista,
         comment: ''
       };
 

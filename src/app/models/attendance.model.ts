@@ -1,9 +1,8 @@
 export enum Status {
-  Eliminada = 'eliminada',
-  Anulada = 'anulada',
+  Prevista = 'prevista',
   Programada = 'programada',
-  Ausentada = 'ausentada',
-  Confirmada = 'confirmada'
+  Ausente = 'ausente',
+  Presente = 'presente'
 }
 
 export interface IAttendance {
@@ -24,18 +23,6 @@ export class Attendance implements IAttendance {
 
   public static PATH_URL = 'asistencias';
 
-  public static FIELD_ID = 'id';
-  public static FIELD_CURRENT = 'current';
-  public static FIELD_COURSE_ID = 'courseId';
-  public static FIELD_COURSE_NAME = 'courseName';
-  public static FIELD_LESSON_ID = 'lessonId';
-  public static FIELD_LESSON_DATE = 'lessonDate';
-  public static FIELD_STUDENT_ID = 'studentId';
-  public static FIELD_STUDENT_NAME = 'studentName';
-  public static FIELD_STUDENT_DISPLAY = 'studentDisplay';
-  public static FIELD_STATUS = 'status';
-  public static FIELD_COMMENT = 'comment';
-
   constructor(
     public id: string,
     public current: boolean,
@@ -53,32 +40,26 @@ export class Attendance implements IAttendance {
 
   static getAllStatus(): Status[] {
     return [
-      Status.Eliminada,
-      Status.Anulada,
-      Status.Programada,
-      Status.Ausentada,
-      Status.Confirmada,
+      Status.Prevista,
+      Status.Ausente,
+      Status.Presente,
     ];
   }
 
   static toStatus(value: string): Status {
     switch (value) {
-      case 'eliminada':
-        return Status.Eliminada;
-      case 'anulada':
-        return Status.Anulada;
       case 'programada':
-          return Status.Programada;
-      case 'ausentada':
-          return Status.Ausentada;
-      case 'confirmada':
-          return Status.Confirmada;
+          return Status.Prevista;
+      case 'ausente':
+          return Status.Ausente;
+      case 'presente':
+          return Status.Presente;
       default:
-          return Status.Programada;
+          return Status.Prevista;
     }
   }
 
   static getDefaultStatus(): string {
-    return Status.Programada;
+    return Status.Prevista;
   }
 }

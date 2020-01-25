@@ -58,7 +58,7 @@ export class ShUserAttendanceTableComponent implements OnInit, AfterViewInit {
           coursesNames.push(attendance.courseName);
         }
 
-        if ( attendance.status === Status.Confirmada ) {
+        if ( attendance.status === Status.Presente ) {
           nAttendancesConfirmed++;
         }
       });

@@ -89,7 +89,7 @@ export class MonthStudentAttendancesReportComponent implements OnInit {
       `Curso: ${reportSummary.courses[0]}` :
       `Cursos Asistidos: ${reportSummary.courses.length}`;
 
-    this.infoLessons = `${reportSummary.nAttendancesConfirmed} asistencias confirmadas`;
+    this.infoLessons = `${reportSummary.nAttendancesConfirmed} presencias`;
 
     if ( ( reportSummary.nAttendancesConfirmed <= 0 ) ||
          ( reportSummary.nAttendances <= 0 ) ) {
