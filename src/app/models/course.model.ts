@@ -14,11 +14,16 @@ export enum WeekDay {
 export enum CourseType {
   Infantil = 'infantil',
   Primaria = 'primaria',
+  PrimariaStarters = 'primaria starters',
+  PrimariaMovers = 'primaria movers',
+  PrimariaFlyers = 'primaria flyers',
   Ket = 'ket',
   Pet = 'pet',
   Fce = 'fce',
   Advanced = 'advanced',
   Repaso = 'repaso',
+  RepasoPrimaria = 'repaso primaria',
+  RepasoSecundaria = 'repaso secundaria',
   Otros = 'otro'
 }
 
@@ -45,20 +50,6 @@ export interface ICourse {
 export class Course implements ICourse {
 
   public static PATH_URL = 'cursos';
-
-  public static FIELD_ID = 'id';
-  public static FIELD_CURRENT = 'current';
-  public static FIELD_NAME = 'name';
-  public static FIELD_TYPE = 'type';
-  public static FIELD_IMAGE = 'image';
-  public static FIELD_WEEK_DAY = 'weekDay';
-  public static FIELD_START_TIME = 'startTime';
-  public static FIELD_END_TIME = 'endTime';
-  public static FIELD_TEACHER_ID = 'teacherId';
-  public static FIELD_CLASS_ROOM = 'classRoom';
-  public static FIELD_STUDENT_LIST = 'studentList';
-  public static FIELD_LAST_LESSON = 'lastLesson';
-  public static FIELD_NEXT_LESSON = 'nextLesson';
 
   constructor(
     public id: string,
@@ -121,11 +112,16 @@ export class Course implements ICourse {
     return [
       CourseType.Infantil,
       CourseType.Primaria,
+      CourseType.PrimariaStarters,
+      CourseType.PrimariaMovers,
+      CourseType.PrimariaFlyers,
       CourseType.Ket,
       CourseType.Pet,
       CourseType.Fce,
       CourseType.Advanced,
       CourseType.Repaso,
+      CourseType.RepasoPrimaria,
+      CourseType.RepasoSecundaria,
       CourseType.Otros,
     ];
   }

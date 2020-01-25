@@ -111,7 +111,8 @@ export class CourseEditComponent implements OnInit, OnDestroy {
       classRoom: this.course.classRoom
     });
 
-    this.courseForm.controls[Course.FIELD_TEACHER_ID].setValue(this.course.teacherId);
+    // tslint:disable-next-line:no-string-literal
+    this.courseForm.controls['teacherId'].setValue(this.course.teacherId);
   }
 
   deleteCourse(): void {
