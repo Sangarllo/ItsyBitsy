@@ -160,29 +160,32 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(student => {
       console.log('The dialog was closed');
-      this.newStudent = student;
-      console.log(`new student: ${JSON.stringify(this.newStudent)}`);
 
-      if (!this.isInArray(this.newStudent)) {
+      if ( student) {
+        this.newStudent = student;
 
-        const newAttendance = this.attendancesSvc.initialize(this.course, this.lesson, this.newStudent);
+        if (!this.isInArray(this.newStudent)) {
 
-        this.attendancesSvc.createAttendance(newAttendance)
-          .subscribe( (attendance: Attendance) => {
-            this.attendances.push(attendance);
-            this.lesson.attendancesIds.push(attendance.id);
-            this.lessonsSvc.updateLesson(this.course, this.lesson)
-              .subscribe( (lesson: Lesson) => {
-                this.lesson = lesson;
-                this.sortAttendances();
-                this.dataSource.data = this.attendances;
-              });
+          const newAttendance = this.attendancesSvc.initialize(this.course, this.lesson, this.newStudent);
+
+          this.attendancesSvc.createAttendance(newAttendance)
+            .subscribe( (attendance: Attendance) => {
+              this.attendances.push(attendance);
+              this.lesson.attendancesIds.push(attendance.id);
+              this.lessonsSvc.updateLesson(this.course, this.lesson)
+                .subscribe( (lesson: Lesson) => {
+                  this.lesson = lesson;
+                  this.sortAttendances();
+                  this.dataSource.data = this.attendances;
+                });
+            });
+        } else {
+          Swal.fire({
+            text: 'Este estudiante ya asistía a esta clase',
+            icon: 'warning',
           });
-      } else {
-        Swal.fire('Este estudiante ya asistía al curso');
-
+        }
       }
-
     });
   }
 

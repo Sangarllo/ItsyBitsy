@@ -40,6 +40,7 @@ export class ShAddStudentDialogComponent implements OnInit {
     }
 
   onNoClick(): void {
+    this.selectedStudent = null;
     this.dialogRef.close();
   }
 

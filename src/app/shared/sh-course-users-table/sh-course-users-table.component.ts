@@ -86,19 +86,24 @@ export class ShCourseUsersTableComponent implements OnInit, AfterViewInit {
 
       dialogRef.afterClosed().subscribe(student => {
         console.log('The dialog was closed');
-        this.newStudent = student;
-        console.log(`new student: ${JSON.stringify(this.newStudent)}`);
+        if ( student ) {
+          this.newStudent = student;
+          console.log(`new student: ${JSON.stringify(this.newStudent)}`);
 
-        if (!this.isInArray(this.newStudent)) {
-          this.course.studentList.push(this.newStudent);
-          this.courseSvc.updateCourse(this.course)
-            .subscribe( (course: Course) => {
-              this.course = course;
-              this.sortStudentList();
-              this.dataSource.data = this.course.studentList;
+          if (!this.isInArray(this.newStudent)) {
+            this.course.studentList.push(this.newStudent);
+            this.courseSvc.updateCourse(this.course)
+              .subscribe( (course: Course) => {
+                this.course = course;
+                this.sortStudentList();
+                this.dataSource.data = this.course.studentList;
+              });
+          } else {
+            Swal.fire({
+              text: 'Este estudiante ya asistía al curso',
+              icon: 'warning',
             });
-        } else {
-          Swal.fire('Este estudiante ya asistía al curso');
+          }
         }
       });
   }
