@@ -10,7 +10,9 @@
 
         <div class="row">
             <div class="col-lg-6 col-12" style="text-align: center;">
-                <img [src]="userDetailsForm.get('photoURL').value" style="height:80%" />
+
+                <img [src]="userDetailsForm.get('photoURL').value" style="height:80%;width:80%" (click)="inputImageProfile.click()" />
+                <input hidden type="file" #inputImageProfile (change)="uploadFile($event)">
 
                 <mat-form-field>
                     <mat-label>Avatar</mat-label>
@@ -31,6 +33,7 @@
                 </mat-card-content>
 
             </div>
+
 
             <div class="col-lg-6 col-12">
 

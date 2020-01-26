@@ -7,8 +7,10 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, finalize } from 'rxjs/operators';
 import { UserService } from './user.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { FileI } from '../models/image.model';
 
 
 const USER_COLLECTION = 'users';
@@ -19,10 +21,12 @@ const USER_COLLECTION = 'users';
 export class AuthService {
 
   user$: Observable<User>;
+  private filePath: string;
 
   constructor(
       private afAuth: AngularFireAuth,
       private afs: AngularFirestore,
+      private afStorage: AngularFireStorage,
       private userService: UserService,
       private router: Router
   ) {
@@ -90,40 +94,32 @@ export class AuthService {
     return userRef.set(userData, { merge: true });
   }
 
-
-  private updateUserData2(user) {
-    // Sets user data to firestore on login
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`${USER_COLLECTION}/${user.uid}`);
-
-    userRef.valueChanges()
-      .subscribe( (userFB: User) => {
-
-        let userData;
-        if ( userFB == null ) {
-          // No existía hasta ahora en BBDD como usuario
-          userData = {
-            uid: user.uid,
-            displayName: user.displayName,
-            nickName: user.displayName.substring(0, user.displayName.indexOf(' ')),
-            email: user.email,
-            photoURL: user.photoURL,
-            rol: Rol.Normal,
-            creationDate: new Date(),
-            lastDate: new Date()
-          };
-        } else {
-          // Ya existe en BBDD como usuario
-          userData = {
-            lastDate: new Date()
-          };
-        }
-
-        return userRef.set(userData, { merge: true });
-      });
-  }
-
   async signOut() {
     await this.afAuth.auth.signOut();
     this.router.navigate(['/']);
+  }
+
+  preSaveUserProfile(user: IUserDetails, image?: FileI): void {
+    if (image) {
+      this.uploadImage(user, image);
+    } else {
+      this.updateUserData(user);
+    }
+  }
+
+
+  uploadImage(user: IUserDetails, image: FileI): void {
+    this.filePath = `images/${image.name}`;
+    const fileRef = this.afStorage.ref(this.filePath);
+    const task = this.afStorage.upload(this.filePath, image);
+    task.snapshotChanges()
+      .pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe(urlImage => {
+            user.photoURL = urlImage;
+            this.updateUserData(user);
+          });
+        })
+      ).subscribe();
   }
 }

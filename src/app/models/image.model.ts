@@ -1,3 +1,10 @@
+export interface FileI {
+  name: string;
+  imageFile: File;
+  size: string;
+  type: string;
+}
+
 export interface IImage {
   path: string;
   name: string;

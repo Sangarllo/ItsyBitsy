@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControl
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { Subscription, Observable } from 'rxjs';
-import { Avatar } from '../../models/image.model';
+import { Avatar, FileI } from '../../models/image.model';
 import Swal from 'sweetalert2';
 import { RateService } from '../../services/rates.service';
 import { Rate } from 'src/app/models/rate';
 import { DatesService } from '../../services/dates.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-edit',
@@ -16,6 +18,10 @@ import { DatesService } from '../../services/dates.service';
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit, OnDestroy {
+
+  uploadPercent: Observable<number>;
+  // downloadURL: Observable<string>;
+  public image: FileI;
 
   pageTitle = 'Edición de Usuario';
   errorMessage: string;
@@ -31,6 +37,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private afStorage: AngularFireStorage,
     private route: ActivatedRoute,
     private router: Router,
     private dateSvc: DatesService,
@@ -45,8 +52,8 @@ export class UserEditComponent implements OnInit, OnDestroy {
         displayName: ['', [Validators.required,
           Validators.minLength(3),
           Validators.maxLength(50)]],
-        photoURL: ['', Validators.required],
-        email: ['', Validators.email],
+        photoURL: new FormControl('', Validators.required),
+        email: [{ value: '', disabled: true }, Validators.email],
         nickName: [''],
         birthday: [''],
         location: ['', Validators.required],
@@ -186,4 +193,31 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.userDetailsForm.reset();
     this.router.navigate([`/${UserDetails.PATH_URL}/${this.userDetails.uid}`]);
   }
+
+  uploadFile(event) {
+    const file = event.target.files[0];
+    const filePath = file.name;
+    const fileRef = this.afStorage.ref(filePath);
+    const task = this.afStorage.upload(filePath, file);
+
+    // observe percentage changes
+    this.uploadPercent = task.percentageChanges();
+    // get notified when the download URL is available
+    task.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe(
+            ( imageUrl: string ) => {
+
+              this.userDetails.photoURL = imageUrl;
+
+              // Update the data on the form
+              this.userDetailsForm.patchValue({
+                photoURL: this.userDetails.photoURL
+              });
+          });
+        })
+     )
+    .subscribe();
+  }
+
 }

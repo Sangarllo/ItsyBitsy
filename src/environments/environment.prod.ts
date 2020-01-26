@@ -5,7 +5,7 @@ export const environment = {
     authDomain: 'itsybitsy-2020.firebaseapp.com',
     databaseURL: 'https://itsybitsy-2020.firebaseio.com',
     projectId: 'itsybitsy-2020',
-    storageBucket: '',
+    storageBucket: 'itsybitsy-2020.appspot.com',
     messagingSenderId: '803914721271',
     appId: '1:803914721271:web:dc7977531c43e0a5dcb0f2',
     measurementId: 'G-97SSSWDTHR'
