@@ -52,6 +52,8 @@ export class MonthStudentAttendancesReportComponent implements OnInit {
   getReport() {
     this.reportErrors = [];
     this.student = this.selectedStudent;
+    console.log(`Estudiante seleccionado: ${this.student.displayName}`);
+    console.log(`Estudiante rateId: ${this.student.rateId}`);
 
     if (this.student.rateId) {
       this.rateSvc.getRate(this.student.rateId)
@@ -119,7 +121,13 @@ export class MonthStudentAttendancesReportComponent implements OnInit {
     console.log(`Info: ${reportSummary.info}`);
     console.log(`Selected: ${JSON.stringify(reportSummary)}`);
 
-    if ( this.reportErrors.length > 0 ) {
+    if ( reportSummary.nAttendances === 0 ) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Sin asistencias',
+        text: `No se han encontrado asistencias durante este mes para ${this.student.displayName}`
+      });
+    } else if ( this.reportErrors.length > 0 ) {
       Swal.fire({
         icon: 'error',
         title: 'Hubo algún error',
