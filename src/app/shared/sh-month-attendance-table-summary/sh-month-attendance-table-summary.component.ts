@@ -205,7 +205,7 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
       }
     });
 
-    const documentDefinition = this.scriptSvc.createReports(receipts, 5);
+    const documentDefinition = this.scriptSvc.createReports(receipts, 6);
     const reportName = `Recibo conjunto ${this.year}-${this.month}.pdf`;
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
