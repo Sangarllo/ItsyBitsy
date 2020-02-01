@@ -15,7 +15,7 @@
         <ng-container matColumnDef="photoURL">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
             <td mat-cell *matCellDef="let element">
-                <img [src]="element.photoURL" class="img-thumbnail" alt="element.displayName">
+                <img (click)="viewUser(element)" [src]="element.photoURL" class="img-thumbnail" alt="element.displayName">
             </td>
         </ng-container>
 

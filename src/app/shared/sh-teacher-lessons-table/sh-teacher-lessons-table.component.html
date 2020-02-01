@@ -16,7 +16,7 @@
     <ng-container matColumnDef="courseImage">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
         <td mat-cell *matCellDef="let element">
-            <img [src]="element.courseImage" class="img-thumbnail" alt="element.courseName">
+            <img (click)="viewLesson(element)" [src]="element.courseImage" class="img-thumbnail" alt="element.courseName">
         </td>
     </ng-container>
 
