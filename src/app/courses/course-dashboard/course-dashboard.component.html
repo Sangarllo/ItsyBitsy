@@ -6,8 +6,6 @@
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
-
-    <button mat-raised-button color="accent" (click)="gotoNew()">Crear Nuevo</button>
 </mat-toolbar>
 
 <table mat-table [dataSource]="dataSource" matSort>
@@ -72,11 +70,17 @@
     </ng-container>
 
     <ng-container matColumnDef="nextLessonActions">
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th mat-header-cell *matHeaderCellDef>
+            <button mat-mini-fab color="primary" (click)="addAutoNextLessons()"><mat-icon>add_box</mat-icon></button> &nbsp;
+        </th>
         <td mat-cell *matCellDef="let course">
             &nbsp;
             <button mat-mini-fab color="warn" *ngIf="course.nextLesson" (click)="viewLesson(course, course.nextLessonId )"><mat-icon>pageview</mat-icon></button>
-            <button mat-mini-fab color="accent" *ngIf="!course.nextLesson" (click)="addLesson(course)"><mat-icon>add_box</mat-icon></button>
+            <button mat-mini-fab color="accent" *ngIf="!course.nextLesson" (click)="addAutoNextLesson(course)"><mat-icon>add_box</mat-icon></button>
+
+            <!--
+            <button mat-mini-fab color="accent" *ngIf="!course.nextLesson" (click)="addManualLesson(course)"><mat-icon>add_box</mat-icon></button>
+            -->
         </td>
     </ng-container>
 

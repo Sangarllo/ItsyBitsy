@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LessonsService } from '../../services/lessons.service';
 import { Lesson } from '../../models/lesson.model';
 import { DatesService } from '../../services/dates.service';
+import { AttendancesService } from '../../services/attendances.service';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class CourseDashboardComponent implements OnInit, AfterViewInit {
     private router: Router,
     private dateSvc: DatesService,
     private courseSvc: CoursesService,
-    private lessonSvc: LessonsService
+    private lessonSvc: LessonsService,
+    private attendanceSvc: AttendancesService
   ) { }
 
   ngOnInit() {
@@ -88,15 +90,34 @@ export class CourseDashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  gotoNew() {
-    this.router.navigate([`${Course.PATH_URL}/0/editar`]);
-  }
-
   viewLesson(course: Course, lessonId: string) {
     this.router.navigate([`/${Course.PATH_URL}/${course.id}/${Lesson.PATH_URL}/${lessonId}`]);
   }
 
-  addLesson(course: Course) {
+  // TODO: Instead of going to form
+  addManualNextLesson(course: Course) {
     this.router.navigate([`/${Course.PATH_URL}/${course.id}/${Lesson.PATH_URL}/0/editar`]);
+  }
+
+  addAutoNextLesson(course: Course) {
+    console.log(`adding auto next lesson`);
+
+    const courseId = course.id;
+    this.courseSvc.getCourse(courseId)
+      .subscribe((theCourse: Course) => {
+        this.lessonSvc.getLesson(theCourse, '0')
+          .subscribe((dataLesson: any) => {
+            console.log(`ini lesson from course ${JSON.stringify(dataLesson)}`);
+            this.lessonSvc.createLesson(theCourse, dataLesson)
+              .subscribe((newLesson: Lesson) => {
+                console.log(`new lesson ${JSON.stringify(newLesson)}`);
+                this.attendanceSvc.createAttendancesFromStudentList(theCourse, newLesson);
+              });
+          });
+      });
+  }
+
+  addAutoNextLessons() {
+    console.log(`adding next lessons`);
   }
 }
