@@ -122,7 +122,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       contactPersonNif: this.userDetails.contactPersonNif,
       telephone: this.userDetails.telephone,
       address: this.userDetails.address,
-      rateId: (this.userDetails.rateId) ? 'no-aplica' : this.userDetails.rateId,
+      rateId: (this.userDetails.rateId) ?  this.userDetails.rateId : 'no-aplica',
       paymentMethod: this.userDetails.paymentMethod,
       creationDate: this.userDetails.creationDate
     });
