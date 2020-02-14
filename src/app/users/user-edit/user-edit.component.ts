@@ -119,9 +119,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
       isTeacher: this.userDetails.isTeacher,
       isStudent: this.userDetails.isStudent,
       contactPerson: this.userDetails.contactPerson,
-      contactPersonNif: this.userDetails.contactPersonNif,
+      contactPersonNif: ( this.userDetails.contactPersonNif ) ? this.userDetails.contactPersonNif : '',
       telephone: this.userDetails.telephone,
-      address: this.userDetails.address,
+      address: ( this.userDetails.address ) ? this.userDetails.address : '',
       rateId: (this.userDetails.rateId) ?  this.userDetails.rateId : 'no-aplica',
       paymentMethod: this.userDetails.paymentMethod,
       creationDate: this.userDetails.creationDate
@@ -151,6 +151,8 @@ export class UserEditComponent implements OnInit, OnDestroy {
     if (this.userDetailsForm.valid) {
 
         const item = { ...this.userDetails, ...this.userDetailsForm.value };
+
+        console.log(`Usuario: ${JSON.stringify(item)}`);
 
         if (item.uid === '0') {
           this.userService.createUserDetails(item)
