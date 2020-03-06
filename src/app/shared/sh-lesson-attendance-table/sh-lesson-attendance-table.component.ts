@@ -22,7 +22,8 @@ import { Course } from '../../models/course.model';
 })
 export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = [ 'select', 'status', 'studentName', 'actions'];
+  columnsToDisplay = [ 'select', 'status',
+    'studentImage', 'studentName', 'actions'];
   dataSource = new MatTableDataSource();
   newStudent: UserDetails;
   selection = new SelectionModel<Attendance>(true, []);

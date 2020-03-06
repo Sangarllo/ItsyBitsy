@@ -32,5 +32,14 @@ table {
 }
 
 .mat-column-studentName {
-    padding-left: 20px;
+    padding-left: 0px;
+}
+
+.mat-column-studentImage {
+    border: 2px solid white;
+    width: 80px;
+    .img-thumbnail {
+        width: 64px;
+        height: 64px;
+    }
 }

@@ -29,6 +29,7 @@ export class TeacherGuard implements CanActivate {
                  case 'qUGCxNLrwmclnCFiRtsQ':
                  case '7dof4dcohxdPAaO1JdvGnDZmo6t2':
                  case 'dmOhvJdkC4PrIhdYO75DYdLNCoA3':
+                 case 'mr9ZeGxyBnPfboEiKuHkkq9VjRx1':
                  case 'syhqJPE3P0gkVNNdHiNKuTz0xM72': // TODO by profile
                    return true;
 

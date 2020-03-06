@@ -16,10 +16,11 @@ table {
 }
 
 .mat-column-photoURL {
-    border: 3px solid white;
+    border: 2px solid white;
     width: 100px;
     .img-thumbnail {
         width: 64px;
+        height: 64px;
     }
 }
 
