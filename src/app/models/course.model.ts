@@ -45,6 +45,7 @@ export interface ICourse {
   nextLessonStatus?: string;
   nextLesson?: Date;
   nextLessonId?: string;
+  teacherName?: string;
 }
 
 export class Course implements ICourse {
@@ -68,7 +69,8 @@ export class Course implements ICourse {
     public lastLessonId?: string,
     public nextLessonStatus?: string,
     public nextLesson?: Date,
-    public nextLessonId?: string
+    public nextLessonId?: string,
+    public teacherName?: string,
      ) {
   }
 

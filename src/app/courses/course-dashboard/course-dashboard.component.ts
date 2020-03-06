@@ -9,7 +9,8 @@ import { LessonsService } from '../../services/lessons.service';
 import { Lesson } from '../../models/lesson.model';
 import { DatesService } from '../../services/dates.service';
 import { AttendancesService } from '../../services/attendances.service';
-
+import { UserService } from '../../services/user.service';
+import { UserDetails } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-course-dashboard',
@@ -18,7 +19,7 @@ import { AttendancesService } from '../../services/attendances.service';
 })
 export class CourseDashboardComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['image', 'name', 'aforo',
+  columnsToDisplay = ['image', 'name', 'teacher', 'aforo',
     'lastLesson', 'lastLessonStatus', 'lastLessonActions',
     'nextLesson', 'nextLessonStatus', 'nextLessonActions' ];
   dataSource = new MatTableDataSource();
@@ -31,7 +32,8 @@ export class CourseDashboardComponent implements OnInit, AfterViewInit {
     private dateSvc: DatesService,
     private courseSvc: CoursesService,
     private lessonSvc: LessonsService,
-    private attendanceSvc: AttendancesService
+    private attendanceSvc: AttendancesService,
+    private userSvc: UserService
   ) { }
 
   ngOnInit() {
@@ -39,40 +41,7 @@ export class CourseDashboardComponent implements OnInit, AfterViewInit {
       (courses: Course[]) => {
 
         this.courses = courses;
-        this.courses.forEach(course => {
-
-          // Last Lesson
-          this.lessonSvc.getLastLessons(course, 1)
-            .subscribe( (lessons: Lesson[]) => {
-              if ( lessons.length > 0 ) {
-                const lesson = lessons[0];
-                course.lastLesson = this.dateSvc.fromFirebaseDate(lesson.date);
-                course.lastLessonStatus = lesson.status;
-                course.lastLessonId = lesson.id;
-              } else {
-                course.lastLesson = null;
-                course.lastLessonStatus = null;
-                course.lastLessonId = null;
-              }
-            });
-
-
-          // Next Lesson
-          this.lessonSvc.getNextLessons(course, 1)
-            .subscribe( (lessons: Lesson[]) => {
-              if ( lessons.length > 0 ) {
-                const lesson = lessons[0];
-                course.nextLesson = this.dateSvc.fromFirebaseDate(lesson.date);
-                course.nextLessonStatus = lesson.status;
-                course.nextLessonId = lesson.id;
-              } else {
-                course.nextLesson = null;
-                course.nextLessonStatus = null;
-                course.nextLessonId = null;
-              }
-            });
-        });
-
+        this.completeCoursesInfo();
         this.dataSource.data = this.courses;
       });
   }
@@ -119,5 +88,47 @@ export class CourseDashboardComponent implements OnInit, AfterViewInit {
 
   addAutoNextLessons() {
     console.log(`adding next lessons`);
+  }
+
+  private completeCoursesInfo() {
+    this.courses.forEach(course => {
+
+      // Last Lesson
+      this.lessonSvc.getLastLessons(course, 1)
+          .subscribe( (lessons: Lesson[]) => {
+            if ( lessons.length > 0 ) {
+              const lesson = lessons[0];
+              course.lastLesson = this.dateSvc.fromFirebaseDate(lesson.date);
+              course.lastLessonStatus = lesson.status;
+              course.lastLessonId = lesson.id;
+            } else {
+              course.lastLesson = null;
+              course.lastLessonStatus = null;
+              course.lastLessonId = null;
+            }
+      });
+
+
+      // Next Lesson
+      this.lessonSvc.getNextLessons(course, 1)
+          .subscribe( (lessons: Lesson[]) => {
+            if ( lessons.length > 0 ) {
+              const lesson = lessons[0];
+              course.nextLesson = this.dateSvc.fromFirebaseDate(lesson.date);
+              course.nextLessonStatus = lesson.status;
+              course.nextLessonId = lesson.id;
+            } else {
+              course.nextLesson = null;
+              course.nextLessonStatus = null;
+              course.nextLessonId = null;
+            }
+      });
+
+      // Teacher
+      this.userSvc.getUserDetails(course.teacherId)
+        .subscribe( ( teacher: UserDetails) => {
+          course.teacherName = teacher.displayName;
+      });
+    });
   }
 }

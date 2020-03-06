@@ -6,6 +6,8 @@ import { CoursesService } from '../../services/courses.service';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
+import { UserService } from '../../services/user.service';
+import { UserDetails } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-courses-table',
@@ -14,20 +16,25 @@ import Swal from 'sweetalert2';
 })
 export class CoursesTableComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['image', 'name', 'aforo', 'type', 'schedule', 'actions'];
+  columnsToDisplay = ['image', 'name', 'teacher', 'aforo', 'type', 'schedule', 'actions'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  courses: Course[] = [];
 
   constructor(
     private router: Router,
-    private courseSvc: CoursesService
+    private courseSvc: CoursesService,
+    private userSvc: UserService
   ) { }
 
   ngOnInit() {
-    this.courseSvc.getAllCourses().subscribe(
+    this.courseSvc.getAllCourses()
+      .subscribe(
       (courses: Course[]) => {
-        this.dataSource.data = courses;
+        this.courses = courses;
+        this.completeCoursesInfo();
+        this.dataSource.data = this.courses;
       });
   }
 
@@ -92,4 +99,12 @@ export class CoursesTableComponent implements OnInit, AfterViewInit {
     });
   }
 
+  private completeCoursesInfo() {
+    this.courses.forEach(course => {
+      this.userSvc.getUserDetails(course.teacherId)
+        .subscribe( ( teacher: UserDetails) => {
+          course.teacherName = teacher.displayName;
+        });
+    });
+  }
 }

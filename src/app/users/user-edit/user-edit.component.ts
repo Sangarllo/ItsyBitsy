@@ -56,13 +56,13 @@ export class UserEditComponent implements OnInit, OnDestroy {
         email: [{ value: '', disabled: true }, Validators.email],
         nickName: [''],
         birthday: [''],
-        location: ['', Validators.required],
+        location: [''],
         creationDate: [new Date()],
         isUser: false,
         isAdmin: false,
         isTeacher: false,
         isStudent: false,
-        contactPerson: ['', Validators.required],
+        contactPerson: [''],
         contactPersonNif: '',
         telephone: [''],
         address:  [''],
@@ -123,7 +123,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       telephone: this.userDetails.telephone,
       address: ( this.userDetails.address ) ? this.userDetails.address : '',
       rateId: (this.userDetails.rateId) ?  this.userDetails.rateId : 'no-aplica',
-      paymentMethod: this.userDetails.paymentMethod,
+      paymentMethod: (this.userDetails.paymentMethod) ? this.userDetails.paymentMethod : UserDetails.getDefaultPaymentMethod(),
       creationDate: this.userDetails.creationDate
     });
   }
