@@ -18,7 +18,7 @@ import { Page401Component } from './page401/page401.component';
 import { Page403Component } from './page403/page403.component';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 
-import { MAT_DATE_LOCALE } from '@angular/material';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
