@@ -8,6 +8,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { UserViewComponent } from './user-view/user-view.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { UsersTableComponent } from './users-table/users-table.component';
+import { UserLessonsView } from './user-lessons/user-lessons.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { UsersTableComponent } from './users-table/users-table.component';
     UserViewComponent,
     FilterPipe,
     UsersTableComponent,
+    UserLessonsView,
   ],
   imports: [
     SharedModule,

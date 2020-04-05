@@ -9,6 +9,7 @@ import { UserViewComponent } from './user-view/user-view.component';
 import { UsersTableComponent } from './users-table/users-table.component';
 import { AdminGuard } from '../services/admin.guard';
 import { AuthGuard } from '../services/auth.guard';
+import { UserLessonsView } from './user-lessons/user-lessons.component';
 
 
 const routes: Routes = [
@@ -42,7 +43,11 @@ const routes: Routes = [
     component: UserEditComponent,
     canActivate: [AdminGuard]
   },
-
+  {
+    path: ':id/clases',
+    component: UserLessonsView,
+    canActivate: [AdminGuard]
+  },
 ];
 
 @NgModule({
