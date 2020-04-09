@@ -1,0 +1,92 @@
+<div *ngIf="userDetails">
+
+    <app-user-view [userDetails]="userDetails"></app-user-view>
+
+
+    <h3>Panel de opciones de {{ userDetails?.displayName }}:</h3>
+
+    <div *ngIf="userDetails.isAdmin" class="card dashboard-rol-item">
+        <div class="alert alert-primary" role="alert">
+            Como administrador puedes...
+        </div>
+
+        <mat-nav-list>
+
+            <!-- 1A. Ver todas las personas -->
+            <mat-list-item>
+                <button mat-icon-button (click)="gotoUsersList()">
+              <mat-icon>info</mat-icon>
+              <span class="task-item">Ver todas las personas</span>
+            </button>
+            </mat-list-item>
+
+            <!-- 1B. Ver todos los cursos -->
+            <mat-list-item>
+                <button mat-icon-button (click)="gotoCoursesList()">
+            <mat-icon>info</mat-icon>
+            <span class="task-item">Ver todos los cursos</span>
+          </button>
+            </mat-list-item>
+
+            <!-- 1C. Ver todas las tarifas -->
+            <mat-list-item>
+                <button mat-icon-button (click)="gotoRates()">
+            <mat-icon>info</mat-icon>
+            <span class="task-item">Ver todas las tarifas</span>
+          </button>
+            </mat-list-item>
+
+
+            <!-- 2A. Ver mis clases -->
+            <mat-list-item>
+                <button mat-icon-button (click)="gotoLessons()">
+                  <mat-icon>info</mat-icon>
+                  <span class="task-item">Ver las clases de todos los profesores (crear enlace)</span>
+                </button>
+            </mat-list-item>
+
+        </mat-nav-list>
+
+    </div>
+
+    <div *ngIf="userDetails.isTeacher" class="card dashboard-rol-item">
+        <div class="alert alert-primary" role="alert">
+            Como profesor puedes...
+        </div>
+        <mat-nav-list>
+            <!-- 2A. Ver mi perfil  -->
+            <mat-list-item>
+                <button mat-icon-button (click)="gotoMyLessons()">
+                  <mat-icon>info</mat-icon>
+                  <span class="task-item">Ver mis clases</span>
+                </button>
+            </mat-list-item>
+        </mat-nav-list>
+    </div>
+
+    <div *ngIf="userDetails.isStudent" class="card dashboard-rol-item">
+        <div class="alert alert-primary" role="alert">
+            Como estudiante puedes...
+        </div>
+    </div>
+
+    <div *ngIf="userDetails.isUser" class="card dashboard-rol-item">
+        <div class="alert alert-primary" role="alert">
+            Como usuario registrado puedes...
+        </div>
+
+        <mat-nav-list>
+
+            <!-- 4A. Ver mi perfil  -->
+            <mat-list-item>
+                <button mat-icon-button (click)="gotoMyProfile()">
+              <mat-icon>info</mat-icon>
+              <span class="task-item">Ver mi perfil</span>
+            </button>
+            </mat-list-item>
+
+        </mat-nav-list>
+    </div>
+
+
+</div>
