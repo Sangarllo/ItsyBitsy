@@ -46,7 +46,7 @@ const routes: Routes = [
   {
     path: ':id/clases',
     component: UserLessonsView,
-    canActivate: [AdminGuard]
+    // canActivate: [AdminGuard] TODO JUST 4 DEBUG
   },
 ];
 
