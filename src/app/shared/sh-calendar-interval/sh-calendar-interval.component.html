@@ -1,0 +1,45 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-4">
+
+            <mat-form-field class="datepicker-container">
+                <input matInput [matDatepicker]="picker1" (dateChange)="dateIniClicked($event)" placeholder="Escoge inicio del intervalo" [formControl]="date1">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <h5>Del {{ dateIni | date:'fullDate' }}</h5>
+        </div>
+
+
+
+        <div class="col-4">
+            <mat-form-field class="datepicker-container">
+                <mat-label>Escoge fecha de fin</mat-label>
+                <input matInput [matDatepicker]="picker2" (dateChange)="dateEndClicked($event)" placeholder="Escoge fin del intervalo" [formControl]="date2">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+
+            <h5>al {{ dateEnd | date:'fullDate' }}</h5>
+        </div>
+
+        <div class="col-4">
+
+            <button (click)="removeWeek()" mat-mini-fab color="accent">
+            <mat-icon>skip_previous</mat-icon>
+          </button> &nbsp;&nbsp;
+            <button (click)="resetToday()" mat-mini-fab color="accent">
+            <mat-icon>restore_page</mat-icon>
+          </button> &nbsp;&nbsp;
+            <button (click)="addWeek()" mat-mini-fab color="accent">
+            <mat-icon>skip_next</mat-icon>
+          </button>
+
+        </div>
+
+    </div>
+
+</div>

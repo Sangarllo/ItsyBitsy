@@ -14,17 +14,25 @@ export class UserLessonsView implements OnInit {
   userDetails: UserDetails;
   pageTitle = 'Edición de Usuario';
   errorMessage: string;
-  nWeek: number = 0;
+
+  dateIni: Date;
+  dateEnd: Date;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService) {
 
+    // Lunes anterior
+    this.dateIni = new Date();
+    this.dateIni.setDate(this.dateIni.getDate() - (this.dateIni.getDay() + 6) % 7);
 
-      this.nWeek = 0;
+    // Lunes próximo
+    this.dateEnd = new Date();
+    this.dateEnd.setDate(this.dateIni.getDate() + 4);
   }
 
   ngOnInit(): void {
+
       // Read the student Id from the route parameter
       this.route.paramMap.subscribe(
         params => {
@@ -46,6 +54,11 @@ export class UserLessonsView implements OnInit {
   }
 
   displayUserDetails(): void {
+  }
+
+  onUpdateInterval(fechas: Date[]): void {
+    this.dateIni = new Date(fechas[0]);
+    this.dateEnd = new Date(fechas[1]);
   }
 
 }
