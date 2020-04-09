@@ -1,4 +1,10 @@
-<div *ngIf="userDetails">
+<mat-card *ngIf="userDetails">
+
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent" (click)="gotoDashboard()">Ir al Panel</button>
+    </mat-toolbar>
 
     <app-user-view [userDetails]="userDetails"></app-user-view>
 
@@ -6,4 +12,4 @@
 
     <app-sh-lessons [userDetails]="userDetails" [dateIni]="dateIni" [dateEnd]="dateEnd"></app-sh-lessons>
 
-</div>
+</mat-card>

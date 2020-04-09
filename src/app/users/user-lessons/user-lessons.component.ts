@@ -1,6 +1,6 @@
 import { UserDetails } from './../../models/user.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { UserService } from '../../services/user.service';
 export class UserLessonsView implements OnInit {
 
   userDetails: UserDetails;
-  pageTitle = 'Edición de Usuario';
+  pageTitle: string;
   errorMessage: string;
 
   dateIni: Date;
@@ -20,6 +20,7 @@ export class UserLessonsView implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private userService: UserService) {
 
     // Lunes anterior
@@ -54,11 +55,16 @@ export class UserLessonsView implements OnInit {
   }
 
   displayUserDetails(): void {
+    this.pageTitle = `Clases del profesor ${this.userDetails.displayName}`;
   }
 
   onUpdateInterval(fechas: Date[]): void {
     this.dateIni = new Date(fechas[0]);
     this.dateEnd = new Date(fechas[1]);
+  }
+
+  gotoDashboard(): void {
+    this.router.navigate([`usuarios/dashboard`]);
   }
 
 }
