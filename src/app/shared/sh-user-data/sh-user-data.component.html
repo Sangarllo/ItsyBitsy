@@ -1,12 +1,12 @@
-<div class="container user-view" *ngIf="userDetails">
+<mat-card class="container user-data" *ngIf="userDetails">
 
     <div class="row">
 
         <div class="col-3 text-center">
             <img [src]="userDetails.photoURL" class="img-thumbnail" alt="userDetails.photoURL">
             <label class="custom-file">
-              <input type="file" id="file" class="custom-file-input">
-            </label>
+            <input type="file" id="file" class="custom-file-input">
+          </label>
         </div>
 
         <div class="col-8 ">
@@ -22,4 +22,4 @@
         </div>
 
     </div>
-</div>
+</mat-card>

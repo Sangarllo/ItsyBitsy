@@ -1,9 +1,12 @@
-<div *ngIf="userDetails">
+<mat-card *ngIf="userDetails">
 
-    <app-user-view [userDetails]="userDetails"></app-user-view>
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent" (click)="gotoMyProfile()">Ver Perfil</button>
+    </mat-toolbar>
 
-
-    <h3>Panel de opciones de {{ userDetails?.displayName }}:</h3>
+    <app-sh-user-data [userDetails]="userDetails"></app-sh-user-data>
 
     <div *ngIf="userDetails.isAdmin" class="card dashboard-rol-item">
         <div class="alert alert-primary" role="alert">
@@ -88,5 +91,4 @@
         </mat-nav-list>
     </div>
 
-
-</div>
+</mat-card>

@@ -14,6 +14,7 @@ import { Rate } from '../../models/rate';
 // tslint:disable-next-line: component-class-suffix
 export class UserDashboardView implements OnInit {
 
+  pageTitle: string;
   userDetailsId: string;
   userDetails: UserDetails;
 
@@ -33,6 +34,7 @@ export class UserDashboardView implements OnInit {
         this.userService.getUserDetails(this.userDetailsId)
         .subscribe( (userDetails: UserDetails) => {
           this.userDetails = userDetails;
+          this.pageTitle = `Panel de opciones de ${this.userDetails.displayName}`;
         });
         }
     );

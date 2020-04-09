@@ -6,7 +6,7 @@
         <button mat-raised-button color="accent" (click)="gotoDashboard()">Ir al Panel</button>
     </mat-toolbar>
 
-    <app-user-view [userDetails]="userDetails"></app-user-view>
+    <app-sh-user-data [userDetails]="userDetails"></app-sh-user-data>
 
     <app-sh-calendar-interval [dateIni]="dateIni" [dateEnd]="dateEnd" (updateInterval)="onUpdateInterval($event)"></app-sh-calendar-interval>
 
