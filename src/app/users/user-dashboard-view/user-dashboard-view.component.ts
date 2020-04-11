@@ -63,6 +63,10 @@ export class UserDashboardView implements OnInit {
     // this.router.navigate([`/usuarios/${this.userDetailsId}/clases`]);
   }
 
+  gotoAttendances() {
+    this.router.navigate([`/usuarios/asistencias`]);
+  }
+
 
   // 2. TEACHER
 

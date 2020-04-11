@@ -9,6 +9,7 @@ import { AdminGuard } from '../services/admin.guard';
 import { AuthGuard } from '../services/auth.guard';
 import { UserLessonsView } from './user-lessons/user-lessons.component';
 import { UserDashboardView } from './user-dashboard-view/user-dashboard-view.component';
+import { UserAttendancesView } from './user-attendances/user-attendances.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: UserDashboardView,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'asistencias',
+    component: UserAttendancesView,
     canActivate: [AuthGuard]
   },
   {

@@ -5,12 +5,12 @@ import { LessonsService } from '../../services/lessons.service';
 import { UserDetails } from '../../models/user.model';
 import { Observable, forkJoin, combineLatest } from 'rxjs';
 import { Lesson } from '../../models/lesson.model';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { DatesService } from '../../services/dates.service';
 import { map, tap } from 'rxjs/operators';
 import { CoursesService } from '../../services/courses.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-sh-lessons',
@@ -52,15 +52,9 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
-    console.log(`ngAfterViewInit ShLessonsComponent dateIni: ${this.dateIni}`);
-    console.log(`ngAfterViewInit ShLessonsComponent dateEnd: ${this.dateEnd}`);
   }
 
   ngOnChanges(): void {
-    console.log(`ngOnChanges ShLessonsComponent dateIni: ${this.dateIni}`);
-    console.log(`ngOnChanges ShLessonsComponent dateEnd: ${this.dateEnd}`);
-
     this.displayLessons();
   }
 

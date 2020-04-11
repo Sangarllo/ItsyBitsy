@@ -1,0 +1,36 @@
+<mat-card class="container">
+
+    <div class="row">
+
+        <div class="col-7">
+
+            Mes seleccionado:
+
+            <mat-form-field>
+                <mat-label>Mes y año</mat-label>
+                <input matInput [matDatepicker]="dp" [formControl]="date1">
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+                </mat-datepicker>
+            </mat-form-field>
+
+        </div>
+
+        <div class="col-4">
+
+            <button (click)="removeMonth()" mat-mini-fab color="accent">
+          <mat-icon>skip_previous</mat-icon>
+        </button> &nbsp;&nbsp;
+            <button (click)="resetToday()" mat-mini-fab color="accent">
+          <mat-icon>restore_page</mat-icon>
+        </button> &nbsp;&nbsp;
+            <button (click)="addMonth()" mat-mini-fab color="accent">
+          <mat-icon>skip_next</mat-icon>
+        </button>
+
+        </div>
+
+    </div>
+
+
+</mat-card>

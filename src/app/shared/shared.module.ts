@@ -16,6 +16,8 @@ import { ShTeacherLessonsTableComponent } from './sh-teacher-lessons-table/sh-te
 import { ShLessonsComponent } from './sh-lessons/sh-lessons.component';
 import { ShCalendarIntervalComponent } from './sh-calendar-interval/sh-calendar-interval.component';
 import { ShUserDataComponent } from './sh-user-data/sh-user-data.component';
+import { ShCalendarIntervalMonthComponent } from './sh-calendar-interval-month/sh-calendar-interval-month.component';
+import { ShAttendancesComponent } from './sh-attendances/sh-attendances.component';
 
 @NgModule({
   declarations: [
@@ -27,11 +29,13 @@ import { ShUserDataComponent } from './sh-user-data/sh-user-data.component';
     ShCourseLessonsTableComponent,
     ShLessonAttendanceTableComponent,
     ShLessonsComponent,
+    ShAttendancesComponent,
     ShUserAttendanceTableComponent,
     ShTeacherLessonsTableComponent,
     ShMonthAttendanceTableComponent,
     ShMonthAttendanceTableSummaryComponent,
     ShLessonsComponent,
+    ShCalendarIntervalMonthComponent,
     ShCalendarIntervalComponent,
     ShUserDataComponent,
   ],
@@ -50,7 +54,9 @@ import { ShUserDataComponent } from './sh-user-data/sh-user-data.component';
     ShCourseLessonsTableComponent,
     ShLessonAttendanceTableComponent,
     ShLessonsComponent,
+    ShAttendancesComponent,
     ShUserDataComponent,
+    ShCalendarIntervalMonthComponent,
     ShCalendarIntervalComponent,
     ShUserAttendanceTableComponent,
     ShTeacherLessonsTableComponent,
