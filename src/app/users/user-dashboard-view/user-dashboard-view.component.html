@@ -39,23 +39,20 @@
           </button>
             </mat-list-item>
 
-
-            <!-- 1E. Ver asistencias mensuales -->
+            <!-- 1D. Ver todas las clases de profesores mensuales -->
             <mat-list-item>
-                <button mat-icon-button (click)="gotoAttendances()">
-                <mat-icon>info</mat-icon>
-                <span class="task-item">Ver asistencias mensuales</span>
-              </button>
+                <button mat-icon-button (click)="gotoAllLessons()">
+              <mat-icon>info</mat-icon>
+              <span class="task-item">Ver clases mensuales de todos los profesores</span>
+            </button>
             </mat-list-item>
 
-
-
-            <!-- 2A. Ver mis clases -->
+            <!-- 1E. Ver todas las asistencias mensuales -->
             <mat-list-item>
-                <button mat-icon-button (click)="gotoLessons()">
-                  <mat-icon>info</mat-icon>
-                  <span class="task-item">Ver las clases de todos los profesores (crear enlace)</span>
-                </button>
+                <button mat-icon-button (click)="gotoAllAttendances()">
+                <mat-icon>info</mat-icon>
+                <span class="task-item">Ver asistencias mensuales de todos los estudiantes</span>
+              </button>
             </mat-list-item>
 
         </mat-nav-list>
@@ -71,7 +68,7 @@
             <mat-list-item>
                 <button mat-icon-button (click)="gotoMyLessons()">
                   <mat-icon>info</mat-icon>
-                  <span class="task-item">Ver mis clases</span>
+                  <span class="task-item">Ver mis clases como profesor</span>
                 </button>
             </mat-list-item>
         </mat-nav-list>
@@ -81,6 +78,18 @@
         <div class="alert alert-primary" role="alert">
             Como estudiante puedes...
         </div>
+
+        <mat-nav-list>
+
+            <!-- 3A. Ver mis asistencias (como estudiante) -->
+            <mat-list-item>
+                <button mat-icon-button (click)="gotoMyAttendances()">
+                <mat-icon>info</mat-icon>
+                <span class="task-item">Ver mis asistencias como estudiante</span>
+              </button>
+            </mat-list-item>
+        </mat-nav-list>
+
     </div>
 
     <div *ngIf="userDetails.isUser" class="card dashboard-rol-item">

@@ -4,32 +4,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-user-lessons',
-  templateUrl: './user-lessons.component.html',
-  styleUrls: ['./user-lessons.component.scss']
+  selector: 'app-user-attendances-view',
+  templateUrl: './user-attendances-view.component.html',
+  styleUrls: ['./user-attendances-view.component.scss']
 })
 // tslint:disable-next-line: component-class-suffix
-export class UserLessonsView implements OnInit {
+export class UserAttendancesView implements OnInit {
 
   userDetails: UserDetails;
-  pageTitle: string;
+  pageTitle: string = `Asistencias del mes`;
   errorMessage: string;
 
-  dateIni: Date;
-  dateEnd: Date;
+  date: Date;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService) {
 
-    // Lunes anterior
-    this.dateIni = new Date();
-    this.dateIni.setDate(this.dateIni.getDate() - (this.dateIni.getDay() + 6) % 7);
-
-    // Lunes próximo
-    this.dateEnd = new Date();
-    this.dateEnd.setDate(this.dateIni.getDate() + 4);
+    // Primer día del mes
+    const today = new Date();
+    this.date = new Date( today.getFullYear(), today.getMonth(), 1 );
   }
 
   ngOnInit(): void {
@@ -38,7 +33,11 @@ export class UserLessonsView implements OnInit {
       this.route.paramMap.subscribe(
         params => {
           const id = params.get('id');
-          this.getUserDetails(id);
+          if ( id === 'all' ) {
+            this.userDetails = null;
+          } else {
+            this.getUserDetails(id);
+          }
         }
     );
   }
@@ -55,12 +54,11 @@ export class UserLessonsView implements OnInit {
   }
 
   displayUserDetails(): void {
-    this.pageTitle = `Clases del profesor ${this.userDetails.displayName}`;
+    this.pageTitle = `Asistencias del estudiante ${this.userDetails.displayName}`;
   }
 
-  onUpdateInterval(fechas: Date[]): void {
-    this.dateIni = new Date(fechas[0]);
-    this.dateEnd = new Date(fechas[1]);
+  onUpdateMonth(newDate: Date): void {
+    this.date = new Date(newDate);
   }
 
   gotoDashboard(): void {

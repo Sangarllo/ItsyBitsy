@@ -22,20 +22,23 @@ import { UserService } from '../../services/user.service';
 })
 export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges {
 
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  @Input() userDetails: UserDetails;
+  @Input() date: Date;
   @Output() reportSummary = new EventEmitter<Attendance[]>();
+
+  students$: Observable<UserDetails[]>;
+  courses$: Observable<Course[]>;
+  attendances$: Observable<Attendance[]>;
+
   columnsToDisplay = [ 'status', 'studentImage', 'studentName', 'courseImage', 'courseName', 'lessonDate' ]; // , 'actions'
 
   dataSource = new MatTableDataSource();
   selection = new SelectionModel<Attendance>(true, []);
   statusAttendance: Status[];
   statusToApply = Attendance.getDefaultStatus();
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @Input() date: Date;
-
-  students$: Observable<UserDetails[]>;
-  courses$: Observable<Course[]>;
-  attendances$: Observable<Attendance[]>;
 
   constructor(
     private router: Router,
@@ -43,7 +46,10 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
     private userSvc: UserService,
     private attendancesSvc: AttendancesService,
     private coursesSvc: CoursesService,
-  ) { }
+  ) {
+    this.courses$ = this.coursesSvc.getAllCourses();
+    this.students$ = this.userSvc.getAllStudents();
+  }
 
   ngOnInit() {
     this.statusAttendance = Attendance.getAllStatus();
@@ -96,9 +102,9 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
         new Date(this.date.getFullYear() + 1, 1, 1 ) :
         new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1 );
 
-    this.courses$ = this.coursesSvc.getAllCourses();
-    this.students$ = this.userSvc.getAllStudents();
-    this.attendances$ = this.attendancesSvc.getAllAttendancesByMonth( dateIni, dateEnd);
+    this.attendances$ = ( this.userDetails ) ?
+      this.attendancesSvc.getAllAttendancesByUser( this.userDetails, dateIni, dateEnd) :
+      this.attendancesSvc.getAllAttendancesByMonth( dateIni, dateEnd);
 
     combineLatest([
       this.attendances$,

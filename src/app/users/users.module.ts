@@ -6,9 +6,9 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { UsersTableComponent } from './users-table/users-table.component';
-import { UserLessonsView } from './user-lessons/user-lessons.component';
+import { UserLessonsView } from './user-lessons-view/user-lessons-view.component';
 import { UserDashboardView } from './user-dashboard-view/user-dashboard-view.component';
-import { UserAttendancesView } from './user-attendances/user-attendances.component';
+import { UserAttendancesView } from './user-attendances-view/user-attendances-view.component';
 
 @NgModule({
   declarations: [

@@ -1,0 +1,15 @@
+<mat-card>
+
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent" (click)="gotoDashboard()">Ir al Panel</button>
+    </mat-toolbar>
+
+    <app-sh-user-data *ngIf="userDetails" [userDetails]="userDetails"></app-sh-user-data>
+
+    <app-sh-calendar-interval-month [date]="date" (updateMonth)="onUpdateMonth($event)"></app-sh-calendar-interval-month>
+
+    <app-sh-attendances [userDetails]="userDetails" [date]="date"></app-sh-attendances>
+
+</mat-card>

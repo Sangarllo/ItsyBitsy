@@ -44,7 +44,7 @@ export class ShTeacherLessonsTableComponent implements OnInit, AfterViewInit {
 
     this.dataSource = new MatTableDataSource(this.lessons);
 
-    this.lessonsSvc.getLessonsByTeacher(this.teacher, this.dateIni, this.dateEnd)
+    this.lessonsSvc.getLessonsByTeacherByDate(this.teacher, this.dateIni, this.dateEnd)
     .subscribe((lessons: Lesson[]) => {
       this.lessons = lessons;
 

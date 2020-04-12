@@ -28,20 +28,6 @@ export class LessonsService {
     private attendanceService: AttendancesService) {
   }
 
-
-  getLessonsByDate(dateIni: Date, dateEnd: Date): Observable<Lesson[]> {
-    this.lessonCollection = this.afs.collection(
-      LESSON_COLLECTION,
-      ref => ref.where('current', '==', true)
-                .where('date', '>=', dateIni)
-                .where('date', '<=', dateEnd)
-                .orderBy('date')
-    );
-
-    return this.lessonCollection.valueChanges();
-  }
-
-
   getAllLessons(course: Course): Observable<Lesson[]> {
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,
@@ -53,7 +39,19 @@ export class LessonsService {
     return this.lessonCollection.valueChanges();
   }
 
-  getLessonsByTeacher(teacher: UserDetails, dateIni: Date, dateEnd: Date): Observable<Lesson[]> {
+  getAllLessonsByDate(dateIni: Date, dateEnd: Date): Observable<Lesson[]> {
+    this.lessonCollection = this.afs.collection(
+      LESSON_COLLECTION,
+      ref => ref.where('current', '==', true)
+                .where('date', '>=', dateIni)
+                .where('date', '<=', dateEnd)
+                .orderBy('date')
+    );
+
+    return this.lessonCollection.valueChanges();
+  }
+
+  getLessonsByTeacherByDate(teacher: UserDetails, dateIni: Date, dateEnd: Date): Observable<Lesson[]> {
 
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,

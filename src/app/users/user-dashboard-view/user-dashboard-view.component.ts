@@ -57,14 +57,14 @@ export class UserDashboardView implements OnInit {
     this.router.navigate([`/${Rate.PATH_URL}`]);
   }
 
-
-  gotoLessons() {
-    // TODO: Implementar
-    // this.router.navigate([`/usuarios/${this.userDetailsId}/clases`]);
+  // 1D. Ver todas las clases de profesores
+  gotoAllLessons() {
+    this.router.navigate([`/usuarios/all/clases`]);
   }
 
-  gotoAttendances() {
-    this.router.navigate([`/usuarios/asistencias`]);
+  // 1E. Ver todas las asistencias de estudiantes
+  gotoAllAttendances() {
+    this.router.navigate([`/usuarios/all/asistencias`]);
   }
 
 
@@ -72,10 +72,16 @@ export class UserDashboardView implements OnInit {
 
   // 2A. Ver mis clases
   gotoMyLessons() {
-    // TODO: Si son mis clases, no hace falta cogerlo por parámetro
     this.router.navigate([`/usuarios/${this.userDetailsId}/clases`]);
   }
 
+
+  // 3. STUDENT
+
+  // 3A. Ver mis asistencias
+  gotoMyAttendances() {
+    this.router.navigate([`/usuarios/${this.userDetailsId}/asistencias`]);
+  }
 
 
   // 4. USER

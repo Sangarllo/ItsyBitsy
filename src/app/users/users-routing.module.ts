@@ -7,9 +7,9 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { UsersTableComponent } from './users-table/users-table.component';
 import { AdminGuard } from '../services/admin.guard';
 import { AuthGuard } from '../services/auth.guard';
-import { UserLessonsView } from './user-lessons/user-lessons.component';
+import { UserLessonsView } from './user-lessons-view/user-lessons-view.component';
 import { UserDashboardView } from './user-dashboard-view/user-dashboard-view.component';
-import { UserAttendancesView } from './user-attendances/user-attendances.component';
+import { UserAttendancesView } from './user-attendances-view/user-attendances-view.component';
 
 
 const routes: Routes = [
@@ -29,11 +29,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'asistencias',
-    component: UserAttendancesView,
-    canActivate: [AuthGuard]
-  },
-  {
     path: ':id',
     component: UserDetailsComponent,
     canActivate: [AdminGuard]
@@ -46,7 +41,12 @@ const routes: Routes = [
   {
     path: ':id/clases',
     component: UserLessonsView,
-    // canActivate: [AdminGuard] TODO JUST 4 DEBUG
+    canActivate: [AdminGuard]
+  },
+  {
+    path: ':id/asistencias',
+    component: UserAttendancesView,
+    canActivate: [AdminGuard]
   },
 ];
 

@@ -12,6 +12,20 @@
       }"> {{element.status}} </td>
     </ng-container>
 
+    <!-- teacherImage Column -->
+    <ng-container matColumnDef="teacherImage">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+        <td mat-cell *matCellDef="let element">
+            <img (click)="viewTeacher(element)" [src]="element.teacherImage" class="img-thumbnail" alt="element.teacherImage">
+        </td>
+    </ng-container>
+
+    <!-- teacherName Column -->
+    <ng-container matColumnDef="teacherName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Profesor</th>
+        <td mat-cell *matCellDef="let element"> {{element.teacherName }} </td>
+    </ng-container>
+
     <!-- courseImage Column -->
     <ng-container matColumnDef="courseImage">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
