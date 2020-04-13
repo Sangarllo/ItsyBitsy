@@ -24,9 +24,44 @@ export class DatesService {
     'octubre',
     'noviembre',
     'diciembre'
-  ]
+  ];
 
-  constructor() { }
+  constructor() {
+  }
+
+  getToday(): Date {
+    const today = new Date(2020, 3, 12);
+    // const today = new Date();
+    return today;
+  }
+
+  getWeekMonday(): Date {
+    const date = new Date(this.getToday());
+    date.setDate(date.getDate() - date.getDay() + 1);
+    console.log(`getWeekMonday(): ${date}`);
+    return date;
+  }
+
+  getNextMonday(): Date {
+    const date = new Date(this.getToday());
+    date.setDate(date.getDate() - date.getDay() + 8);
+    console.log(`getWeekMonday(): ${date}`);
+    return date;
+  }
+
+  getWeekFriday(): Date {
+    const date = new Date(this.getToday());
+    date.setDate(date.getDate() - date.getDay() + 5);
+    console.log(`getWeekFriday(): ${date}`);
+    return date;
+  }
+
+  getNextFriday(): Date {
+    const date = new Date(this.getToday());
+    date.setDate(date.getDate() - date.getDay() + 12);
+    console.log(`getWeekFriday(): ${date}`);
+    return date;
+  }
 
   getMonths(): Month[] {
 
@@ -70,5 +105,4 @@ export class DatesService {
       return null;
     }
   }
-
 }

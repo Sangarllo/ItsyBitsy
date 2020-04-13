@@ -2,6 +2,7 @@ import { UserDetails } from '../../models/user.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { DatesService } from '../../services/dates.service';
 
 @Component({
   selector: 'app-user-lessons-view',
@@ -21,15 +22,12 @@ export class UserLessonsView implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private dateSvc: DatesService,
     private userService: UserService) {
 
-    // Lunes anterior
-    this.dateIni = new Date();
-    this.dateIni.setDate(this.dateIni.getDate() - (this.dateIni.getDay() + 6) % 7);
-
-    // Lunes próximo
-    this.dateEnd = new Date();
-    this.dateEnd.setDate(this.dateIni.getDate() + 4);
+    // Fechas que limitan la semana
+    this.dateIni = this.dateSvc.getWeekMonday();
+    this.dateEnd = this.dateSvc.getWeekFriday();
   }
 
   ngOnInit(): void {

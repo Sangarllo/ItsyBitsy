@@ -42,7 +42,7 @@
     </ng-container>
 
     <ng-container matColumnDef="lastLessonStatus">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Última Clase</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Esta semana</th>
         <td mat-cell *matCellDef="let element" [ngClass]="{
           'is-anulada': element.lastLessonStatus === 'anulada',
           'is-programada': element.lastLessonStatus === 'programada',
@@ -67,7 +67,7 @@
     </ng-container>
 
     <ng-container matColumnDef="nextLessonStatus">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Siguiente clase</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Próxima semana</th>
         <td mat-cell *matCellDef="let element" [ngClass]="{
           'is-anulada': element.nextLessonStatus === 'anulada',
           'is-programada': element.nextLessonStatus === 'programada',

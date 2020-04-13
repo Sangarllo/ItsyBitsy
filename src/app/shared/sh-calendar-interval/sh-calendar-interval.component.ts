@@ -1,6 +1,7 @@
 import { FormControl } from '@angular/forms';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import { DatesService } from '../../services/dates.service';
 
 @Component({
   selector: 'app-sh-calendar-interval',
@@ -16,7 +17,9 @@ export class ShCalendarIntervalComponent implements OnInit {
   date1: any;
   date2: any;
 
-  constructor() {
+  constructor(
+    private dateSvc: DatesService
+  ) {
     this.resetToday();
     console.log(`constructor dateIni: ${this.dateIni}`);
     console.log(`constructor dateEnd: ${this.dateEnd}`);
@@ -68,13 +71,9 @@ export class ShCalendarIntervalComponent implements OnInit {
 
   resetToday() {
 
-    // Lunes anterior
-    this.dateIni = new Date();
-    this.dateIni.setDate(this.dateIni.getDate() - (this.dateIni.getDay() + 6) % 7);
-
-    // Lunes próximo
-    this.dateEnd = new Date();
-    this.dateEnd.setDate(this.dateIni.getDate() + 4);
+    // Fechas que limitan la semana
+    this.dateIni = this.dateSvc.getWeekMonday();
+    this.dateEnd = this.dateSvc.getWeekFriday();
 
     this.date1 = new FormControl(this.dateIni);
     this.date2 = new FormControl(this.dateEnd);

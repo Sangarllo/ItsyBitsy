@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { Attendance } from '../models/attendance.model';
 import { AttendancesService } from './attendances.service';
+import { DatesService } from './dates.service';
 
 const LESSON_COLLECTION = 'lessons';
 
@@ -25,6 +26,7 @@ export class LessonsService {
 
   constructor(
     private afs: AngularFirestore,
+    private dateSvc: DatesService,
     private attendanceService: AttendancesService) {
   }
 
@@ -104,24 +106,30 @@ export class LessonsService {
   }
 
   getLastLessons(course: Course, limit: number): Observable<Lesson[]> { {
-      this.lessonCollection = this.afs.collection(
+
+    this.lessonCollection = this.afs.collection(
         LESSON_COLLECTION,
         ref => ref.where('courseId', '==', course.id)
                   .where('current', '==', true)
-                  .where('date', '<=', new Date())
+                  .where('date', '>=', this.dateSvc.getWeekMonday())
+                  .where('date', '<=', this.dateSvc.getWeekFriday())
+
                   .limit(limit)
                   .orderBy('date', 'asc')
-      );
-      return this.lessonCollection.valueChanges();
+    );
+
+    return this.lessonCollection.valueChanges();
     }
   }
 
   getNextLessons(course: Course, limit: number): Observable<Lesson[]> { {
+
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,
       ref => ref.where('courseId', '==', course.id)
                 .where('current', '==', true)
-                .where('date', '>=', new Date())
+                .where('date', '>=', this.dateSvc.getNextMonday())
+                .where('date', '<=', this.dateSvc.getNextFriday())
                 .limit(limit)
                 .orderBy('date', 'asc')
     );

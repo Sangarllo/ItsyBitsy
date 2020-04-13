@@ -41,13 +41,9 @@ export class LessonDashboardComponent implements OnInit {
   ngOnInit() {
     this.teachers$ = this.userSvc.getAllTeachers();
 
-    // Lunes anterior
-    this.dateIni = new Date();
-    this.dateIni.setDate(this.dateIni.getDate() - (this.dateIni.getDay() + 6) % 7);
-
-    // Lunes próximo
-    this.dateEnd = new Date();
-    this.dateEnd.setDate(this.dateIni.getDate() + 6);
+    // Fechas que limitan la semana
+    this.dateIni = this.dateSvc.getWeekMonday();
+    this.dateEnd = this.dateSvc.getWeekFriday();
   }
 
   getReport() {
