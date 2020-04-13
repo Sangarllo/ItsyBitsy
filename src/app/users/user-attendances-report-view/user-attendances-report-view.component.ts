@@ -4,15 +4,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-user-attendances-view',
-  templateUrl: './user-attendances-view.component.html',
-  styleUrls: ['./user-attendances-view.component.scss']
+  selector: 'app-user-attendances-report-view',
+  templateUrl: './user-attendances-report-view.component.html',
+  styleUrls: ['./user-attendances-report-view.component.scss']
 })
 // tslint:disable-next-line: component-class-suffix
-export class UserAttendancesView implements OnInit {
+export class UserAttendancesReportView implements OnInit {
 
   userDetails: UserDetails;
-  pageTitle: string = `Asistencias del mes`;
+  pageTitle: string = `Informe de Asistencias del mes`;
   errorMessage: string;
 
   date: Date;
@@ -54,12 +54,11 @@ export class UserAttendancesView implements OnInit {
   }
 
   displayUserDetails(): void {
-    this.pageTitle = `Asistencias del estudiante ${this.userDetails.displayName}`;
+    this.pageTitle = `Informe de asistencias del estudiante ${this.userDetails.displayName}`;
   }
 
   onUpdateMonth(newDate: Date): void {
     this.date = new Date(newDate);
-    console.log(`onUpdateMonth user-attendaces-view: ${this.date}`);
   }
 
   gotoDashboard(): void {

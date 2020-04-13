@@ -65,20 +65,6 @@ export class ShCalendarIntervalMonthComponent implements OnInit {
     this.onUpdateMonth();
   }
 
-  /*
-  dateIniClicked(event: MatDatepickerInputEvent<Date>) {
-    console.log(`dateIniClicked: ${event.value}`);
-    this.dateIni = new Date(event.value);
-    this.onUpdateMonth();
-  }
-
-  dateEndClicked(event: MatDatepickerInputEvent<Date>) {
-    console.log(`dateEndClicked: ${event.value}`);
-    this.dateEnd = new Date(event.value);
-    this.onUpdateMonth();
-  }
-  */
-
   chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.date1.value;
     ctrlValue.year(normalizedYear.year());
@@ -117,8 +103,10 @@ export class ShCalendarIntervalMonthComponent implements OnInit {
   onUpdateMonth() {
 
     this.fromMomentToTypescript();
+    console.log(`dateMoment updateMonth: ${this.dateMoment}`);
     this.date1 = new FormControl(this.dateMoment);
-    console.log(`ountput updateMonth: ${this.date1}`);
+    console.log(`output updateMonth date1: ${this.date1}`);
+    console.log(`output updateMonth dateTs: ${this.dateTs}`);
     this.updateMonth.emit(this.dateTs);
   }
 

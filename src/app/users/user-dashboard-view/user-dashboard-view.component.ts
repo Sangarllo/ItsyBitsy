@@ -67,6 +67,11 @@ export class UserDashboardView implements OnInit {
     this.router.navigate([`/usuarios/all/asistencias`]);
   }
 
+  // 1F. Ver el informe de todas las asistencias de estudiantes
+  gotoAllAttendancesReport() {
+    this.router.navigate([`/usuarios/all/asistencias/informe`]);
+  }
+
 
   // 2. TEACHER
 

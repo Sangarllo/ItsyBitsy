@@ -36,7 +36,9 @@ export class UserDetailsComponent implements OnInit {
     this.userService.getUserDetails(this.userDetailsId)
       .subscribe( (userDetails: UserDetails) => {
         this.userDetails = userDetails;
-        this.userDetails.birthday = this.dateSvc.fromFirebaseDate(this.userDetails.birthday);
+        this.userDetails.birthday = ( userDetails?.birthday ) ?
+          this.dateSvc.fromFirebaseDate(userDetails?.birthday) :
+          null;
 
         this.getRate();
 

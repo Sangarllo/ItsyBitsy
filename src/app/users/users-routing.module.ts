@@ -10,6 +10,7 @@ import { AuthGuard } from '../services/auth.guard';
 import { UserLessonsView } from './user-lessons-view/user-lessons-view.component';
 import { UserDashboardView } from './user-dashboard-view/user-dashboard-view.component';
 import { UserAttendancesView } from './user-attendances-view/user-attendances-view.component';
+import { UserAttendancesReportView } from './user-attendances-report-view/user-attendances-report-view.component';
 
 
 const routes: Routes = [
@@ -46,6 +47,11 @@ const routes: Routes = [
   {
     path: ':id/asistencias',
     component: UserAttendancesView,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: ':id/asistencias/informe',
+    component: UserAttendancesReportView,
     canActivate: [AdminGuard]
   },
 ];

@@ -16,11 +16,11 @@ import { map } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-sh-attendances',
-  templateUrl: './sh-attendances.component.html',
-  styleUrls: ['./sh-attendances.component.scss']
+  selector: 'app-sh-attendances-report',
+  templateUrl: './sh-attendances-report.component.html',
+  styleUrls: ['./sh-attendances-report.component.scss']
 })
-export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges {
+export class ShAttendancesReportComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -47,6 +47,8 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
     private attendancesSvc: AttendancesService,
     private coursesSvc: CoursesService,
   ) {
+    this.courses$ = this.coursesSvc.getAllCourses();
+    this.students$ = this.userSvc.getAllStudents();
   }
 
   ngOnInit() {
@@ -63,8 +65,8 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
     this.displayAttendances();
   }
 
-  viewStudent(attendance: Attendance) {
-    this.router.navigate([`/${UserDetails.PATH_URL}/${attendance.studentId}`]);
+  viewStudent(student: UserDetails) {
+    this.router.navigate([`/${UserDetails.PATH_URL}/${student.uid}`]);
   }
 
   applyFilter(filterValue: string) {
@@ -100,12 +102,6 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
         new Date(this.date.getFullYear() + 1, 1, 1 ) :
         new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1 );
 
-    console.log(`displayAttendances dateIni: ${dateIni}`);
-    console.log(`displayAttendances dateEnd: ${dateEnd}`);
-    console.log(`displayAttendances userdet: ${this.userDetails}`);
-
-    this.courses$ = this.coursesSvc.getAllCourses();
-    this.students$ = this.userSvc.getAllStudents();
     this.attendances$ = ( this.userDetails ) ?
       this.attendancesSvc.getAllAttendancesByUser( this.userDetails, dateIni, dateEnd) :
       this.attendancesSvc.getAllAttendancesByMonth( dateIni, dateEnd);
