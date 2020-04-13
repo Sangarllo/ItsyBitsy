@@ -176,7 +176,7 @@ getAttendance(course: Course, lesson: Lesson, attendanceId: string): Observable<
 
       this.createAttendance(newAttendance).subscribe(
         () => {
-          console.log(` -> New attendance ${newAttendance.id} created`);
+          // console.log(` -> New attendance ${newAttendance.id} created`);
         }
       );
     });

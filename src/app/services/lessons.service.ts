@@ -93,9 +93,13 @@ export class LessonsService {
   }
 
 
-  getLesson(course: Course, lessonId: string): Observable<any> {
+  getLesson(course: Course, lessonId: string, nextWeek?: boolean): Observable<any> {
     if (lessonId === '0') {
-      return of(this.initialize(course, lessonId));
+      if ( nextWeek ) {
+        return of(this.initialize(course, lessonId, nextWeek = true));
+      } else {
+        return of(this.initialize(course, lessonId, nextWeek = false));
+      }
     } else {
       this.lessonCollection = this.afs.collection(
         LESSON_COLLECTION,
@@ -105,7 +109,7 @@ export class LessonsService {
     }
   }
 
-  getLastLessons(course: Course, limit: number): Observable<Lesson[]> { {
+  getWeekLessons(course: Course, limit: number): Observable<Lesson[]> { {
 
     this.lessonCollection = this.afs.collection(
         LESSON_COLLECTION,
@@ -170,11 +174,15 @@ export class LessonsService {
     return of({});
   }
 
-  private initialize(course: Course, lessonId: string): Lesson {
+  private initialize(course: Course, lessonId: string, nextWeek: boolean): Lesson {
     // Return an initialized object
 
     const newDate = new Date();
-    newDate.setDate(newDate.getDate() + (7 + Course.getWeekDayNumber(course.weekDay) - newDate.getDay()) % 7);
+    if ( nextWeek ) {
+      newDate.setDate(7 + newDate.getDate() + (7 + Course.getWeekDayNumber(course.weekDay) - newDate.getDay()) % 7);
+    } else { // CurrentWeek
+      newDate.setDate(newDate.getDate() + (7 + Course.getWeekDayNumber(course.weekDay) - newDate.getDay()) % 7);
+    }
 
     return {
       id: '0',

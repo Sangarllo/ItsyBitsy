@@ -36,6 +36,18 @@ export class CourseViewComponent implements OnInit {
       this.teacher = teacher;
     });
 
+    // This week lessons
+    this.lessonsSvc.getWeekLessons(this.course, 1)
+      .subscribe( (lessons: Lesson[]) => {
+
+        lessons.forEach(lesson => {
+          lesson.date = this.dateSvc.fromFirebaseDate(lesson.date);
+        });
+
+        this.lastLessons = lessons;
+    });
+
+    // Next week lessons
     this.lessonsSvc.getNextLessons(this.course, 1)
       .subscribe( (lessons: Lesson[]) => {
 
@@ -46,15 +58,6 @@ export class CourseViewComponent implements OnInit {
         this.nextLessons = lessons;
     });
 
-    this.lessonsSvc.getLastLessons(this.course, 1)
-      .subscribe( (lessons: Lesson[]) => {
-
-        lessons.forEach(lesson => {
-          lesson.date = this.dateSvc.fromFirebaseDate(lesson.date);
-        });
-
-        this.lastLessons = lessons;
-    });
   }
 
   viewLesson(lesson: Lesson) {

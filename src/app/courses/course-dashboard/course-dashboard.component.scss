@@ -9,9 +9,12 @@ table {
     font-size: 14px;
 }
 
-.mat-column-teacher,
-.mat-column-aforo,
 .mat-column-name {
+    padding-left: 30px;
+}
+
+.mat-column-scheduler,
+.mat-column-aforo {
     padding-left: 30px;
     border-right: 1px solid rgba(0, 0, 0, .12);
 }
@@ -26,8 +29,6 @@ table {
 
 .mat-column-nextLesson,
 .mat-column-lastLesson,
-.mat-column-nextLessonStatus,
-.mat-column-lastLessonStatus,
 .mat-column-nextLessonActions,
 .mat-column-lastLessonActions {
     text-align: center;

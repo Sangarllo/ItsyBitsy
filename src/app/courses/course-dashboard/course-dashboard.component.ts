@@ -11,6 +11,7 @@ import { DatesService } from '../../services/dates.service';
 import { AttendancesService } from '../../services/attendances.service';
 import { UserService } from '../../services/user.service';
 import { UserDetails } from 'src/app/models/user.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-course-dashboard',
@@ -19,9 +20,9 @@ import { UserDetails } from 'src/app/models/user.model';
 })
 export class CourseDashboardComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['image', 'name', 'teacher', 'aforo',
-    'lastLesson', 'lastLessonStatus', 'lastLessonActions',
-    'nextLesson', 'nextLessonStatus', 'nextLessonActions' ];
+  columnsToDisplay = ['image', 'name', 'schedule', 'teacher', 'aforo',
+    'lastLesson', 'lastLessonActions',
+    'nextLesson', 'nextLessonActions' ];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -68,58 +69,106 @@ export class CourseDashboardComponent implements OnInit, AfterViewInit {
     this.router.navigate([`/${Course.PATH_URL}/${course.id}/${Lesson.PATH_URL}/0/editar`]);
   }
 
+
+  // Add a new lesson for this course this week (if doesn't exist)
+  addWeekLesson(course: Course) {
+    console.log(`adding auto last lesson`);
+
+    // Last Lesson
+    this.lessonSvc.getWeekLessons(course, 1)
+     .subscribe( (lessons: Lesson[]) => {
+
+      console.log(`Lecciones encontradas: ${lessons.length}`);
+      if ( lessons.length === 0 ) {
+        this.courseSvc.getCourse(course.id)
+            .subscribe((theCourse: Course) => {
+              this.lessonSvc.getLesson(theCourse, '0', false)
+                .subscribe((dataLesson: any) => {
+                  this.lessonSvc.createLesson(theCourse, dataLesson)
+                    .subscribe((newLesson: Lesson) => {
+                      this.attendanceSvc.createAttendancesFromStudentList(theCourse, newLesson);
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Clase creada con éxito',
+                        text: `Se ha creado una clase para el curso ${course.name}`,
+                      });
+                    });
+                });
+
+            });
+          }
+      });
+    }
+
+
+
+  // Add a new lesson for this course next week (if doesn't exist)
   addAutoNextLesson(course: Course) {
     console.log(`adding auto next lesson`);
 
-    const courseId = course.id;
-    this.courseSvc.getCourse(courseId)
-      .subscribe((theCourse: Course) => {
-        this.lessonSvc.getLesson(theCourse, '0')
-          .subscribe((dataLesson: any) => {
-            console.log(`ini lesson from course ${JSON.stringify(dataLesson)}`);
-            this.lessonSvc.createLesson(theCourse, dataLesson)
-              .subscribe((newLesson: Lesson) => {
-                console.log(`new lesson ${JSON.stringify(newLesson)}`);
-                this.attendanceSvc.createAttendancesFromStudentList(theCourse, newLesson);
-              });
-          });
+    // Last Lesson
+    this.lessonSvc.getNextLessons(course, 1)
+     .subscribe( (lessons: Lesson[]) => {
+      if ( lessons.length === 0 ) {
+
+          this.courseSvc.getCourse(course.id)
+            .subscribe((theCourse: Course) => {
+              this.lessonSvc.getLesson(theCourse, '0', true)
+                .subscribe((dataLesson: any) => {
+                  this.lessonSvc.createLesson(theCourse, dataLesson)
+                    .subscribe((newLesson: Lesson) => {
+                      console.log(`new lesson ${newLesson.id}: ${newLesson.date}`);
+                      this.attendanceSvc.createAttendancesFromStudentList(theCourse, newLesson);
+
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Clase creada con éxito',
+                        text: `Se ha creado una clase para el curso ${course.name}`,
+                      });
+                    });
+                });
+
+            });
+          }
       });
+    }
+
+
+
+  addMultipleWeekLessons() {
+    console.log(`adding week lessons`);
   }
 
-  addAutoNextLessons() {
+  addMultipleNextLessons() {
     console.log(`adding next lessons`);
   }
 
   private completeCoursesInfo() {
     this.courses.forEach(course => {
 
-      // Last Lesson
-      this.lessonSvc.getLastLessons(course, 1)
+      // This week lessons
+      this.lessonSvc.getWeekLessons(course, 1)
           .subscribe( (lessons: Lesson[]) => {
             if ( lessons.length > 0 ) {
               const lesson = lessons[0];
               course.lastLesson = this.dateSvc.fromFirebaseDate(lesson.date);
-              course.lastLessonStatus = lesson.status;
               course.lastLessonId = lesson.id;
             } else {
               course.lastLesson = null;
-              course.lastLessonStatus = null;
               course.lastLessonId = null;
             }
       });
 
 
-      // Next Lesson
+      // Next week lessons
       this.lessonSvc.getNextLessons(course, 1)
           .subscribe( (lessons: Lesson[]) => {
             if ( lessons.length > 0 ) {
               const lesson = lessons[0];
               course.nextLesson = this.dateSvc.fromFirebaseDate(lesson.date);
-              course.nextLessonStatus = lesson.status;
               course.nextLessonId = lesson.id;
             } else {
               course.nextLesson = null;
-              course.nextLessonStatus = null;
               course.nextLessonId = null;
             }
       });
