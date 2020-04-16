@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControl
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Icon } from '../../models/image.model';
-import { Lesson, Status } from '../../models/lesson.model';
+import { Lesson } from '../../models/lesson.model';
 import { CoursesService } from '../../services/courses.service';
 import { LessonsService } from '../../services/lessons.service';
 import { Course } from '../../models/course.model';
@@ -30,7 +30,6 @@ export class LessonEditComponent implements OnInit, OnDestroy {
   course: Course;
   lesson: Lesson;
 
-  STATUS_ARRAY: Status[] = Lesson.getAllStatus();
   ICONS: Icon[] = Icon.getIcons();
   TEACHERS: UserDetails[];
 
@@ -61,7 +60,6 @@ export class LessonEditComponent implements OnInit, OnDestroy {
 
         this.lessonForm = this.fb.group({
           courseId: [course.id, Validators.required],
-          status: ['', Validators.required],
           teacherId: [course.teacherId, Validators.required],
           material: '',
           date: ['', Validators.required], // TODO Calcular!
@@ -122,7 +120,6 @@ export class LessonEditComponent implements OnInit, OnDestroy {
     // Update the data on the form
     this.lessonForm.patchValue({
       courseId: this.lesson.courseId,
-      status: this.lesson.status,
       teacherId: this.lesson.teacherId,
       material: this.lesson.material,
       date: lessonDate,

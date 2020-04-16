@@ -22,8 +22,8 @@ import { Observable } from 'rxjs';
 export class CourseDashboardComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = ['image', 'name', 'schedule', 'teacher', 'aforo',
-    'lastLesson', 'lastLessonActions',
-    'nextLesson', 'nextLessonActions' ];
+    'weekLessonActions', 'weekLesson',
+    'nextLessonActions', 'nextLesson', ];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -61,7 +61,11 @@ export class CourseDashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  viewLesson(course: Course, lessonId: string) {
+  gotoCourse(course: Course) {
+    this.router.navigate([`${Course.PATH_URL}/${course.id}`]);
+  }
+
+  gotoLesson(course: Course, lessonId: string) {
     this.router.navigate([`/${Course.PATH_URL}/${course.id}/${Lesson.PATH_URL}/${lessonId}`]);
   }
 
@@ -120,7 +124,7 @@ export class CourseDashboardComponent implements OnInit, AfterViewInit {
 
   addMultipleLessons(nextWeek: boolean) {
     this.courses.forEach(course => {
-      const isLesson = ( nextWeek ) ? course.nextLesson : course.lastLesson;
+      const isLesson = ( nextWeek ) ? course.nextLesson : course.weekLesson;
       if ( !isLesson ) {
         this.addSimpleLesson(course, true, nextWeek);
       }
@@ -145,11 +149,11 @@ export class CourseDashboardComponent implements OnInit, AfterViewInit {
           .subscribe( (lessons: Lesson[]) => {
             if ( lessons.length > 0 ) {
               const lesson = lessons[0];
-              course.lastLesson = this.dateSvc.fromFirebaseDate(lesson.date);
-              course.lastLessonId = lesson.id;
+              course.weekLesson = this.dateSvc.fromFirebaseDate(lesson.date);
+              course.weekLessonId = lesson.id;
             } else {
-              course.lastLesson = null;
-              course.lastLessonId = null;
+              course.weekLesson = null;
+              course.weekLessonId = null;
             }
       });
 

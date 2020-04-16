@@ -18,20 +18,10 @@
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
             <td mat-cell *matCellDef="let element" [ngClass]="{
-              'is-anulada': element.status === 'anulada',
-              'is-programada': element.status === 'programada',
-              'is-realizada': element.status === 'realizada'
-            }"> {{element.status}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="actionsStatus">
-            <th mat-header-cell *matHeaderCellDef>Cambio Estado</th>
-            <td mat-cell *matCellDef="let element">
-                &nbsp;
-                <button mat-mini-fab color="accent" [ngClass]="(element.status === 'programada')?'action-is-disabled':'action-is-programada'" (click)="changeStatus(element, 'programada')"><mat-icon>arrow_forward</mat-icon></button> &nbsp;
-                <button mat-mini-fab color="accent" [ngClass]="(element.status === 'realizada')?'action-is-disabled':'action-is-realizada'" (click)="changeStatus(element, 'realizada')"><mat-icon>check</mat-icon></button> &nbsp;
-                <button mat-mini-fab color="accent" [ngClass]="(element.status === 'anulada')?'action-is-disabled':'action-is-anulada'" (click)="changeStatus(element, 'anulada')"><mat-icon>close</mat-icon></button>
-            </td>
+            'is-anulada': element.status === 'anulada',
+            'is-programada': element.status === 'programada',
+            'is-realizada': element.status === 'realizada'
+          }"> {{element.status}} </td>
         </ng-container>
 
         <!-- schedule Column -->
@@ -46,7 +36,7 @@
                 &nbsp;
                 <button mat-mini-fab color="warn" (click)="viewLesson(element)"><mat-icon>pageview</mat-icon></button> &nbsp;
                 <button mat-mini-fab color="warn" (click)="editLesson(element)"><mat-icon>edit</mat-icon></button> &nbsp;
-                <button mat-mini-fab color="warn" (click)="changeStatus(element, 'eliminada')"><mat-icon>delete</mat-icon></button>
+                <button mat-mini-fab color="warn" (click)="deleteLessons(element)"><mat-icon>delete</mat-icon></button>
             </td>
         </ng-container>
 

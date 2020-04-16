@@ -28,15 +28,14 @@ table {
 }
 
 .mat-column-nextLesson,
-.mat-column-lastLesson,
-.mat-column-nextLessonActions,
-.mat-column-lastLessonActions {
-    text-align: center;
+.mat-column-weekLesson {
+    text-align: left;
 }
 
 .mat-column-nextLessonActions,
-.mat-column-lastLessonActions {
+.mat-column-weekLessonActions {
+    text-align: center;
     width: 100px;
-    border-right: 1px solid rgba(0, 0, 0, .12);
+    border-left: 1px solid rgba(0, 0, 0, .12);
     padding-right: 0px !important;
 }

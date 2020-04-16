@@ -49,7 +49,7 @@ export class ShAddStudentDialogComponent implements OnInit {
     return this.STUDENTS.filter(student => student.displayName.toLowerCase().includes(filterValue));
   }
 
-  onSelectionChange(event){
+  onSelectionChange(event) {
     const displayNameSelected = event.option.value;
     const arrayFiltered = this.STUDENTS.filter( x => x.displayName === displayNameSelected);
     this.selectedStudent = arrayFiltered[0];

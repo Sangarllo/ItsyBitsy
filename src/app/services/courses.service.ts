@@ -84,7 +84,7 @@ export class CoursesService {
       teacherId: '',
       classRoom: classRoomDefault,
       studentList: [],
-      lastLesson: null,
+      weekLesson: null,
       nextLesson: null
     };
   }

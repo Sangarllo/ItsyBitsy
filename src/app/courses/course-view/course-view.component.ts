@@ -3,7 +3,7 @@ import { Course } from '../../models/course.model';
 import { UserService } from '../../services/user.service';
 import { UserDetails } from '../../models/user.model';
 import { LessonsService } from '../../services/lessons.service';
-import { Lesson, Status } from '../../models/lesson.model';
+import { Lesson } from '../../models/lesson.model';
 import { Router } from '@angular/router';
 import { DatesService } from '../../services/dates.service';
 import Swal from 'sweetalert2';
@@ -18,7 +18,7 @@ export class CourseViewComponent implements OnInit {
   @Input() course: Course;
   teacher: UserDetails;
   nextLessons: Lesson[] = [];
-  lastLessons: Lesson[] = [];
+  weekLessons: Lesson[] = [];
 
   constructor(
     private userService: UserService,
@@ -44,7 +44,7 @@ export class CourseViewComponent implements OnInit {
           lesson.date = this.dateSvc.fromFirebaseDate(lesson.date);
         });
 
-        this.lastLessons = lessons;
+        this.weekLessons = lessons;
     });
 
     // Next week lessons
@@ -82,7 +82,6 @@ export class CourseViewComponent implements OnInit {
       if (result.value) {
 
         lesson.current = false;
-        lesson.status = Status.Eliminada;
 
         this.lessonsSvc.updateLesson(this.course, lesson)
           .subscribe( () => {

@@ -39,10 +39,8 @@ export interface ICourse {
   teacherId: string;
   classRoom: ClassRoom;
   studentList: UserDetails[];
-  lastLessonStatus?: string;
-  lastLesson?: Date;
-  lastLessonId?: string;
-  nextLessonStatus?: string;
+  weekLesson?: Date;
+  weekLessonId?: string;
   nextLesson?: Date;
   nextLessonId?: string;
   teacherName?: string;
@@ -64,10 +62,8 @@ export class Course implements ICourse {
     public teacherId: string,
     public classRoom: ClassRoom,
     public studentList: UserDetails[],
-    public lastLessonStatus?: string,
-    public lastLesson?: Date,
-    public lastLessonId?: string,
-    public nextLessonStatus?: string,
+    public weekLesson?: Date,
+    public weekLessonId?: string,
     public nextLesson?: Date,
     public nextLessonId?: string,
     public teacherName?: string,

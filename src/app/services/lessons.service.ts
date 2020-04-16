@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule, A
 import { Observable, of } from 'rxjs';
 import { ICON_REGISTRY_PROVIDER } from '@angular/material/icon';
 import { Icon } from '../models/image.model';
-import { Lesson, Status } from '../models/lesson.model';
+import { Lesson } from '../models/lesson.model';
 import { UserDetails } from '../models/user.model';
 import { Teacher } from '../models/teacher.model';
 import { Course } from '../models/course.model';
@@ -189,7 +189,6 @@ export class LessonsService {
       id: '0',
       current: true,
       courseId: course.id,
-      status: Status.Programada,
       date: newDate,
       teacherId: course.teacherId,
       classRoom: course.classRoom,

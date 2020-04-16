@@ -55,7 +55,7 @@ export class CoursesTableComponent implements OnInit, AfterViewInit {
     this.router.navigate([`${Course.PATH_URL}/0/editar`]);
   }
 
-  viewCourse(course) {
+  gotoCourse(course) {
     this.router.navigate([`${Course.PATH_URL}/${course.id}`]);
   }
 

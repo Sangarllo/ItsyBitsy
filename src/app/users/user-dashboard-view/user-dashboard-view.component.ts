@@ -72,6 +72,11 @@ export class UserDashboardView implements OnInit {
     this.router.navigate([`/usuarios/all/asistencias/informe`]);
   }
 
+  // 1G. Ver el tablero de configuración de cursos
+  gotoCoursesDashboard() {
+    this.router.navigate([`/cursos/dashboard`]);
+  }
+
 
   // 2. TEACHER
 
