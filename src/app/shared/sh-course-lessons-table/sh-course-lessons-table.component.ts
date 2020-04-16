@@ -8,6 +8,10 @@ import { Lesson } from '../../models/lesson.model';
 import { LessonsService } from '../../services/lessons.service';
 import { DatesService } from '../../services/dates.service';
 import Swal from 'sweetalert2';
+import { map, tap } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { Attendance } from '../../models/attendance.model';
+import { AttendancesService } from '../../services/attendances.service';
 
 @Component({
   selector: 'sh-course-lessons-table',
@@ -16,22 +20,48 @@ import Swal from 'sweetalert2';
 })
 export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['schedule', 'actions'];
+  columnsToDisplay = ['schedule', 'attendances', 'actions'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @Input() course: Course;
   lessons: Lesson[] = [];
 
+  lessons$: Observable<Lesson[]>;
+  attendances$: Observable<Attendance[]>;
+
   constructor(
     private lessonsSvc: LessonsService,
+    private attendancesSvc: AttendancesService,
     private dateSvc: DatesService,
     private router: Router
   ) { }
 
   ngOnInit() {
 
-        this.lessonsSvc.getLessonsByCourseId(this.course).subscribe(
+
+    this.attendances$ = this.attendancesSvc.getAllAttendancesByCourse(this.course);
+    this.lessons$ = this.lessonsSvc.getLessonsByCourseId(this.course);
+
+    combineLatest([
+      this.lessons$,
+      this.attendances$
+    ])
+      .pipe(map(([lessons, attendances]) => lessons.map(lesson => ({
+        ...lesson,
+        date: this.dateSvc.fromFirebaseDate(lesson.date),
+        attendances: attendances.filter(a => a.lessonId === lesson.id)
+      }) as Lesson)), tap(data => console.log('Lessons:  ', JSON.stringify(data))))
+      .subscribe((lessons: Lesson[]) => {
+        this.lessons = lessons;
+        this.dataSource.data = this.lessons;
+      });
+
+/*
+        this.lessonsSvc.getLessonsByCourseId(this.course)
+        .pipe(
+        )
+        .subscribe(
           (lessons: Lesson[]) => {
 
             lessons.forEach(lesson => {
@@ -41,6 +71,7 @@ export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
             this.lessons = lessons;
             this.dataSource.data = this.lessons;
           });
+          */
   }
 
   ngAfterViewInit(): void {

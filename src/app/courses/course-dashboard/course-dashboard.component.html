@@ -64,7 +64,7 @@
             <button mat-mini-fab color="primary" (click)="addMultipleNextLessons()"><mat-icon>add_box</mat-icon></button>
         </th>
         <td mat-cell *matCellDef="let course">
-            <button mat-mini-fab color="warn" *ngIf="course.nextLesson" (click)="viewLesson(course, course.nextLessonId )"><mat-icon>pageview</mat-icon></button>
+            <button mat-mini-fab color="warn" *ngIf="course.nextLesson" (click)="gotoLesson(course, course.nextLessonId )"><mat-icon>pageview</mat-icon></button>
             <button mat-mini-fab color="accent" *ngIf="!course.nextLesson" (click)="addNextLesson(course)"><mat-icon>add_box</mat-icon></button>
         </td>
     </ng-container>

@@ -1,0 +1,7 @@
+<div style="width:100%">
+    <div *ngFor="let attendance of attendances">
+
+        <img [src]="attendance.studentImage" [alt]="attendance.studentName" class="img-thumbnail img-box" [ngClass]="attendance.status" />
+
+    </div>
+</div>

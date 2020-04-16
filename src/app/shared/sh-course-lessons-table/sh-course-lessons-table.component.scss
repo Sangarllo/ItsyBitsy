@@ -9,6 +9,10 @@ table {
     font-size: 14px;
 }
 
+.mat-column-attendances {
+    width: 500px;
+}
+
 .mat-column-actions,
 .mat-column-actionsStatus {
     width: 180px;
@@ -16,4 +20,5 @@ table {
 
 .mat-column-schedule {
     padding-left: 20px;
+    width: 200px;
 }

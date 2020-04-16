@@ -1,4 +1,5 @@
 import { ClassRoom } from './classroom';
+import { Attendance } from './attendance.model';
 
 // TODO: Type (speaking, examen, repaso, especial...)
 
@@ -16,6 +17,7 @@ export interface ILesson {
   attendancesNames: string[];
   courseName?: string;
   courseImage?: string;
+  attendances?: Attendance[];
 }
 
 export class Lesson implements ILesson {
@@ -47,6 +49,7 @@ export class Lesson implements ILesson {
     public attendancesNames: string[],
     public courseName?: string,
     public courseImage?: string,
+    public attendances?: Attendance[]
      ) {
   }
 }
