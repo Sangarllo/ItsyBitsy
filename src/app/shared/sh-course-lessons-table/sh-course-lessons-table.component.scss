@@ -9,16 +9,15 @@ table {
     font-size: 14px;
 }
 
-.mat-column-attendances {
-    width: 500px;
-}
-
-.mat-column-actions,
-.mat-column-actionsStatus {
-    width: 180px;
+.mat-column-actions {
+    width: 40px;
 }
 
 .mat-column-schedule {
     padding-left: 20px;
     width: 200px;
+}
+
+.mat-column-attendances {
+    width: 500px;
 }

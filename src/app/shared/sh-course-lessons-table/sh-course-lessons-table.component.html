@@ -14,6 +14,16 @@
 
     <table mat-table [dataSource]="dataSource" matSort>
 
+        <!-- Actions column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let lesson">
+                &nbsp;
+                <button mat-mini-fab color="warn" (click)="gotoLesson(lesson)"><mat-icon>pageview</mat-icon></button>
+            </td>
+        </ng-container>
+
+
         <!-- schedule Column -->
         <ng-container matColumnDef="schedule">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Horario </th>
@@ -26,19 +36,6 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Asistencias </th>
             <td mat-cell *matCellDef="let lesson">
                 <app-sh-attendances-items [attendances]="lesson.attendances"></app-sh-attendances-items>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Acciones</th>
-            <td mat-cell *matCellDef="let lesson">
-                &nbsp;
-                <button mat-mini-fab color="warn" (click)="viewLesson(lesson)"><mat-icon>pageview</mat-icon></button>
-                <!--
-                &nbsp;
-                <button mat-mini-fab color="warn" (click)="editLesson(lesson)"><mat-icon>edit</mat-icon></button> &nbsp;
-                <button mat-mini-fab color="warn" (click)="deleteLessons(lesson)"><mat-icon>delete</mat-icon></button>
-                -->
             </td>
         </ng-container>
 

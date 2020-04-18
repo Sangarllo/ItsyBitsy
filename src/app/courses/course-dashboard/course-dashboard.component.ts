@@ -175,6 +175,7 @@ export class CourseDashboardComponent implements OnInit, AfterViewInit {
       this.userSvc.getUserDetails(course.teacherId)
         .subscribe( ( teacher: UserDetails) => {
           course.teacherName = teacher.displayName;
+          course.teacherImage = teacher.photoURL;
       });
     });
   }

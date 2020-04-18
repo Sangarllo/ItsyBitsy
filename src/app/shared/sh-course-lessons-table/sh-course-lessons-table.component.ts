@@ -20,7 +20,7 @@ import { AttendancesService } from '../../services/attendances.service';
 })
 export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['schedule', 'attendances', 'actions'];
+  columnsToDisplay = [ 'actions', 'schedule', 'attendances'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -91,7 +91,7 @@ export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
     this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Lesson.PATH_URL}/0/editar`]);
   }
 
-  viewLesson(lesson: Lesson) {
+  gotoLesson(lesson: Lesson) {
     this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Lesson.PATH_URL}/${lesson.id}`]);
   }
 

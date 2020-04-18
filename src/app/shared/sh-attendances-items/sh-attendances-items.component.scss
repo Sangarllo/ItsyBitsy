@@ -18,9 +18,9 @@ img {
 }
 
 .prevista {
-    color: #383d41;
     background-color: #e2e3e5;
-    border: 1px solid #383d41;
+    border: 1px solid transparent;
+    /* #383d41; */
     filter: grayscale(100%) brightness(200%)
 }
 

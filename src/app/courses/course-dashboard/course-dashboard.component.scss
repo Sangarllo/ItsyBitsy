@@ -15,13 +15,15 @@ table {
 
 .mat-column-scheduler,
 .mat-column-aforo {
-    padding-left: 30px;
+    padding-left: 10px;
     border-right: 1px solid rgba(0, 0, 0, .12);
 }
 
+.mat-column-teacher,
 .mat-column-image {
     border: 3px solid white;
-    width: 80px;
+    width: 60px;
+    text-align: center;
     .img-thumbnail {
         width: 48px;
     }
@@ -38,4 +40,8 @@ table {
     width: 100px;
     border-left: 1px solid rgba(0, 0, 0, .12);
     padding-right: 0px !important;
+}
+
+.mat-column-aforo {
+    width: 600px;
 }
