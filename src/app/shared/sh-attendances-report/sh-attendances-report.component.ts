@@ -104,7 +104,7 @@ export class ShAttendancesReportComponent implements OnInit, AfterViewInit, OnCh
 
     this.attendances$ = ( this.userDetails ) ?
       this.attendancesSvc.getAllAttendancesByUser( this.userDetails, dateIni, dateEnd) :
-      this.attendancesSvc.getAllAttendancesByMonth( dateIni, dateEnd);
+      this.attendancesSvc.getAllAttendancesByDates( dateIni, dateEnd);
 
     combineLatest([
       this.attendances$,

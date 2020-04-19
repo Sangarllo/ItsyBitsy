@@ -12,6 +12,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from '../../services/user.service';
+import { Attendance } from '../../models/attendance.model';
+import { AttendancesService } from '../../services/attendances.service';
 
 @Component({
   selector: 'app-sh-lessons',
@@ -30,12 +32,12 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   teachers$: Observable<UserDetails[]>;
   courses$: Observable<Course[]>;
   lessons$: Observable<Lesson[]>;
+  attendances$: Observable<Attendance[]>;
   lessons: Lesson[] = [];
   courses: Course[] = [];
 
-  columnsToDisplay = [ 'teacherImage', 'teacherName',
-    'courseImage', 'courseName',
-    'date', 'horario', 'classRoom'];
+  columnsToDisplay = [ 'teacherImage',
+    'courseImage', 'courseName', 'schedule', 'classRoom', 'attendances', ];
 
   dataSource = new MatTableDataSource(this.lessons);
 
@@ -43,6 +45,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
     private dateSvc: DatesService,
     private userSvc: UserService,
     private lessonsSvc: LessonsService,
+    private attendancesSvc: AttendancesService,
     private coursesSvc: CoursesService,
     private router: Router
   ) {
@@ -71,11 +74,9 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
 
   private displayLessons() {
 
-    console.log(`displayLessons`);
-    console.log(`${this.userDetails}`);
-
     this.courses$ = this.coursesSvc.getAllCourses();
     this.teachers$ = this.userSvc.getAllTeachers();
+    this.attendances$ = this.attendancesSvc.getAllAttendancesByDates(this.dateIni, this.dateEnd);
     this.lessons$ = ( this.userDetails ) ?
       this.lessonsSvc.getLessonsByTeacherByDate(this.userDetails, this.dateIni, this.dateEnd) :
       this.lessonsSvc.getAllLessonsByDate( this.dateIni, this.dateEnd );
@@ -83,16 +84,20 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
     combineLatest([
       this.lessons$,
       this.courses$,
-      this.teachers$
+      this.teachers$,
+      this.attendances$
     ])
-      .pipe(map(([lessons, courses, teachers]) => lessons.map(lesson => ({
+      .pipe(map(([lessons, courses, teachers, attendances]) => lessons.map(lesson => ({
         ...lesson,
         date: this.dateSvc.fromFirebaseDate(lesson.date),
+        attendances: attendances.filter(a => a.lessonId === lesson.id),
         teacherName: teachers.find(c => lesson.teacherId === c.uid)?.displayName,
         teacherImage: teachers.find(c => lesson.teacherId === c.uid)?.photoURL,
         courseName: courses.find(c => lesson.courseId === c.id).name,
         courseImage: courses.find(c => lesson.courseId === c.id).image,
-      }) as Lesson)), tap(data => console.log('Lessons:  ', JSON.stringify(data))))
+      }) as Lesson)),
+        // tap(data => console.log('Lessons:  ', JSON.stringify(data)))
+      )
       .subscribe((lessons: Lesson[]) => {
         this.lessons = lessons;
         this.dataSource.data = this.lessons;

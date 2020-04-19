@@ -8,12 +8,6 @@
         </td>
     </ng-container>
 
-    <!-- teacherName Column -->
-    <ng-container matColumnDef="teacherName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Profesor</th>
-        <td mat-cell *matCellDef="let element"> {{element.teacherName }} </td>
-    </ng-container>
-
     <!-- courseImage Column -->
     <ng-container matColumnDef="courseImage">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
@@ -28,24 +22,24 @@
         <td mat-cell *matCellDef="let element"> {{element.courseName }} </td>
     </ng-container>
 
-    <!-- date Column -->
-    <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha</th>
-        <td mat-cell *matCellDef="let element"> {{element.date | date:'fullDate' }} </td>
+    <!-- schedule Column -->
+    <ng-container matColumnDef="schedule">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Horario </th>
+        <td mat-cell *matCellDef="let lesson"> {{lesson.date | date:'longDate' }}, de {{lesson.startTime}} a {{lesson.endTime}} </td>
     </ng-container>
-
-    <!-- horario Column -->
-    <ng-container matColumnDef="horario">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Horario</th>
-        <td mat-cell *matCellDef="let element"> De {{element.startTime }} a {{element.endTime }}</td>
-    </ng-container>
-
-    <!-- Attendances Column -->
 
     <!-- classRoom Column -->
     <ng-container matColumnDef="classRoom">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Aula</th>
         <td mat-cell *matCellDef="let element"> {{element.classRoom }} </td>
+    </ng-container>
+
+    <!-- Attendances Column -->
+    <ng-container matColumnDef="attendances">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Asistencias </th>
+        <td mat-cell *matCellDef="let lesson">
+            <app-sh-attendances-items [attendances]="lesson.attendances"></app-sh-attendances-items>
+        </td>
     </ng-container>
 
     <!-- Actions -->

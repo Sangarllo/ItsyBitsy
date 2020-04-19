@@ -6,9 +6,11 @@
         <button mat-raised-button color="accent" (click)="gotoDashboard()">Ir al Panel</button>
     </mat-toolbar>
 
-    <app-sh-user-data *ngIf="userDetails" [userDetails]="userDetails"></app-sh-user-data>
+    <div class="row">
+        <app-sh-user-data class="col-6" *ngIf="userDetails" [userDetails]="userDetails"></app-sh-user-data>
 
-    <app-sh-calendar-interval [dateIni]="dateIni" [dateEnd]="dateEnd" (updateInterval)="onUpdateInterval($event)"></app-sh-calendar-interval>
+        <app-sh-calendar-interval class="col-6" [dateIni]="dateIni" [dateEnd]="dateEnd" (updateInterval)="onUpdateInterval($event)"></app-sh-calendar-interval>
+    </div>
 
     <app-sh-lessons [userDetails]="userDetails" [dateIni]="dateIni" [dateEnd]="dateEnd"></app-sh-lessons>
 

@@ -82,7 +82,7 @@ export class AttendancesService {
     );
   }
 
-  getAllAttendancesByMonth(dateIni: Date, dateEnd: Date): Observable<Attendance[]> {
+  getAllAttendancesByDates(dateIni: Date, dateEnd: Date): Observable<Attendance[]> {
     this.attendanceCollection = this.afs.collection(
       ATTENDANCE_COLLECTION,
       ref => ref.where('lessonDate', '>=', dateIni)

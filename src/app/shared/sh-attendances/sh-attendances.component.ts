@@ -100,15 +100,11 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
         new Date(this.date.getFullYear() + 1, 1, 1 ) :
         new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1 );
 
-    console.log(`displayAttendances dateIni: ${dateIni}`);
-    console.log(`displayAttendances dateEnd: ${dateEnd}`);
-    console.log(`displayAttendances userdet: ${this.userDetails}`);
-
     this.courses$ = this.coursesSvc.getAllCourses();
     this.students$ = this.userSvc.getAllStudents();
     this.attendances$ = ( this.userDetails ) ?
       this.attendancesSvc.getAllAttendancesByUser( this.userDetails, dateIni, dateEnd) :
-      this.attendancesSvc.getAllAttendancesByMonth( dateIni, dateEnd);
+      this.attendancesSvc.getAllAttendancesByDates( dateIni, dateEnd);
 
     combineLatest([
       this.attendances$,
