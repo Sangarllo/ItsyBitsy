@@ -83,6 +83,36 @@ Every toolbar row uses a flexbox row layout. */
     background-color: #fff3cd !important;
 }
 
+
+/* ESTILOS ASOCIADOS A LAS ASISTENCIAS - INI */
+
+.img-box {
+    float: left;
+    margin: 2px;
+}
+
+.presente {
+    color: #155724;
+    background-color: #c3e6cb;
+    border: 1px solid #155724;
+}
+
+.ausente {
+    border: 1px solid #721c24;
+    color: #721c24;
+    background-color: #f8d7da;
+    filter: blur(2px);
+}
+
+.prevista {
+    background-color: #e2e3e5;
+    border: 1px solid transparent;
+    filter: grayscale(100%) brightness(200%)
+}
+
+
+/* ESTILOS ASOCIADOS A LAS ASISTENCIAS - FIN */
+
 .is-ausente {
     color: #721c24 !important;
     background-color: #f8d7da !important;

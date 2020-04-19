@@ -15,8 +15,8 @@
     <!-- studentImage Column -->
     <ng-container matColumnDef="studentImage">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-        <td mat-cell *matCellDef="let element">
-            <img (click)="viewStudent(element)" [src]="element.studentImage" class="img-thumbnail" alt="element.studentImage">
+        <td mat-cell *matCellDef="let attendance">
+            <img (click)="gotoStudent(attendance)" [src]="attendance.studentImage" class="img-thumbnail rounded-circle" alt="attendance.studentName" [ngClass]="attendance.status">
         </td>
     </ng-container>
 

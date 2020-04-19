@@ -6,9 +6,13 @@
         <button mat-raised-button color="accent" (click)="gotoDashboard()">Ir al Panel</button>
     </mat-toolbar>
 
-    <app-sh-user-data *ngIf="userDetails" [userDetails]="userDetails"></app-sh-user-data>
+    <div class="row">
 
-    <app-sh-calendar-interval-month [date]="date" (updateMonth)="onUpdateMonth($event)"></app-sh-calendar-interval-month>
+        <app-sh-user-data class="col-6" *ngIf="userDetails" [userDetails]="userDetails"></app-sh-user-data>
+
+        <app-sh-calendar-interval-month class="col-6" [date]="date" (updateMonth)="onUpdateMonth($event)"></app-sh-calendar-interval-month>
+
+    </div>
 
     <app-sh-attendances [userDetails]="userDetails" [date]="date"></app-sh-attendances>
 

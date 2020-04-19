@@ -48,8 +48,8 @@
     <!-- studentImage -->
     <ng-container matColumnDef="studentImage">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-        <td mat-cell *matCellDef="let element">
-            <img [src]="element.studentImage" class="img-thumbnail rounded-circle" alt="element.displayName">
+        <td mat-cell *matCellDef="let attendance">
+            <img [src]="attendance.studentImage" class="img-thumbnail rounded-circle" alt="attendance.studentName" [ngClass]="attendance.status">
         </td>
     </ng-container>
 

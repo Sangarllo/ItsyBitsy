@@ -25,6 +25,8 @@ export class UserLessonsView implements OnInit {
     private dateSvc: DatesService,
     private userService: UserService) {
 
+    this.pageTitle = 'Clases semanales de los profesores';
+
     // Fechas que limitan la semana
     this.dateIni = this.dateSvc.getWeekMonday();
     this.dateEnd = this.dateSvc.getWeekFriday();

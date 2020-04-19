@@ -63,7 +63,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
     this.displayAttendances();
   }
 
-  viewStudent(attendance: Attendance) {
+  gotoStudent(attendance: Attendance) {
     this.router.navigate([`/${UserDetails.PATH_URL}/${attendance.studentId}`]);
   }
 

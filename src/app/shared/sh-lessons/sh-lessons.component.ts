@@ -33,8 +33,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   lessons: Lesson[] = [];
   courses: Course[] = [];
 
-  columnsToDisplay = [ 'status',
-    'teacherImage', 'teacherName',
+  columnsToDisplay = [ 'teacherImage', 'teacherName',
     'courseImage', 'courseName',
     'date', 'horario', 'classRoom'];
 
@@ -62,8 +61,8 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
     this.displayLessons();
   }
 
-  viewTeacher(teacher: UserDetails) {
-    this.router.navigate([`/${UserDetails.PATH_URL}/${teacher.uid}`]);
+  gotoTeacher(teacherId: string) {
+    this.router.navigate([`/${UserDetails.PATH_URL}/${teacherId}`]);
   }
 
   viewLesson(lesson: Lesson) {

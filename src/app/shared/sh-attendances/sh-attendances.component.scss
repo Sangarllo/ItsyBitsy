@@ -24,12 +24,20 @@ Every toolbar row uses a flexbox row layout. */
     width: 120px;
 }
 
-.mat-column-studentImage,
 .mat-column-courseImage {
     padding-left: 10px;
     border: 3px solid white;
     width: 80px;
     .img-thumbnail {
         width: 48px;
+    }
+}
+
+.mat-column-studentImage {
+    border: 2px solid white;
+    width: 80px;
+    .img-thumbnail {
+        width: 64px;
+        height: 64px;
     }
 }
