@@ -1,0 +1,50 @@
+<table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- studentImage Column -->
+    <ng-container matColumnDef="studentImage">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+        <td mat-cell *matCellDef="let student">
+            <img (click)="gotoStudent(student)" [src]="student.photoURL" class="img-thumbnail" alt="student.photoURL">
+        </td>
+    </ng-container>
+
+    <!-- studentName Column -->
+    <ng-container matColumnDef="studentName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estudiante</th>
+        <td mat-cell *matCellDef="let student"> {{student.displayName }} </td>
+    </ng-container>
+
+    <!-- studentName Column -->
+    <ng-container matColumnDef="rate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tarifa </th>
+        <td mat-cell *matCellDef="let student"> {{student.rate.name }} </td>
+    </ng-container>
+
+    <!-- numAsistencias Column -->
+    <ng-container matColumnDef="numAsistencias">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Asistencias</th>
+        <td mat-cell *matCellDef="let element"> {{element.numAttendances}} presencias </td>
+    </ng-container>
+
+    <!-- paymentAmmout Column -->
+    <ng-container matColumnDef="paymentAmmout">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> A pagar</th>
+        <td mat-cell *matCellDef="let element"> {{element.paymentAmmout}}€ </td>
+    </ng-container>
+
+    <!-- paymentMethod Column -->
+    <ng-container matColumnDef="paymentMethod">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Método de pago</th>
+        <td mat-cell *matCellDef="let element"> {{element.paymentMethod}}</td>
+    </ng-container>
+
+
+    <!-- Actions -->
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">
+    </tr>
+
+</table>
+
+<mat-paginator [pageSize]="300" [pageSizeOptions]="[10, 25, 100, 300]"></mat-paginator>

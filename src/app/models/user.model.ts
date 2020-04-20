@@ -40,6 +40,9 @@ export interface IUserDetails extends User {
   paymentMethod?: PaymentMethod;
   address?: string;
 
+  // Necesario para el AttendancesSummary
+  numAttendances?: number;
+  paymentAmmout?: number;
 
   coursesEnrolled?: string;
 }

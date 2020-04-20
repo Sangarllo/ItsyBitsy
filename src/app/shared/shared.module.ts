@@ -18,7 +18,7 @@ import { ShCalendarIntervalComponent } from './sh-calendar-interval/sh-calendar-
 import { ShUserDataComponent } from './sh-user-data/sh-user-data.component';
 import { ShCalendarIntervalMonthComponent } from './sh-calendar-interval-month/sh-calendar-interval-month.component';
 import { ShAttendancesComponent } from './sh-attendances/sh-attendances.component';
-import { ShAttendancesReportComponent } from './sh-attendances-report/sh-attendances-report.component';
+import { ShAttendancesSummaryComponent } from './sh-attendances-summary/sh-attendances-summary.component';
 import { ShAttendancesItemsComponent } from './sh-attendances-items/sh-attendances-items.component';
 import { ShStudentsItemsComponent } from './sh-students-items/sh-students-items.component';
 
@@ -33,7 +33,7 @@ import { ShStudentsItemsComponent } from './sh-students-items/sh-students-items.
     ShLessonAttendanceTableComponent,
     ShLessonsComponent,
     ShAttendancesComponent,
-    ShAttendancesReportComponent,
+    ShAttendancesSummaryComponent,
     ShUserAttendanceTableComponent,
     ShTeacherLessonsTableComponent,
     ShMonthAttendanceTableComponent,
@@ -63,7 +63,7 @@ import { ShStudentsItemsComponent } from './sh-students-items/sh-students-items.
     ShLessonAttendanceTableComponent,
     ShLessonsComponent,
     ShAttendancesComponent,
-    ShAttendancesReportComponent,
+    ShAttendancesSummaryComponent,
     ShUserDataComponent,
     ShCalendarIntervalMonthComponent,
     ShCalendarIntervalComponent,

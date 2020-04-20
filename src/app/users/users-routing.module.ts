@@ -50,7 +50,7 @@ const routes: Routes = [
     canActivate: [AdminGuard]
   },
   {
-    path: ':id/asistencias/informe',
+    path: ':id/resumen-asistencias',
     component: UserAttendancesReportView,
     canActivate: [AdminGuard]
   },
