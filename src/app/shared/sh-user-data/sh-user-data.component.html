@@ -4,16 +4,17 @@
 
         <div class="col-3 text-center">
             <img [src]="userDetails.photoURL" class="img-thumbnail" alt="userDetails.photoURL">
+            <!--
             <label class="custom-file">
             <input type="file" id="file" class="custom-file-input">
-          </label>
+            </label>
+            -->
         </div>
 
         <div class="col-8 ">
             <h5>{{ userDetails.displayName }} ({{ userDetails.nickName }})</h5>
             <hr>
             <div class="col-6">
-                <h6>Roles</h6>
                 <a *ngIf="userDetails?.isUser" href="#" class="badge badge-dark badge-pill">normal</a>&nbsp;
                 <a *ngIf="userDetails?.isAdmin" href="#" class="badge badge-dark badge-pill">admin</a>&nbsp;
                 <a *ngIf="userDetails?.isTeacher" href="#" class="badge badge-dark badge-pill">profesor</a>&nbsp;
