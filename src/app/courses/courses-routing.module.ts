@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { AdminGuard } from '../services/admin.guard';
+
+import { CourseDashboardView } from './course-dashboard-view/course-dashboard-view.component';
+import { LessonDashboardComponent } from './lesson-dashboard/lesson-dashboard.component';
+
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { CoursesTableComponent } from './courses-table/courses-table.component';
-import { CourseDashboardComponent } from './course-dashboard/course-dashboard.component';
-import { LessonDashboardComponent } from './lesson-dashboard/lesson-dashboard.component';
-import { AdminGuard } from '../services/admin.guard';
 
 const routes: Routes = [
   {
@@ -18,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: CourseDashboardComponent,
+    component: CourseDashboardView,
     canActivate: [AdminGuard]
   },
   {

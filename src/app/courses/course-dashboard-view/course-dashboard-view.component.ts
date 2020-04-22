@@ -15,11 +15,12 @@ import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-course-dashboard',
-  templateUrl: './course-dashboard.component.html',
-  styleUrls: ['./course-dashboard.component.scss']
+  selector: 'app-course-dashboard-view',
+  templateUrl: './course-dashboard-view.component.html',
+  styleUrls: ['./course-dashboard-view.component.scss']
 })
-export class CourseDashboardComponent implements OnInit, AfterViewInit {
+// tslint:disable-next-line: component-class-suffix
+export class CourseDashboardView implements OnInit, AfterViewInit {
 
   columnsToDisplay = ['image', 'name', 'schedule', 'teacher', 'aforo',
     'weekLessonActions', 'weekLesson',

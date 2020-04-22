@@ -11,7 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { LessonViewComponent } from './lesson-view/lesson-view.component';
 import { AttendancesViewComponent } from './attendances-view/attendances-view.component';
 import { CoursesTableComponent } from './courses-table/courses-table.component';
-import { CourseDashboardComponent } from './course-dashboard/course-dashboard.component';
+import { CourseDashboardView } from './course-dashboard-view/course-dashboard-view.component';
 import { LessonDashboardComponent } from './lesson-dashboard/lesson-dashboard.component';
 
 @NgModule({
@@ -25,7 +25,7 @@ import { LessonDashboardComponent } from './lesson-dashboard/lesson-dashboard.co
     LessonViewComponent,
     AttendancesViewComponent,
     CoursesTableComponent,
-    CourseDashboardComponent,
+    CourseDashboardView,
     LessonDashboardComponent
   ],
   imports: [
