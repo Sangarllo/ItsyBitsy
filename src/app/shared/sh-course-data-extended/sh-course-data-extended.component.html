@@ -1,0 +1,29 @@
+<mat-card class="container item-data" [ngClass]="(course.current)?'item-enabled':'item-disabled'" *ngIf="course">
+
+    <div class="row">
+
+        <div class="col-3 text-center">
+            <img [src]="teacher.photoURL" class="img-thumbnail" alt="teacher.displayName">
+        </div>
+
+        <div class="col-8 ">
+            <div class="row">
+                <div class="col-12">
+                    <h6>Profesor titular del Curso</h6>
+                    <p>
+                        {{ teacher?.displayName }}
+                    </p>
+                </div>
+                <div class="col-6">
+                    <h6>Aula habitual</h6>
+                    <p>{{ course.classRoom }}.</p>
+                </div>
+                <div class="col-6">
+                    <h6>Horario habitual</h6>
+                    <p>{{ course.weekDay }}, de {{ course.startTime }} a {{ course.endTime }}.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</mat-card>

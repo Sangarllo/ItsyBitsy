@@ -33,20 +33,8 @@ export class CourseDetailView implements OnInit {
     });
   }
 
-  applyStyles(course: Course) {
-    const styles = {
-      'background-image': `url("${course.image}")`,
-      'background-size': 'cover'
-    };
-    return styles;
-  }
-
-  gotoEdition() {
-    this.router.navigate([`/${Course.PATH_URL}/${this.courseId}/editar`]);
-  }
-
-  gotoCourses() {
-    this.router.navigate([`/${Course.PATH_URL}`]);
+  public gotoDashboard() {
+    this.router.navigate([`/usuarios/dashboard`]);
   }
 
 }

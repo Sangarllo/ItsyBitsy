@@ -9,7 +9,4 @@ import { UserDetails } from '../../models/user.model';
 export class ShUserDataComponent {
 
   @Input() userDetails: UserDetails;
-
-  constructor(
-  ) { }
 }

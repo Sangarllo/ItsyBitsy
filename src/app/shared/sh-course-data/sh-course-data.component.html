@@ -1,0 +1,28 @@
+<mat-card class="container item-data" [ngClass]="(course.current)?'item-enabled':'item-disabled'" *ngIf="course">
+
+    <div class="row">
+
+        <div class="col-3 text-center">
+            <img [src]="course.image" class="img-thumbnail" alt="course.name">
+        </div>
+
+        <div class="col-8 ">
+            <h5>{{ course.name }}</h5>
+            <hr>
+            <div class="row">
+                <div class="col-6">
+                    {{ ( course.current ) ? 'Curso Activo' : 'Curso Desactivado' }}
+                    <br/> {{ course.type }}
+                </div>
+                <div class="col-6" *ngIf="enableEdition">
+
+                    <button *ngIf="course.current" mat-mini-fab color="warn" (click)="updateCourse(false)"><mat-icon class="button-always-enabled">toggle_off</mat-icon></button>
+                    <button *ngIf="!course.current" mat-mini-fab color="warn" (click)="updateCourse(true)"><mat-icon>toggle_on</mat-icon></button> &nbsp;
+                    <button *ngIf="course.current" mat-mini-fab color="warn" (click)="gotoEdition()"><mat-icon>edit</mat-icon></button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</mat-card>

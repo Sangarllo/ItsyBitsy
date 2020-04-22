@@ -1,20 +1,18 @@
 <mat-card *ngIf="course">
-    <mat-card-header>
-        <div mat-card-avatar [ngStyle]="applyStyles(course)"></div>
-        <mat-card-title>Curso: {{ course.name }}</mat-card-title>
-        <mat-card-subtitle>{{ course.type }}</mat-card-subtitle>
-    </mat-card-header>
 
-    <app-course-view [course]="course"></app-course-view>
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent" (click)="gotoDashboard()">Ir al Panel</button>
+    </mat-toolbar>
 
-    <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="gotoEdition()">
-      Editar Datos
-    </button> &nbsp;&nbsp;
-        <button mat-raised-button color="primary" (click)="gotoCourses()">
-      Ver Cursos
-    </button>
-    </mat-card-actions>
+    <div class="row">
+
+        <app-sh-course-data class="col-6" *ngIf="course" [course]="course" [enableEdition]="true"></app-sh-course-data>
+
+        <app-sh-course-data-extended class="col-6" *ngIf="course" [course]="course"></app-sh-course-data-extended>
+
+    </div>
 
     <mat-card-content>
         <mat-tab-group>

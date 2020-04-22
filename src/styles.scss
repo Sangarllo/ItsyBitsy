@@ -113,6 +113,20 @@ Every toolbar row uses a flexbox row layout. */
 
 /* ESTILOS ASOCIADOS A LAS ASISTENCIAS - FIN */
 
+
+/* ESTILOS DE ITEMS ENABLED/DISABLED - INI */
+
+.item-enabled {}
+
+.item-disabled {
+    filter: grayscale(100%);
+    color: white;
+    background-color: lightgrey;
+}
+
+
+/* ESTILOS DE ITEMS ENABLED/DISABLED - FIN */
+
 .is-ausente {
     color: #721c24 !important;
     background-color: #f8d7da !important;
