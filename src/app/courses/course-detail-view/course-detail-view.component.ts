@@ -5,11 +5,12 @@ import { Course } from '../../models/course.model';
 
 
 @Component({
-  selector: 'app-course-detail',
-  templateUrl: './course-detail.component.html',
-  styleUrls: ['./course-detail.component.scss']
+  selector: 'app-course-detail-view',
+  templateUrl: './course-detail-view.component.html',
+  styleUrls: ['./course-detail-view.component.scss']
 })
-export class CourseDetailComponent implements OnInit {
+// tslint:disable-next-line: component-class-suffix
+export class CourseDetailView implements OnInit {
 
   pageTitle = 'Detalles del Curso';
   errorMessage: string;

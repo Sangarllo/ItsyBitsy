@@ -4,9 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminGuard } from '../services/admin.guard';
 
 import { CourseDashboardView } from './course-dashboard-view/course-dashboard-view.component';
-import { LessonDashboardComponent } from './lesson-dashboard/lesson-dashboard.component';
+import { CourseDetailView } from './course-detail-view/course-detail-view.component';
 
-import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
@@ -25,13 +24,8 @@ const routes: Routes = [
     canActivate: [AdminGuard]
   },
   {
-    path: 'lesson-dashboard',
-    component: LessonDashboardComponent,
-    canActivate: [AdminGuard]
-  },
-  {
     path: ':id',
-    component: CourseDetailComponent,
+    component: CourseDetailView,
     canActivate: [AdminGuard]
   },
   {
