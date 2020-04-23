@@ -1,0 +1,29 @@
+<mat-card class="container item-data" [ngClass]="(rate.current)?'item-enabled':'item-disabled'" *ngIf="rate">
+
+    <div class="row">
+
+        <div class="col-3 text-center">
+            <img [src]="RATE_IMAGE" class="img-thumbnail" [alt]="rate.name">
+        </div>
+
+        <div class="col-8 ">
+            <h5>{{ rate.name }}</h5>
+            <hr>
+            <div class="row">
+                <div class="col-6">
+                    {{ ( rate.current ) ? 'Tarifa Activa' : 'Tarifa Desactivada' }}
+                    <br/> {{ rate.type }}
+                    <br/> {{ rate.price }} €
+                </div>
+                <div class="col-6" *ngIf="enableEdition">
+
+                    <button *ngIf="rate.current" mat-mini-fab color="warn" (click)="update(false)"><mat-icon class="button-always-enabled">toggle_off</mat-icon></button>
+                    <button *ngIf="!rate.current" mat-mini-fab color="warn" (click)="update(true)"><mat-icon>toggle_on</mat-icon></button> &nbsp;
+                    <button *ngIf="rate.current" mat-mini-fab color="warn" (click)="gotoEdition()"><mat-icon>edit</mat-icon></button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</mat-card>

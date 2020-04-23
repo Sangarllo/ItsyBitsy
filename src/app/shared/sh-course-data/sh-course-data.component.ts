@@ -23,7 +23,7 @@ export class ShCourseDataComponent {
     this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/editar`]);
   }
 
-  updateCourse(current: boolean) {
+  update(current: boolean) {
     this.course.current = current;
     this.coursesSvc.updateCourse(this.course)
       .subscribe( course => {

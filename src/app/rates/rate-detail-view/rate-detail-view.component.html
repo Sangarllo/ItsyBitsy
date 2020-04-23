@@ -1,0 +1,20 @@
+<mat-card *ngIf="rate">
+
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent" (click)="gotoDashboard()">Ir al Panel</button>
+    </mat-toolbar>
+
+    <div class="row">
+
+        <app-sh-rate-data class="col-6" *ngIf="rate" [rate]="rate" [enableEdition]="true"></app-sh-rate-data>
+
+    </div>
+
+
+    <mat-card-content>
+        <sh-user-list *ngIf="students" [users]="students"></sh-user-list>
+    </mat-card-content>
+
+</mat-card>

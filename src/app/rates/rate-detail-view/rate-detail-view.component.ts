@@ -7,11 +7,12 @@ import { UserDetails } from '../../models/user.model';
 
 
 @Component({
-  selector: 'app-rate-detail',
-  templateUrl: './rate-detail.component.html',
-  styleUrls: ['./rate-detail.component.scss']
+  selector: 'app-rate-detail-view',
+  templateUrl: './rate-detail-view.component.html',
+  styleUrls: ['./rate-detail-view.component.scss']
 })
-export class RateDetailComponent implements OnInit {
+// tslint:disable-next-line: component-class-suffix
+export class RateDetailView implements OnInit {
 
   pageTitle = 'Detalles de la Tarifa';
   errorMessage: string;
@@ -33,6 +34,7 @@ export class RateDetailComponent implements OnInit {
     .subscribe({
       next: rate => {
         this.rate = rate;
+        this.pageTitle = `Detalles de la tarifa ${this.rate.name}`;
         this.userSvc.getStudentsByRate(rate.id).subscribe(
           (students: UserDetails[]) => {
             this.students = students;
@@ -50,4 +52,9 @@ export class RateDetailComponent implements OnInit {
   gotoList() {
     this.router.navigate([`/${Rate.PATH_URL}/`]);
   }
+
+  public gotoDashboard() {
+    this.router.navigate([`/usuarios/dashboard`]);
+  }
+
 }

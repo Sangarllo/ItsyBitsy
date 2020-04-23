@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RateDetailComponent } from './rate-detail/rate-detail.component';
+import { RateDetailView } from './rate-detail-view/rate-detail-view.component';
 import { RateEditComponent } from './rate-edit/rate-edit.component';
 import { RatesTableComponent } from './rates-table/rates-table.component';
 import { AdminGuard } from '../services/admin.guard';
@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: RateDetailComponent,
+    component: RateDetailView,
     canActivate: [AdminGuard]
   },
   {
