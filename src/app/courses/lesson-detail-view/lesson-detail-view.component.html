@@ -1,20 +1,18 @@
 <mat-card *ngIf="lesson && course">
-    <mat-card-header>
-        <div mat-card-avatar [ngStyle]="applyStyles(course)"></div>
-        <mat-card-title>{{ lesson.date | date:'fullDate' }}</mat-card-title>
-        <mat-card-subtitle>Curso: {{ course.name }}</mat-card-subtitle>
-    </mat-card-header>
 
-    <app-lesson-view [course]="course" [lesson]="lesson"></app-lesson-view>
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}  {{lesson.date | date:'longDate' }}</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent" (click)="gotoDashboard()">Ir al Panel</button>
+    </mat-toolbar>
 
-    <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="gotoEdition()">
-      Editar Clase
-    </button> &nbsp;&nbsp;
-        <button mat-raised-button color="primary" (click)="gotoCourse()">
-      Ver Curso
-    </button>
-    </mat-card-actions>
+    <div class="row">
+
+        <app-sh-lesson-data class="col-6" *ngIf="lesson" [course]="course" [lesson]="lesson" [enableEdition]="true"></app-sh-lesson-data>
+
+        <app-sh-course-data class="col-6" *ngIf="course" [course]="course" [enableEdition]="false"></app-sh-course-data>
+
+    </div>
 
     <mat-card-content>
         <mat-tab-group>

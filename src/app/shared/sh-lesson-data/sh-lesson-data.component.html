@@ -1,0 +1,30 @@
+<mat-card class="container item-data" [ngClass]="(lesson.current)?'item-enabled':'item-disabled'" *ngIf="lesson">
+
+    <div class="row">
+
+        <div class="col-3 text-center">
+            <img [src]="teacher.photoURL" class="img-thumbnail" alt="teacher.displayName">
+        </div>
+
+        <div class="col-8 ">
+            <h5>{{ lesson.date | date:'fullDate' }}, de {{ lesson.startTime }} a {{ lesson.endTime}} </h5>
+
+            <hr>
+            <div class="row">
+                <div class="col-6">
+                    <h6>{{ teacher.displayName }} | Aula {{ lesson.classRoom }}</h6>
+                    {{ ( lesson.current ) ? 'Lección Activo' : 'Lección Desactivada' }}
+
+                </div>
+                <div class="col-6" *ngIf="enableEdition">
+
+                    <button *ngIf="lesson.current" mat-mini-fab color="warn" (click)="updateLesson(false)"><mat-icon class="button-always-enabled">toggle_off</mat-icon></button>
+                    <button *ngIf="!lesson.current" mat-mini-fab color="warn" (click)="updateLesson(true)"><mat-icon>toggle_on</mat-icon></button> &nbsp;
+                    <button *ngIf="lesson.current" mat-mini-fab color="warn" (click)="gotoEdition()"><mat-icon>edit</mat-icon></button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</mat-card>

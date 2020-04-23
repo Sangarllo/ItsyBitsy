@@ -28,7 +28,10 @@ export class CourseDetailView implements OnInit {
     this.courseId = this.route.snapshot.paramMap.get('id');
     this.coursesService.getCourse(this.courseId)
     .subscribe({
-      next: course => this.course = course,
+      next: course => {
+        this.course = course;
+        this.pageTitle = `Detalles del curso ${this.course.name}`;
+      },
       error: err => this.errorMessage = err
     });
   }

@@ -23,6 +23,7 @@ import { ShAttendancesItemsComponent } from './sh-attendances-items/sh-attendanc
 import { ShStudentsItemsComponent } from './sh-students-items/sh-students-items.component';
 import { ShCourseDataComponent } from './sh-course-data/sh-course-data.component';
 import { ShCourseDataExtendedComponent } from './sh-course-data-extended/sh-course-data-extended.component';
+import { ShLessonDataComponent } from './sh-lesson-data/sh-lesson-data.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ShCourseDataExtendedComponent } from './sh-course-data-extended/sh-cour
     ShStudentsItemsComponent,
     ShCourseDataComponent,
     ShCourseDataExtendedComponent,
+    ShLessonDataComponent,
   ],
   imports: [
     CommonModule,
@@ -71,6 +73,7 @@ import { ShCourseDataExtendedComponent } from './sh-course-data-extended/sh-cour
     ShUserDataComponent,
     ShCourseDataComponent,
     ShCourseDataExtendedComponent,
+    ShLessonDataComponent,
     ShCalendarIntervalMonthComponent,
     ShCalendarIntervalComponent,
     ShUserAttendanceTableComponent,

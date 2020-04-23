@@ -9,11 +9,12 @@ import { Attendance } from '../../models/attendance.model';
 import { AttendancesService } from '../../services/attendances.service';
 
 @Component({
-  selector: 'app-lesson-detail',
-  templateUrl: './lesson-detail.component.html',
-  styleUrls: ['./lesson-detail.component.scss']
+  selector: 'app-lesson-detail-view',
+  templateUrl: './lesson-detail-view.component.html',
+  styleUrls: ['./lesson-detail-view.component.scss']
 })
-export class LessonDetailComponent implements OnInit {
+// tslint:disable-next-line: component-class-suffix
+export class LessonDetailView implements OnInit {
 
   pageTitle = 'Detalles de la Clase';
   errorMessage: string;
@@ -46,6 +47,7 @@ export class LessonDetailComponent implements OnInit {
         .subscribe({
           next: lesson => {
             this.lesson = lesson;
+            this.pageTitle = `Detalles de la clase del día `;
             this.lesson.date = this.dateSvc.fromFirebaseDate(this.lesson.date);
           },
           error: err => this.errorMessage = err
@@ -72,5 +74,8 @@ export class LessonDetailComponent implements OnInit {
     this.router.navigate([`/${Course.PATH_URL}/${this.courseId}`]);
   }
 
+  public gotoDashboard() {
+    this.router.navigate([`/usuarios/dashboard`]);
+  }
 
 }
