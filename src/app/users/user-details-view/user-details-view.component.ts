@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UserDetails } from '../../models/user.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
 import { DatesService } from '../../services/dates.service';
 import { RateService } from '../../services/rates.service';
 import { Rate } from 'src/app/models/rate';
 
+
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  selector: 'app-user-details-view',
+  templateUrl: './user-details-view.component.html',
+  styleUrls: ['./user-details-view.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class UserDetailsView implements OnInit {
 
   pageTitle = 'Detalles del Usuario';
   errorMessage: string;
@@ -23,6 +24,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     public auth: AuthService,
+    private route: ActivatedRoute,
     private router: Router,
     private dateSvc: DatesService,
     private rateSvc: RateService,
@@ -30,11 +32,39 @@ export class UserProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.userDetailsId = this.route.snapshot.paramMap.get('id');
 
+    if ( this.userDetailsId ) {
+
+      this.userService.getUserDetails(this.userDetailsId)
+      .subscribe( (userDetails: UserDetails) => {
+        this.userDetails = userDetails;
+        this.pageTitle = `Datos del usuario ${this.userDetails.displayName}`;
+        this.userDetails.birthday = ( userDetails?.birthday ) ?
+          this.dateSvc.fromFirebaseDate(userDetails?.birthday) :
+          null;
+
+        this.getRate();
+      });
+
+    } else {
+      this.getAuthUser();
+    }
+  }
+
+  private getRate() {
+    this.rateSvc.getRate(this.userDetails.rateId)
+      .subscribe( (rate: Rate) => {
+        this.rateName = rate.name;
+      });
+  }
+
+  private getAuthUser() {
     this.auth.user$.subscribe(
 
       ( user ) => {
         this.userDetailsId = user.uid;
+        this.pageTitle = 'Datos de tu Perfil';
 
         this.userService.getUserDetails(this.userDetailsId)
         .subscribe( (userDetails: UserDetails) => {
@@ -51,21 +81,6 @@ export class UserProfileComponent implements OnInit {
         });
         }
     );
-  }
-
-  getRate() {
-    this.rateSvc.getRate(this.userDetails.rateId)
-      .subscribe( (rate: Rate) => {
-        this.rateName = rate.name;
-      });
-  }
-
-  applyStyles(userDetails: UserDetails) {
-    const styles = {
-      'background-image': `url("assets/section/user-icon.png")`,
-      'background-size': 'cover'
-    };
-    return styles;
   }
 
   gotoEdition() {

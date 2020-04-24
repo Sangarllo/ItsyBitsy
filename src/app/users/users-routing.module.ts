@@ -9,10 +9,9 @@ import { UserLessonsView } from './user-lessons-view/user-lessons-view.component
 import { UserDashboardView } from './user-dashboard-view/user-dashboard-view.component';
 import { UserAttendancesView } from './user-attendances-view/user-attendances-view.component';
 import { UserAttendancesReportView } from './user-attendances-report-view/user-attendances-report-view.component';
+import { UserDetailsView } from './user-details-view/user-details-view.component';
 
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
 
 const routes: Routes = [
   {
@@ -22,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'perfil',
-    component: UserProfileComponent,
+    component: UserDetailsView,
     canActivate: [AuthGuard]
   },
   {
@@ -32,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: UserDetailsComponent,
+    component: UserDetailsView,
     canActivate: [AdminGuard]
   },
   {

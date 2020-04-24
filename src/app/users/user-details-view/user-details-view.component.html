@@ -1,31 +1,36 @@
 <mat-card *ngIf="userDetails">
 
-    <div class="container">
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent" (click)="gotoDashboard()">Ir al Panel</button>
+    </mat-toolbar>
+
+    <br/><br/>
+
+    <mat-card-content class="container">
 
         <div class="row">
             <div class="col-lg-4 col-md6 col-12">
                 <mat-card-header>
-                    <div mat-card-avatar [ngStyle]="applyStyles(userDetails)"></div>
+
                     <mat-card-title>{{ userDetails.displayName }}</mat-card-title>
-                    <mat-card-subtitle>{{ userDetails.email }}</mat-card-subtitle>
+
+                    <mat-card-subtitle>
+                        <mat-chip-list aria-label="Roles">
+                            <mat-chip *ngIf="userDetails.isUser">Registrado</mat-chip>
+                            <mat-chip *ngIf="userDetails.isAdmin">Administrador</mat-chip>
+                            <mat-chip *ngIf="userDetails.isTeacher">Profesor</mat-chip>
+                            <mat-chip *ngIf="userDetails.isStudent">Estudiante</mat-chip>
+                        </mat-chip-list>
+                    </mat-card-subtitle>
                 </mat-card-header>
 
                 <img [src]="userDetails.photoURL" class="mx-auto img-fluid img-circle d-block" alt="avatar">
 
-                <hr>
-
-                <mat-card-actions>
-                    <button mat-raised-button color="primary" (click)="gotoEdition()">Editar Datos</button>
+                <mat-card-actions class="text-center">
+                    <button mat-mini-fab color="warn" (click)="gotoEdition()"><mat-icon>edit</mat-icon></button>
                 </mat-card-actions>
-
-                <mat-card-content>
-                    <mat-chip-list aria-label="Roles">
-                        <mat-chip *ngIf="userDetails.isUser" color="primary">Registrado</mat-chip>
-                        <mat-chip *ngIf="userDetails.isAdmin" color="primary">Administrador</mat-chip>
-                        <mat-chip *ngIf="userDetails.isTeacher" color="primary">Profesor</mat-chip>
-                        <mat-chip *ngIf="userDetails.isStudent" color="primary">Estudiante</mat-chip>
-                    </mat-chip-list>
-                </mat-card-content>
 
             </div>
 
@@ -64,7 +69,7 @@
                             </mat-form-field>
 
                             <mat-form-field class="data-detail" *ngIf="userDetails.contactPersonNif">
-                                <input matInput type="text" disabled="true" [value]="userDetails.contactPerson" placeholder="NIF Persona de Contacto" />
+                                <input matInput type="text" disabled="true" [value]="userDetails.contactPersonNif" placeholder="NIF Persona de Contacto" />
                                 <mat-icon matSuffix>assignment_ind</mat-icon>
                             </mat-form-field>
 
@@ -101,5 +106,5 @@
             </div>
         </div>
 
-    </div>
+    </mat-card-content>
 </mat-card>
