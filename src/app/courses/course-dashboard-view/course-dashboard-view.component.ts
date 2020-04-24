@@ -19,7 +19,6 @@ import { Observable } from 'rxjs';
   templateUrl: './course-dashboard-view.component.html',
   styleUrls: ['./course-dashboard-view.component.scss']
 })
-// tslint:disable-next-line: component-class-suffix
 export class CourseDashboardView implements OnInit, AfterViewInit {
 
   columnsToDisplay = ['image', 'name', 'schedule', 'teacher', 'aforo',

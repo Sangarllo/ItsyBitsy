@@ -9,7 +9,6 @@ import Swal from 'sweetalert2';
   templateUrl: './users-view.component.html',
   styleUrls: ['./users-view.component.scss']
 })
-// tslint:disable-next-line: component-class-suffix
 export class UsersView implements OnInit {
 
   allUsers: UserDetails[];

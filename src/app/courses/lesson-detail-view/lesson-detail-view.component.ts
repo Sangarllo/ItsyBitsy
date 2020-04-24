@@ -13,7 +13,6 @@ import { AttendancesService } from '../../services/attendances.service';
   templateUrl: './lesson-detail-view.component.html',
   styleUrls: ['./lesson-detail-view.component.scss']
 })
-// tslint:disable-next-line: component-class-suffix
 export class LessonDetailView implements OnInit {
 
   pageTitle = 'Detalles de la Clase';

@@ -8,7 +8,6 @@ import { UserService } from '../../services/user.service';
   templateUrl: './user-attendances-report-view.component.html',
   styleUrls: ['./user-attendances-report-view.component.scss']
 })
-// tslint:disable-next-line: component-class-suffix
 export class UserAttendancesReportView implements OnInit {
 
   userDetails: UserDetails;

@@ -9,7 +9,6 @@ import { DatesService } from '../../services/dates.service';
   templateUrl: './user-lessons-view.component.html',
   styleUrls: ['./user-lessons-view.component.scss']
 })
-// tslint:disable-next-line: component-class-suffix
 export class UserLessonsView implements OnInit {
 
   userDetails: UserDetails;

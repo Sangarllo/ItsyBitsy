@@ -11,7 +11,6 @@ import { UserDetails } from '../../models/user.model';
   templateUrl: './rate-detail-view.component.html',
   styleUrls: ['./rate-detail-view.component.scss']
 })
-// tslint:disable-next-line: component-class-suffix
 export class RateDetailView implements OnInit {
 
   pageTitle = 'Detalles de la Tarifa';

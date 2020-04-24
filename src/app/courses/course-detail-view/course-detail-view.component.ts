@@ -9,7 +9,6 @@ import { Course } from '../../models/course.model';
   templateUrl: './course-detail-view.component.html',
   styleUrls: ['./course-detail-view.component.scss']
 })
-// tslint:disable-next-line: component-class-suffix
 export class CourseDetailView implements OnInit {
 
   pageTitle = 'Detalles del Curso';

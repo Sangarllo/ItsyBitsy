@@ -11,7 +11,6 @@ import { Rate } from '../../models/rate';
   templateUrl: './user-dashboard-view.component.html',
   styleUrls: ['./user-dashboard-view.component.scss']
 })
-// tslint:disable-next-line: component-class-suffix
 export class UserDashboardView implements OnInit {
 
   pageTitle: string;
