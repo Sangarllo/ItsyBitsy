@@ -1,0 +1,56 @@
+<mat-card>
+
+    <mat-toolbar color="primary">
+        <span>Base de Datos de Personas</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent" (click)="gotoNew()">Crear Nuevo</button>
+    </mat-toolbar>
+
+    <br/><br/><br/>
+
+    <mat-tab-group>
+
+        <!-- 1. Todos -->
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>recent_actors</mat-icon>
+                &nbsp;&nbsp;Todos
+            </ng-template>
+
+            <sh-user-list *ngIf="allUsers" [users]="allUsers" [titleTable]="'Todas las personas registradas'"></sh-user-list>
+        </mat-tab>
+
+        <!-- 2. Students -->
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>people_outline</mat-icon>
+                &nbsp;&nbsp;Estudiantes
+            </ng-template>
+
+            <sh-user-list *ngIf="students" [users]="students" [titleTable]="'Estudiantes Actuales'"></sh-user-list>
+        </mat-tab>
+
+        <!-- 3. Teachers -->
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>people</mat-icon>
+                &nbsp;&nbsp;Profesores
+            </ng-template>
+
+            <sh-user-list *ngIf="teachers" [users]="teachers" [titleTable]="'Profesores Actuales'"></sh-user-list>
+        </mat-tab>
+
+
+        <!-- 4. Admins -->
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>star</mat-icon>
+                &nbsp;&nbsp;Administradores
+            </ng-template>
+
+            <sh-user-list *ngIf="admins" [users]="admins" [titleTable]="'Administradores Actuales'"></sh-user-list>
+        </mat-tab>
+
+    </mat-tab-group>
+
+</mat-card>

@@ -1,6 +1,6 @@
 <div *ngIf="this.users.length > 0; else noData">
     <mat-toolbar color="primary">
-        <span>Estudiantes con esta tarifa</span>
+        <span>{{titleTable}}</span>
         <span class="fill-remaining-space"></span>
 
         <mat-form-field class="filter-form-field">
@@ -15,7 +15,7 @@
         <ng-container matColumnDef="photoURL">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
             <td mat-cell *matCellDef="let element">
-                <img (click)="viewUser(element)" [src]="element.photoURL" class="img-thumbnail" alt="element.displayName">
+                <img (click)="viewUser(element)" [src]="element.photoURL" class="img-thumbnail rounded-circle" alt="element.displayName">
             </td>
         </ng-container>
 
@@ -25,13 +25,16 @@
             <td mat-cell *matCellDef="let element"> {{element.displayName.toUpperCase()}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Localidad </th>
+            <td mat-cell *matCellDef="let element"> {{element.location?.toUpperCase()}} </td>
+        </ng-container>
+
         <!-- Actions -->
         <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
-            <td mat-cell *matCellDef="let element">
-                &nbsp;
-                <button mat-mini-fab color="warn" (click)="viewUser(element)"><mat-icon>pageview</mat-icon></button> &nbsp;
-                <button mat-mini-fab color="warn" (click)="editUser(element)"><mat-icon>edit</mat-icon></button> &nbsp;
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let user">
+                <button mat-mini-fab color="warn" (click)="viewUser(user)"><mat-icon>pageview</mat-icon></button>
             </td>
         </ng-container>
 

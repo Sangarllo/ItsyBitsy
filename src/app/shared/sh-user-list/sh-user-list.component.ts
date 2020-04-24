@@ -12,11 +12,13 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ShUserListComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['photoURL', 'displayName', 'actions'];
+  columnsToDisplay = ['photoURL', 'displayName', 'location', 'actions'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+
   @Input() users: UserDetails[];
+  @Input() titleTable: string;
 
   constructor(
     private router: Router,
@@ -42,10 +44,6 @@ export class ShUserListComponent implements OnInit, AfterViewInit {
 
   viewUser(userDetails: UserDetails) {
     this.router.navigate([`${UserDetails.PATH_URL}/${userDetails.uid}`]);
-  }
-
-  editUser(userDetails: UserDetails) {
-    this.router.navigate([`${UserDetails.PATH_URL}/${userDetails.uid}/editar`]);
   }
 
   private sortStudentList() {

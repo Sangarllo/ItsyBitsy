@@ -7,11 +7,8 @@
     </mat-toolbar>
 
     <div class="row">
-
         <app-sh-rate-data class="col-6" *ngIf="rate" [rate]="rate" [enableEdition]="true"></app-sh-rate-data>
-
     </div>
-
 
     <mat-card-content>
         <sh-user-list *ngIf="students" [users]="students"></sh-user-list>
