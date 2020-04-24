@@ -9,11 +9,11 @@ import Swal from 'sweetalert2';
 
 
 @Component({
-  selector: 'app-rates-table',
-  templateUrl: './rates-table.component.html',
-  styleUrls: ['./rates-table.component.scss']
+  selector: 'app-rates-view',
+  templateUrl: './rates-view.component.html',
+  styleUrls: ['./rates-view.component.scss']
 })
-export class RatesTableComponent implements OnInit, AfterViewInit {
+export class RatesView implements OnInit, AfterViewInit {
 
   columnsToDisplay = ['name', 'type', 'price', 'actions'];
   dataSource = new MatTableDataSource();
@@ -49,13 +49,10 @@ export class RatesTableComponent implements OnInit, AfterViewInit {
     this.router.navigate([`${Rate.PATH_URL}/0/editar`]);
   }
 
-  viewRate(rate: Rate) {
+  gotoRate(rate: Rate) {
     this.router.navigate([`${Rate.PATH_URL}/${rate.id}`]);
   }
 
-  editRate(rate: Rate) {
-    this.router.navigate([`${Rate.PATH_URL}/${rate.id}/editar`]);
-  }
 
   deleteRate(rate: Rate) {
     Swal.fire({

@@ -1,0 +1,50 @@
+<mat-card>
+
+    <mat-toolbar color="primary">
+        <span>Tarifas Actuales</span>
+        <span class="fill-remaining-space"></span>
+
+        <mat-form-field class="filter-form-field">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <button mat-raised-button color="accent" (click)="gotoNew()">Crear Nueva</button>
+    </mat-toolbar>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+            <td (click)="gotoRate(rate)" mat-cell *matCellDef="let rate"> {{rate.name.toUpperCase()}} </td>
+        </ng-container>
+
+        <!-- type Column -->
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+            <td mat-cell *matCellDef="let rate"> {{rate.type}} </td>
+        </ng-container>
+
+        <!-- prize Column -->
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+            <td mat-cell *matCellDef="let rate"> {{rate.price}}€ </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+            <td mat-cell *matCellDef="let rate">
+                <button mat-mini-fab color="warn" (click)="gotoRate(rate)"><mat-icon>pageview</mat-icon></button> &nbsp;
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">
+        </tr>
+
+    </table>
+
+    <mat-paginator [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+</mat-card>
