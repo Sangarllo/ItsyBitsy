@@ -3,6 +3,7 @@
     <span class="fill-remaining-space"></span>
 
     <div *ngIf="user$ | async as user; else showLogin">
+        <span class="greeting">Hola {{ user.displayName }}</span>
         <button mat-raised-button color="accent" (click)="gotoProfile()">
           <mat-icon>how_to_reg</mat-icon>
         </button>&nbsp;
