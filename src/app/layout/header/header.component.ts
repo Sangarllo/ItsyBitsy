@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -11,21 +12,26 @@ import { User } from '../../models/user.model';
 })
 export class HeaderComponent {
 
+  public user$: Observable<any> = this.authSvc.afAuth.user;
+
   constructor(
     private router: Router,
-    public auth: AuthService,
+    public authSvc: AuthService,
     public afAuth: AngularFireAuth) {}
 
   public login() {
-    this.auth.googleSignin()
+    this.authSvc.googleSignin()
       .then(() => {
         this.gotoProfile();
       });
   }
 
-  logout() {
-    this.afAuth.auth.signOut();
-    this.router.navigate([`/home`]);
+  async onLogout() {
+    try {
+      await this.authSvc.signOut();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   public gotoProfile() {

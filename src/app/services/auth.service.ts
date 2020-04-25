@@ -24,7 +24,7 @@ export class AuthService {
   private filePath: string;
 
   constructor(
-      private afAuth: AngularFireAuth,
+      public afAuth: AngularFireAuth,
       private afs: AngularFirestore,
       private afStorage: AngularFireStorage,
       private userService: UserService,
@@ -46,7 +46,7 @@ export class AuthService {
 
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    const credential = await this.afAuth.signInWithPopup(provider);
     return this.updateUserData(credential.user);
   }
 
@@ -95,7 +95,7 @@ export class AuthService {
   }
 
   async signOut() {
-    await this.afAuth.auth.signOut();
+    await this.afAuth.signOut();
     this.router.navigate(['/']);
   }
 

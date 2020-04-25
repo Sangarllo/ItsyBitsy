@@ -2,11 +2,11 @@
     <h2 [routerLink]="['/home']">Itsy Bitsy</h2>
     <span class="fill-remaining-space"></span>
 
-    <div *ngIf="afAuth.user | async as user; else showLogin">
+    <div *ngIf="user$ | async as user; else showLogin">
         <button mat-raised-button color="accent" (click)="gotoProfile()">
           <mat-icon>how_to_reg</mat-icon>
         </button>&nbsp;
-        <button mat-raised-button color="accent" (click)="logout()">
+        <button mat-raised-button color="accent" (click)="onLogout()">
           <mat-icon>exit_to_app</mat-icon>
         </button>&nbsp;
         <button mat-raised-button color="accent" (click)="gotoDashboard()">
