@@ -10,6 +10,18 @@ const redirectUnauthorizedToHome = () => redirectUnauthorizedTo(['home']);
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterModule) },
+  {
     path: 'usuarios',
     loadChildren: () => import('./users/users.module').then(mod => mod.UsersModule)
   },
@@ -47,11 +59,6 @@ const routes: Routes = [
     path: 'fechas',
     component: TestFechasComponent
   },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  }
 ];
 
 @NgModule({

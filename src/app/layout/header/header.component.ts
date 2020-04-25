@@ -19,11 +19,12 @@ export class HeaderComponent {
     public authSvc: AuthService,
     public afAuth: AngularFireAuth) {}
 
-  public login() {
-    this.authSvc.googleSignin()
-      .then(() => {
-        this.gotoProfile();
-      });
+  public onLogin() {
+    this.router.navigate([`/login`]);
+    // this.authSvc.googleSignin()
+    //   .then(() => {
+    //     this.gotoProfile();
+    //   });
   }
 
   async onLogout() {

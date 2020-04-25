@@ -44,6 +44,30 @@ export class AuthService {
       );
   }
 
+  async loginWithEmailAndPassword(email: string, password: string) {
+    try {
+      const result = await this.afAuth.signInWithEmailAndPassword(
+        email,
+        password
+      );
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async registerWithEmailAndPassword(email: string, password: string) {
+    try {
+      const result = await this.afAuth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.signInWithPopup(provider);
@@ -96,7 +120,7 @@ export class AuthService {
 
   async signOut() {
     await this.afAuth.signOut();
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 
   preSaveUserProfile(user: IUserDetails, image?: FileI): void {
