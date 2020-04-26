@@ -6,16 +6,16 @@ import { AdminGuard } from '../services/admin.guard';
 import { CourseDashboardView } from './course-dashboard-view/course-dashboard-view.component';
 import { CourseDetailView } from './course-detail-view/course-detail-view.component';
 import { LessonDetailView } from './lesson-detail-view/lesson-detail-view.component';
+import { CoursesView } from './courses-view/courses-view.component';
 
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
-import { CoursesTableComponent } from './courses-table/courses-table.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CoursesTableComponent,
+    component: CoursesView,
     canActivate: [AdminGuard]
   },
   {

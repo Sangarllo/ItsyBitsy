@@ -10,13 +10,13 @@ import { UserService } from '../../services/user.service';
 import { UserDetails } from 'src/app/models/user.model';
 
 @Component({
-  selector: 'app-courses-table',
-  templateUrl: './courses-table.component.html',
-  styleUrls: ['./courses-table.component.scss']
+  selector: 'app-courses-view',
+  templateUrl: './courses-view.component.html',
+  styleUrls: ['./courses-view.component.scss']
 })
-export class CoursesTableComponent implements OnInit, AfterViewInit {
+export class CoursesView implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['image', 'name', 'teacher', 'aforo', 'type', 'schedule', 'actions'];
+  columnsToDisplay = ['image', 'name', 'type', 'schedule', 'teacher', 'aforo', 'actions'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -57,46 +57,6 @@ export class CoursesTableComponent implements OnInit, AfterViewInit {
 
   gotoCourse(course) {
     this.router.navigate([`${Course.PATH_URL}/${course.id}`]);
-  }
-
-  editCourse(course) {
-    this.router.navigate([`${Course.PATH_URL}/${course.id}/editar`]);
-  }
-
-  deleteCourse(course: Course) {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: `Si pulsas OK, el curso ${course.name} quedará eliminado y no podrás revertir dicha acción`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, ¡bórralo!'
-    }).then((result) => {
-      if (result.value) {
-
-        course.current = false;
-        this.courseSvc.updateCourse(course)
-        .subscribe({
-          next: () => {
-            Swal.fire(
-              'Borrado!',
-              `El curso ${course.name} ha sido eliminado.`,
-              'success'
-            );
-          },
-          error: err => {
-            Swal.fire(
-              'Ups!',
-              `El curso ${course.name} no ha podido ser eliminado.`,
-              'error'
-            );
-          },
-        });
-
-
-      }
-    });
   }
 
   private completeCoursesInfo() {
