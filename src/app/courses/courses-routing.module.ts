@@ -9,7 +9,6 @@ import { LessonDetailView } from './lesson-detail-view/lesson-detail-view.compon
 import { CoursesView } from './courses-view/courses-view.component';
 
 import { CourseEditComponent } from './course-edit/course-edit.component';
-import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
 
 const routes: Routes = [
@@ -32,11 +31,6 @@ const routes: Routes = [
     path: ':id/editar',
     // canDeactivate: [CourseEditGuard], TODO
     component: CourseEditComponent,
-    canActivate: [AdminGuard]
-  },
-  {
-    path: ':courseId/lessons/list',
-    component: LessonListComponent,
     canActivate: [AdminGuard]
   },
   {
