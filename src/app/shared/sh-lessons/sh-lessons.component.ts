@@ -93,8 +93,8 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
         attendances: attendances.filter(a => a.lessonId === lesson.id),
         teacherName: teachers.find(c => lesson.teacherId === c.uid)?.displayName,
         teacherImage: teachers.find(c => lesson.teacherId === c.uid)?.photoURL,
-        courseName: courses.find(c => lesson.courseId === c.id).name,
-        courseImage: courses.find(c => lesson.courseId === c.id).image,
+        courseName: courses.find(c => lesson.courseId === c.id)?.name,
+        courseImage: courses.find(c => lesson.courseId === c.id)?.image,
       }) as Lesson)),
         // tap(data => console.log('Lessons:  ', JSON.stringify(data)))
       )
