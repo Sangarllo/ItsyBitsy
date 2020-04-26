@@ -1,10 +1,23 @@
+<mat-toolbar>
+
+    <span class="fill-remaining-space"></span>
+
+    <mat-form-field class="filter-form-field">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <button mat-mini-fab color="primary"><mat-icon>cloud_download</mat-icon></button> &nbsp;
+
+</mat-toolbar>
+
 <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- studentImage Column -->
     <ng-container matColumnDef="studentImage">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
         <td mat-cell *matCellDef="let student">
-            <img (click)="gotoStudent(student)" [src]="student.photoURL" class="img-thumbnail" alt="student.photoURL">
+            <img (click)="gotoStudent(student)" [src]="student.photoURL" class="img-thumbnail img-box" alt="student.photoURL">
         </td>
     </ng-container>
 
@@ -23,7 +36,7 @@
     <!-- numAsistencias Column -->
     <ng-container matColumnDef="numAsistencias">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Asistencias</th>
-        <td mat-cell *matCellDef="let element"> {{element.numAttendances}} presencias </td>
+        <td mat-cell *matCellDef="let element"> {{element.numAttendances}} asistencias </td>
     </ng-container>
 
     <!-- paymentAmmout Column -->
@@ -39,7 +52,14 @@
     </ng-container>
 
 
-    <!-- Actions -->
+    <!-- actions Column -->
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let student">
+            <button mat-mini-fab color="warn" (click)="downloadInfo(student)"><mat-icon>cloud_download</mat-icon></button> &nbsp;
+            <button mat-mini-fab color="warn" (click)="openInfo(student)"><mat-icon>open_in_new</mat-icon></button>
+        </td>
+    </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">

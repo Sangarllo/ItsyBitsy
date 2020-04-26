@@ -70,8 +70,10 @@ export class UserDetails implements IUserDetails {
     public contactPerson: string,
     public contactPersonNif: string,
     public paymentMethod: PaymentMethod,
-    public address: string,
-    public coursesEnrolled: string
+    public address?: string,
+    public numAttendances?: number,
+    public paymentAmmout?: number,
+    public coursesEnrolled?: string,
      ) {
   }
 

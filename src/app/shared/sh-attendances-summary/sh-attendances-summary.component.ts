@@ -16,6 +16,10 @@ import { UserService } from '../../services/user.service';
 import { PaymentMethod } from '../../models/user.model';
 import { Rate } from '../../models/rate';
 import { RateService } from '../../services/rates.service';
+import { ReceiptData } from '../../models/report-summary';
+import { ScriptService } from '../../services/script.service';
+
+declare let pdfMake: any ;
 
 @Component({
   selector: 'app-sh-attendances-summary',
@@ -36,7 +40,8 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
   rates$: Observable<Rate[]>;
 
   columnsToDisplay = [ 'studentImage', 'studentName', 'rate',
-  'numAsistencias', 'paymentAmmout', 'paymentMethod' ]; // , 'actions'
+  'numAsistencias', 'paymentAmmout', 'paymentMethod',
+  'actions' ];
 
   dataSource = new MatTableDataSource();
   selection = new SelectionModel<Attendance>(true, []);
@@ -49,9 +54,12 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
     private rateSvc: RateService,
     private attendancesSvc: AttendancesService,
     private coursesSvc: CoursesService,
+    private scriptSvc: ScriptService,
   ) {
     this.students$ = this.userSvc.getAllStudents();
     this.rates$ = this.rateSvc.getAllRates();
+
+    this.scriptSvc.load('pdfMake', 'vfsFonts');
   }
 
   ngOnInit() {
@@ -107,6 +115,42 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
     .subscribe((students: UserDetails[]) => {
       this.dataSource.data = students;
     });
+  }
+
+  downloadInfo(student: UserDetails) {
+    const receipts: ReceiptData[] = [
+      this.getReceiptData(student)
+    ];
+
+    const documentDefinition = this.scriptSvc.createReports(receipts, 3);
+    const reportName = `Recibo ${student.displayName}.pdf`;
+    pdfMake.createPdf(documentDefinition).download(reportName);
+  }
+
+
+  // Open new window with report
+  openInfo(student: UserDetails) {
+    const receipts: ReceiptData[] = [
+      this.getReceiptData(student)
+    ];
+
+    const documentDefinition = this.scriptSvc.createReports(receipts, 3);
+    pdfMake.createPdf(documentDefinition).open();
+  }
+
+  private getReceiptData(student: UserDetails): ReceiptData {
+
+    const studentName: string = student.displayName;
+    const paymentAmmout: string = `${student.paymentAmmout}€`;
+    const month = this.date.getMonth().toString();
+    const year = this.date.getFullYear().toString();
+
+    return {
+      studentName,
+      paymentAmmout,
+      month,
+      year
+    };
   }
 
 }
