@@ -18,6 +18,12 @@ export class ScriptService {
 
   private static PAGE_MARGINS = [ 70, 35, 70, 35 ];
   private static PDF_STYLES = {
+    xSmallHighlighted: {
+      fontSize: 15,
+      decoration: 'underline',
+      alignment: 'center',
+      bold: true,
+    },
     smallHighlighted: {
       fontSize: 18,
       decoration: 'underline',
@@ -37,6 +43,10 @@ export class ScriptService {
     },
     small: {
       fontSize: 18,
+      alignment: 'center'
+    },
+    xSmall: {
+      fontSize: 15,
       alignment: 'center'
     },
     normal: {
@@ -132,10 +142,10 @@ export class ScriptService {
   private addReceiptContent12(receiptData: ReceiptData): any {
     return {
       text: [
-        { text: 'Recibí de ', style: 'small' },
-        { text: `${receiptData.studentName.toUpperCase()}`, style: 'smallHighlighted' },
-        { text: ' la cantidad de ', style: 'small' },
-        { text: `... ${receiptData.paymentAmmout} € ...`, style: 'smallHighlighted' },
+        { text: 'Recibí de ', style: 'xSmall' },
+        { text: `${receiptData.studentName.toUpperCase()}`, style: 'xSmallHighlighted' },
+        { text: ' la cantidad de ', style: 'xSmall' },
+        { text: `... ${receiptData.paymentAmmout} € ...`, style: 'xSmallHighlighted' },
       ]
     };
   }

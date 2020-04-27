@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ShUserListComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['photoURL', 'displayName', 'location', 'actions'];
+  columnsToDisplay = ['studentImage', 'displayName', 'location', 'actions'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

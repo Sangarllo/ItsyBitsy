@@ -53,6 +53,7 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
     private userSvc: UserService,
     private rateSvc: RateService,
     private attendancesSvc: AttendancesService,
+    private datesSvc: DatesService,
     private coursesSvc: CoursesService,
     private scriptSvc: ScriptService,
   ) {
@@ -141,8 +142,8 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
   private getReceiptData(student: UserDetails): ReceiptData {
 
     const studentName: string = student.displayName;
-    const paymentAmmout: string = `${student.paymentAmmout}€`;
-    const month = this.date.getMonth().toString();
+    const paymentAmmout: string = `${student.paymentAmmout}`;
+    const month = this.datesSvc.MONTH_NAMES[this.date.getMonth()];
     const year = this.date.getFullYear().toString();
 
     return {

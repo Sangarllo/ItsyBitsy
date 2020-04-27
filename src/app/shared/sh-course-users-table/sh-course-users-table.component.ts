@@ -18,7 +18,7 @@ import Swal from 'sweetalert2';
 })
 export class ShCourseUsersTableComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['photoURL', 'displayName', 'actions'];
+  columnsToDisplay = ['studentImage', 'displayName', 'actions'];
   dataSource = new MatTableDataSource();
   newStudent: UserDetails;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

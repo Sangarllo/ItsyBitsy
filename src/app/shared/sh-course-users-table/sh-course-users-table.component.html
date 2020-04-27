@@ -13,11 +13,11 @@
 
     <table mat-table [dataSource]="dataSource" matSort>
 
-        <!-- imageStudent -->
-        <ng-container matColumnDef="photoURL">
+        <!-- studentImage -->
+        <ng-container matColumnDef="studentImage">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-            <td mat-cell *matCellDef="let element">
-                <img [src]="element.photoURL" class="img-thumbnail rounded-circle" alt="element.displayName">
+            <td mat-cell *matCellDef="let student">
+                <img [src]="student.photoURL" class="img-thumbnail rounded-circle" alt="student.displayName">
             </td>
         </ng-container>
 

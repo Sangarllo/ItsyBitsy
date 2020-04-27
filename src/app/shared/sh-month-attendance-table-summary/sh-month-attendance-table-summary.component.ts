@@ -24,7 +24,7 @@ declare let pdfMake: any ;
 })
 export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['photoURL', 'studentName', 'numAsistencias',
+  columnsToDisplay = ['studentImage', 'studentName', 'numAsistencias',
     'rateName', 'paymentAmmout', 'paymentMethod', 'actions'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
