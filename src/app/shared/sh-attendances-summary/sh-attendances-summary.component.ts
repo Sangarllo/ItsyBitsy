@@ -10,16 +10,12 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { UserDetails } from 'src/app/models/user.model';
 import { Observable, combineLatest } from 'rxjs';
-import { CoursesService } from '../../services/courses.service';
 import { map } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
-import { PaymentMethod } from '../../models/user.model';
 import { Rate } from '../../models/rate';
 import { RateService } from '../../services/rates.service';
 import { ReceiptData } from '../../models/report-summary';
 import { ScriptService } from '../../services/script.service';
-
-declare let pdfMake: any ;
 
 @Component({
   selector: 'app-sh-attendances-summary',
@@ -39,14 +35,14 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
   attendances$: Observable<Attendance[]>;
   rates$: Observable<Rate[]>;
 
-  columnsToDisplay = [ 'studentImage', 'studentName', 'rate',
-  'numAsistencias', 'paymentAmmout', 'paymentMethod',
-  'actions' ];
+  columnsToDisplay = [ 'select',
+    'studentImage', 'studentName',
+    'rate', 'numAsistencias', 'paymentAmmout', 'paymentMethod',
+    'actions' ];
 
   dataSource = new MatTableDataSource();
-  selection = new SelectionModel<Attendance>(true, []);
-  statusAttendance: Status[];
-  statusToApply = Attendance.getDefaultStatus();
+  selection = new SelectionModel<UserDetails>(true, []);
+  numStudentsWithAttendances = 0;
 
   constructor(
     private router: Router,
@@ -54,7 +50,6 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
     private rateSvc: RateService,
     private attendancesSvc: AttendancesService,
     private datesSvc: DatesService,
-    private coursesSvc: CoursesService,
     private scriptSvc: ScriptService,
   ) {
     this.students$ = this.userSvc.getAllStudents();
@@ -64,7 +59,6 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
   }
 
   ngOnInit() {
-    this.statusAttendance = Attendance.getAllStatus();
     this.displaySummary();
   }
 
@@ -86,6 +80,42 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.numStudentsWithAttendances = 0;
+
+    if ( this.isAllSelected() ) {
+      this.selection.clear();
+    } else {
+      this.dataSource.data.forEach((student: UserDetails) => {
+        this.selection.select(student);
+        if ( student.numAttendances === 0 ) {
+          this.numStudentsWithAttendances++;
+        }
+      });
+    }
+  }
+
+  changeSelection(student: UserDetails) {
+
+    this.selection.toggle(student);
+
+    if ( student.numAttendances === 0 ) {
+      if ( this.selection.isSelected(student) ) {
+        this.numStudentsWithAttendances++;
+      } else {
+        this.numStudentsWithAttendances--;
+      }
     }
   }
 
@@ -118,25 +148,49 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
     });
   }
 
-  downloadInfo(student: UserDetails) {
-    const receipts: ReceiptData[] = [
-      this.getReceiptData(student)
-    ];
 
-    const documentDefinition = this.scriptSvc.createReports(receipts, 3);
-    const reportName = `Recibo ${student.displayName}.pdf`;
-    pdfMake.createPdf(documentDefinition).download(reportName);
+  withAttendances() {
+    this.selection.selected.forEach(
+      (student: UserDetails) => {
+        if ( student.numAttendances === 0 ) {
+          this.selection.deselect(student);
+        }
+      });
+
+    this.numStudentsWithAttendances = 0;
+  }
+
+
+  // Download PDF with recipts info
+  downloadInfo(student: UserDetails) {
+    this.scriptSvc.downloadInfo([
+        this.getReceiptData(student)
+      ],
+      `Recibo ${student.displayName}.pdf`
+    );
+  }
+
+  // Download PDF with recipts info
+  downloadAllInfo() {
+
+    const receipts: ReceiptData[] = [];
+    this.selection.selected.forEach(
+      (student: UserDetails) => {
+        receipts.push(this.getReceiptData(student));
+      });
+
+    this.scriptSvc.downloadInfo(
+      receipts,
+      `Recibo.pdf`
+    );
   }
 
 
   // Open new window with report
   openInfo(student: UserDetails) {
-    const receipts: ReceiptData[] = [
+    this.scriptSvc.openInfo([
       this.getReceiptData(student)
-    ];
-
-    const documentDefinition = this.scriptSvc.createReports(receipts, 3);
-    pdfMake.createPdf(documentDefinition).open();
+    ]);
   }
 
   private getReceiptData(student: UserDetails): ReceiptData {

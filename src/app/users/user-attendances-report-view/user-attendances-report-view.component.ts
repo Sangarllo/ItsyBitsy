@@ -2,6 +2,7 @@ import { UserDetails } from './../../models/user.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { DatesService } from '../../services/dates.service';
 
 @Component({
   selector: 'app-user-attendances-report-view',
@@ -11,7 +12,7 @@ import { UserService } from '../../services/user.service';
 export class UserAttendancesReportView implements OnInit {
 
   userDetails: UserDetails;
-  pageTitle: string = `Informe de Asistencias del mes`;
+  pageTitle: string = '';
   errorMessage: string;
 
   date: Date;
@@ -19,6 +20,7 @@ export class UserAttendancesReportView implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private datesSvc: DatesService,
     private userService: UserService) {
 
     // Primer día del mes
@@ -58,6 +60,11 @@ export class UserAttendancesReportView implements OnInit {
 
   onUpdateMonth(newDate: Date): void {
     this.date = new Date(newDate);
+
+    const month = this.datesSvc.MONTH_NAMES[this.date.getMonth()];
+    const year = this.date.getFullYear();
+
+    this.pageTitle = `Informe de asistencias de ${month} de ${year}`;
   }
 
   gotoDashboard(): void {

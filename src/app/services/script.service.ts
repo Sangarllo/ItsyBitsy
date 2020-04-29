@@ -11,12 +11,14 @@ export const ScriptStore: Scripts[] = [
   { name: 'vfsFonts', src: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.59/vfs_fonts.js' }
 ];
 
+declare let pdfMake: any ;
+
 @Injectable({
   providedIn: 'root'
 })
 export class ScriptService {
 
-  private static PAGE_MARGINS = [ 70, 35, 70, 35 ];
+  private static PAGE_MARGINS = [ 50, 30, 50, 30 ];
   private static PDF_STYLES = {
     xSmallHighlighted: {
       fontSize: 15,
@@ -54,12 +56,12 @@ export class ScriptService {
       alignment: 'center'
     },
     smallEmpty: {
-      margin: [4, 8]
+      margin: [6, 12]
     },
     empty: {
       margin: [10, 20]
     }
-  }
+  };
 
   private scripts: any = {};
 
@@ -70,6 +72,8 @@ export class ScriptService {
         src: script.src
       };
     });
+
+    this.load('pdfMake', 'vfsFonts');
   }
 
   load(...scripts: string[]) {
@@ -99,16 +103,15 @@ export class ScriptService {
     });
   }
 
-  createReports(receipts: ReceiptData[], reportsPerPage: number): any {
+  createReports(receipts: ReceiptData[]): any {
 
     const reportContent = [];
 
     receipts.forEach(receipt => {
           reportContent.push(this.addReciptSmallHeader());
           reportContent.push(this.addReceiptSmallEmptyLine());
-          reportContent.push(this.addReceiptContent12(receipt));
-          reportContent.push(this.addReceiptContent3(receipt));
-          reportContent.push(this.addReceiptSmallEmptyLine());
+          reportContent.push(this.addReceiptContentLine1(receipt));
+          reportContent.push(this.addReceiptContentLine2(receipt));
           reportContent.push(this.addReceiptSmallEmptyLine());
           reportContent.push(this.addReceiptSmallEmptyLine());
         });
@@ -120,50 +123,6 @@ export class ScriptService {
     };
   }
 
-
-  createReport(receiptData: ReceiptData): any {
-
-    const reportContent = [];
-    reportContent.push(this.addReciptSmallHeader());
-    reportContent.push(this.addReceiptSmallEmptyLine());
-    reportContent.push(this.addReceiptContent12(receiptData));
-    reportContent.push(this.addReceiptContent3(receiptData));
-    reportContent.push(this.addReceiptSmallEmptyLine());
-    reportContent.push(this.addReceiptSmallEmptyLine());
-    reportContent.push(this.addReceiptSmallEmptyLine());
-
-    return {
-      pageMargins: ScriptService.PAGE_MARGINS,
-      content: reportContent,
-      styles: ScriptService.PDF_STYLES
-    };
-  }
-
-  private addReceiptContent12(receiptData: ReceiptData): any {
-    return {
-      text: [
-        { text: 'Recibí de ', style: 'xSmall' },
-        { text: `${receiptData.studentName.toUpperCase()}`, style: 'xSmallHighlighted' },
-        { text: ' la cantidad de ', style: 'xSmall' },
-        { text: `... ${receiptData.paymentAmmout} € ...`, style: 'xSmallHighlighted' },
-      ]
-    };
-  }
-
-  private addReceiptContent3(receiptData: ReceiptData): any {
-    return {
-      text: [
-        {
-          text: `por clases de inglés - `,
-          style: 'small'
-        },
-        {
-          text: `${receiptData.month} de ${receiptData.year}`,
-          style: 'smallUnderline'
-        }
-      ]
-    };
-  }
 
   private addReciptSmallHeader(): any {
     return {
@@ -180,6 +139,31 @@ export class ScriptService {
     };
   }
 
+  private addReceiptContentLine1(receiptData: ReceiptData): any {
+    return {
+      text: [
+        { text: 'Recibí de ', style: 'xSmall' },
+        { text: `${receiptData.studentName.toUpperCase()}`, style: 'xSmallHighlighted' },
+        { text: ' la cantidad de ', style: 'xSmall' },
+        { text: `... ${receiptData.paymentAmmout} € ...`, style: 'xSmallHighlighted' },
+      ]
+    };
+  }
+
+  private addReceiptContentLine2(receiptData: ReceiptData): any {
+    return {
+      text: [
+        {
+          text: `por clases de inglés - `,
+          style: 'small'
+        },
+        {
+          text: `${receiptData.month} de ${receiptData.year}`,
+          style: 'smallUnderline'
+        }
+      ]
+    };
+  }
 
   private addReceiptSmallEmptyLine(): any {
     return {
@@ -187,5 +171,19 @@ export class ScriptService {
       style: 'smallEmpty'
     };
   }
+
+
+  // Download PDF with recipts info
+  downloadInfo(receipts: ReceiptData[], reportName: string) {
+    const documentDefinition = this.createReports(receipts);
+    pdfMake.createPdf(documentDefinition).download(reportName);
+  }
+
+  // Open new window with report
+  openInfo(receipts: ReceiptData[]) {
+    const documentDefinition = this.createReports(receipts);
+    pdfMake.createPdf(documentDefinition).open();
+  }
+
 
 }

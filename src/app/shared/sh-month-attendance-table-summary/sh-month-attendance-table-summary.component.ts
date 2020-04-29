@@ -15,7 +15,7 @@ import { RateService } from '../../services/rates.service';
 
 import { ScriptService } from '../../services/script.service';
 import { ReceiptData } from '../../models/report-summary';
-declare let pdfMake: any ;
+declare let pdfMake: any;
 
 @Component({
   selector: 'sh-month-attendance-table-summary',
@@ -184,7 +184,7 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
       receiptData
     ];
 
-    const documentDefinition = this.scriptSvc.createReports(receipts, 3);
+    const documentDefinition = this.scriptSvc.createReports(receipts);
     const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
     pdfMake.createPdf(documentDefinition).print();
   }
@@ -205,7 +205,7 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
       }
     });
 
-    const documentDefinition = this.scriptSvc.createReports(receipts, 6);
+    const documentDefinition = this.scriptSvc.createReports(receipts);
     const reportName = `Recibo conjunto ${this.year}-${this.month}.pdf`;
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
@@ -227,7 +227,7 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
       receiptData
     ];
 
-    const documentDefinition = this.scriptSvc.createReports(receipts, 3);
+    const documentDefinition = this.scriptSvc.createReports(receipts);
     const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
@@ -249,7 +249,7 @@ export class ShMonthAttendanceTableSummaryComponent implements OnInit, AfterView
       receiptData
     ];
 
-    const documentDefinition = this.scriptSvc.createReports(receipts, 3);
+    const documentDefinition = this.scriptSvc.createReports(receipts);
     const reportName = `Recibo ${this.year}-${this.month} ${studentName}.pdf`;
     pdfMake.createPdf(documentDefinition).open();
   }
