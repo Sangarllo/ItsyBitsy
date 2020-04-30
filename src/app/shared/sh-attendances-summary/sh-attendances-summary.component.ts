@@ -9,8 +9,8 @@ import { DatesService } from '../../services/dates.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { UserDetails } from 'src/app/models/user.model';
-import { Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
+import { map, finalize } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
 import { Rate } from '../../models/rate';
 import { RateService } from '../../services/rates.service';
@@ -39,6 +39,8 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
     'studentImage', 'studentName',
     'rate', 'numAsistencias', 'paymentAmmout', 'paymentMethod',
     'actions' ];
+
+  public loading = true;
 
   dataSource = new MatTableDataSource();
   selection = new SelectionModel<UserDetails>(true, []);
@@ -120,6 +122,9 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
   }
 
   private displaySummary() {
+
+    this.loading = true;
+
     const dateIni = this.date;
     const dateEnd = ( this.date.getMonth() === 12 ) ?
         new Date(this.date.getFullYear() + 1, 1, 1 ) :
@@ -142,9 +147,18 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
           rates.find(rate => student.rateId === rate.id),
           attendances.filter( attendance => attendance.studentId === student.uid ).length
         )
-      }) as UserDetails)))
-    .subscribe((students: UserDetails[]) => {
-      this.dataSource.data = students;
+      }) as UserDetails)),
+    )
+    .subscribe({
+      next: (students: UserDetails[]) => {
+        this.dataSource.data = students;
+        this.loading = false;
+        },
+      error: err => console.log(`Oops... ${err}`),
+      complete: () => {
+        console.log(`Complete!`);
+        this.loading = false;
+      },
     });
   }
 

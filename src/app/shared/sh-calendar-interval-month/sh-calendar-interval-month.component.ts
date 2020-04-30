@@ -103,16 +103,12 @@ export class ShCalendarIntervalMonthComponent implements OnInit {
   onUpdateMonth() {
 
     this.fromMomentToTypescript();
-    console.log(`dateMoment updateMonth: ${this.dateMoment}`);
     this.date1 = new FormControl(this.dateMoment);
-    console.log(`output updateMonth date1: ${this.date1}`);
-    console.log(`output updateMonth dateTs: ${this.dateTs}`);
     this.updateMonth.emit(this.dateTs);
   }
 
   fromMomentToTypescript() {
     this.dateTs = new Date(this.dateMoment.year(), this.dateMoment.month(), this.dateMoment.date());
-    console.log(`month (${this.dateTs.getMonth()})`);
   }
 
 }

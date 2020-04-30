@@ -2,10 +2,19 @@
     padding-left: 20px;
 }
 
-.title {
+.color-primary {
     color: #673ab7
+}
+
+.color-disabled {
+    color: rgb(215, 215, 215);
 }
 
 .mat-column-select {
     overflow: initial;
+}
+
+.spinner-container {
+    padding: 50px;
+    text-align: center;
 }
