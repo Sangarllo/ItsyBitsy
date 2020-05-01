@@ -15,6 +15,14 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.color-primary {
+    color: #673ab7
+}
+
+.color-disabled {
+    color: rgb(215, 215, 215);
+}
+
 mat-form-field {
     margin-bottom: 20px;
 }
@@ -49,8 +57,6 @@ mat-card {
 
 .is-ausente,
 .is-presente,
-.is-realizada,
-.is-prevista,
 .is-programada {
     padding-left: 20px !important;
     padding-right: 20px !important;
@@ -67,19 +73,7 @@ mat-card {
     background-color: #f8d7da !important;
 }
 
-.action-is-anulada {
-    color: #721c24 !important;
-    background-color: #f8d7da !important;
-}
-
-.is-prevista,
 .is-programada {
-    color: #856404 !important;
-    background-color: #fff3cd !important;
-}
-
-.action-is-prevista,
-.action-is-programada {
     color: #856404 !important;
     background-color: #fff3cd !important;
 }
@@ -114,14 +108,8 @@ mat-card {
     background-color: #f8d7da !important;
 }
 
-.is-presente,
-.is-realizada {
+.is-presente {
     text-align: center !important;
-    color: #155724 !important;
-    background-color: #d4edda !important;
-}
-
-.action-is-realizada {
     color: #155724 !important;
     background-color: #d4edda !important;
 }
@@ -131,9 +119,4 @@ mat-card {
     align-items: center;
     justify-content: center;
     height: 100%;
-}
-
-.action-is-disabled {
-    color: whitesmoke !important;
-    background-color: white !important;
 }

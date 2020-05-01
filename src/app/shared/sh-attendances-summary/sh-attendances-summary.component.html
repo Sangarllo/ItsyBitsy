@@ -3,9 +3,10 @@
     <mat-toolbar>
 
         <button [disabled]="selection.selected.length === 0" mat-mini-fab color="primary" (click)="downloadAllInfo()">
-      <mat-icon>cloud_download</mat-icon>
-    </button>
-        <span [className]="(selection.selected.length === 0) ? 'color-disabled' : 'color-primary'">&nbsp;&nbsp;Descargar los recibos de {{ selection.selected.length }} estudiantes</span>
+          <mat-icon>cloud_download</mat-icon>
+        </button>
+
+        <span [className]="(selection.selected.length === 0) ? 'color-disabled toolbar-message' : 'color-primary toolbar-message'">Descargar los recibos de {{ selection.selected.length }} estudiantes</span>
 
         <span class="fill-remaining-space"></span>
 
@@ -17,7 +18,7 @@
         <button [disabled]="numStudentsWithAttendances === 0" mat-mini-fab color="primary" (click)="withAttendances()">
       <mat-icon>person_pin</mat-icon>
     </button>
-        <span [className]="(numStudentsWithAttendances === 0) ? 'color-disabled' : 'color-primary'">&nbsp;&nbsp;Quitar estudiantes sin asistencias</span>
+        <span [className]="(numStudentsWithAttendances === 0) ? 'color-disabled toolbar-message' : 'color-primary toolbar-message'">Quitar estudiantes sin asistencias</span>
 
     </mat-toolbar>
 
