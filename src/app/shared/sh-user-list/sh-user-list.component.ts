@@ -12,6 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ShUserListComponent implements OnInit, AfterViewInit {
 
+  public loading = true;
   columnsToDisplay = ['studentImage', 'displayName', 'location', 'actions'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -32,6 +33,7 @@ export class ShUserListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.loading = false;
   }
 
   applyFilter(filterValue: string) {

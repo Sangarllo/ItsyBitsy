@@ -32,53 +32,8 @@ export class UsersView implements OnInit {
     });
   }
 
-
   gotoNew() {
     this.router.navigate([`${UserDetails.PATH_URL}/0/editar`]);
-  }
-
-  viewUser(userDetails: UserDetails) {
-    this.router.navigate([`${UserDetails.PATH_URL}/${userDetails.uid}`]);
-  }
-
-  editUser(userDetails: UserDetails) {
-    this.router.navigate([`${UserDetails.PATH_URL}/${userDetails.uid}/editar`]);
-  }
-
-  deleteUser(userDetails: UserDetails) {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      // tslint:disable-next-line:max-line-length
-      text: `Si pulsas OK, el usuario ${userDetails.displayName} quedará eliminado de la base de datos (tanto si es estudiante, como profesor o administrador) y no podrás revertir dicha acción`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, ¡bórralo!'
-    }).then((result) => {
-      if (result.value) {
-
-        userDetails.current = false;
-        this.userSvc.updateUserDetails(userDetails)
-        .subscribe({
-          next: () => {
-            Swal.fire(
-              'Borrado!',
-              `El usuario ${userDetails.displayName} ha sido eliminado.`,
-              'success'
-            );
-          },
-          error: err => {
-            Swal.fire(
-              'Ups!',
-              `El usuario ${userDetails.displayName} no ha podido ser eliminado.`,
-              'error'
-            );
-          },
-        });
-
-      }
-    });
   }
 
 }
