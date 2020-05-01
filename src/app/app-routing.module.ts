@@ -38,12 +38,6 @@ const routes: Routes = [
     loadChildren: () => import('./rates/rates.module').then(mod => mod.RatesModule)
   },
   {
-    path: 'informes',
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToHome },
-    loadChildren: () => import('./reports/reports.module').then(mod => mod.ReportsModule)
-  },
-  {
     path: 'error-401',
     component: Page401Component
   },
