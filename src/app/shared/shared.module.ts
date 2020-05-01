@@ -25,6 +25,7 @@ import { ShCourseDataComponent } from './sh-course-data/sh-course-data.component
 import { ShCourseDataExtendedComponent } from './sh-course-data-extended/sh-course-data-extended.component';
 import { ShLessonDataComponent } from './sh-lesson-data/sh-lesson-data.component';
 import { ShRateDataComponent } from './sh-rate-data/sh-rate-data.component';
+import { ShLoadingComponent } from './sh-loading/sh-loading.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ShRateDataComponent } from './sh-rate-data/sh-rate-data.component';
     ShCourseDataExtendedComponent,
     ShLessonDataComponent,
     ShRateDataComponent,
+    ShLoadingComponent,
   ],
   imports: [
     CommonModule,
@@ -83,6 +85,7 @@ import { ShRateDataComponent } from './sh-rate-data/sh-rate-data.component';
     ShTeacherLessonsTableComponent,
     ShMonthAttendanceTableComponent,
     ShMonthAttendanceTableSummaryComponent,
+    ShLoadingComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
