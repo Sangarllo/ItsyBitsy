@@ -24,6 +24,8 @@ export class CourseDashboardView implements OnInit, AfterViewInit {
   columnsToDisplay = ['image', 'name', 'schedule', 'teacher', 'aforo',
     'weekLessonActions', 'weekLesson',
     'nextLessonActions', 'nextLesson', ];
+
+  public loading = true;
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -36,7 +38,9 @@ export class CourseDashboardView implements OnInit, AfterViewInit {
     private lessonSvc: LessonsService,
     private attendanceSvc: AttendancesService,
     private userSvc: UserService
-  ) { }
+  ) {
+    this.loading = true;
+  }
 
   ngOnInit() {
     this.courseSvc.getAllCourses().subscribe(
@@ -51,6 +55,7 @@ export class CourseDashboardView implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.loading = false;
   }
 
   applyFilter(filterValue: string) {

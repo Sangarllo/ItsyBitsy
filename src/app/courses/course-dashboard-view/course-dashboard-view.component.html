@@ -1,90 +1,98 @@
-<mat-toolbar color="primary">
-    <span>Dashboard de Cursos Activos</span>
-    <span class="fill-remaining-space"></span>
+<div *ngIf="!loading; else loadingTemplate">
 
-    <mat-form-field class="filter-form-field">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
-        <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-</mat-toolbar>
+    <mat-toolbar color="primary">
+        <span>Dashboard de Cursos Activos</span>
+        <span class="fill-remaining-space"></span>
 
-<table mat-table [dataSource]="dataSource" matSort>
+        <mat-form-field class="filter-form-field">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </mat-toolbar>
 
-    <ng-container matColumnDef="image">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-        <td mat-cell *matCellDef="let course">
-            <img (click)="gotoCourse(course)" [src]="course.image" class="img-thumbnail" alt="course.displayName">
-        </td>
-    </ng-container>
+    <table mat-table [dataSource]="dataSource" matSort>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Curso </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
+        <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+            <td mat-cell *matCellDef="let course">
+                <img (click)="gotoCourse(course)" [src]="course.image" class="img-thumbnail" alt="course.displayName">
+            </td>
+        </ng-container>
 
-    <!-- Schedule Column -->
-    <ng-container matColumnDef="schedule">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Horario </th>
-        <td mat-cell *matCellDef="let element"> {{element.weekDay}}, de {{element.startTime}} a {{element.endTime}} </td>
-    </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Curso </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
 
-    <!-- Teacher Column -->
-    <ng-container matColumnDef="teacher">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Profesor</th>
-        <td mat-cell *matCellDef="let course">
-            <img [src]="course.teacherImage" class="img-thumbnail" alt="course.teacherImage" />
-        </td>
-    </ng-container>
+        <!-- Schedule Column -->
+        <ng-container matColumnDef="schedule">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Horario </th>
+            <td mat-cell *matCellDef="let element"> {{element.weekDay}}, de {{element.startTime}} a {{element.endTime}} </td>
+        </ng-container>
 
-    <!-- Aforo (NumStudents) Column -->
-    <ng-container matColumnDef="aforo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Alumnos</th>
-        <td mat-cell *matCellDef="let course">
+        <!-- Teacher Column -->
+        <ng-container matColumnDef="teacher">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Profesor</th>
+            <td mat-cell *matCellDef="let course">
+                <img [src]="course.teacherImage" class="img-thumbnail" alt="course.teacherImage" />
+            </td>
+        </ng-container>
 
-            <app-sh-students-items [students]="course.studentList"></app-sh-students-items>
+        <!-- Aforo (NumStudents) Column -->
+        <ng-container matColumnDef="aforo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Alumnos</th>
+            <td mat-cell *matCellDef="let course">
 
-        </td>
-    </ng-container>
+                <app-sh-students-items [students]="course.studentList"></app-sh-students-items>
 
-    <!-- weekLesson Column -->
-    <ng-container matColumnDef="weekLessonActions">
-        <th mat-header-cell *matHeaderCellDef>
-            <button mat-mini-fab color="primary" (click)="addMultipleWeekLessons()"><mat-icon>add_box</mat-icon></button>
-        </th>
-        <td mat-cell *matCellDef="let course">
-            <button mat-mini-fab color="accent" *ngIf="!course.weekLesson" (click)="addWeekLesson(course)"><mat-icon>add_box</mat-icon></button>
-            <button mat-mini-fab color="warn" *ngIf="course.weekLesson" (click)="gotoLesson(course, course.weekLessonId )"><mat-icon>pageview</mat-icon></button>
-        </td>
-    </ng-container>
+            </td>
+        </ng-container>
 
-    <ng-container matColumnDef="weekLesson">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;&nbsp;Esta Semana</th>
-        <td mat-cell *matCellDef="let element"> <span *ngIf="element.weekLesson">{{element.weekLesson | date:'EEEE, MMMM d' }}</span> </td>
-    </ng-container>
+        <!-- weekLesson Column -->
+        <ng-container matColumnDef="weekLessonActions">
+            <th mat-header-cell *matHeaderCellDef>
+                <button mat-mini-fab color="primary" (click)="addMultipleWeekLessons()"><mat-icon>add_box</mat-icon></button>
+            </th>
+            <td mat-cell *matCellDef="let course">
+                <button mat-mini-fab color="accent" *ngIf="!course.weekLesson" (click)="addWeekLesson(course)"><mat-icon>add_box</mat-icon></button>
+                <button mat-mini-fab color="warn" *ngIf="course.weekLesson" (click)="gotoLesson(course, course.weekLessonId )"><mat-icon>pageview</mat-icon></button>
+            </td>
+        </ng-container>
 
-
-    <!-- nextLesson Column -->
-    <ng-container matColumnDef="nextLessonActions">
-        <th mat-header-cell *matHeaderCellDef>
-            <button mat-mini-fab color="primary" (click)="addMultipleNextLessons()"><mat-icon>add_box</mat-icon></button>
-        </th>
-        <td mat-cell *matCellDef="let course">
-            <button mat-mini-fab color="warn" *ngIf="course.nextLesson" (click)="gotoLesson(course, course.nextLessonId )"><mat-icon>pageview</mat-icon></button>
-            <button mat-mini-fab color="accent" *ngIf="!course.nextLesson" (click)="addNextLesson(course)"><mat-icon>add_box</mat-icon></button>
-        </td>
-    </ng-container>
-
-    <ng-container matColumnDef="nextLesson">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;&nbsp;Próxima Semana</th>
-        <td mat-cell *matCellDef="let element"> <span *ngIf="element.nextLesson">{{element.nextLesson | date:'EEEE, MMMM d' }}</span> </td>
-    </ng-container>
+        <ng-container matColumnDef="weekLesson">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;&nbsp;Esta Semana</th>
+            <td mat-cell *matCellDef="let element"> <span *ngIf="element.weekLesson">{{element.weekLesson | date:'EEEE, MMMM d' }}</span> </td>
+        </ng-container>
 
 
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">
-    </tr>
+        <!-- nextLesson Column -->
+        <ng-container matColumnDef="nextLessonActions">
+            <th mat-header-cell *matHeaderCellDef>
+                <button mat-mini-fab color="primary" (click)="addMultipleNextLessons()"><mat-icon>add_box</mat-icon></button>
+            </th>
+            <td mat-cell *matCellDef="let course">
+                <button mat-mini-fab color="warn" *ngIf="course.nextLesson" (click)="gotoLesson(course, course.nextLessonId )"><mat-icon>pageview</mat-icon></button>
+                <button mat-mini-fab color="accent" *ngIf="!course.nextLesson" (click)="addNextLesson(course)"><mat-icon>add_box</mat-icon></button>
+            </td>
+        </ng-container>
 
-</table>
+        <ng-container matColumnDef="nextLesson">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;&nbsp;Próxima Semana</th>
+            <td mat-cell *matCellDef="let element"> <span *ngIf="element.nextLesson">{{element.nextLesson | date:'EEEE, MMMM d' }}</span> </td>
+        </ng-container>
 
-<mat-paginator [pageSize]="100" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">
+        </tr>
+
+    </table>
+
+    <mat-paginator [pageSize]="100" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+</div>
+
+<ng-template #loadingTemplate>
+    <sh-loading></sh-loading>
+</ng-template>

@@ -11,14 +11,14 @@
         <div class="row">
             <div class="col-lg-6 col-12" style="text-align: center;">
 
-                <img [src]="userDetailsForm.get('photoURL').value" style="height:80%;width:80%" (click)="inputImageProfile.click()" />
+                <img [src]="userDetailsForm.get('photoURL').value" style="width:80%" (click)="inputImageProfile.click()" />
                 <input hidden type="file" #inputImageProfile (change)="uploadFile($event)">
 
                 <hr>
 
                 <span (click)="inputImageProfile.click()">Clica en la imagen para cambiar la foto</span>
 
-                <mat-form-field>
+                <mat-form-field class="data-detail">
                     <mat-label>Avatar</mat-label>
                     <mat-select formControlName="photoURL" [value]="userDetailsForm.get('photoURL').value">
                         <mat-option *ngFor="let avatar of AVATARES" [value]="avatar.path">
@@ -39,20 +39,20 @@
 
                     <div class="container">
                         <div class="row">
-                            <mat-form-field class="col-6">
+                            <mat-form-field class="data-detail" class="col-12">
                                 <input matInput type="text" formControlName="displayName" placeholder="Nombre Completo">
                             </mat-form-field>
 
-                            <mat-form-field class="col-6">
+                            <mat-form-field class="data-detail" class="col-12">
                                 <input matInput type="text" formControlName="nickName" placeholder="Nombre de usuario">
                             </mat-form-field>
                         </div>
                         <div class="row">
-                            <mat-form-field class="col-6">
+                            <mat-form-field class="data-detail" class="col-12">
                                 <input matInput type="text" formControlName="location" placeholder="Localidad">
                             </mat-form-field>
 
-                            <mat-form-field class="col-6">
+                            <mat-form-field class="data-detail" class="col-12">
                                 <input matInput [matDatepicker]="picker" formControlName="birthday" placeholder="Fecha de Cumpleaños">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker startView="multi-year"></mat-datepicker>
@@ -69,27 +69,27 @@
                     <div class="container">
                         <div class="row">
 
-                            <mat-form-field class="col-12">
+                            <mat-form-field class="data-detail" class="col-12">
                                 <input matInput type="text" formControlName="email" placeholder="Correo Electrónico">
                                 <mat-error *ngIf="!!userDetailsForm.get('email').hasError('required')">{{ errorMessage }}</mat-error>
                             </mat-form-field>
 
-                            <mat-form-field class="col-4">
+                            <mat-form-field class="data-detail" class="col-4">
                                 <input matInput type="text" formControlName="contactPerson" placeholder="Persona de Contacto">
                             </mat-form-field>
 
-                            <mat-form-field class="col-4">
+                            <mat-form-field class="data-detail" class="col-3">
                                 <input matInput type="text" formControlName="contactPersonNif" placeholder="Nif Persona de Contacto">
                             </mat-form-field>
 
-                            <mat-form-field class="col-4">
+                            <mat-form-field class="data-detail" class="col-3">
                                 <input matInput type="text" formControlName="telephone" placeholder="Teléfono de Contacto">
                             </mat-form-field>
                         </div>
 
                         <div class="row">
 
-                            <mat-form-field class="col-12">
+                            <mat-form-field class="data-detail" class="col-12">
                                 <input matInput type="text" formControlName="address" placeholder="Dirección postal">
                                 <mat-error *ngIf="!!userDetailsForm.get('address').hasError('required')">{{ errorMessage }}</mat-error>
                             </mat-form-field>
@@ -106,7 +106,7 @@
                     <div class="container">
                         <div class="row">
 
-                            <mat-form-field class="col-12" *ngIf="rates$ | async as RATES">
+                            <mat-form-field class="data-detail" class="col-12" *ngIf="rates$ | async as RATES">
                                 <mat-label>Tarifa</mat-label>
                                 <mat-select formControlName="rateId" [value]="userDetailsForm.get('rateId').value">
                                     <mat-option *ngFor="let rate of RATES" [value]="rate.id">
@@ -115,7 +115,7 @@
                                 </mat-select>
                             </mat-form-field>
 
-                            <mat-form-field class="col-12">
+                            <mat-form-field class="data-detail" class="col-12">
                                 <mat-label>Método de Pago</mat-label>
                                 <mat-select formControlName="paymentMethod" [value]="userDetailsForm.get('paymentMethod').value">
                                     <mat-option *ngFor="let paymentMethod of PAYMENT_METHOD_ARRAY" [value]="paymentMethod">

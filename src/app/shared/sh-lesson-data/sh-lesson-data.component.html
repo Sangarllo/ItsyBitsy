@@ -1,6 +1,6 @@
 <mat-card class="container item-data" [ngClass]="(lesson.current)?'item-enabled':'item-disabled'" *ngIf="lesson">
 
-    <div class="row">
+    <div class="row" *ngIf="teacher">
 
         <div class="col-3 text-center">
             <img [src]="teacher.photoURL" class="img-thumbnail" alt="teacher.displayName">
