@@ -8,6 +8,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { UserService } from '../../services/user.service';
 import { UserDetails } from 'src/app/models/user.model';
+import { Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-courses-view',
@@ -17,25 +19,25 @@ import { UserDetails } from 'src/app/models/user.model';
 export class CoursesView implements OnInit, AfterViewInit {
 
   columnsToDisplay = ['image', 'name', 'type', 'schedule', 'teacher', 'aforo', 'actions'];
+
+  public loading = true;
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  courses: Course[] = [];
+  courses$: Observable<Course[]>;
+  teachers$: Observable<UserDetails[]>;
 
   constructor(
     private router: Router,
-    private courseSvc: CoursesService,
+    private coursesSvc: CoursesService,
     private userSvc: UserService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-    this.courseSvc.getAllCourses()
-      .subscribe(
-      (courses: Course[]) => {
-        this.courses = courses;
-        this.completeCoursesInfo();
-        this.dataSource.data = this.courses;
-      });
+    this.courses$ = this.coursesSvc.getAllCourses();
+    this.teachers$ = this.userSvc.getAllTeachers();
+    this.displayData();
   }
 
   ngAfterViewInit(): void {
@@ -59,12 +61,21 @@ export class CoursesView implements OnInit, AfterViewInit {
     this.router.navigate([`${Course.PATH_URL}/${course.id}`]);
   }
 
-  private completeCoursesInfo() {
-    this.courses.forEach(course => {
-      this.userSvc.getUserDetails(course.teacherId)
-        .subscribe( ( teacher: UserDetails) => {
-          course.teacherName = teacher.displayName;
-        });
+  private displayData() {
+
+    combineLatest([
+      this.courses$,
+      this.teachers$
+    ])
+      .pipe(map(([courses, teachers]) => courses.map(course => ({
+        ...course,
+
+        teacherName: teachers.find(t => course.teacherId === t.uid)?.displayName,
+        teacherImage: teachers.find(t => course.teacherId === t.uid)?.displayName,
+      }) as Course)))
+    .subscribe((courses: Course[]) => {
+      this.dataSource.data = courses;
+      this.loading = false;
     });
   }
 }
