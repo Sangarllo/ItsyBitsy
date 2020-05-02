@@ -35,6 +35,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
 
   columnsToDisplay = [ 'status', 'studentImage', 'studentName', 'courseImage', 'courseName', 'lessonDate' ]; // , 'actions'
 
+  public loading = true;
   dataSource = new MatTableDataSource();
   selection = new SelectionModel<Attendance>(true, []);
   statusAttendance: Status[];
@@ -47,6 +48,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
     private attendancesSvc: AttendancesService,
     private coursesSvc: CoursesService,
   ) {
+    this.loading = true;
   }
 
   ngOnInit() {
@@ -60,6 +62,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
   }
 
   ngOnChanges(): void {
+    this.loading = true;
     this.displayAttendances();
   }
 
@@ -121,6 +124,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
       }) as Attendance)))
     .subscribe((attendances: Attendance[]) => {
       this.dataSource.data = attendances;
+      this.loading = false;
     });
   }
 

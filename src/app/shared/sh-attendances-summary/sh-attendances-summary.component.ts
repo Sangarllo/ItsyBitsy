@@ -38,7 +38,7 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
   columnsToDisplay = [ 'select',
     'studentImage', 'studentName',
     'rate', 'numAsistencias', 'paymentAmmout', 'paymentMethod',
-    'actions' ];
+    'actions2' ];
 
   public loading = true;
 

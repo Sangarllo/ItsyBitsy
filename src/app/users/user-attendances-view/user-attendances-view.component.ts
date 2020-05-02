@@ -58,7 +58,6 @@ export class UserAttendancesView implements OnInit {
 
   onUpdateMonth(newDate: Date): void {
     this.date = new Date(newDate);
-    console.log(`onUpdateMonth user-attendaces-view: ${this.date}`);
   }
 
   gotoDashboard(): void {

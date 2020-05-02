@@ -1,22 +1,7 @@
-.mat-column-name {
-    padding-left: 30px;
-    width: 200px;
-}
-
 .mat-column-scheduler,
 .mat-column-aforo {
     padding-left: 10px;
     border-right: 1px solid rgba(0, 0, 0, .12);
-}
-
-.mat-column-teacher,
-.mat-column-image {
-    border: 3px solid white;
-    width: 60px;
-    text-align: center;
-    .img-thumbnail {
-        width: 48px;
-    }
 }
 
 .mat-column-nextLesson,

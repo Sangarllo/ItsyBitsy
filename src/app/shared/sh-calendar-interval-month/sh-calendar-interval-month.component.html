@@ -2,9 +2,7 @@
 
     <div class="row">
 
-        <div class="col-7">
-
-            Mes seleccionado:
+        <div class="col-6">
 
             <mat-form-field>
                 <mat-label>Mes y año</mat-label>
@@ -14,17 +12,19 @@
                 </mat-datepicker>
             </mat-form-field>
 
+            <h5>{{ dateMoment | date:'MMMM' }} de {{ dateMoment | date:'yyyy' }}</h5>
+
         </div>
 
-        <div class="col-4">
+        <div class="col-5">
 
-            <button (click)="removeMonth()" mat-mini-fab color="accent">
+            <button (click)="removeMonth()" mat-fab color="accent">
           <mat-icon>skip_previous</mat-icon>
         </button> &nbsp;&nbsp;
-            <button (click)="resetToday()" mat-mini-fab color="accent">
+            <button (click)="resetToday()" mat-fab color="accent">
           <mat-icon>restore_page</mat-icon>
         </button> &nbsp;&nbsp;
-            <button (click)="addMonth()" mat-mini-fab color="accent">
+            <button (click)="addMonth()" mat-fab color="accent">
           <mat-icon>skip_next</mat-icon>
         </button>
 

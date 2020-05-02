@@ -21,7 +21,8 @@ import { Observable } from 'rxjs';
 })
 export class CourseDashboardView implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['image', 'name', 'schedule', 'teacher', 'aforo',
+  columnsToDisplay = ['courseImage', 'courseName',
+    'schedule', 'teacherImage', 'aforo',
     'weekLessonActions', 'weekLesson',
     'nextLessonActions', 'nextLesson', ];
 
@@ -49,13 +50,13 @@ export class CourseDashboardView implements OnInit, AfterViewInit {
         this.courses = courses;
         this.completeCoursesInfo();
         this.dataSource.data = this.courses;
+        this.loading = false;
       });
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.loading = false;
   }
 
   applyFilter(filterValue: string) {

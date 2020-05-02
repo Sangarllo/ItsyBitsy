@@ -39,6 +39,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   columnsToDisplay = [ 'teacherImage',
     'courseImage', 'courseName', 'schedule', 'classRoom', 'attendances', ];
 
+  public loading = true;
   dataSource = new MatTableDataSource(this.lessons);
 
   constructor(
@@ -49,6 +50,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
     private coursesSvc: CoursesService,
     private router: Router
   ) {
+    this.loading = true;
   }
 
   ngOnInit() {
@@ -61,6 +63,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(): void {
+    this.loading = true;
     this.displayLessons();
   }
 
@@ -101,8 +104,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
       .subscribe((lessons: Lesson[]) => {
         this.lessons = lessons;
         this.dataSource.data = this.lessons;
+        this.loading = false;
       });
   }
-
-
 }

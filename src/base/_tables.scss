@@ -2,6 +2,10 @@ table {
     width: 100%;
 }
 
+.th-icon-message {
+    margin-left: 10px;
+}
+
 .mat-form-field {
     width: 200px;
     margin-top: 30px;
@@ -9,9 +13,11 @@ table {
     font-size: 14px;
 }
 
+.mat-column-teacherImage,
 .mat-column-studentImage {
-    border: 2px solid white;
+    text-align: center;
     width: 100px;
+    border: 2px solid white;
     .img-thumbnail {
         width: 64px;
         height: 64px;
@@ -19,18 +25,21 @@ table {
 }
 
 .mat-column-courseImage {
-    padding-left: 10px;
-    border: 3px solid white;
-    width: 80px;
+    text-align: center;
+    width: 100px;
+    border: 2px solid white;
     .img-thumbnail {
         width: 48px;
+        height: 48px;
     }
 }
 
 .mat-column-actions {
-    width: 180px;
+    width: 100px;
+    text-align: center;
 }
 
-.th-icon-message {
-    margin-left: 10px;
+.mat-column-actions2 {
+    width: 140px;
+    text-align: center;
 }

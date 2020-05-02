@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
 })
 export class CoursesView implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['image', 'name', 'type', 'schedule', 'teacher', 'aforo', 'actions'];
+  columnsToDisplay = ['courseImage', 'courseName', 'type', 'schedule', 'teacher', 'aforo', 'actions'];
 
   public loading = true;
   dataSource = new MatTableDataSource();
