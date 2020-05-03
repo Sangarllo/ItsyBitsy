@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddStudentComponent } from './add-student/add-student.component';
 import { MaterialConfigurationModule } from '../material-configuration/material-configuration.module';
-import { ShUserListComponent } from './sh-user-list/sh-user-list.component';
 import { ShAttendanceListComponent } from './sh-attendance-list/sh-attendance-list.component';
 import { ShCourseLessonsTableComponent } from './sh-course-lessons-table/sh-course-lessons-table.component';
 import { ShCourseUsersTableComponent } from './sh-course-users-table/sh-course-users-table.component';
@@ -27,6 +26,7 @@ import { ShLessonDataComponent } from './sh-lesson-data/sh-lesson-data.component
 import { ShRateDataComponent } from './sh-rate-data/sh-rate-data.component';
 import { ShLoadingComponent } from './sh-loading/sh-loading.component';
 import { ShNoDataComponent } from './sh-no-data/sh-no-data.component';
+import { ShUserListComponent } from './sh-user-list/sh-user-list.component';
 
 @NgModule({
   declarations: [

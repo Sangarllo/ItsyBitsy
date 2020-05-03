@@ -3,17 +3,18 @@ import { Component, OnInit, ViewChild, Input, AfterViewInit, Output, EventEmitte
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Attendance, Status } from '../../models/attendance.model';
-import { AttendancesService } from '../../services/attendances.service';
-import { DatesService } from '../../services/dates.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { Course } from '../../models/course.model';
-import { UserDetails } from 'src/app/models/user.model';
 import { Observable, combineLatest } from 'rxjs';
-import { CoursesService } from '../../services/courses.service';
 import { map } from 'rxjs/operators';
-import { UserService } from '../../services/user.service';
+
+import { UserService } from '@services/user.service';
+import { CoursesService } from '@services/courses.service';
+import { AttendancesService } from '@services/attendances.service';
+import { DatesService } from '@services/dates.service';
+import { Course } from '@models/course.model';
+import { Attendance, Status } from '@models/attendance.model';
+import { UserDetails } from '@models/user.model';
 
 @Component({
   selector: 'app-sh-attendances',

@@ -4,7 +4,6 @@ import { HomeComponent } from './home/home.component';
 import { Page401Component } from './page401/page401.component';
 import { Page403Component } from './page403/page403.component';
 import { AngularFireAuthGuard, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
-import { TestFechasComponent } from './test-fechas/test-fechas.component';
 
 const redirectUnauthorizedToHome = () => redirectUnauthorizedTo(['home']);
 
@@ -48,11 +47,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
-  },
-  {
-    path: 'fechas',
-    component: TestFechasComponent
-  },
+  }
 ];
 
 @NgModule({
