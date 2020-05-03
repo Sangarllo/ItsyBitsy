@@ -3,19 +3,19 @@ import { Component, OnInit, ViewChild, Input, AfterViewInit, Output, EventEmitte
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Attendance, Status } from '../../models/attendance.model';
-import { AttendancesService } from '../../services/attendances.service';
-import { DatesService } from '../../services/dates.service';
+import { Attendance, Status } from '@models/attendance.model';
+import { AttendancesService } from '@services/attendances.service';
+import { DatesService } from '@services/dates.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { UserDetails } from 'src/app/models/user.model';
+import { UserDetails } from '@models/user.model';
 import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
-import { UserService } from '../../services/user.service';
-import { Rate } from '../../models/rate';
-import { RateService } from '../../services/rates.service';
-import { ReceiptData } from '../../models/report-summary';
-import { ScriptService } from '../../services/script.service';
+import { UserService } from '@services/user.service';
+import { Rate } from '@models/rate';
+import { RateService } from '@services/rates.service';
+import { ReceiptData } from '@models/report-summary';
+import { ScriptService } from '@services/script.service';
 
 @Component({
   selector: 'app-sh-attendances-summary',

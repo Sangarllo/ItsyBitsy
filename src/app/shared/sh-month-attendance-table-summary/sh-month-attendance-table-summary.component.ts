@@ -3,18 +3,19 @@ import { Component, OnInit, ViewChild, Input, AfterViewInit, Output, EventEmitte
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Attendance, Status } from '../../models/attendance.model';
-import { AttendancesService } from '../../services/attendances.service';
-import { DatesService } from '../../services/dates.service';
 import Swal from 'sweetalert2';
-import { UserDetails } from 'src/app/models/user.model';
-import { Rate } from '../../models/rate';
+import { UserDetails } from '@models/user.model';
 import { from } from 'rxjs';
-import { User, PaymentMethod } from '../../models/user.model';
-import { RateService } from '../../services/rates.service';
 
-import { ScriptService } from '../../services/script.service';
-import { ReceiptData } from '../../models/report-summary';
+import { RateService } from '@services/rates.service';
+import { AttendancesService } from '@services/attendances.service';
+import { DatesService } from '@services/dates.service';
+import { ScriptService } from '@services/script.service';
+import { ReceiptData } from '@models/report-summary';
+import { User, PaymentMethod } from '@models/user.model';
+import { Rate } from '@models/rate';
+import { Attendance, Status } from '@models/attendance.model';
+
 declare let pdfMake: any;
 
 @Component({

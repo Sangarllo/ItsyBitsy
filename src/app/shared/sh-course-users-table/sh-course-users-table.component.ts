@@ -3,12 +3,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserDetails } from '../../models/user.model';
-import { Course } from '../../models/course.model';
-import { Student } from 'src/app/models/student.model';
+import { UserDetails } from '@models/user.model';
+import { Course } from '@models/course.model';
+import { Student } from '@models/student.model';
 import {MatDialog} from '@angular/material/dialog';
 import { ShAddStudentDialogComponent } from '../sh-add-student-dialog/sh-add-student-dialog.component';
-import { CoursesService } from '../../services/courses.service';
+import { CoursesService } from '@services/courses.service';
 import Swal from 'sweetalert2';
 
 @Component({

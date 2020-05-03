@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
-import { ICourse, Course } from '../models/course.model';
+import { ICourse, Course } from '@models/course.model';
 import { ICON_REGISTRY_PROVIDER } from '@angular/material/icon';
-import { Icon } from '../models/image.model';
-import { UserDetails } from 'src/app/models/user.model';
+import { Icon } from '@models/image.model';
+import { UserDetails } from '@models/user.model';
 import { map } from 'rxjs/operators';
 
 const COURSE_COLLECTION = 'courses';

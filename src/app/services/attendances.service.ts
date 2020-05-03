@@ -7,12 +7,12 @@ import {
 } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IAttendance, Attendance, Status } from '../models/attendance.model';
-import { Lesson } from '../models/lesson.model';
-import { UserDetails } from '../models/user.model';
+import { IAttendance, Attendance, Status } from '@models/attendance.model';
+import { Lesson } from '@models/lesson.model';
+import { UserDetails } from '@models/user.model';
 import { UserService } from './user.service';
 import { LessonsService } from './lessons.service';
-import { Course } from '../models/course.model';
+import { Course } from '@models/course.model';
 
 const ATTENDANCE_COLLECTION = 'attendances';
 

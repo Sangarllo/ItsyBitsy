@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { UserDetails } from '../../models/user.model';
+import { AuthService } from '@services/auth.service';
+import { UserDetails } from '@models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
-import { DatesService } from '../../services/dates.service';
-import { RateService } from '../../services/rates.service';
-import { Rate } from 'src/app/models/rate';
+import { UserService } from '@services/user.service';
+import { DatesService } from '@services/dates.service';
+import { RateService } from '@services/rates.service';
+import { Rate } from '@models/rate';
 
 
 @Component({

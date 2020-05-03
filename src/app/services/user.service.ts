@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
-import { IUserDetails, UserDetails, PaymentMethod } from '../models/user.model';
+import { IUserDetails, UserDetails, PaymentMethod } from '@models/user.model';
 import { Observable, of } from 'rxjs';
-import { Avatar } from '../models/image.model';
+import { Avatar } from '@models/image.model';
 import { map } from 'rxjs/operators';
 
 @Injectable({

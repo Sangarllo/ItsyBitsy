@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { UserService } from '../../services/user.service';
-import { Course } from 'src/app/models/course.model';
-import { UserDetails } from '../../models/user.model';
-import { Rate } from '../../models/rate';
+import { AuthService } from '@services/auth.service';
+import { UserService } from '@services/user.service';
+import { Course } from '@models/course.model';
+import { UserDetails } from '@models/user.model';
+import { Rate } from '@models/rate';
 
 @Component({
   selector: 'app-user-dashboard-view',

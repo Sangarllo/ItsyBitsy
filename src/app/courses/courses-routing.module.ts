@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AdminGuard } from '../services/admin.guard';
+import { AdminGuard } from '@services/admin.guard';
 
 import { CourseDashboardView } from './course-dashboard-view/course-dashboard-view.component';
 import { CourseDetailView } from './course-detail-view/course-detail-view.component';

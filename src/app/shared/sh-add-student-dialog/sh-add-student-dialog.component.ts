@@ -1,8 +1,8 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { UserDetails } from '../../models/user.model';
-import { UserService } from '../../services/user.service';
-import { Course } from '../../models/course.model';
+import { UserDetails } from '@models/user.model';
+import { UserService } from '@services/user.service';
+import { Course } from '@models/course.model';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';

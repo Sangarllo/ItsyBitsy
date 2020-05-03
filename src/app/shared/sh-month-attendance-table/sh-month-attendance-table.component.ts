@@ -3,12 +3,12 @@ import { Component, OnInit, ViewChild, Input, AfterViewInit, Output, EventEmitte
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Attendance, Status } from '../../models/attendance.model';
-import { AttendancesService } from '../../services/attendances.service';
-import { DatesService } from '../../services/dates.service';
+import { Attendance, Status } from '@models/attendance.model';
+import { AttendancesService } from '@services/attendances.service';
+import { DatesService } from '@services/dates.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { Course } from '../../models/course.model';
+import { Course } from '@models/course.model';
 
 @Component({
   selector: 'sh-month-attendance-table',

@@ -3,8 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { Rate } from '../../models/rate';
-import { RateService } from '../../services/rates.service';
+import { Rate } from '@models/rate';
+import { RateService } from '@services/rates.service';
 import Swal from 'sweetalert2';
 
 

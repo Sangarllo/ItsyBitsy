@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { UserDetails } from 'src/app/models/user.model';
+import { UserDetails } from '@models/user.model';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 

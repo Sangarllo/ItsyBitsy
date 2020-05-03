@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Lesson } from '../../models/lesson.model';
-import { CoursesService } from '../../services/courses.service';
-import { LessonsService } from '../../services/lessons.service';
+import { Lesson } from '@models/lesson.model';
+import { CoursesService } from '@services/courses.service';
+import { LessonsService } from '@services/lessons.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Course } from 'src/app/models/course.model';
-import { DatesService } from '../../services/dates.service';
-import { Attendance } from '../../models/attendance.model';
-import { AttendancesService } from '../../services/attendances.service';
+import { Course } from '@models/course.model';
+import { DatesService } from '@services/dates.service';
+import { Attendance } from '@models/attendance.model';
+import { AttendancesService } from '@services/attendances.service';
 
 @Component({
   selector: 'app-lesson-detail-view',

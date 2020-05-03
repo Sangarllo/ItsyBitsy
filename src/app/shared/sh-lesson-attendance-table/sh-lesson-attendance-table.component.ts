@@ -4,15 +4,15 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserDetails } from '../../models/user.model';
-import { Attendance, Status } from '../../models/attendance.model';
-import { Lesson } from '../../models/lesson.model';
-import { AttendancesService } from '../../services/attendances.service';
+import { UserDetails } from '@models/user.model';
+import { Attendance, Status } from '@models/attendance.model';
+import { Lesson } from '@models/lesson.model';
+import { AttendancesService } from '@services/attendances.service';
 import {MatDialog} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { ShAddStudentDialogComponent } from '../sh-add-student-dialog/sh-add-student-dialog.component';
-import { LessonsService } from '../../services/lessons.service';
-import { Course } from '../../models/course.model';
+import { LessonsService } from '@services/lessons.service';
+import { Course } from '@models/course.model';
 
 
 @Component({

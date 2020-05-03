@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User, IUserDetails, Rol, UserDetails } from '../models/user.model'; // optional
+import { User, IUserDetails, Rol, UserDetails } from '@models/user.model'; // optional
 
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap, finalize } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { FileI } from '../models/image.model';
+import { FileI } from '@models/image.model';
 
 
 const USER_COLLECTION = 'users';

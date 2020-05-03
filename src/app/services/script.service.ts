@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReceiptData } from '../models/report-summary';
+import { ReceiptData } from '@models/report-summary';
 import { PRINTED_LOGO, PRINTED_RECIPT_NUMBER } from './pdf';
 
 interface Scripts {

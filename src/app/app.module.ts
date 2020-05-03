@@ -1,15 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from '@app/app-routing.module';
+import { AppComponent } from '@app/app.component';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { environment } from '../environments/environment';
-import { UsersModule } from './users/users.module';
+import { environment } from '@environments/environment';
+import { UsersModule } from '@app/users/users.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HeaderComponent } from './layout/header/header.component';
@@ -22,8 +22,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
-import { SharedModule } from './shared/shared.module';
-import { ShAddStudentDialogComponent } from './shared/sh-add-student-dialog/sh-add-student-dialog.component';
+import { SharedModule } from '@shared/shared.module';
+import { ShAddStudentDialogComponent } from '@shared/sh-add-student-dialog/sh-add-student-dialog.component';
 registerLocaleData(localeEs);
 
 @NgModule({

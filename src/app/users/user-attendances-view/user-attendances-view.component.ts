@@ -1,7 +1,7 @@
-import { UserDetails } from './../../models/user.model';
+import { UserDetails } from '@models/user.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { UserService } from '@services/user.service';
 
 @Component({
   selector: 'app-user-attendances-view',

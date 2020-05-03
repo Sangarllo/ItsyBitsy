@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Rate, RateType } from '../../models/rate';
-import { RateService } from '../../services/rates.service';
+import { Rate, RateType } from '@models/rate';
+import { RateService } from '@services/rates.service';
 
 @Component({
   selector: 'app-rate-edit',

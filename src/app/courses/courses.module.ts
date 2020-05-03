@@ -7,7 +7,7 @@ import { CoursesView } from './courses-view/courses-view.component';
 import { LessonDetailView } from './lesson-detail-view/lesson-detail-view.component';
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [

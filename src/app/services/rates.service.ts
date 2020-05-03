@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
-import { Rate, RateType } from '../models/rate';
+import { Rate, RateType } from '@models/rate';
 import { BrowserStack } from 'protractor/built/driverProviders';
 
 

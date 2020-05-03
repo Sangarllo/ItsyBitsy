@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Attendance } from '../../models/attendance.model';
+import { Attendance } from '@models/attendance.model';
 
 @Component({
   selector: 'app-sh-attendances-items',

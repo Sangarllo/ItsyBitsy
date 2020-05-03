@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Course } from 'src/app/models/course.model';
+import { Course } from '@models/course.model';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CoursesService } from '../../services/courses.service';
+import { CoursesService } from '@services/courses.service';
 import { Subscription } from 'rxjs';
-import { Icon } from '../../models/image.model';
-import { RandomGenerator } from '../../shared/random-generator';
-import { UserDetails } from '../../models/user.model';
-import { UserService } from '../../services/user.service';
+import { Icon } from '@models/image.model';
+import { RandomGenerator } from '@shared/random-generator';
+import { UserDetails } from '@models/user.model';
+import { UserService } from '@services/user.service';
 import Swal from 'sweetalert2';
 
 @Component({

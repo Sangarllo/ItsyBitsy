@@ -4,12 +4,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserDetails } from '../../models/user.model';
-import { Attendance, Status } from '../../models/attendance.model';
-import { AttendancesService } from '../../services/attendances.service';
+import { UserDetails } from '@models/user.model';
+import { Attendance, Status } from '@models/attendance.model';
+import { AttendancesService } from '@services/attendances.service';
 import Swal from 'sweetalert2';
-import { DatesService } from '../../services/dates.service';
-import { ReportSummary } from '../../models/report-summary';
+import { DatesService } from '@services/dates.service';
+import { ReportSummary } from '@models/report-summary';
 
 @Component({
   selector: 'sh-user-attendance-table',

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { RateService } from '../../services/rates.service';
-import { Rate } from '../../models/rate';
+import { RateService } from '@services/rates.service';
+import { Rate } from '@models/rate';
 
 
 @Component({

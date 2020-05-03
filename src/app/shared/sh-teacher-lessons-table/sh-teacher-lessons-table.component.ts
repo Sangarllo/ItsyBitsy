@@ -4,15 +4,15 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserDetails } from '../../models/user.model';
+import { UserDetails } from '@models/user.model';
 import Swal from 'sweetalert2';
-import { DatesService } from '../../services/dates.service';
-import { Lesson } from '../../models/lesson.model';
-import { LessonsService } from '../../services/lessons.service';
-import { Course } from '../../models/course.model';
-import { CoursesService } from '../../services/courses.service';
-import { AttendancesService } from '../../services/attendances.service';
-import { Attendance } from '../../models/attendance.model';
+import { DatesService } from '@services/dates.service';
+import { Lesson } from '@models/lesson.model';
+import { LessonsService } from '@services/lessons.service';
+import { Course } from '@models/course.model';
+import { CoursesService } from '@services/courses.service';
+import { AttendancesService } from '@services/attendances.service';
+import { Attendance } from '@models/attendance.model';
 
 @Component({
   selector: 'sh-teacher-lessons-table',

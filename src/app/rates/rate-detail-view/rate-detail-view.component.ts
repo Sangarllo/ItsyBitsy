@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RateService } from '../../services/rates.service';
-import { UserService } from '../../services/user.service';
+import { RateService } from '@services/rates.service';
+import { UserService } from '@services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Rate } from '../../models/rate';
-import { UserDetails } from '../../models/user.model';
+import { Rate } from '@models/rate';
+import { UserDetails } from '@models/user.model';
 
 
 @Component({

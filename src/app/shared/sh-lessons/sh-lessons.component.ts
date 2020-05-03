@@ -1,19 +1,19 @@
 import { Router } from '@angular/router';
-import { Course } from './../../models/course.model';
+import { Course } from '@models/course.model';
 import { Component, OnInit, Input, AfterViewInit, ViewChild, OnChanges } from '@angular/core';
-import { LessonsService } from '../../services/lessons.service';
-import { UserDetails } from '../../models/user.model';
+import { LessonsService } from '@services/lessons.service';
+import { UserDetails } from '@models/user.model';
 import { Observable, forkJoin, combineLatest } from 'rxjs';
-import { Lesson } from '../../models/lesson.model';
-import { DatesService } from '../../services/dates.service';
+import { Lesson } from '@models/lesson.model';
+import { DatesService } from '@services/dates.service';
 import { map, tap } from 'rxjs/operators';
-import { CoursesService } from '../../services/courses.service';
+import { CoursesService } from '@services/courses.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserService } from '../../services/user.service';
-import { Attendance } from '../../models/attendance.model';
-import { AttendancesService } from '../../services/attendances.service';
+import { UserService } from '@services/user.service';
+import { Attendance } from '@models/attendance.model';
+import { AttendancesService } from '@services/attendances.service';
 
 @Component({
   selector: 'app-sh-lessons',

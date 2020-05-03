@@ -7,7 +7,8 @@
       "@auth/*": ["./src/app/auth/*"],
       "@models/*": ["./src/app/models/*"],
       "@services/*": ["./src/app/services/*"],
-      "@shared/*": ["./src/app/shared/*"]
+      "@shared/*": ["./src/app/shared/*"],
+      "@environments/*": ["./src/environments/*"],
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

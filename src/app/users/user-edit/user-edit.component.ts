@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserDetails, Rol } from 'src/app/models/user.model';
+import { UserDetails, Rol } from '@models/user.model';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { UserService } from '@services/user.service';
 import { Subscription, Observable } from 'rxjs';
-import { Avatar, FileI } from '../../models/image.model';
+import { Avatar, FileI } from '@models/image.model';
 import Swal from 'sweetalert2';
-import { RateService } from '../../services/rates.service';
-import { Rate } from 'src/app/models/rate';
-import { DatesService } from '../../services/dates.service';
+import { RateService } from '@services/rates.service';
+import { Rate } from '@models/rate';
+import { DatesService } from '@services/dates.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 

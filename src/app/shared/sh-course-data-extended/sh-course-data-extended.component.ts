@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Course } from '../../models/course.model';
-import { UserService } from '../../services/user.service';
-import { UserDetails } from '../../models/user.model';
+import { Course } from '@models/course.model';
+import { UserService } from '@services/user.service';
+import { UserDetails } from '@models/user.model';
 
 @Component({
   selector: 'app-sh-course-data-extended',

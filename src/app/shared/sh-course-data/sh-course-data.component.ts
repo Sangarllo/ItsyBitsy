@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Course } from '../../models/course.model';
+import { Course } from '@models/course.model';
 import { Router } from '@angular/router';
-import { CoursesService } from '../../services/courses.service';
+import { CoursesService } from '@services/courses.service';
 
 @Component({
   selector: 'app-sh-course-data',

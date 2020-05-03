@@ -2,16 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Icon } from '../../models/image.model';
-import { Lesson } from '../../models/lesson.model';
-import { CoursesService } from '../../services/courses.service';
-import { LessonsService } from '../../services/lessons.service';
-import { Course } from '../../models/course.model';
-import { UserDetails } from '../../models/user.model';
-import { UserService } from '../../services/user.service';
+import { Icon } from '@models/image.model';
+import { Lesson } from '@models/lesson.model';
+import { CoursesService } from '@services/courses.service';
+import { LessonsService } from '@services/lessons.service';
+import { Course } from '@models/course.model';
+import { UserDetails } from '@models/user.model';
+import { UserService } from '@services/user.service';
 import { DatePipe } from '@angular/common';
-import { DatesService } from '../../services/dates.service';
-import { AttendancesService } from '../../services/attendances.service';
+import { DatesService } from '@services/dates.service';
+import { AttendancesService } from '@services/attendances.service';
 
 @Component({
   selector: 'app-lesson-edit',

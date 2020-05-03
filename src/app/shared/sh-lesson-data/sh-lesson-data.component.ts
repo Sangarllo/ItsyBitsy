@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { UserDetails } from '../../models/user.model';
-import { Lesson } from '../../models/lesson.model';
+import { UserService } from '@services/user.service';
+import { UserDetails } from '@models/user.model';
+import { Lesson } from '@models/lesson.model';
 import { Router } from '@angular/router';
-import { LessonsService } from '../../services/lessons.service';
-import { Course } from '../../models/course.model';
+import { LessonsService } from '@services/lessons.service';
+import { Course } from '@models/course.model';
 
 
 @Component({

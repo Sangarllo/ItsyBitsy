@@ -1,7 +1,7 @@
 import { FormControl } from '@angular/forms';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
-import { DatesService } from '../../services/dates.service';
+import { DatesService } from '@services/dates.service';
 
 @Component({
   selector: 'app-sh-calendar-interval',

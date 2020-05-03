@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Course } from '../../models/course.model';
-import { CoursesService } from '../../services/courses.service';
+import { Course } from '@models/course.model';
+import { CoursesService } from '@services/courses.service';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
-import { UserService } from '../../services/user.service';
-import { UserDetails } from 'src/app/models/user.model';
+import { UserService } from '@services/user.service';
+import { UserDetails } from '@models/user.model';
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 

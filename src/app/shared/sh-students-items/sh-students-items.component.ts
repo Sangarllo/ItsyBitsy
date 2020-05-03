@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { UserDetails } from 'src/app/models/user.model';
+import { UserDetails } from '@models/user.model';
 
 @Component({
   selector: 'app-sh-students-items',

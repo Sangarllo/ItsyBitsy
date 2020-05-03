@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild, Input, AfterViewInit} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Course } from '../../models/course.model';
+import { Course } from '@models/course.model';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { Lesson } from '../../models/lesson.model';
-import { LessonsService } from '../../services/lessons.service';
-import { DatesService } from '../../services/dates.service';
+import { Lesson } from '@models/lesson.model';
+import { LessonsService } from '@services/lessons.service';
+import { DatesService } from '@services/dates.service';
 import Swal from 'sweetalert2';
 import { map, tap } from 'rxjs/operators';
 import { Observable, combineLatest } from 'rxjs';
-import { Attendance } from '../../models/attendance.model';
-import { AttendancesService } from '../../services/attendances.service';
+import { Attendance } from '@models/attendance.model';
+import { AttendancesService } from '@services/attendances.service';
 
 @Component({
   selector: 'sh-course-lessons-table',
