@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReceiptData } from '@models/report-summary';
+import { ReceiptData, WeekLessonsData } from '@models/report-summary';
 import { PRINTED_LOGO, PRINTED_RECIPT_NUMBER } from './pdf';
 
 interface Scripts {
@@ -18,7 +18,7 @@ declare let pdfMake: any ;
 })
 export class ScriptService {
 
-  private static PAGE_MARGINS = [ 50, 30, 50, 30 ];
+  private static PAGE_MARGINS = [ 40, 20, 40, 20 ];
   private static PDF_STYLES = {
     xSmallHighlighted: {
       fontSize: 15,
@@ -49,6 +49,10 @@ export class ScriptService {
     },
     xSmall: {
       fontSize: 15,
+      alignment: 'center'
+    },
+    x10Small: {
+      fontSize: 10,
       alignment: 'center'
     },
     normal: {
@@ -109,11 +113,11 @@ export class ScriptService {
 
     receipts.forEach(receipt => {
           reportContent.push(this.addReciptSmallHeader());
-          reportContent.push(this.addReceiptSmallEmptyLine());
+          reportContent.push(this.addSmallEmptyLine());
           reportContent.push(this.addReceiptContentLine1(receipt));
           reportContent.push(this.addReceiptContentLine2(receipt));
-          reportContent.push(this.addReceiptSmallEmptyLine());
-          reportContent.push(this.addReceiptSmallEmptyLine());
+          reportContent.push(this.addSmallEmptyLine());
+          reportContent.push(this.addSmallEmptyLine());
         });
 
     return {
@@ -121,6 +125,65 @@ export class ScriptService {
       content: reportContent,
       styles: ScriptService.PDF_STYLES
     };
+  }
+
+  createWeekLessonReports(dataTitle: string, lessonsData: WeekLessonsData[]): any {
+
+    const reportContent = [];
+
+    reportContent.push(this.addTitle(dataTitle));
+    reportContent.push(this.addSmallEmptyLine());
+    reportContent.push(
+    {
+      layout: 'lightHorizontalLines', // optional
+      table: {
+        // headers are automatically repeated if the table spans over multiple pages
+        // you can declare how many rows should be treated as headers
+        headerRows: 1,
+        widths: [ 'auto', 'auto',  'auto', 'auto', 'auto', 'auto' ],
+
+        body: this.getDataTable(lessonsData)
+      }
+    });
+
+    return {
+      pageMargins: ScriptService.PAGE_MARGINS,
+      content: reportContent,
+      styles: ScriptService.PDF_STYLES
+    };
+  }
+
+  private getDataTable(lessonsData: WeekLessonsData[]): any {
+
+    const bodyHeader = [ 'Profesor', 'Curso', 'Día', 'Horario', 'Aula', 'Asistentes' ];
+
+    const bodyTable = [];
+    bodyTable.push(bodyHeader);
+    lessonsData.forEach(lesson => {
+      bodyTable.push([
+        { text: `${lesson.teacherName}`, fontSize: 10 },
+        { text: `${lesson.courseName}`, fontSize: 10 },
+        { text: `${lesson.date}`, fontSize: 10 },
+        { text: `${lesson.schedule}`, fontSize: 10 },
+        { text: `${lesson.classRoom}`, fontSize: 10 },
+        {
+          ul: this.getStudentsList(lesson.studentNames)
+        }
+      ]);
+    });
+
+    return bodyTable;
+  }
+
+  private getStudentsList(studentNames: string[]): any {
+    const studentsList = [];
+    studentNames.forEach( name => {
+      studentsList.push({
+        text: `${name}`,
+        fontSize: 8
+      });
+    });
+    return studentsList;
   }
 
 
@@ -138,6 +201,15 @@ export class ScriptService {
       ]
     };
   }
+
+  private addTitle(title: string): any {
+    return {
+      text: [
+        { text: title, style: 'xSmall' }
+      ]
+    };
+  }
+
 
   private addReceiptContentLine1(receiptData: ReceiptData): any {
     return {
@@ -165,7 +237,22 @@ export class ScriptService {
     };
   }
 
-  private addReceiptSmallEmptyLine(): any {
+  private addLessonContent(lessonData: WeekLessonsData): any {
+    console.log(`lessonData: ${lessonData}`);
+
+    return {
+      text: [
+        { text: 'Clase: ', style: 'x10Small' },
+        { text: `${lessonData.teacherName.toUpperCase()}`, style: 'x10Small' },
+        { text: `${lessonData.courseName.toUpperCase()}`, style: 'x10Small' },
+        { text: `${lessonData.schedule}`, style: 'x10Small' },
+        { text: `${lessonData.classRoom.toUpperCase()}`, style: 'x10Small' },
+      ]
+    };
+  }
+
+
+  private addSmallEmptyLine(): any {
     return {
       text: '',
       style: 'smallEmpty'
@@ -174,7 +261,7 @@ export class ScriptService {
 
 
   // Download PDF with recipts info
-  downloadInfo(receipts: ReceiptData[], reportName: string) {
+  downloadReceiptReport(receipts: ReceiptData[], reportName: string) {
     const documentDefinition = this.createReports(receipts);
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
@@ -184,6 +271,14 @@ export class ScriptService {
     const documentDefinition = this.createReports(receipts);
     pdfMake.createPdf(documentDefinition).open();
   }
+
+  // Download PDF with WeekLesson info
+  downloadWeekLessonReports(reportName: string, dataTitle: string, data: WeekLessonsData[]) {
+    const documentDefinition = this.createWeekLessonReports(dataTitle, data);
+    pdfMake.createPdf(documentDefinition).download(reportName);
+  }
+
+
 
 
 }

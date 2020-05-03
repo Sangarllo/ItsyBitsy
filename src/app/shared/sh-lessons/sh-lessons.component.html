@@ -2,7 +2,7 @@
 
     <mat-toolbar>
 
-        <button [disabled]="dataSource?.data?.length === 0" mat-mini-fab color="primary"> <!-- (click)="downloadAllInfo()" -->
+        <button [disabled]="dataSource?.data?.length === 0" mat-mini-fab color="primary" (click)="downloadAllInfo()">
         <mat-icon>cloud_download</mat-icon>
       </button>
 
@@ -11,7 +11,7 @@
     </mat-toolbar>
 
 
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0; else noDataTemplate" matSort>
 
         <!-- teacherImage Column -->
         <ng-container matColumnDef="teacherImage">

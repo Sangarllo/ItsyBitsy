@@ -11,6 +11,16 @@ export interface Month {
 })
 export class DatesService {
 
+  WEEKDAY_NAMES = [
+    'domingo',
+    'lunes',
+    'martes',
+    'miércoles',
+    'jueves',
+    'viernes',
+    'sábados'
+  ]
+
   MONTH_NAMES = [
     'enero',
     'febrero',
@@ -30,14 +40,18 @@ export class DatesService {
   }
 
   getToday(): Date {
-    const today = new Date(2020, 3, 12);
-    // const today = new Date();
+    const today = new Date();
     return today;
   }
 
   getWeekMonday(): Date {
     const date = new Date(this.getToday());
+    // console.log(`getWeekMonday`);
+    // console.log(`date: ${date}`);
+    // console.log(`date.getDate(): ${date.getDate()}`);
+    // console.log(`date.getDay(): ${date.getDay()}`);
     date.setDate(date.getDate() - date.getDay() + 1);
+    // console.log(`date: ${date}`);
     return date;
   }
 
@@ -100,5 +114,25 @@ export class DatesService {
     } else {
       return null;
     }
+  }
+
+  // lunes, 1
+  getShortFormatedDate(date: Date): string {
+    const weekday = this.WEEKDAY_NAMES[date.getDay()];
+    const dd = date.getDate();
+    // const month = this.MONTH_NAMES[date.getMonth()];
+
+    const str: string = `${weekday} ${dd}`; // de ${month}
+    return str;
+  }
+
+  // 1 de enero de 2002
+  getLargeFormatedDate(date: Date): string {
+    const dd = date.getDate();
+    const month = this.MONTH_NAMES[date.getMonth()];
+    const year = date.getFullYear();
+
+    const str: string = `${dd} de ${month} de ${year}`;
+    return str;
   }
 }

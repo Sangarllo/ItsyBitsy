@@ -1,19 +1,23 @@
 import { Router } from '@angular/router';
-import { Course } from '@models/course.model';
 import { Component, OnInit, Input, AfterViewInit, ViewChild, OnChanges } from '@angular/core';
-import { LessonsService } from '@services/lessons.service';
-import { UserDetails } from '@models/user.model';
 import { Observable, forkJoin, combineLatest } from 'rxjs';
-import { Lesson } from '@models/lesson.model';
-import { DatesService } from '@services/dates.service';
 import { map, tap } from 'rxjs/operators';
-import { CoursesService } from '@services/courses.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+
 import { UserService } from '@services/user.service';
-import { Attendance } from '@models/attendance.model';
+import { CoursesService } from '@services/courses.service';
+import { DatesService } from '@services/dates.service';
+import { LessonsService } from '@services/lessons.service';
 import { AttendancesService } from '@services/attendances.service';
+import { UserDetails } from '@models/user.model';
+import { WeekLessonsData } from '@models/report-summary';
+import { Attendance } from '@models/attendance.model';
+import { Lesson } from '@models/lesson.model';
+import { Course } from '@models/course.model';
+import { ClassRoom } from '../../models/classroom';
+import { ScriptService } from '../../services/script.service';
 
 @Component({
   selector: 'app-sh-lessons',
@@ -29,6 +33,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() dateIni: Date;
   @Input() dateEnd: Date;
 
+  teachers: UserDetails[];
   teachers$: Observable<UserDetails[]>;
   courses$: Observable<Course[]>;
   lessons$: Observable<Lesson[]>;
@@ -47,7 +52,9 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
     private userSvc: UserService,
     private lessonsSvc: LessonsService,
     private attendancesSvc: AttendancesService,
+    private scriptSvc: ScriptService,
     private coursesSvc: CoursesService,
+    private datesSvc: DatesService,
     private router: Router
   ) {
     this.loading = true;
@@ -107,4 +114,51 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
         this.loading = false;
       });
   }
+
+  // Download PDF with recipts info
+  downloadAllInfo() {
+
+    const data: WeekLessonsData[] = [];
+    this.lessons.forEach(
+      (lesson: Lesson) => {
+        data.push(this.getReportData(lesson));
+      });
+
+    const dateIniStr = this.dateSvc.getLargeFormatedDate(this.dateIni);
+    const dateEndStr = this.dateSvc.getLargeFormatedDate(this.dateEnd);
+    const dataTitle = `Clases del ${dateIniStr} al ${dateEndStr}`;
+
+    this.scriptSvc.downloadWeekLessonReports(
+      `Clases de la Semana.pdf`,
+      dataTitle,
+      data,
+    );
+  }
+
+  private getReportData(lesson: Lesson): WeekLessonsData {
+
+    const teacherName: string = lesson.teacherName;
+    const courseName: string = lesson.courseName;
+    // console.log(`date: ${lesson.date}`);
+    // console.log(`getDay: ${lesson.date.getDay()}`);
+    // const date = lesson.date.toLocaleDateString();
+    // console.log(`date: ${date}`);
+    const date = this.dateSvc.getShortFormatedDate(lesson.date);
+    const schedule: string = `de ${lesson.startTime} a ${lesson.endTime}.`;
+    const classRoom = lesson.classRoom;
+    const studentNames = [];
+    lesson.attendances.forEach(attendance => {
+      studentNames.push(attendance.studentName);
+    });
+
+    return {
+      teacherName,
+      courseName,
+      date,
+      schedule,
+      classRoom,
+      studentNames
+    };
+  }
+
 }

@@ -177,7 +177,7 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
 
   // Download PDF with recipts info
   downloadInfo(student: UserDetails) {
-    this.scriptSvc.downloadInfo([
+    this.scriptSvc.downloadReceiptReport([
         this.getReceiptData(student)
       ],
       `Recibo ${student.displayName}.pdf`
@@ -193,7 +193,7 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
         receipts.push(this.getReceiptData(student));
       });
 
-    this.scriptSvc.downloadInfo(
+    this.scriptSvc.downloadReceiptReport(
       receipts,
       `Recibo.pdf`
     );

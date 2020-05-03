@@ -17,6 +17,7 @@ export interface ILesson {
   attendancesNames: string[];
   courseName?: string;
   courseImage?: string;
+  teacherName?: string;
   attendances?: Attendance[];
 }
 
@@ -49,6 +50,7 @@ export class Lesson implements ILesson {
     public attendancesNames: string[],
     public courseName?: string,
     public courseImage?: string,
+    public teacherName?: string,
     public attendances?: Attendance[]
      ) {
   }

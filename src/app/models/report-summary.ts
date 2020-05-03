@@ -11,3 +11,12 @@ export interface ReceiptData {
   month: string;
   year: string;
 }
+
+export interface WeekLessonsData {
+  teacherName: string;
+  courseName: string;
+  date: string;
+  schedule: string;
+  classRoom: string;
+  studentNames: string[];
+}
