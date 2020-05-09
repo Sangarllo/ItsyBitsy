@@ -36,8 +36,14 @@ export class LoginComponent implements OnInit {
   }
 
   async onGoogleLogin() {
-    const user = await this.authSvc.googleSignin();
-    this.router.navigate(['/home']);
+    try {
+      const user = await this.authSvc.googleSignin();
+      if (user) {
+        this.checkUserIsVerified(user);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   private checkUserIsVerified(user: any) {

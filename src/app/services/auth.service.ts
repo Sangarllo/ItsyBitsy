@@ -81,10 +81,16 @@ export class AuthService {
     }
   }
 
-  async googleSignin() {
-    const provider = new auth.GoogleAuthProvider();
-    const credential = await this.afAuth.signInWithPopup(provider);
-    return this.updateUserData(credential.user);
+  async googleSignin(): Promise<User> {
+    try {
+      const { user } = await this.afAuth.signInWithPopup(
+        new auth.GoogleAuthProvider()
+      );
+      this.updateUserData(user);
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   private updateUserData(user) {
