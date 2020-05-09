@@ -4,6 +4,7 @@ import { AngularFireAuthGuard, hasCustomClaim, redirectUnauthorizedTo, redirectL
 import { HomeComponent } from '@app/home/home.component';
 import { Page401Component } from '@app/page401/page401.component';
 import { Page403Component } from '@app/page403/page403.component';
+import { SendEmailComponent } from '@auth/send-email/send-email.component';
 
 const redirectUnauthorizedToHome = () => redirectUnauthorizedTo(['home']);
 
@@ -19,7 +20,12 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    loadChildren: () => import('@auth/register/register.module').then(m => m.RegisterModule) },
+    loadChildren: () => import('@auth/register/register.module').then(m => m.RegisterModule)
+  },
+  {
+    path: 'verification-email',
+    component: SendEmailComponent,
+  },
   {
     path: 'usuarios',
     loadChildren: () => import('@app/users/users.module').then(mod => mod.UsersModule)

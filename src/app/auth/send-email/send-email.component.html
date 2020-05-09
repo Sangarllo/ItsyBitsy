@@ -1,0 +1,22 @@
+<div class="card mt-5" *ngIf="user$ | async as user; else loading">
+    <div class="card-body">
+        <h3 class="card-title text-center">¡Gracias por registrarte en itsy-bitsy!</h3>
+        <div class="form-group mt-2">
+            <p class="text-center">
+                Te hemos enviado un email de verificación a <strong>{{ user?.email }}</strong>
+            </p>
+            <p class="text-center">
+                Por favor comprueba tu correo electrónico y clica en el enlace que se te ha enviado para verificar tu cuenta.
+            </p>
+        </div>
+        <div class="form-group text-center mt-5">
+            <button class="btn btn-primary" (click)="onSendEmail()">
+        Reenviar email de verificación
+      </button>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+    <sh-loading></sh-loading>
+</ng-template>

@@ -24,6 +24,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { SharedModule } from '@shared/shared.module';
 import { ShAddStudentDialogComponent } from '@shared/sh-add-student-dialog/sh-add-student-dialog.component';
+import { SendEmailComponent } from './auth/send-email/send-email.component';
 registerLocaleData(localeEs);
 
 @NgModule({
@@ -32,7 +33,8 @@ registerLocaleData(localeEs);
     HeaderComponent,
     HomeComponent,
     Page403Component,
-    Page401Component
+    Page401Component,
+    SendEmailComponent
   ],
   imports: [
     BrowserModule,

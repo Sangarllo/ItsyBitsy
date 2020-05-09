@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
+import { User } from '@models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
     try {
       const user = await this.authSvc.loginWithEmailAndPassword(email, password);
       if (user) {
-        this.router.navigate(['/home']);
+        this.checkUserIsVerified(user);
       }
     } catch (error) {
       console.log(error);
@@ -35,8 +36,18 @@ export class LoginComponent implements OnInit {
   }
 
   async onGoogleLogin() {
-
     const user = await this.authSvc.googleSignin();
     this.router.navigate(['/home']);
   }
+
+  private checkUserIsVerified(user: any) {
+    if (user && user.emailVerified) {
+      this.router.navigate(['/home']);
+    } else if (user) {
+      this.router.navigate(['/verification-email']);
+    } else {
+      this.router.navigate(['/register']);
+    }
+  }
 }
+

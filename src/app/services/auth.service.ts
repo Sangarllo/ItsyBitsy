@@ -44,6 +44,10 @@ export class AuthService {
       );
   }
 
+  async sendVerificationEmail(): Promise<void> {
+    return (await this.afAuth.currentUser).sendEmailVerification();
+  }
+
   async loginWithEmailAndPassword(email: string, password: string) {
     try {
       const result = await this.afAuth.signInWithEmailAndPassword(
@@ -62,6 +66,7 @@ export class AuthService {
         email,
         password
       );
+      this.sendVerificationEmail();
       return result;
     } catch (error) {
       console.log(error);
@@ -130,7 +135,6 @@ export class AuthService {
       this.updateUserData(user);
     }
   }
-
 
   uploadImage(user: IUserDetails, image: FileI): void {
     this.filePath = `images/${image.name}`;
