@@ -18,6 +18,6 @@ export class SendEmailComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.authSvc.logout();
+    this.authSvc.signOut();
   }
 }

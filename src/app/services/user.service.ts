@@ -127,7 +127,7 @@ export class UserService {
       userDetails.uid = this.afs.createId();
     }
 
-    console.log(`Creating in UserDatils Database user ${userDetails.uid}`);
+    console.log(`Creating in UserDetails DB user ${userDetails.uid}`);
     this.userDetailsCollection.doc(userDetails.uid).set(userDetails);
     return of(userDetails);
   }
@@ -165,6 +165,7 @@ export class UserService {
       contactPerson: '-',
       contactPersonNif: '',
       paymentMethod: PaymentMethod.NoAplica,
+      emailVerified: false,
       address: '',
       coursesEnrolled: ''
     };

@@ -1,24 +1,29 @@
+import { User, IUserDetails, UserDetails } from '@models/user.model'; // optional
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User, IUserDetails, Rol, UserDetails } from '@models/user.model'; // optional
 
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 import { Observable, of } from 'rxjs';
 import { switchMap, finalize } from 'rxjs/operators';
 import { UserService } from './user.service';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { FileI } from '@models/image.model';
+import { RoleValidator } from '@auth/helpers/roleValidator';
+import Swal from 'sweetalert2';
 
+export enum ErrorAuth {
+  USER_NO_REGISTERED = 'USUARIO NO REGISTRADO',
+}
 
 const USER_COLLECTION = 'users';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService extends RoleValidator {
 
   user$: Observable<User>;
   private filePath: string;
@@ -30,6 +35,8 @@ export class AuthService {
       private userService: UserService,
       private router: Router
   ) {
+      super(); // Get the behaviour of RoleValidator
+
       // Get the auth state, then fetch the Firestore user document or return null
       this.user$ = this.afAuth.authState.pipe(
         switchMap(user => {
@@ -56,32 +63,33 @@ export class AuthService {
     return (await this.afAuth.currentUser).sendEmailVerification();
   }
 
-  async loginWithEmailAndPassword(email: string, password: string) {
+  async loginWithEmailAndPassword(email: string, password: string): Promise<User> {
     try {
-      const result = await this.afAuth.signInWithEmailAndPassword(
+      const {user} = await this.afAuth.signInWithEmailAndPassword(
         email,
         password
       );
-      return result;
+      this.updateUserData(user); // TODO: Ojo! no siempre
+      return user;
     } catch (error) {
-      console.log(error);
+      this.manageError(error.toString());
     }
   }
 
-  async registerWithEmailAndPassword(email: string, password: string) {
+  async registerWithEmailAndPassword(email: string, password: string): Promise<User> {
     try {
-      const result = await this.afAuth.createUserWithEmailAndPassword(
+      const {user} = await this.afAuth.createUserWithEmailAndPassword(
         email,
         password
       );
       this.sendVerificationEmail();
-      return result;
+      return user;
     } catch (error) {
-      console.log(error);
+      console.log(`Error durante el registro: ${error}`);
     }
   }
 
-  async googleSignin(): Promise<User> {
+  async loginGoogle(): Promise<User> {
     try {
       const { user } = await this.afAuth.signInWithPopup(
         new auth.GoogleAuthProvider()
@@ -89,27 +97,29 @@ export class AuthService {
       this.updateUserData(user);
       return user;
     } catch (error) {
-      console.log(error);
+      console.log(`Error durante el login con Google: ${error}`);
     }
   }
 
-  private updateUserData(user) {
+  private updateUserData(user: User) {
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`${USER_COLLECTION}/${user.uid}`);
-
     const userDetailsRef: AngularFirestoreDocument<UserDetails> = this.afs.doc(`${UserService.USER_DETAILS_COLLECTION}/${user.uid}`);
 
     // TODO (CHECK)? conditional to create userDetails if first login (register)
     userDetailsRef.get().subscribe(
-      (data) => {
+      (data: any) => {
       if ( !data.exists) {
           const userDetailsData: IUserDetails = {
             uid: user.uid,
-            displayName: user.displayName,
             email: user.email,
+            emailVerified: user.emailVerified,
+            displayName: user.displayName,
             photoURL: user.photoURL,
             current: true,
-            nickName: user.displayName.substring(0, user.displayName.indexOf(' ')),
+            nickName: (user.displayName) ?
+              user.displayName.substring(0, user.displayName.indexOf(' ')) :
+              user.email,
             isUser: true,
             isAdmin: false,
             isTeacher: false,
@@ -118,24 +128,27 @@ export class AuthService {
             // lastDate: null // new Date()
           };
 
-          /* TODO:
-          https://app.gitkraken.com/glo/board/XZ4_skfrBQAPXsgV/card/XcCcI1uFhQAPHQuo
-          Solventar problema cuando existía ya en UserDetails, y luego hace login/registro
-          */
+          // TODO: https://app.gitkraken.com/glo/board/XZ4_skfrBQAPXsgV/card/XcCcI1uFhQAPHQuo
+          // Solventar problema cuando existía ya en UserDetails, y luego hace login/registro
           this.userService.createUserDetails(userDetailsData);
         }
       }
     );
 
-    const userData = {
+    const data: User = {
       uid: user.uid,
       email: user.email,
+      emailVerified: user.emailVerified,
       displayName: user.displayName,
-      photoURL: user.photoURL
+      photoURL: user.photoURL,
+      roles: user.roles ?? []
     };
 
-    return userRef.set(userData, { merge: true });
+    console.log(`Vamos a guardar los datos de ${JSON.stringify(data)}`);
+
+    return userRef.set(data, { merge: true });
   }
+
 
   async signOut() {
     await this.afAuth.signOut();
@@ -163,5 +176,29 @@ export class AuthService {
           });
         })
       ).subscribe();
+  }
+
+  private manageError(errorStr: string) {
+
+    if ( errorStr.includes('There is no user record corresponding to this identifier.') ) {
+
+      Swal.fire({
+        icon: 'warning',
+        title: 'Error durante el acceso',
+        html: `No existe un registro asociado a este email. Para acceder a esta aplicación, es preciso estar registrado.`,
+        footer: `<a href='register'>Pulsa aquí para ir al registro</a>`
+      });
+
+    } else {
+
+      Swal.fire({
+        icon: 'warning',
+        title: 'Error durante el acceso',
+        /*
+        html: `Ha habido problemas al acceder con el email <b>${email}</b>.`,
+        footer: `<a href='register'>Pulsa aquí para ir al registro</a>`
+        */
+      });
+    }
   }
 }

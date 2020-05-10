@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
+import { User } from '@app/models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -24,10 +25,22 @@ export class RegisterComponent implements OnInit {
     try {
       const user = await this.authSvc.registerWithEmailAndPassword(email, password);
       if (user) {
-        this.router.navigate(['/verification-email']);
+        this.checkUserIsVerified(user);
       }
     } catch (error) {
       console.log(error);
     }
   }
+
+  private checkUserIsVerified(user: User) {
+    if (user && user.emailVerified) {
+      this.router.navigate(['/home']);
+    } else if (user) {
+      this.router.navigate(['/verification-email']);
+    } else {
+      this.router.navigate(['/register']);
+    }
+  }
 }
+
+

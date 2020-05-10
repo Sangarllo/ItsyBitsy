@@ -31,13 +31,13 @@ export class LoginComponent implements OnInit {
         this.checkUserIsVerified(user);
       }
     } catch (error) {
-      console.log(error);
+      console.log(`Error onLogin: ${error}`);
     }
   }
 
   async onGoogleLogin() {
     try {
-      const user = await this.authSvc.googleSignin();
+      const user = await this.authSvc.loginGoogle();
       if (user) {
         this.checkUserIsVerified(user);
       }

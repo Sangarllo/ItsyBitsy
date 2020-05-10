@@ -1,5 +1,7 @@
 import { DocumentReference } from '@angular/fire/firestore';
 
+export type Roles = 'ESTUDIANTE' | 'PROFESOR' | 'ADMIN';
+
 export enum Rol {
   Normal, // 'normal',
   Admin, // Admin = 'admin',
@@ -15,9 +17,12 @@ export enum PaymentMethod {
 
 export interface User {
   uid: string;
-  displayName: string;
+  email: string;
+  emailVerified: boolean;
+  password?: string;
+  displayName?: string;
   photoURL?: string;
-  email?: string;
+  roles?: Roles[];
 }
 
 export interface IUserDetails extends User {
@@ -70,6 +75,7 @@ export class UserDetails implements IUserDetails {
     public contactPerson: string,
     public contactPersonNif: string,
     public paymentMethod: PaymentMethod,
+    public emailVerified: boolean,
     public address?: string,
     public numAttendances?: number,
     public paymentAmmout?: number,

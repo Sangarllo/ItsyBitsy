@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '@services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent {
 
-  public user$: Observable<any> = this.authSvc.afAuth.user;
+  public user$: Observable<User> = this.authSvc.afAuth.user;
 
   constructor(
     private router: Router,
