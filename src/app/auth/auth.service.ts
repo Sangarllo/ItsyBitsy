@@ -9,7 +9,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 
 import { Observable, of } from 'rxjs';
 import { switchMap, finalize } from 'rxjs/operators';
-import { UserService } from './user.service';
+import { UserService } from '@services/user.service';
 import { FileI } from '@models/image.model';
 import { RoleValidator } from '@auth/helpers/roleValidator';
 import Swal from 'sweetalert2';
@@ -140,11 +140,8 @@ export class AuthService extends RoleValidator {
       email: user.email,
       emailVerified: user.emailVerified,
       displayName: user.displayName,
-      photoURL: user.photoURL,
-      roles: user.roles ?? []
+      photoURL: user.photoURL
     };
-
-    console.log(`Vamos a guardar los datos de ${JSON.stringify(data)}`);
 
     return userRef.set(data, { merge: true });
   }

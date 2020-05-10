@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 import { Router } from '@angular/router';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@auth/auth.service';
 import { User } from '@app/models/user.model';
 
 @Component({

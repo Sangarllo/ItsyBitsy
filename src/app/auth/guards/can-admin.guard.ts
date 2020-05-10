@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@auth/auth.service';
 import { take, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class IsAdminGuard implements CanActivate {
+export class CanAdminGuard implements CanActivate {
 
-
-  constructor(private authSvc: AuthService) {}
+  constructor(private authSvc: AuthService, private router: Router) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     return this.authSvc.user$.pipe(
@@ -19,6 +18,7 @@ export class IsAdminGuard implements CanActivate {
       tap((canEdit) => {
         if (!canEdit) {
           window.alert('Acceso denegado. Debes ser administrador para acceder');
+          this.router.navigate(['/error-403']);
         }
       })
     );

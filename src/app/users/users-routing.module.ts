@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
-import { AdminGuard } from '@services/admin.guard';
-import { AuthGuard } from '@services/auth.guard';
+import { AdminGuard } from '@auth/guards/admin.guard';
+import { AuthGuard } from '@auth/guards/auth.guard';
 
 import { UsersView } from './users-view/users-view.component';
 import { UserLessonsView } from './user-lessons-view/user-lessons-view.component';

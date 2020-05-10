@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@services/auth.service';
-import { UserDetails } from '@models/user.model';
+import { AuthService } from '@auth/auth.service';
+import { UserDetails, User } from '@models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '@services/user.service';
 import { DatesService } from '@services/dates.service';
 import { RateService } from '@services/rates.service';
 import { Rate } from '@models/rate';
-
 
 @Component({
   selector: 'app-user-details-view',
@@ -22,24 +21,37 @@ export class UserDetailsView implements OnInit {
   userDetails: UserDetails;
   rateName: string;
 
+  public canAdmin: boolean = false;
+
   constructor(
-    public auth: AuthService,
+    public authSvc: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private dateSvc: DatesService,
     private rateSvc: RateService,
     private userService: UserService
-  ) { }
+  ) {
+
+  }
 
   ngOnInit() {
+
     this.userDetailsId = this.route.snapshot.paramMap.get('id');
 
+    // User info by Id
     if ( this.userDetailsId ) {
+
+      // Watch auth User to scope the visibility
+      this.authSvc.user$.subscribe(
+        ( user ) => {
+          this.canAdmin = user.roles?.includes('ADMIN');
+      });
 
       this.userService.getUserDetails(this.userDetailsId)
       .subscribe( (userDetails: UserDetails) => {
+
         this.userDetails = userDetails;
-        this.pageTitle = `Datos del usuario ${this.userDetails.displayName}`;
+        this.pageTitle = `Datos del usuario ${this.userDetails?.displayName}`;
         this.userDetails.birthday = ( userDetails?.birthday ) ?
           this.dateSvc.fromFirebaseDate(userDetails?.birthday) :
           null;
@@ -59,12 +71,15 @@ export class UserDetailsView implements OnInit {
       });
   }
 
+  // Info requested about Authenticated User
   private getAuthUser() {
-    this.auth.user$.subscribe(
+    this.authSvc.user$.subscribe(
 
       ( user ) => {
         this.userDetailsId = user.uid;
         this.pageTitle = 'Datos de tu Perfil';
+
+        this.canAdmin = true; // user.roles.includes('ADMIN');
 
         this.userService.getUserDetails(this.userDetailsId)
         .subscribe( (userDetails: UserDetails) => {
