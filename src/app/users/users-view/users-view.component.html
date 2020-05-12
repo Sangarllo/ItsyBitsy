@@ -40,7 +40,6 @@
             <sh-user-list *ngIf="teachers" [users]="teachers" [titleTable]="'Profesores Actuales'"></sh-user-list>
         </mat-tab>
 
-
         <!-- 4. Admins -->
         <mat-tab>
             <ng-template mat-tab-label>
@@ -50,6 +49,17 @@
 
             <sh-user-list *ngIf="admins" [users]="admins" [titleTable]="'Administradores Actuales'"></sh-user-list>
         </mat-tab>
+
+        <!-- 5. Usuarios Eliminados -->
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>delete</mat-icon>
+                &nbsp;&nbsp;Usuarios deshabilitados
+            </ng-template>
+
+            <sh-user-list *ngIf="disabledUsers" [users]="disabledUsers" [titleTable]="'Usuarios deshabilitados'"></sh-user-list>
+        </mat-tab>
+
 
     </mat-tab-group>
 

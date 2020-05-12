@@ -1,158 +1,190 @@
-<mat-toolbar color="primary">
-    <span>{{pageTitle}}</span>
-    <span class="fill-remaining-space"></span>
-    <button mat-raised-button color="accent" (click)="goBack()">Volver</button>
-</mat-toolbar>
+<mat-card *ngIf="userDetails" class="edit-mode">
 
-<mat-card>
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent" (click)="goBack()">Volver</button>
+    </mat-toolbar>
+
+    <br/><br/>
 
     <form [formGroup]="userDetailsForm" class="form-container" (ngSubmit)="onSaveForm()">
 
-        <div class="row">
-            <div class="col-lg-6 col-12" style="text-align: center;">
+        <mat-card-content class="container">
 
-                <img [src]="userDetailsForm.get('photoURL').value" style="width:80%" (click)="inputImageProfile.click()" />
-                <input hidden type="file" #inputImageProfile (change)="uploadFile($event)">
+            <div class="row">
 
-                <hr>
+                <!-- INI PORTADA -->
+                <div class="col-lg-4 col-md6 col-12">
 
-                <span (click)="inputImageProfile.click()">Clica en la imagen para cambiar la foto</span>
+                    <mat-card-header>
+                        <mat-card-title class="alert alert-warning text-center" role="alert">
+                            {{ userDetails.displayName }}
+                        </mat-card-title>
+                    </mat-card-header>
 
-                <mat-form-field class="data-detail">
-                    <mat-label>Avatar</mat-label>
-                    <mat-select formControlName="photoURL" [value]="userDetailsForm.get('photoURL').value">
-                        <mat-option *ngFor="let avatar of AVATARES" [value]="avatar.path">
-                            {{avatar.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+                    <img [src]="userDetailsForm.get('photoURL').value" style="width:80%" (click)="inputImageProfile.click()" />
+                    <input hidden type="file" #inputImageProfile (change)="uploadFile($event)">
 
+                    <hr>
+
+                    <span (click)="inputImageProfile.click()">Clica en la imagen para cambiar la foto</span>
+
+                    <mat-form-field class="data-detail">
+                        <mat-label>Avatar</mat-label>
+                        <mat-select formControlName="photoURL" [value]="userDetailsForm.get('photoURL').value">
+                            <mat-option *ngFor="let avatar of AVATARES" [value]="avatar.path">
+                                {{avatar.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!-- FIN PORTADA -->
+
+
+                <!-- INI DATOS -->
+                <div class="col-lg-8 col-md-6 col-12">
+
+                    <mat-card-content>
+                        <mat-tab-group>
+
+                            <!-- A. Datos Personales -->
+                            <mat-tab class="tab-data-detail" label="Datos Personales">
+
+                                <mat-form-field class="data-detail">
+                                    <input matInput type="text" formControlName="displayName" placeholder="Nombre Completo">
+                                    <mat-icon matSuffix>assignment_ind</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field class="data-detail">
+                                    <input matInput type="text" formControlName="nickName" placeholder="Nombre Corto">
+                                    <mat-icon matSuffix>face</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field class="data-detail">
+                                    <input matInput type="text" formControlName="location" placeholder="Localidad">
+                                    <mat-icon matSuffix>location_city</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field class="data-detail">
+                                    <input matInput [matDatepicker]="picker" formControlName="birthday" placeholder="Fecha de Nacimiento">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+                                    <mat-icon matSuffix>cake</mat-icon>
+                                </mat-form-field>
+
+                            </mat-tab>
+
+
+                            <!-- B. Datos de Contacto -->
+                            <mat-tab label="Datos de Contacto">
+
+                                <mat-form-field class="data-detail">
+                                    <input matInput type="text" formControlName="contactPerson" placeholder="Persona de Contacto">
+                                    <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field class="data-detail">
+                                    <input matInput type="text" formControlName="contactPersonNif" placeholder="Nif Persona de Contacto">
+                                    <mat-icon matSuffix>assignment_ind</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field class="data-detail">
+                                    <input matInput type="text" formControlName="telephone" placeholder="Teléfono de Contacto">
+                                    <mat-icon matSuffix>phone</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field class="data-detail">
+                                    <input matInput type="text" formControlName="address" placeholder="Dirección postal">
+                                    <mat-error *ngIf="!!userDetailsForm.get('address').hasError('required')">{{ errorMessage }}</mat-error>
+                                    <mat-icon matSuffix>home</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field class="data-detail">
+                                    <input matInput type="text" formControlName="email" placeholder="Correo Electrónico">
+                                    <mat-error *ngIf="!!userDetailsForm.get('email').hasError('required')">{{ errorMessage }}</mat-error>
+                                    <mat-icon matSuffix>email</mat-icon>
+                                </mat-form-field>
+
+                            </mat-tab>
+
+                            <!-- C. Datos de Facturación -->
+                            <mat-tab label="Datos de Facturación">
+
+                                <mat-form-field class="data-detail" *ngIf="rates$ | async as RATES">
+                                    <mat-label>Tarifa</mat-label>
+                                    <mat-select formControlName="rateId" [value]="userDetailsForm.get('rateId').value">
+                                        <mat-option *ngFor="let rate of RATES" [value]="rate.id">
+                                            {{rate.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-icon matSuffix>local_offer</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field class="data-detail">
+                                    <mat-label>Método de Pago</mat-label>
+                                    <mat-select formControlName="paymentMethod" [value]="userDetailsForm.get('paymentMethod').value">
+                                        <mat-option *ngFor="let paymentMethod of PAYMENT_METHOD_ARRAY" [value]="paymentMethod">
+                                            {{paymentMethod}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-icon matSuffix>payment</mat-icon>
+                                </mat-form-field>
+
+                            </mat-tab>
+
+
+                            <!-- D. Roles del Usuario -->
+                            <mat-tab label="Roles del Usuario">
+
+                                <div class="data-detail-check">
+                                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isAdmin"> Es Administrador
+                                    </mat-checkbox>
+                                    <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                                </div>
+
+                                <div class="data-detail-check">
+                                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isTeacher"> Puede revisar sus clases o asistencias
+                                    </mat-checkbox>
+                                    <mat-icon matSuffix>supervisor_account</mat-icon>
+                                </div>
+
+                                <div class="data-detail-check">
+                                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isTeacher"> Es profesor
+                                    </mat-checkbox>
+                                    <mat-icon matSuffix>local_library</mat-icon>
+                                </div>
+
+                                <div class="data-detail-check">
+                                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isStudent"> Es estudiante
+                                    </mat-checkbox>
+                                    <mat-icon matSuffix>face</mat-icon>
+                                </div>
+
+                                <div class="data-detail-check">
+                                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isUser"> Está registrado en ItsyBitsy
+                                    </mat-checkbox>
+                                    <mat-icon matSuffix>how_to_reg</mat-icon>
+                                </div>
+
+                            </mat-tab>
+
+                        </mat-tab-group>
+                    </mat-card-content>
+
+                </div>
+                <!-- FIN DATOS -->
             </div>
 
-
-            <div class="col-lg-6 col-12">
-
-                <mat-card-content>
-
-                    <h5>Datos Personales</h5>
-                    <br/>
-
-                    <div class="container">
-                        <div class="row">
-                            <mat-form-field class="data-detail" class="col-12">
-                                <input matInput type="text" formControlName="displayName" placeholder="Nombre Completo">
-                            </mat-form-field>
-
-                            <mat-form-field class="data-detail" class="col-12">
-                                <input matInput type="text" formControlName="nickName" placeholder="Nombre de usuario">
-                            </mat-form-field>
-                        </div>
-                        <div class="row">
-                            <mat-form-field class="data-detail" class="col-12">
-                                <input matInput type="text" formControlName="location" placeholder="Localidad">
-                            </mat-form-field>
-
-                            <mat-form-field class="data-detail" class="col-12">
-                                <input matInput [matDatepicker]="picker" formControlName="birthday" placeholder="Fecha de Cumpleaños">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker startView="multi-year"></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <mat-divider></mat-divider>
-
-                    <br/>
-                    <h5>Datos de Contacto</h5>
-                    <br/>
-
-                    <div class="container">
-                        <div class="row">
-
-                            <mat-form-field class="data-detail" class="col-12">
-                                <input matInput type="text" formControlName="email" placeholder="Correo Electrónico">
-                                <mat-error *ngIf="!!userDetailsForm.get('email').hasError('required')">{{ errorMessage }}</mat-error>
-                            </mat-form-field>
-
-                            <mat-form-field class="data-detail" class="col-4">
-                                <input matInput type="text" formControlName="contactPerson" placeholder="Persona de Contacto">
-                            </mat-form-field>
-
-                            <mat-form-field class="data-detail" class="col-3">
-                                <input matInput type="text" formControlName="contactPersonNif" placeholder="Nif Persona de Contacto">
-                            </mat-form-field>
-
-                            <mat-form-field class="data-detail" class="col-3">
-                                <input matInput type="text" formControlName="telephone" placeholder="Teléfono de Contacto">
-                            </mat-form-field>
-                        </div>
-
-                        <div class="row">
-
-                            <mat-form-field class="data-detail" class="col-12">
-                                <input matInput type="text" formControlName="address" placeholder="Dirección postal">
-                                <mat-error *ngIf="!!userDetailsForm.get('address').hasError('required')">{{ errorMessage }}</mat-error>
-                            </mat-form-field>
-
-                        </div>
-                    </div>
-
-                    <mat-divider></mat-divider>
-
-                    <br/>
-                    <h5>Datos de Facturación</h5>
-                    <br/>
-
-                    <div class="container">
-                        <div class="row">
-
-                            <mat-form-field class="data-detail" class="col-12" *ngIf="rates$ | async as RATES">
-                                <mat-label>Tarifa</mat-label>
-                                <mat-select formControlName="rateId" [value]="userDetailsForm.get('rateId').value">
-                                    <mat-option *ngFor="let rate of RATES" [value]="rate.id">
-                                        {{rate.name}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-
-                            <mat-form-field class="data-detail" class="col-12">
-                                <mat-label>Método de Pago</mat-label>
-                                <mat-select formControlName="paymentMethod" [value]="userDetailsForm.get('paymentMethod').value">
-                                    <mat-option *ngFor="let paymentMethod of PAYMENT_METHOD_ARRAY" [value]="paymentMethod">
-                                        {{paymentMethod}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <mat-divider></mat-divider>
-
-                    <br/>
-                    <h5>Roles</h5>
-                    <br/>
-
-                    <div class="container">
-                        <div class="row">
-                            <mat-checkbox color="warn" disabled class="checkbox-margin" formControlName="isUser">Está registrado</mat-checkbox>
-                            <mat-checkbox color="warn" class="checkbox-margin" formControlName="isAdmin">Es admin</mat-checkbox>
-                            <mat-checkbox color="warn" class="checkbox-margin" formControlName="isTeacher">Es profesor</mat-checkbox>
-                            <mat-checkbox color="warn" class="checkbox-margin" formControlName="isStudent">Es estudiante</mat-checkbox>
-                        </div>
-                    </div>
-
-                </mat-card-content>
-
-            </div>
-        </div>
+        </mat-card-content>
 
         <div class="row">
 
-            <div class="col-12">
+            <div class="col-12 text-right">
 
                 <mat-card-actions>
                     <button mat-raised-button [title]="userDetailsForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!userDetailsForm.valid" type="submit" color="primary">Guardar</button>
-                    <button mat-raised-button type="button" (click)="goBack()" color="primary">Volver sin guardar</button><button mat-raised-button type="button" (click)="gotoList()" color="primary">Ver Usuarios</button>
+                    <button mat-raised-button type="button" (click)="goBack()" color="primary">Volver sin guardar</button>
                 </mat-card-actions>
             </div>
 

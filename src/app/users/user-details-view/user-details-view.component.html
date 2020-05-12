@@ -1,4 +1,4 @@
-<mat-card *ngIf="userDetails">
+<mat-card *ngIf="userDetails" [ngClass]="(userDetails.current)?'item-enabled':'item-disabled'">
 
     <mat-toolbar color="primary">
         <span>{{pageTitle}}</span>
@@ -20,6 +20,12 @@
 
                     <mat-card-subtitle>
                         <!--
+                        <pre *ngIf="user$ | async as user">
+                          {{ user | json }}
+                        </pre>
+                        -->
+
+                        <!--
                         <mat-chip-list aria-label="Roles">
                             <mat-chip *ngIf="userDetails.isUser">Registrado</mat-chip>
                             <mat-chip *ngIf="userDetails.isAdmin">Administrador</mat-chip>
@@ -33,7 +39,10 @@
                 <img [src]="userDetails.photoURL" class="mx-auto img-fluid img-circle d-block mt-3 mb-3 img-thumbnail" alt="avatar">
 
                 <mat-card-actions class="text-center">
-                    <button mat-mini-fab color="warn" [disabled]="!canAdmin" (click)="gotoEdition()"><mat-icon>edit</mat-icon></button>
+
+                    <button *ngIf="userDetails.current" mat-mini-fab color="warn" (click)="update(false)"><mat-icon class="button-always-enabled">toggle_off</mat-icon></button>
+                    <button *ngIf="!userDetails.current" mat-mini-fab color="warn" (click)="update(true)"><mat-icon>toggle_on</mat-icon></button> &nbsp;
+                    <button mat-mini-fab color="warn" [disabled]="!canAdmin || !userDetails.current" (click)="gotoEdition()"><mat-icon>edit</mat-icon></button>
                 </mat-card-actions>
 
             </div>
@@ -55,14 +64,14 @@
                                 <mat-icon matSuffix>face</mat-icon>
                             </mat-form-field>
 
-                            <mat-form-field class="data-detail" *ngIf="userDetails.birthday">
-                                <input matInput type="text" disabled="true" [value]="userDetails.birthday  | date:'fullDate'" placeholder="Cumpleaños" />
-                                <mat-icon matSuffix>cake</mat-icon>
-                            </mat-form-field>
-
                             <mat-form-field class="data-detail" *ngIf="userDetails.location">
                                 <input matInput type="text" disabled="true" [value]="userDetails.location" placeholder="Localidad" />
                                 <mat-icon matSuffix>location_city</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail" *ngIf="userDetails.birthday">
+                                <input matInput type="text" disabled="true" [value]="userDetails.birthday  | date:'fullDate'" placeholder="Fecha de Nacimiento" />
+                                <mat-icon matSuffix>cake</mat-icon>
                             </mat-form-field>
 
                         </mat-tab>
@@ -82,12 +91,12 @@
                             </mat-form-field>
 
                             <mat-form-field class="data-detail" *ngIf="userDetails.telephone">
-                                <input matInput type="text" disabled="true" [value]="userDetails.telephone" placeholder="Teléfono" />
+                                <input matInput type="text" disabled="true" [value]="userDetails.telephone" placeholder="Teléfono de Contacto" />
                                 <mat-icon matSuffix>phone</mat-icon>
                             </mat-form-field>
 
                             <mat-form-field class="data-detail" *ngIf="userDetails.address">
-                                <input matInput type="text" disabled="true" [value]="userDetails.address" placeholder="Dirección" />
+                                <input matInput type="text" disabled="true" [value]="userDetails.address" placeholder="Dirección postal" />
                                 <mat-icon matSuffix>home</mat-icon>
                             </mat-form-field>
 
@@ -117,24 +126,29 @@
                         <!-- D. Roles del Usuario -->
                         <mat-tab label="Roles del Usuario">
 
-                            <mat-form-field class="data-detail" *ngIf="userDetails.isAdmin">
+                            <mat-form-field class="data-detail">
                                 <input matInput type="text" disabled="true" [value]="(userDetails.isAdmin) ? 'SÍ': 'NO'" placeholder="Es Administrador" />
-                                <mat-icon matSuffix>face</mat-icon>
+                                <mat-icon matSuffix>supervised_user_circle</mat-icon>
                             </mat-form-field>
 
-                            <mat-form-field class="data-detail" *ngIf="userDetails.isStudent">
+                            <mat-form-field class="data-detail">
+                                <input matInput type="text" disabled="true" [value]="(userDetails.isTeacher) ? 'SÍ': 'NO'" placeholder="Puede revisar sus clases o asistencias" />
+                                <mat-icon matSuffix>supervisor_account</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail">
+                                <input matInput type="text" disabled="true" [value]="(userDetails.isTeacher) ? 'SÍ': 'NO'" placeholder="Es Profesor" />
+                                <mat-icon matSuffix>local_library</mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field class="data-detail">
                                 <input matInput type="text" disabled="true" [value]="(userDetails.isStudent) ? 'SÍ': 'NO'" placeholder="Es Estudiante" />
                                 <mat-icon matSuffix>face</mat-icon>
                             </mat-form-field>
 
-                            <mat-form-field class="data-detail" *ngIf="userDetails.isTeacher">
-                                <input matInput type="text" disabled="true" [value]="(userDetails.isTeacher) ? 'SÍ': 'NO'" placeholder="Es Profesor" />
-                                <mat-icon matSuffix>local_library</mat-icon>
-                            </mat-form-field>
-
-                            <mat-form-field class="data-detail" *ngIf="userDetails.isTeacher">
-                                <input matInput type="text" disabled="true" [value]="(userDetails.isTeacher) ? 'SÍ': 'NO'" placeholder="Es Profesor" />
-                                <mat-icon matSuffix>local_library</mat-icon>
+                            <mat-form-field class="data-detail">
+                                <input matInput type="text" disabled="true" [value]="(userDetails.isUser) ? ('SI (' + userDetails.email + ')') : 'NO'" placeholder="Está registrado en ItsyBitsy " />
+                                <mat-icon matSuffix>how_to_reg</mat-icon>
                             </mat-form-field>
 
                         </mat-tab>

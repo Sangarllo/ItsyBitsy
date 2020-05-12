@@ -6,6 +6,7 @@ import { UserService } from '@services/user.service';
 import { DatesService } from '@services/dates.service';
 import { RateService } from '@services/rates.service';
 import { Rate } from '@models/rate';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-details-view',
@@ -22,6 +23,7 @@ export class UserDetailsView implements OnInit {
   rateName: string;
 
   public canAdmin: boolean = false;
+  public user$: Observable<User>;
 
   constructor(
     public authSvc: AuthService,
@@ -31,7 +33,7 @@ export class UserDetailsView implements OnInit {
     private rateSvc: RateService,
     private userService: UserService
   ) {
-
+    this.user$ = this.authSvc.user$;
   }
 
   ngOnInit() {
@@ -96,6 +98,14 @@ export class UserDetailsView implements OnInit {
         });
         }
     );
+  }
+
+  update(current: boolean) {
+    this.userDetails.current = current;
+    this.userService.updateUserDetails(this.userDetails)
+      .subscribe( userDetails => {
+        this.userDetails = userDetails;
+      });
   }
 
   gotoEdition() {

@@ -2,6 +2,34 @@
     margin: 0 10px;
 }
 
+.data-detail {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    input {
+        color: black;
+    }
+}
+
 .data-detail>* {
     width: 100%;
+}
+
+.edit-mode {
+    background-color: lightyellow;
+}
+
+.data-detail-check {
+    margin-top: 30px;
+    width: 100%;
+    border-bottom: 1px solid;
+    padding-bottom: 20px;
+    font-size: large;
+}
+
+.data-detail-check mat-icon {
+    float: right;
 }

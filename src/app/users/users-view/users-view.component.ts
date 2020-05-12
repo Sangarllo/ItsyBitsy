@@ -15,6 +15,7 @@ export class UsersView implements OnInit {
   students: UserDetails[];
   teachers: UserDetails[];
   admins: UserDetails[];
+  disabledUsers: UserDetails[];
 
   constructor(
     private router: Router,
@@ -29,6 +30,12 @@ export class UsersView implements OnInit {
         this.students = users.filter( u => u.isStudent );
         this.teachers = users.filter( u => u.isTeacher );
         this.admins = users.filter( u => u.isAdmin );
+    });
+
+    this.userSvc.getAllDisabledUsersDetails().subscribe(
+      (users: UserDetails[]) => {
+        console.log(`Número de usuarios deshabilitados: ${users.length}`);
+        this.disabledUsers = users;
     });
   }
 

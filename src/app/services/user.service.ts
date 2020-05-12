@@ -42,6 +42,24 @@ export class UserService {
     );
   }
 
+  getAllDisabledUsersDetails(): Observable<UserDetails[]> {
+
+    this.userDetailsCollection = this.afs.collection<UserDetails>(
+        UserService.USER_DETAILS_COLLECTION,
+        ref => ref.where('current', '==', false)
+                  .orderBy('displayName')
+    );
+
+    return this.userDetailsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as UserDetails;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })
+      )
+    );
+  }
+
   getAllStudents(): Observable<UserDetails[]> {
 
     this.studentsCollection = this.afs.collection(

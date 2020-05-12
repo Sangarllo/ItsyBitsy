@@ -184,12 +184,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.router.navigate([`/${UserDetails.PATH_URL}`]);
   }
 
-  gotoList(): void {
-    // Reset the form to clear the flags
-    this.userDetailsForm.reset();
-    this.router.navigate([`/${UserDetails.PATH_URL}`]);
-  }
-
   goBack(): void {
     // Reset the form to clear the flags
     this.userDetailsForm.reset();
