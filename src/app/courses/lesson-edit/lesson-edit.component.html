@@ -1,10 +1,12 @@
-<mat-toolbar color="primary">
-    <span>{{pageTitle}} | {{courseTitle}}</span>
-    <span class="fill-remaining-space"></span>
-    <button mat-raised-button color="accent" (click)="gotoCourse()">Volver al Curso</button>
-</mat-toolbar>
-
 <mat-card *ngIf="course">
+
+    <mat-toolbar color="warn">
+        <span>{{pageTitle}} | {{courseTitle}}</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent" (click)="gotoCourse()">Volver al Curso</button>
+    </mat-toolbar>
+
+    <br/><br/>
 
     <div class="row">
         <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
@@ -41,7 +43,7 @@
 
                     <div class="row">
 
-                        <mat-form-field class="col-6">
+                        <mat-form-field class="col-5">
                             <input matInput formControlName="date" [matDatepicker]="pickerStart" placeholder="Escoge la fecha de inicio">
                             <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
                             <mat-datepicker #pickerStart></mat-datepicker>
@@ -64,11 +66,11 @@
 
                 <mat-card-actions>
 
-                    <button mat-raised-button [title]="lessonForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!lessonForm.valid" type="submit" color="primary">Guardar</button>
+                    <button mat-raised-button [title]="lessonForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!lessonForm.valid" type="submit" color="warn">Guardar</button>
 
-                    <button mat-raised-button type="button" (click)="onResetForm()" color="primary">Limpiar</button>
+                    <button mat-raised-button type="button" (click)="onResetForm()" color="warn">Limpiar</button>
 
-                    <button mat-raised-button type="button" (click)="gotoCourse()" color="primary">Volver al curso</button>
+                    <button mat-raised-button type="button" (click)="gotoCourse()" color="warn">Volver al curso</button>
 
                 </mat-card-actions>
 

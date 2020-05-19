@@ -34,7 +34,7 @@ export class ShLessonDataComponent implements OnInit {
   }
 
   gotoEdition() {
-    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/editar`]);
+    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/${Lesson.PATH_URL}/${this.lesson.id}/editar`]);
   }
 
   updateLesson(current: boolean) {

@@ -1,6 +1,6 @@
 <mat-card *ngIf="userDetails" class="edit-mode">
 
-    <mat-toolbar color="primary">
+    <mat-toolbar color="warn">
         <span>{{pageTitle}}</span>
         <span class="fill-remaining-space"></span>
         <button mat-raised-button color="accent" (click)="goBack()">Volver</button>
@@ -18,7 +18,7 @@
                 <div class="col-lg-4 col-md6 col-12">
 
                     <mat-card-header>
-                        <mat-card-title class="alert alert-warning text-center" role="alert">
+                        <mat-card-title class="alert alert-danger text-center" role="alert">
                             {{ userDetails.displayName }}
                         </mat-card-title>
                     </mat-card-header>
@@ -183,8 +183,8 @@
             <div class="col-12 text-right">
 
                 <mat-card-actions>
-                    <button mat-raised-button [title]="userDetailsForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!userDetailsForm.valid" type="submit" color="primary">Guardar</button>
-                    <button mat-raised-button type="button" (click)="goBack()" color="primary">Volver sin guardar</button>
+                    <button mat-raised-button [title]="userDetailsForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!userDetailsForm.valid" type="submit" color="warn">Guardar</button>
+                    <button mat-raised-button type="button" color="warn" (click)="goBack()">Volver sin guardar</button>
                 </mat-card-actions>
             </div>
 

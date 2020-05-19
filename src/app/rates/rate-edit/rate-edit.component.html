@@ -1,10 +1,12 @@
-<mat-toolbar color="primary">
-    <span>{{pageTitle}}</span>
-    <span class="fill-remaining-space"></span>
-    <button mat-raised-button color="accent" (click)="goBack()">Ver Tarifa</button>
-</mat-toolbar>
+<mat-card *ngIf="rate" class="edit-mode">
 
-<mat-card>
+    <mat-toolbar color="warn">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent" (click)="goBack()">Volver</button>
+    </mat-toolbar>
+
+    <br/><br/>
 
     <div class="row">
         <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
@@ -35,14 +37,13 @@
 
                 </mat-card-content>
 
-
                 <mat-card-actions>
 
-                    <button mat-raised-button [title]="rateForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!rateForm.valid" type="submit" color="primary">Guardar</button>
+                    <button mat-raised-button [title]="rateForm.valid ? 'Guardar con los datos introducidos' : 'Dishabilitado hasta que los datos sean válidos'" [disabled]="!rateForm.valid" type="submit" color="warn">Guardar</button>
 
-                    <button mat-raised-button type="button" (click)="onResetForm()" color="primary">Limpiar</button>
+                    <button mat-raised-button type="button" (click)="onResetForm()" color="warn">Limpiar</button>
 
-                    <button mat-raised-button type="button" (click)="gotoList()" color="primary">Ver listado</button>
+                    <button mat-raised-button type="button" (click)="gotoList()" color="warn">Ver listado</button>
 
                 </mat-card-actions>
 
