@@ -1,4 +1,4 @@
-<mat-card *ngIf="userDetails">
+<mat-card *ngIf="user$ | async as user; else showLogin">
 
     <mat-toolbar color="primary">
         <span>{{pageTitle}}</span>
@@ -6,9 +6,9 @@
         <button mat-raised-button color="accent" (click)="gotoMyProfile()">Ver Perfil</button>
     </mat-toolbar>
 
-    <app-sh-user-data [userDetails]="userDetails"></app-sh-user-data>
+    <app-sh-user-data [userDetails]="userDetails" *ngIf="userDetails"></app-sh-user-data>
 
-    <div *ngIf="userDetails.isAdmin" class="card dashboard-rol-item">
+    <div *ngIf="user.roles?.includes('ADMIN')" class="card dashboard-rol-item">
         <div class="alert alert-primary" role="alert">
             Como administrador puedes...
         </div>
@@ -76,7 +76,7 @@
 
     </div>
 
-    <div *ngIf="userDetails.isTeacher" class="card dashboard-rol-item">
+    <div *ngIf="user.roles?.includes('PROFESOR')" class="card dashboard-rol-item">
         <div class="alert alert-primary" role="alert">
             Como profesor puedes...
         </div>
@@ -91,7 +91,7 @@
         </mat-nav-list>
     </div>
 
-    <div *ngIf="userDetails.isStudent" class="card dashboard-rol-item">
+    <div *ngIf="user.roles?.includes('ESTUDIANTE')" class="card dashboard-rol-item">
         <div class="alert alert-primary" role="alert">
             Como estudiante puedes...
         </div>
@@ -109,7 +109,7 @@
 
     </div>
 
-    <div *ngIf="userDetails.isUser" class="card dashboard-rol-item">
+    <div *ngIf="user.enable" class="card dashboard-rol-item">
         <div class="alert alert-primary" role="alert">
             Como usuario registrado puedes...
         </div>
@@ -128,3 +128,9 @@
     </div>
 
 </mat-card>
+
+<ng-template #showLogin>
+    <a [routerLink]="['/login']">
+  Acceso  <mat-icon class="header-icon">account_circle</mat-icon>
+</a>
+</ng-template>

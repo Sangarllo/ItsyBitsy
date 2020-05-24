@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserDetails, Rol } from '@models/user.model';
+import { UserDetails, User } from '@models/user.model';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '@services/user.service';
@@ -11,6 +11,7 @@ import { Rate } from '@models/rate';
 import { DatesService } from '@services/dates.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
+import { AuthService } from '@auth/auth.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -27,10 +28,12 @@ export class UserEditComponent implements OnInit, OnDestroy {
   errorMessage: string;
   userDetailsForm: FormGroup;
   userDetails: UserDetails;
+  userChecked: User; // UserChecked
   AVATARES: Avatar[] = Avatar.getAvatares();
   PAYMENT_METHOD_ARRAY = UserDetails.getAllPaymentMethod();
   rates$: Observable<Rate[]>;
 
+  public canAdmin: boolean = false;
   isUser = true;
 
   private sub: Subscription;
@@ -38,13 +41,20 @@ export class UserEditComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private afStorage: AngularFireStorage,
+    public authSvc: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private dateSvc: DatesService,
     private rateSvc: RateService,
-    private userService: UserService) { }
+    private userSvc: UserService) { }
 
   ngOnInit() {
+
+    // Watch auth User to scope the visibility
+    this.authSvc.user$.subscribe(
+      ( user ) => {
+        this.canAdmin = user.roles?.includes('ADMIN');
+    });
 
     this.rates$ = this.rateSvc.getAllRates();
 
@@ -75,6 +85,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
         params => {
           const id = params.get('id');
           this.getUserDetails(id);
+          this.getUserChecked(id);
         }
     );
   }
@@ -84,11 +95,22 @@ export class UserEditComponent implements OnInit, OnDestroy {
   }
 
   getUserDetails(id: string): void {
-    this.userService.getUserDetails(id)
+    this.userSvc.getUserDetails(id)
       .subscribe({
         next: (userDetails: UserDetails) => {
           this.userDetails = userDetails;
           this.displayUserDetails();
+        },
+        error: err => this.errorMessage = err
+      });
+  }
+
+  getUserChecked(id: string): void {
+    this.userSvc.getUser(id)
+      .subscribe({
+        next: (user: User) => {
+          this.userChecked = user;
+          this.displayUserChecked();
         },
         error: err => this.errorMessage = err
       });
@@ -128,13 +150,19 @@ export class UserEditComponent implements OnInit, OnDestroy {
     });
   }
 
+  displayUserChecked(): void {
+    console.log(`changeEnable()
+      ${JSON.stringify(this.userChecked, null, '\t')}
+    `);
+  }
+
   deleteUserDetails(): void {
     if (this.userDetails.uid === '0') {
       // Don't delete, it was never saved.
       this.onSaveComplete();
     } else {
       if (confirm(`Realmente quieres eliminar: ${this.userDetails.displayName}?`)) {
-        this.userService.deleteUserDetails(this.userDetails.uid)
+        this.userSvc.deleteUserDetails(this.userDetails.uid)
           .subscribe({
             next: () => this.onSaveComplete(),
             error: err => this.errorMessage = err
@@ -155,13 +183,13 @@ export class UserEditComponent implements OnInit, OnDestroy {
         console.log(`Usuario: ${JSON.stringify(item)}`);
 
         if (item.uid === '0') {
-          this.userService.createUserDetails(item)
+          this.userSvc.createUserDetails(item)
             .subscribe({
               next: () => this.onSaveComplete(),
               error: err => this.errorMessage = err
             });
         } else {
-          this.userService.updateUserDetails(item)
+          this.userSvc.updateUserDetails(item)
             .subscribe({
               next: () => this.onSaveComplete(),
               error: err => this.errorMessage = err
@@ -216,4 +244,34 @@ export class UserEditComponent implements OnInit, OnDestroy {
     .subscribe();
   }
 
+  changeUser( dataUser: string ) {
+
+    switch ( dataUser ) {
+
+      case 'ADMIN':
+      case 'PROFESOR':
+      case 'ESTUDIANTE':
+
+        if ( !this.userChecked.roles ) {
+          this.userChecked.roles.push(dataUser);
+        } else if ( !this.userChecked.roles.includes(dataUser) ) {
+          this.userChecked.roles.push(dataUser);
+        } else {
+          const pos = this.userChecked.roles.indexOf(dataUser);
+          this.userChecked.roles.splice(pos, 1);
+        }
+        break;
+
+      case 'ENABLE':
+        this.userChecked.enable = !this.userChecked.enable;
+    }
+
+    this.userSvc.updateUser(this.userChecked)
+      .subscribe( user => {
+        this.userChecked = user;
+        console.log(`changeUser()
+        ${JSON.stringify(this.userChecked, null, '\t')}
+      `);
+    });
+  }
 }

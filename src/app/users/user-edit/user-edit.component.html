@@ -109,7 +109,7 @@
                             </mat-tab>
 
                             <!-- C. Datos de Facturación -->
-                            <mat-tab label="Datos de Facturación">
+                            <mat-tab label="Datos de Facturación" [disabled]="!canAdmin">
 
                                 <mat-form-field class="data-detail" *ngIf="rates$ | async as RATES">
                                     <mat-label>Tarifa</mat-label>
@@ -134,39 +134,51 @@
                             </mat-tab>
 
 
-                            <!-- D. Roles del Usuario -->
-                            <mat-tab label="Roles del Usuario">
+                            <!-- D. El usuario en la App -->
+                            <mat-tab label="El usuario en la App" [disabled]="!canAdmin">
+                                <div *ngIf="userChecked; else noRegisteredUser">
 
-                                <div class="data-detail-check">
-                                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isAdmin"> Es Administrador
-                                    </mat-checkbox>
-                                    <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                                    <div class="data-detail-check">
+                                        <mat-slide-toggle color="warn" [checked]="userChecked.enable" (change)="changeUser('ENABLE')">
+                                            Puede usar la aplicación
+                                        </mat-slide-toggle>
+                                        <mat-icon matSuffix>how_to_reg</mat-icon>
+                                    </div>
+
+                                    <div class="ml-5 pt-3">
+                                        <mat-form-field class="data-detail">
+                                            <input matInput type="text" disabled="true" [value]="(userDetails.isUser) ? userDetails.email : '-'" placeholder="Email de acceso en ItsyBitsy " />
+                                            <mat-icon matSuffix>alternate_email</mat-icon>
+                                        </mat-form-field>
+
+                                        <mat-form-field class="data-detail">
+                                            <input matInput type="text" disabled="true" [value]="(userChecked.emailVerified) ? 'SI' : 'NO'" placeholder="Email verificado " />
+                                            <mat-icon matSuffix>check_circle_outline</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="data-detail-check">
+                                        <mat-slide-toggle color="warn" [checked]="(userChecked.roles?.includes('ADMIN'))" (change)="changeUser('ADMIN')">
+                                            Es Administrador
+                                        </mat-slide-toggle>
+                                        <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                                    </div>
+
+                                    <div class="data-detail-check">
+                                        <mat-slide-toggle color="warn" [checked]="(userChecked.roles?.includes('PROFESOR'))" (change)="changeUser('PROFESOR')">
+                                            Es profesor
+                                        </mat-slide-toggle>
+                                        <mat-icon matSuffix>supervisor_account</mat-icon>
+                                    </div>
+
+                                    <div class="data-detail-check">
+                                        <mat-slide-toggle color="warn" [checked]="(userChecked.roles?.includes('ESTUDIANTE'))" (change)="changeUser('ESTUDIANTE')">
+                                            Es estudiante
+                                        </mat-slide-toggle>
+                                        <mat-icon matSuffix>face</mat-icon>
+                                    </div>
+
                                 </div>
-
-                                <div class="data-detail-check">
-                                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isTeacher"> Puede revisar sus clases o asistencias
-                                    </mat-checkbox>
-                                    <mat-icon matSuffix>supervisor_account</mat-icon>
-                                </div>
-
-                                <div class="data-detail-check">
-                                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isTeacher"> Es profesor
-                                    </mat-checkbox>
-                                    <mat-icon matSuffix>local_library</mat-icon>
-                                </div>
-
-                                <div class="data-detail-check">
-                                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isStudent"> Es estudiante
-                                    </mat-checkbox>
-                                    <mat-icon matSuffix>face</mat-icon>
-                                </div>
-
-                                <div class="data-detail-check">
-                                    <mat-checkbox color="warn" class="checkbox-margin" formControlName="isUser"> Está registrado en ItsyBitsy
-                                    </mat-checkbox>
-                                    <mat-icon matSuffix>how_to_reg</mat-icon>
-                                </div>
-
                             </mat-tab>
 
                         </mat-tab-group>
@@ -191,5 +203,13 @@
         </div>
 
     </form>
-
 </mat-card>
+
+
+<!-- D. El usuario en la App -->
+<ng-template #noRegisteredUser>
+    <div class="alert alert-warning" style="margin:10px;padding:40px" role="alert">
+        {{ userDetails.displayName }} nunca ha accedido y por tanto no está registrado en la aplicación.
+        <br/><br/> No se le pueden dar permisos hasta que no se haya registrado.
+    </div>
+</ng-template>

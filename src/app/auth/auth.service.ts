@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 import { Observable, of } from 'rxjs';
@@ -108,18 +108,29 @@ export class AuthService extends RoleValidator {
 
     // TODO (CHECK)? conditional to create userDetails if first login (register)
     userDetailsRef.get().subscribe(
+
+      // tslint:disable-next-line: no-shadowed-variable
       (data: any) => {
-      if ( !data.exists) {
+
+        // console.log(`info updateUserData data.exists: ${data.exists}`);
+        // console.log(`info updateUserData user.uid: ${user.uid}`);
+
+        if ( !data.exists) {
+
+          const userDisplayName = (user.displayName) ?
+            user.displayName :
+            user.email.substring(0, user.email.indexOf('@'));
+
           const userDetailsData: IUserDetails = {
             uid: user.uid,
             email: user.email,
             emailVerified: user.emailVerified,
-            displayName: user.displayName,
+            displayName: userDisplayName,
             photoURL: user.photoURL,
             current: true,
             nickName: (user.displayName) ?
               user.displayName.substring(0, user.displayName.indexOf(' ')) :
-              user.email,
+              userDisplayName,
             isUser: true,
             isAdmin: false,
             isTeacher: false,
@@ -135,11 +146,14 @@ export class AuthService extends RoleValidator {
       }
     );
 
+    // objeto con propiedades propias de Firebase.User
     const data: User = {
       uid: user.uid,
       email: user.email,
       emailVerified: user.emailVerified,
-      displayName: user.displayName,
+      displayName: user.displayName ?
+        user.displayName :
+        user.email.substring(0, user.email.indexOf('@')),
       photoURL: user.photoURL
     };
 
@@ -198,4 +212,5 @@ export class AuthService extends RoleValidator {
       });
     }
   }
+
 }

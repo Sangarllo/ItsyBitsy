@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { AuthService } from '@auth/auth.service';
 import { UserService } from '@services/user.service';
 import { Course } from '@models/course.model';
-import { UserDetails } from '@models/user.model';
+import { UserDetails, User } from '@models/user.model';
 import { Rate } from '@models/rate';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-dashboard-view',
@@ -14,23 +15,28 @@ import { Rate } from '@models/rate';
 export class UserDashboardView implements OnInit {
 
   pageTitle: string;
-  userDetailsId: string;
+  userId: string;
   userDetails: UserDetails;
 
+  // User Authenticated
+  public user$: Observable<User>;
+
   constructor(
-    public auth: AuthService,
+    public authSvc: AuthService,
     private router: Router,
     private userService: UserService
   ) { }
 
   ngOnInit() {
 
-    this.auth.user$.subscribe(
+    this.authSvc.user$.subscribe(
 
       ( user ) => {
-        this.userDetailsId = user.uid;
+        this.userId = user.uid;
 
-        this.userService.getUserDetails(this.userDetailsId)
+        this.user$ = this.userService.getUser(this.userId);
+
+        this.userService.getUserDetails(this.userId)
         .subscribe( (userDetails: UserDetails) => {
           this.userDetails = userDetails;
           this.pageTitle = `Panel de opciones de ${this.userDetails.displayName}`;
@@ -81,7 +87,7 @@ export class UserDashboardView implements OnInit {
 
   // 2A. Ver mis clases
   gotoMyLessons() {
-    this.router.navigate([`/usuarios/${this.userDetailsId}/clases`]);
+    this.router.navigate([`/usuarios/${this.userId}/clases`]);
   }
 
 
@@ -89,7 +95,7 @@ export class UserDashboardView implements OnInit {
 
   // 3A. Ver mis asistencias
   gotoMyAttendances() {
-    this.router.navigate([`/usuarios/${this.userDetailsId}/asistencias`]);
+    this.router.navigate([`/usuarios/${this.userId}/asistencias`]);
   }
 
 

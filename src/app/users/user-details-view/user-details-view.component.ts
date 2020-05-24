@@ -20,10 +20,11 @@ export class UserDetailsView implements OnInit {
 
   userDetailsId: string;
   userDetails: UserDetails;
+  userChecked: User; // UserChecked
   rateName: string;
 
   public canAdmin: boolean = false;
-  public user$: Observable<User>;
+  public user$: Observable<User>; // User Authenticated
 
   constructor(
     public authSvc: AuthService,
@@ -31,7 +32,7 @@ export class UserDetailsView implements OnInit {
     private router: Router,
     private dateSvc: DatesService,
     private rateSvc: RateService,
-    private userService: UserService
+    private userSvc: UserService
   ) {
     this.user$ = this.authSvc.user$;
   }
@@ -49,7 +50,13 @@ export class UserDetailsView implements OnInit {
           this.canAdmin = user.roles?.includes('ADMIN');
       });
 
-      this.userService.getUserDetails(this.userDetailsId)
+      this.userSvc.getUser(this.userDetailsId)
+        .subscribe( (user: User) => {
+          this.userChecked = user;
+          console.log(`userChecked: ${this.userChecked}`);
+        });
+
+      this.userSvc.getUserDetails(this.userDetailsId)
       .subscribe( (userDetails: UserDetails) => {
 
         this.userDetails = userDetails;
@@ -78,12 +85,13 @@ export class UserDetailsView implements OnInit {
     this.authSvc.user$.subscribe(
 
       ( user ) => {
+        this.userChecked = user;
         this.userDetailsId = user.uid;
         this.pageTitle = 'Datos de tu Perfil';
 
-        this.canAdmin = true; // user.roles.includes('ADMIN');
+        this.canAdmin = user.roles?.includes('ADMIN');
 
-        this.userService.getUserDetails(this.userDetailsId)
+        this.userSvc.getUserDetails(this.userDetailsId)
         .subscribe( (userDetails: UserDetails) => {
           this.userDetails = userDetails;
 
@@ -100,9 +108,9 @@ export class UserDetailsView implements OnInit {
     );
   }
 
-  update(current: boolean) {
-    this.userDetails.current = current;
-    this.userService.updateUserDetails(this.userDetails)
+  updateCurrent() {
+    this.userDetails.current = !this.userDetails.current;
+    this.userSvc.updateUserDetails(this.userDetails)
       .subscribe( userDetails => {
         this.userDetails = userDetails;
       });

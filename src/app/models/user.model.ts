@@ -23,6 +23,7 @@ export interface User {
   displayName?: string;
   photoURL?: string;
   roles?: Roles[];
+  enable?: boolean;
 }
 
 export interface IUserDetails extends User {

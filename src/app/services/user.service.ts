@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
-import { IUserDetails, UserDetails, PaymentMethod } from '@models/user.model';
+import { IUserDetails, UserDetails, PaymentMethod, User } from '@models/user.model';
 import { Observable, of } from 'rxjs';
 import { Avatar } from '@models/image.model';
 import { map } from 'rxjs/operators';
@@ -11,17 +11,24 @@ import { map } from 'rxjs/operators';
 export class UserService {
 
   static USER_DETAILS_COLLECTION = 'user-details';
+  static USER_COLLECTION = 'users';
 
-  private userDetailsCollection: AngularFirestoreCollection<IUserDetails>;
   private studentsCollection: AngularFirestoreCollection<IUserDetails>;
   private teachersCollection: AngularFirestoreCollection<IUserDetails>;
   private adminsCollection: AngularFirestoreCollection<IUserDetails>;
+
+  private userDetailsCollection: AngularFirestoreCollection<IUserDetails>;
   private userDetailsDoc: AngularFirestoreDocument<IUserDetails>;
+
+  private userCollection: AngularFirestoreCollection<User>;
+  private userDoc: AngularFirestoreDocument<User>;
+
 
   constructor(
     private afs: AngularFirestore,
   ) {
     this.userDetailsCollection = this.afs.collection<UserDetails>(UserService.USER_DETAILS_COLLECTION);
+    this.userCollection = this.afs.collection<User>(UserService.USER_COLLECTION);
   }
 
   getAllUsersDetails(): Observable<UserDetails[]> {
@@ -188,5 +195,19 @@ export class UserService {
       coursesEnrolled: ''
     };
   }
+
+  // Info about User
+
+  // Method for get data (only with admin role)
+  getUser(userId: string): Observable<User> {
+    return this.afs.doc<User>(`${UserService.USER_COLLECTION}/${userId}`).valueChanges();
+  }
+
+  updateUser(user: User): Observable<User> {
+    this.userDoc = this.userCollection.doc(user.uid);
+    this.userDoc.update(user);
+    return of(user);
+  }
+
 }
 
