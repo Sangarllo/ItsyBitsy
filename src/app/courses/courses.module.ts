@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { DatePipe } from '@angular/common';
+
+import { SharedModule } from '@shared/shared.module';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CourseDashboardView } from './course-dashboard-view/course-dashboard-view.component';
-import { CourseDetailView } from './course-detail-view/course-detail-view.component';
 import { CoursesView } from './courses-view/courses-view.component';
+import { CourseDetailView } from './course-detail-view/course-detail-view.component';
+import { CourseEditView } from './course-edit-view/course-edit-view.component';
 import { LessonDetailView } from './lesson-detail-view/lesson-detail-view.component';
-import { CourseEditComponent } from './course-edit/course-edit.component';
-import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
-import { SharedModule } from '@shared/shared.module';
+import { LessonEditView } from './lesson-edit/lesson-edit-view.component';
 
 @NgModule({
   declarations: [
@@ -15,8 +16,8 @@ import { SharedModule } from '@shared/shared.module';
     CoursesView,
     CourseDetailView,
     LessonDetailView,
-    CourseEditComponent,
-    LessonEditComponent,
+    CourseEditView,
+    LessonEditView,
   ],
   imports: [
     SharedModule,

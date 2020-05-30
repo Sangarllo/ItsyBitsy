@@ -14,12 +14,12 @@ import { DatesService } from '@services/dates.service';
 import { AttendancesService } from '@services/attendances.service';
 
 @Component({
-  selector: 'app-lesson-edit',
-  templateUrl: './lesson-edit.component.html',
-  styleUrls: ['./lesson-edit.component.scss'],
+  selector: 'app-lesson-edit-view',
+  templateUrl: './lesson-edit-view.component.html',
+  styleUrls: ['./lesson-edit-view.component.scss'],
   providers: [ DatePipe ]
 })
-export class LessonEditComponent implements OnInit, OnDestroy {
+export class LessonEditView implements OnInit, OnDestroy {
 
   courseTitle = 'Edición de Curso';
   pageTitle = 'Edición de Curso';

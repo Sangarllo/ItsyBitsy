@@ -11,11 +11,11 @@ import { UserService } from '@services/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-course-edit',
-  templateUrl: './course-edit.component.html',
-  styleUrls: ['./course-edit.component.scss']
+  selector: 'app-course-edit-view',
+  templateUrl: './course-edit-view.component.html',
+  styleUrls: ['./course-edit-view.component.scss']
 })
-export class CourseEditComponent implements OnInit, OnDestroy {
+export class CourseEditView implements OnInit, OnDestroy {
 
   pageTitle = 'Edición de Curso';
   errorMessage: string;

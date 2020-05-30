@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RateDetailView } from '@app/rates/rate-detail-view/rate-detail-view.component';
-import { RateEditComponent } from '@app/rates/rate-edit/rate-edit.component';
+import { RateEditView } from '@app/rates/rate-edit-view/rate-edit-view.component';
 import { RatesView } from '@app/rates/rates-view/rates-view.component';
 import { CanAdminGuard } from '@auth/guards/can-admin.guard';
 
@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: ':id/editar',
     // canDeactivate: [CourseEditGuard], TODO
-    component: RateEditComponent,
+    component: RateEditView,
     canActivate: [CanAdminGuard]
   }
 ];

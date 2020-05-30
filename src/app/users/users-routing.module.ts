@@ -11,7 +11,7 @@ import { UserAttendancesView } from './user-attendances-view/user-attendances-vi
 import { UserAttendancesReportView } from './user-attendances-report-view/user-attendances-report-view.component';
 import { UserDetailsView } from './user-details-view/user-details-view.component';
 
-import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserDetailsEditView } from './user-details-edit-view/user-details-edit-view.component';
 
 const routes: Routes = [
   {
@@ -36,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: ':id/editar',
-    component: UserEditComponent,
+    component: UserDetailsEditView,
     canActivate: [AdminGuard]
   },
   {

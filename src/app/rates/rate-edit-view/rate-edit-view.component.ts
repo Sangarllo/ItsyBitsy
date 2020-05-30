@@ -6,11 +6,11 @@ import { Rate, RateType } from '@models/rate';
 import { RateService } from '@services/rates.service';
 
 @Component({
-  selector: 'app-rate-edit',
-  templateUrl: './rate-edit.component.html',
-  styleUrls: ['./rate-edit.component.scss']
+  selector: 'app-rate-edit-view',
+  templateUrl: './rate-edit-view.component.html',
+  styleUrls: ['./rate-edit-view.component.scss']
 })
-export class RateEditComponent implements OnInit, OnDestroy {
+export class RateEditView implements OnInit, OnDestroy {
 
   pageTitle = 'Edición de Curso';
   errorMessage: string;

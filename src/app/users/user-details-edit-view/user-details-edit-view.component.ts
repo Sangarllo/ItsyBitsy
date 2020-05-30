@@ -14,11 +14,11 @@ import { finalize } from 'rxjs/operators';
 import { AuthService } from '@auth/auth.service';
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss']
+  selector: 'app-user-details-edit-view',
+  templateUrl: './user-details-edit-view.component.html',
+  styleUrls: ['./user-details-edit-view.component.scss']
 })
-export class UserEditComponent implements OnInit, OnDestroy {
+export class UserDetailsEditView implements OnInit, OnDestroy {
 
   uploadPercent: Observable<number>;
   // downloadURL: Observable<string>;

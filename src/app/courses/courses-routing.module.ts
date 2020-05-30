@@ -4,12 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminGuard } from '@auth/guards/admin.guard';
 
 import { CourseDashboardView } from './course-dashboard-view/course-dashboard-view.component';
-import { CourseDetailView } from './course-detail-view/course-detail-view.component';
-import { LessonDetailView } from './lesson-detail-view/lesson-detail-view.component';
 import { CoursesView } from './courses-view/courses-view.component';
-
-import { CourseEditComponent } from './course-edit/course-edit.component';
-import { LessonEditComponent } from './lesson-edit/lesson-edit.component';
+import { CourseDetailView } from './course-detail-view/course-detail-view.component';
+import { CourseEditView } from './course-edit-view/course-edit-view.component';
+import { LessonDetailView } from './lesson-detail-view/lesson-detail-view.component';
+import { LessonEditView } from './lesson-edit/lesson-edit-view.component';
 
 const routes: Routes = [
   {
@@ -30,7 +29,7 @@ const routes: Routes = [
   {
     path: ':id/editar',
     // canDeactivate: [CourseEditGuard], TODO
-    component: CourseEditComponent,
+    component: CourseEditView,
     canActivate: [AdminGuard]
   },
   {
@@ -40,7 +39,7 @@ const routes: Routes = [
   },
   {
     path: ':courseId/lessons/:lessonId/editar',
-    component: LessonEditComponent,
+    component: LessonEditView,
     canActivate: [AdminGuard]
   },
 ];
