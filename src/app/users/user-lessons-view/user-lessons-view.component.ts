@@ -1,4 +1,4 @@
-import { UserDetails } from '@models/user.model';
+import { UserDetails, User } from '@models/user.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '@services/user.service';
@@ -11,6 +11,7 @@ import { DatesService } from '@services/dates.service';
 })
 export class UserLessonsView implements OnInit {
 
+  user: User;
   userDetails: UserDetails;
   pageTitle: string;
   errorMessage: string;
@@ -38,12 +39,24 @@ export class UserLessonsView implements OnInit {
         params => {
           const id = params.get('id');
           if ( id === 'all' ) {
+            this.user = null;
             this.userDetails = null;
           } else {
+            this.getUser(id);
             this.getUserDetails(id);
           }
         }
     );
+  }
+
+  getUser(id: string): void {
+    this.userService.getUser(id)
+      .subscribe({
+        next: (user: User) => {
+          this.user = user;
+        },
+        error: err => this.errorMessage = err
+      });
   }
 
   getUserDetails(id: string): void {

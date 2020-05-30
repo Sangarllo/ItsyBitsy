@@ -8,7 +8,7 @@
 
     <div class="row">
 
-        <app-sh-user-data class="col-6" *ngIf="userDetails" [userDetails]="userDetails"></app-sh-user-data>
+        <app-sh-user-data class="col-6" *ngIf="userDetails" [user]="user" [userDetails]="userDetails"></app-sh-user-data>
 
         <app-sh-calendar-interval-month class="col-6" [date]="date" (updateMonth)="onUpdateMonth($event)"></app-sh-calendar-interval-month>
 

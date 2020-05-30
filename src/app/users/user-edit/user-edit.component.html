@@ -114,29 +114,54 @@
 
                             </mat-tab>
 
-                            <!-- C. Datos de Facturación -->
-                            <mat-tab label="Datos de Facturación" [disabled]="!canAdmin">
+                            <!-- C. Datos de la Academia -->
+                            <mat-tab label="El usuario en la Academia" [disabled]="!canAdmin">
 
-                                <mat-form-field class="data-detail" *ngIf="rates$ | async as RATES">
-                                    <mat-label>Tarifa</mat-label>
-                                    <mat-select formControlName="rateId" [value]="userDetailsForm.get('rateId').value">
-                                        <mat-option *ngFor="let rate of RATES" [value]="rate.id">
-                                            {{rate.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-icon matSuffix>local_offer</mat-icon>
-                                </mat-form-field>
+                                <div class="data-detail-check">
+                                    <mat-slide-toggle color="warn" checked="userDetails.current" (click)="userDetails.current =!userDetails.current;viewUserDetail()" formControlName="current">
+                                        Actualmente activo en la academia
+                                    </mat-slide-toggle>
+                                    <mat-icon matSuffix>how_to_reg</mat-icon>
+                                </div>
 
-                                <mat-form-field class="data-detail">
-                                    <mat-label>Método de Pago</mat-label>
-                                    <mat-select formControlName="paymentMethod" [value]="userDetailsForm.get('paymentMethod').value">
-                                        <mat-option *ngFor="let paymentMethod of PAYMENT_METHOD_ARRAY" [value]="paymentMethod">
-                                            {{paymentMethod}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-icon matSuffix>payment</mat-icon>
-                                </mat-form-field>
+                                <div *ngIf="userDetails.current; else noCurrentUser">
 
+                                    <div class="data-detail-check">
+                                        <mat-slide-toggle color="warn" checked="userDetails.isTeacher" (click)="userDetails.isTeacher =!userDetails.isTeacher;viewUserDetail()" formControlName="isTeacher">
+                                            <b>Es profesor</b> (puede impartir clases)
+                                        </mat-slide-toggle>
+                                        <mat-icon matSuffix>supervisor_account</mat-icon>
+                                    </div>
+
+                                    <div class="data-detail-check">
+                                        <mat-slide-toggle color="warn" checked="userDetails.isStudent" (click)="userDetails.isStudent =!userDetails.isStudent;viewUserDetail()" formControlName="isStudent">
+                                            <b>Es estudiante</b> (puede asistir a clases)
+                                        </mat-slide-toggle>
+
+                                        <mat-icon matSuffix>face</mat-icon>
+                                    </div>
+
+                                    <mat-form-field class="data-detail ml-5" *ngIf="rates$ | async as RATES">
+                                        <mat-label>Tarifa</mat-label>
+                                        <mat-select formControlName="rateId" [value]="userDetailsForm.get('rateId').value">
+                                            <mat-option *ngFor="let rate of RATES" [value]="rate.id">
+                                                {{rate.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix>local_offer</mat-icon>
+                                    </mat-form-field>
+
+                                    <mat-form-field class="data-detail ml-5">
+                                        <mat-label>Método de Pago</mat-label>
+                                        <mat-select formControlName="paymentMethod" [value]="userDetailsForm.get('paymentMethod').value">
+                                            <mat-option *ngFor="let paymentMethod of PAYMENT_METHOD_ARRAY" [value]="paymentMethod">
+                                                {{paymentMethod}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix>payment</mat-icon>
+                                    </mat-form-field>
+
+                                </div>
                             </mat-tab>
 
 
@@ -165,24 +190,16 @@
 
                                     <div class="data-detail-check">
                                         <mat-slide-toggle color="warn" [checked]="(userChecked.roles?.includes('ADMIN'))" (change)="changeUser('ADMIN')">
-                                            Es Administrador
+                                            <b>Es Administrador</b> (puede ver informes, tarifas, y los datos de todos)
                                         </mat-slide-toggle>
                                         <mat-icon matSuffix>supervised_user_circle</mat-icon>
                                     </div>
 
                                     <div class="data-detail-check">
-                                        <mat-slide-toggle color="warn" checked="userDetails.isTeacher" (click)="userDetails.isTeacher =!userDetails.isTeacher;viewUserDetail()" formControlName="isTeacher">
-                                            Es profesor
+                                        <mat-slide-toggle color="warn" [checked]="(userChecked.roles?.includes('REVISOR'))" (change)="changeUser('REVISOR')">
+                                            <b>Es Revisor</b> (puede ver sus clases o asistencias)
                                         </mat-slide-toggle>
-                                        <mat-icon matSuffix>supervisor_account</mat-icon>
-                                    </div>
-
-                                    <div class="data-detail-check">
-                                        <mat-slide-toggle color="warn" checked="userDetails.isStudent" (click)="userDetails.isStudent =!userDetails.isStudent;viewUserDetail()" formControlName="isStudent">
-                                            Es estudiante
-                                        </mat-slide-toggle>
-
-                                        <mat-icon matSuffix>face</mat-icon>
+                                        <mat-icon matSuffix>person_search</mat-icon>
                                     </div>
 
                                 </div>
@@ -211,6 +228,14 @@
 
     </form>
 </mat-card>
+
+
+<!-- C. El usuario en la academia -->
+<ng-template #noCurrentUser>
+    <div class="alert alert-warning" style="margin:10px;padding:40px" role="alert">
+        {{ userDetails.displayName }} actualmente no está activo en la Academia.
+    </div>
+</ng-template>
 
 
 <!-- D. El usuario en la App -->

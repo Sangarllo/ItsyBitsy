@@ -1,4 +1,4 @@
-import { UserDetails } from '@models/user.model';
+import { UserDetails, User } from '@models/user.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '@services/user.service';
@@ -10,6 +10,7 @@ import { UserService } from '@services/user.service';
 })
 export class UserAttendancesView implements OnInit {
 
+  user: User;
   userDetails: UserDetails;
   pageTitle: string = `Asistencias del mes`;
   errorMessage: string;
@@ -34,11 +35,23 @@ export class UserAttendancesView implements OnInit {
           const id = params.get('id');
           if ( id === 'all' ) {
             this.userDetails = null;
+            this.user = null;
           } else {
             this.getUserDetails(id);
+            this.getUser(id);
           }
         }
     );
+  }
+
+  getUser(id: string): void {
+    this.userService.getUser(id)
+      .subscribe({
+        next: (user: User) => {
+          this.user = user;
+        },
+        error: err => this.errorMessage = err
+      });
   }
 
   getUserDetails(id: string): void {

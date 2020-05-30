@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { UserDetails } from '@models/user.model';
+import { UserDetails, User } from '@models/user.model';
 
 @Component({
   selector: 'app-sh-user-data',
@@ -9,4 +9,5 @@ import { UserDetails } from '@models/user.model';
 export class ShUserDataComponent {
 
   @Input() userDetails: UserDetails;
+  @Input() user: User;
 }

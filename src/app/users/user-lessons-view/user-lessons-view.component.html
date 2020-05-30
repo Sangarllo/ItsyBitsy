@@ -7,7 +7,7 @@
     </mat-toolbar>
 
     <div class="row">
-        <app-sh-user-data class="col-6" *ngIf="userDetails" [userDetails]="userDetails"></app-sh-user-data>
+        <app-sh-user-data class="col-6" *ngIf="userDetails" [userDetails]="userDetails" [user]="user"></app-sh-user-data>
 
         <app-sh-calendar-interval class="col-6" [dateIni]="dateIni" [dateEnd]="dateEnd" (updateInterval)="onUpdateInterval($event)"></app-sh-calendar-interval>
     </div>

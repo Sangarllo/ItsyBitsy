@@ -1,13 +1,6 @@
 import { DocumentReference } from '@angular/fire/firestore';
 
-export type Roles = 'REVISOR' | 'ADMIN'; // 'ESTUDIANTE' | 'PROFESOR' |
-
-export enum Rol {
-  Normal, // 'normal',
-  Admin, // Admin = 'admin',
-  Teacher, // Teacher = 'profesor',
-  Student, // Student = 'estudiante',
-}
+export type Roles = 'REVISOR' | 'ADMIN';
 
 export enum PaymentMethod {
   NoAplica = 'No Aplica',

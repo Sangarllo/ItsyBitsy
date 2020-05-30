@@ -18,8 +18,8 @@
                 </div>
                 <div class="col-6" *ngIf="enableEdition">
 
-                    <button *ngIf="lesson.current" mat-mini-fab color="warn" (click)="updateLesson(false)"><mat-icon class="button-always-enabled">toggle_off</mat-icon></button>
-                    <button *ngIf="!lesson.current" mat-mini-fab color="warn" (click)="updateLesson(true)"><mat-icon>toggle_on</mat-icon></button> &nbsp;
+                    <button *ngIf="lesson.current" mat-mini-fab color="warn" (click)="updateLesson(false)"><mat-icon class="button-always-enabled">toggle_on</mat-icon></button>
+                    <button *ngIf="!lesson.current" mat-mini-fab color="warn" (click)="updateLesson(true)"><mat-icon>toggle_off</mat-icon></button> &nbsp;
                     <button *ngIf="lesson.current" mat-mini-fab color="warn" (click)="gotoEdition()"><mat-icon>edit</mat-icon></button>
 
                 </div>

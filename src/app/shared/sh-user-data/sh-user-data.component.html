@@ -4,21 +4,29 @@
 
         <div class="col-3 text-center">
             <img [src]="userDetails.photoURL" class="img-thumbnail" alt="userDetails.photoURL">
-            <!--
-            <label class="custom-file">
-            <input type="file" id="file" class="custom-file-input">
-            </label>
-            -->
         </div>
 
         <div class="col-8 ">
             <h5>{{ userDetails.displayName }} ({{ userDetails.nickName }})</h5>
             <hr>
             <div class="col-12">
-                <a *ngIf="userDetails?.isTeacher" href="#" class="badge badge-light">profesor</a>&nbsp;
-                <a *ngIf="userDetails?.isStudent" href="#" class="badge badge-light">estudiante</a>&nbsp;
+                <a *ngIf="userDetails?.isTeacher" href="#" class="badge badge-light">profesor</a>
+                <a *ngIf="userDetails?.isStudent" href="#" class="badge badge-light">estudiante</a>
+
+                <div *ngIf="user; else noRegisteredTemplate">
+                    <a *ngIf="user.roles?.includes('ADMIN')" href="#" class="badge badge-dark">administrador</a>
+                    <a *ngIf="user.roles?.includes('REVISOR')" href="#" class="badge badge-dark">revisor</a>
+                    <a href="#" class="badge badge-light">usuario registrado</a>
+                </div>
+
             </div>
         </div>
 
     </div>
 </mat-card>
+
+<ng-template #noRegisteredTemplate>
+    <div>
+        <a href="#" class="badge badge-light">no registrado</a>
+    </div>
+</ng-template>

@@ -42,9 +42,9 @@
 
                 <mat-card-actions class="text-center">
 
-                    <button *ngIf="userDetails.current" mat-mini-fab color="warn" [disabled]="!canAdmin" (click)="updateCurrent()"><mat-icon class="button-always-enabled">toggle_off</mat-icon></button>
-                    <button *ngIf="!userDetails.current" mat-mini-fab color="warn" [disabled]="!canAdmin" (click)="updateCurrent()"><mat-icon>toggle_on</mat-icon></button> &nbsp;
-                    <button mat-mini-fab color="warn" [disabled]="!canAdmin" (click)="gotoEdition()"><mat-icon>edit</mat-icon></button>
+                    <button *ngIf="userDetails.current" mat-mini-fab color="warn" [disabled]="!canAdmin" (click)="updateCurrent()"><mat-icon class="button-always-enabled">toggle_on</mat-icon></button>
+                    <button *ngIf="!userDetails.current" mat-mini-fab color="warn" [disabled]="!canAdmin" (click)="updateCurrent()"><mat-icon>toggle_off</mat-icon></button> &nbsp;
+                    <button mat-mini-fab color="warn" [disabled]="!userDetails.current || !canAdmin" (click)="gotoEdition()"><mat-icon>edit</mat-icon></button>
                 </mat-card-actions>
 
             </div>
@@ -109,19 +109,36 @@
 
                         </mat-tab>
 
-                        <!-- C. Datos de Facturación -->
-                        <mat-tab label="Datos de Facturación" [disabled]="!canAdmin">
+                        <!-- C. Datos de la Academia -->
+                        <mat-tab label="El usuario en la Academia" [disabled]="!canAdmin">
 
-                            <div *ngIf="userDetails.rateId; else noRateTemplate">
-                                <mat-form-field class="data-detail" *ngIf="rateName">
-                                    <input matInput type="text" disabled="true" [value]="rateName" placeholder="Tarifa" />
-                                    <mat-icon matSuffix>local_offer</mat-icon>
+                            <div *ngIf="userDetails.current; else noCurrentUser">
+                                <mat-form-field class="data-detail">
+                                    <input matInput type="text" disabled="true" [value]="userDetails.current ? 'SÍ': 'NO'" placeholder="Está actualmente en la Academia" />
+                                    <mat-icon matSuffix>how_to_reg</mat-icon>
                                 </mat-form-field>
 
-                                <mat-form-field class="data-detail" *ngIf="userDetails.paymentMethod">
-                                    <input matInput type="text" disabled="true" [value]="userDetails.paymentMethod" placeholder="Modo de Pago" />
-                                    <mat-icon matSuffix>payment</mat-icon>
+                                <mat-form-field class="data-detail">
+                                    <input matInput type="text" disabled="true" [value]="(userDetails.isTeacher) ? 'SÍ': 'NO'" placeholder="Es Profesor (puede impartir clases)" />
+                                    <mat-icon matSuffix>local_library</mat-icon>
                                 </mat-form-field>
+
+                                <mat-form-field class="data-detail">
+                                    <input matInput type="text" disabled="true" [value]="(userDetails.isStudent) ? 'SÍ': 'NO'" placeholder="Es Estudiante (puede asistir a clases)" />
+                                    <mat-icon matSuffix>face</mat-icon>
+                                </mat-form-field>
+
+                                <div *ngIf="userDetails.rateId; else noRateTemplate" class="ml-5">
+                                    <mat-form-field class="data-detail" *ngIf="rateName">
+                                        <input matInput type="text" disabled="true" [value]="rateName" placeholder="Tarifa" />
+                                        <mat-icon matSuffix>local_offer</mat-icon>
+                                    </mat-form-field>
+
+                                    <mat-form-field class="data-detail" *ngIf="userDetails.paymentMethod">
+                                        <input matInput type="text" disabled="true" [value]="userDetails.paymentMethod" placeholder="Modo de Pago" />
+                                        <mat-icon matSuffix>payment</mat-icon>
+                                    </mat-form-field>
+                                </div>
                             </div>
 
                         </mat-tab>
@@ -149,18 +166,13 @@
                                 </div>
 
                                 <mat-form-field class="data-detail">
-                                    <input matInput type="text" disabled="true" [value]="(userChecked.roles?.includes('ADMIN')) ? 'SÍ': 'NO'" placeholder="Es Administrador" />
+                                    <input matInput type="text" disabled="true" [value]="(userChecked.roles?.includes('ADMIN')) ? 'SÍ': 'NO'" placeholder="Es Administrador (puede ver informes, tarifas y los datos de todos)" />
                                     <mat-icon matSuffix>supervised_user_circle</mat-icon>
                                 </mat-form-field>
 
                                 <mat-form-field class="data-detail">
-                                    <input matInput type="text" disabled="true" [value]="(userDetails.isTeacher) ? 'SÍ': 'NO'" placeholder="Es Profesor" />
-                                    <mat-icon matSuffix>local_library</mat-icon>
-                                </mat-form-field>
-
-                                <mat-form-field class="data-detail">
-                                    <input matInput type="text" disabled="true" [value]="(userDetails.isStudent) ? 'SÍ': 'NO'" placeholder="Es Estudiante" />
-                                    <mat-icon matSuffix>face</mat-icon>
+                                    <input matInput type="text" disabled="true" [value]="(userChecked.roles?.includes('REVISOR')) ? 'SÍ': 'NO'" placeholder="Es Revisor (puede ver sus clases o asistencias)" />
+                                    <mat-icon matSuffix>zoom_in</mat-icon>
                                 </mat-form-field>
 
                             </div>
@@ -174,6 +186,12 @@
     </mat-card-content>
 </mat-card>
 
+<!-- C. El usuario en la academia -->
+<ng-template #noCurrentUser>
+    <div class="alert alert-warning" style="margin:10px;padding:40px" role="alert">
+        {{ userDetails.displayName }} actualmente no está activo en la Academia.
+    </div>
+</ng-template>
 
 <!-- D. El usuario en la App -->
 <ng-template #noRegisteredUser>
