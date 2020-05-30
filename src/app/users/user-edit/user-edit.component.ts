@@ -66,15 +66,13 @@ export class UserEditComponent implements OnInit, OnDestroy {
         email: [{ value: '', disabled: true }, Validators.email],
         nickName: [''],
         birthday: [''],
-        location: [''],
+        location: ['', Validators.required],
         creationDate: [new Date()],
-        isUser: false,
-        isAdmin: false,
         isTeacher: false,
         isStudent: false,
-        contactPerson: [''],
+        contactPerson: ['', Validators.required],
         contactPersonNif: '',
-        telephone: [''],
+        telephone: ['', Validators.required],
         address:  [''],
         rateId: ['', Validators.required],
         paymentMethod: ['', Validators.required],
@@ -136,8 +134,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
       nickName: this.userDetails.nickName,
       birthday: this.dateSvc.fromFirebaseDate(this.userDetails.birthday),
       location: this.userDetails.location,
-      isUser: this.userDetails.isUser,
-      isAdmin: this.userDetails.isAdmin,
       isTeacher: this.userDetails.isTeacher,
       isStudent: this.userDetails.isStudent,
       contactPerson: this.userDetails.contactPerson,
@@ -249,8 +245,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
     switch ( dataUser ) {
 
       case 'ADMIN':
-      case 'PROFESOR':
-      case 'ESTUDIANTE':
+      case 'REVISOR':
 
         if ( !this.userChecked.roles ) {
           this.userChecked.roles.push(dataUser);
@@ -274,4 +269,10 @@ export class UserEditComponent implements OnInit, OnDestroy {
       `);
     });
   }
+
+  viewUserDetail() {
+    console.log(`viewUserDetail ${JSON.stringify(this.userDetails, null, '\t')}
+    `);
+  }
+
 }

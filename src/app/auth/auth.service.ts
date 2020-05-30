@@ -131,8 +131,6 @@ export class AuthService extends RoleValidator {
             nickName: (user.displayName) ?
               user.displayName.substring(0, user.displayName.indexOf(' ')) :
               userDisplayName,
-            isUser: true,
-            isAdmin: false,
             isTeacher: false,
             isStudent: false,
             creationDate: new Date(),

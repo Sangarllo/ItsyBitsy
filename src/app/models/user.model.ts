@@ -1,6 +1,6 @@
 import { DocumentReference } from '@angular/fire/firestore';
 
-export type Roles = 'ESTUDIANTE' | 'PROFESOR' | 'ADMIN';
+export type Roles = 'REVISOR' | 'ADMIN'; // 'ESTUDIANTE' | 'PROFESOR' |
 
 export enum Rol {
   Normal, // 'normal',
@@ -32,10 +32,10 @@ export interface IUserDetails extends User {
   birthday?: Date;
   location?: string;
   creationDate?: Date;
-  isUser: boolean;
-  isAdmin: boolean;
+
   isTeacher: boolean;
   isStudent: boolean;
+
   // lastDate?: Date; TODO: Auditoría? Lo quito por superar cuota de escritura
   // myCustomData?: string;
   // StudentData
@@ -67,8 +67,6 @@ export class UserDetails implements IUserDetails {
     public birthday: Date,
     public location: string,
     public creationDate: Date,
-    public isUser: boolean,
-    public isAdmin: boolean,
     public isTeacher: boolean,
     public isStudent: boolean,
     public rateId: string,

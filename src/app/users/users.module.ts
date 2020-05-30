@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 import { UsersRoutingModule } from './users-routing.module';
-import { FilterPipe } from './pipes/filter.pipe';
 import { UsersView } from './users-view/users-view.component';
 import { UserDetailsView } from './user-details-view/user-details-view.component';
 import { UserLessonsView } from './user-lessons-view/user-lessons-view.component';
@@ -18,8 +17,7 @@ import { UserEditComponent } from './user-edit/user-edit.component';
     UserDashboardView,
     UserAttendancesView,
     UserAttendancesReportView,
-    UserEditComponent,
-    FilterPipe,
+    UserEditComponent
   ],
   imports: [
     SharedModule,

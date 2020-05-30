@@ -15,10 +15,8 @@
             <h5>{{ userDetails.displayName }} ({{ userDetails.nickName }})</h5>
             <hr>
             <div class="col-12">
-                <a *ngIf="userDetails?.isAdmin" href="#" class="badge badge-light">admin</a>&nbsp;
                 <a *ngIf="userDetails?.isTeacher" href="#" class="badge badge-light">profesor</a>&nbsp;
                 <a *ngIf="userDetails?.isStudent" href="#" class="badge badge-light">estudiante</a>&nbsp;
-                <a *ngIf="userDetails?.isUser" href="#" class="badge badge-light">registrado</a>&nbsp;
             </div>
         </div>
 

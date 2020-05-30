@@ -112,15 +112,17 @@
                         <!-- C. Datos de Facturación -->
                         <mat-tab label="Datos de Facturación" [disabled]="!canAdmin">
 
-                            <mat-form-field class="data-detail" *ngIf="rateName">
-                                <input matInput type="text" disabled="true" [value]="rateName" placeholder="Tarifa" />
-                                <mat-icon matSuffix>local_offer</mat-icon>
-                            </mat-form-field>
+                            <div *ngIf="userDetails.rateId; else noRateTemplate">
+                                <mat-form-field class="data-detail" *ngIf="rateName">
+                                    <input matInput type="text" disabled="true" [value]="rateName" placeholder="Tarifa" />
+                                    <mat-icon matSuffix>local_offer</mat-icon>
+                                </mat-form-field>
 
-                            <mat-form-field class="data-detail" *ngIf="userDetails.paymentMethod">
-                                <input matInput type="text" disabled="true" [value]="userDetails.paymentMethod" placeholder="Modo de Pago" />
-                                <mat-icon matSuffix>payment</mat-icon>
-                            </mat-form-field>
+                                <mat-form-field class="data-detail" *ngIf="userDetails.paymentMethod">
+                                    <input matInput type="text" disabled="true" [value]="userDetails.paymentMethod" placeholder="Modo de Pago" />
+                                    <mat-icon matSuffix>payment</mat-icon>
+                                </mat-form-field>
+                            </div>
 
                         </mat-tab>
 
@@ -136,7 +138,7 @@
 
                                 <div class="ml-5">
                                     <mat-form-field class="data-detail">
-                                        <input matInput type="text" disabled="true" [value]="(userDetails.isUser) ? userDetails.email : '-'" placeholder="Email de acceso en ItsyBitsy " />
+                                        <input matInput type="text" disabled="true" [value]="(userDetails.email) ? userDetails.email : '-'" placeholder="Email de acceso en ItsyBitsy " />
                                         <mat-icon matSuffix>alternate_email</mat-icon>
                                     </mat-form-field>
 
@@ -152,12 +154,12 @@
                                 </mat-form-field>
 
                                 <mat-form-field class="data-detail">
-                                    <input matInput type="text" disabled="true" [value]="(userChecked.roles?.includes('PROFESOR')) ? 'SÍ': 'NO'" placeholder="Es Profesor" />
+                                    <input matInput type="text" disabled="true" [value]="(userDetails.isTeacher) ? 'SÍ': 'NO'" placeholder="Es Profesor" />
                                     <mat-icon matSuffix>local_library</mat-icon>
                                 </mat-form-field>
 
                                 <mat-form-field class="data-detail">
-                                    <input matInput type="text" disabled="true" [value]="(userChecked.roles?.includes('ESTUDIANTE')) ? 'SÍ': 'NO'" placeholder="Es Estudiante" />
+                                    <input matInput type="text" disabled="true" [value]="(userDetails.isStudent) ? 'SÍ': 'NO'" placeholder="Es Estudiante" />
                                     <mat-icon matSuffix>face</mat-icon>
                                 </mat-form-field>
 
@@ -182,5 +184,11 @@
 </ng-template>
 
 <ng-template #noPhotoTemplate>
-    <img [src]="'assets/avatar/no-photo.png'" class="mx-auto img-fluid img-circle d-block mt-3 mb-3 img-thumbnail" alt="avatar">
+    <img [src]="'assets/avatar/000-no-picture.png'" class="mx-auto img-fluid img-circle d-block mt-3 mb-3 img-thumbnail" alt="avatar">
+</ng-template>
+
+<ng-template #noRateTemplate>
+    <div class="alert alert-warning" style="margin:10px;padding:40px" role="alert">
+        No hay tarifa aún asociada a {{ userDetails.displayName }}
+    </div>
 </ng-template>

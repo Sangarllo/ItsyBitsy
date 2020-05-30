@@ -181,8 +181,6 @@ export class UserService {
       birthday: new Date(),
       location: 'Rincón de Soto',
       creationDate: new Date(),
-      isUser: false,
-      isAdmin: false,
       isTeacher: false,
       isStudent: false,
       rateId: 'no-aplica',

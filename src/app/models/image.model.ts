@@ -11,6 +11,7 @@ export interface IImage {
 }
 
 const AVATARES = [
+  {path: 'assets/avatar/000-no-picture.png', name: 'No hay foto'},
   {path: 'assets/avatar/001-man.png', name: 'Hombre 0'},
   {path: 'assets/avatar/002-girl.png', name: 'Chica 0'},
   {path: 'assets/avatar/003-boy.png', name: 'Chico 0'},

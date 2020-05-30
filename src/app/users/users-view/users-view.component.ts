@@ -14,7 +14,7 @@ export class UsersView implements OnInit {
   allUsers: UserDetails[];
   students: UserDetails[];
   teachers: UserDetails[];
-  admins: UserDetails[];
+  // admins: UserDetails[];
   disabledUsers: UserDetails[];
 
   constructor(
@@ -29,7 +29,7 @@ export class UsersView implements OnInit {
         this.allUsers = users;
         this.students = users.filter( u => u.isStudent );
         this.teachers = users.filter( u => u.isTeacher );
-        this.admins = users.filter( u => u.isAdmin );
+        // this.admins = users.filter( u => u.isAdmin );
     });
 
     this.userSvc.getAllDisabledUsersDetails().subscribe(

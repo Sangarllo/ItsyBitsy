@@ -17,7 +17,9 @@
             <ng-container matColumnDef="studentImage">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
                 <td mat-cell *matCellDef="let student">
-                    <img (click)="viewUser(student)" [src]="student.photoURL" class="img-thumbnail rounded-circle" alt="student.displayName">
+                    <div *ngIf="student.photoURL; else noPhotoTemplate">
+                        <img (click)="viewUser(student)" [src]="student.photoURL" class="img-thumbnail rounded-circle" [alt]="student.displayName">
+                    </div>
                 </td>
             </ng-container>
 
@@ -61,4 +63,8 @@
 
 <ng-template #loadingTemplate>
     <sh-loading></sh-loading>
+</ng-template>
+
+<ng-template #noPhotoTemplate>
+    <img [src]="'assets/avatar/000-no-picture.png'" class="img-thumbnail rounded-circle">
 </ng-template>

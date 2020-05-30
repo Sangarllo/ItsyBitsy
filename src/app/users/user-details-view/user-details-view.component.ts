@@ -65,7 +65,9 @@ export class UserDetailsView implements OnInit {
           this.dateSvc.fromFirebaseDate(userDetails?.birthday) :
           null;
 
-        this.getRate();
+        if ( this.userDetails.rateId ) {
+          this.getRate();
+        }
       });
 
     } else {
@@ -74,7 +76,7 @@ export class UserDetailsView implements OnInit {
   }
 
   private getRate() {
-    this.rateSvc.getRate(this.userDetails.rateId)
+      this.rateSvc.getRate(this.userDetails.rateId)
       .subscribe( (rate: Rate) => {
         this.rateName = rate.name;
       });

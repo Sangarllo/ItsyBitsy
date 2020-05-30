@@ -24,6 +24,7 @@
                     </mat-card-header>
 
                     <img [src]="userDetailsForm.get('photoURL').value" style="width:80%" (click)="inputImageProfile.click()" />
+
                     <input hidden type="file" #inputImageProfile (change)="uploadFile($event)">
 
                     <hr>
@@ -38,6 +39,11 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+
+                    <div *ngIf="( !userDetails.photoURL|| !userDetails.contactPerson || !userDetails.telephone || !userDetails.location)" class="alert alert-danger text-center">
+                        Como mínimo, es necesario asignar una imagen al perfil e indicar la localidad procedencia, persona de contacto y teléfono
+                    </div>
+
                 </div>
                 <!-- FIN PORTADA -->
 
@@ -147,7 +153,7 @@
 
                                     <div class="ml-5 pt-3">
                                         <mat-form-field class="data-detail">
-                                            <input matInput type="text" disabled="true" [value]="(userDetails.isUser) ? userDetails.email : '-'" placeholder="Email de acceso en ItsyBitsy " />
+                                            <input matInput type="text" disabled="true" [value]="(userDetails.email) ? userDetails.email : '-'" placeholder="Email de acceso en ItsyBitsy " />
                                             <mat-icon matSuffix>alternate_email</mat-icon>
                                         </mat-form-field>
 
@@ -165,16 +171,17 @@
                                     </div>
 
                                     <div class="data-detail-check">
-                                        <mat-slide-toggle color="warn" [checked]="(userChecked.roles?.includes('PROFESOR'))" (change)="changeUser('PROFESOR')">
+                                        <mat-slide-toggle color="warn" checked="userDetails.isTeacher" (click)="userDetails.isTeacher =!userDetails.isTeacher;viewUserDetail()" formControlName="isTeacher">
                                             Es profesor
                                         </mat-slide-toggle>
                                         <mat-icon matSuffix>supervisor_account</mat-icon>
                                     </div>
 
                                     <div class="data-detail-check">
-                                        <mat-slide-toggle color="warn" [checked]="(userChecked.roles?.includes('ESTUDIANTE'))" (change)="changeUser('ESTUDIANTE')">
+                                        <mat-slide-toggle color="warn" checked="userDetails.isStudent" (click)="userDetails.isStudent =!userDetails.isStudent;viewUserDetail()" formControlName="isStudent">
                                             Es estudiante
                                         </mat-slide-toggle>
+
                                         <mat-icon matSuffix>face</mat-icon>
                                     </div>
 
