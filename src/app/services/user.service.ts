@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 import { IUserDetails, UserDetails, PaymentMethod, User } from '@models/user.model';
-import { Observable, of } from 'rxjs';
+import { Observable, of, combineLatest } from 'rxjs';
 import { Avatar } from '@models/image.model';
 import { map } from 'rxjs/operators';
 
@@ -103,23 +103,6 @@ export class UserService {
     );
   }
 
-
-  getAllAdmins(): Observable<UserDetails[]> {
-
-    this.adminsCollection = this.afs.collection(
-      UserService.USER_DETAILS_COLLECTION,
-      ref => ref.where('isAdmin', '==', true).orderBy('displayName')
-    );
-
-    return this.adminsCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as UserDetails;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
-    );
-  }
-
   getStudentsByRate(rateId: string): Observable<UserDetails[]> {
 
     this.studentsCollection = this.afs.collection(
@@ -195,6 +178,24 @@ export class UserService {
   }
 
   // Info about User
+
+  getAllUsers(): Observable<User[]> {
+
+    this.userCollection = this.afs.collection<User>(
+        UserService.USER_COLLECTION,
+        ref => ref.where('enable', '==', true)
+                  .orderBy('displayName')
+    );
+
+    return this.userCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as User;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })
+      )
+    );
+  }
 
   // Method for get data (only with admin role)
   getUser(userId: string): Observable<User> {

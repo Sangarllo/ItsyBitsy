@@ -1,8 +1,10 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '@services/user.service';
-import { UserDetails } from '@models/user.model';
+import { UserDetails, User } from '@models/user.model';
 import Swal from 'sweetalert2';
+import { Observable, combineLatest } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users-view',
@@ -11,32 +13,45 @@ import Swal from 'sweetalert2';
 })
 export class UsersView implements OnInit {
 
-  allUsers: UserDetails[];
-  students: UserDetails[];
-  teachers: UserDetails[];
-  // admins: UserDetails[];
-  disabledUsers: UserDetails[];
+  allAppUsers$: Observable<User[]>;
+  allUsers$: Observable<UserDetails[]>;
+  allDisabledUsers$: Observable<UserDetails[]>;
+  allRegisteredUsers: UserDetails[];
+  allStudents$: Observable<UserDetails[]>;
+  allTeachers$: Observable<UserDetails[]>;
+
 
   constructor(
     private router: Router,
     private userSvc: UserService
-  ) { }
+  ) {
+    this.allStudents$ = this.userSvc.getAllStudents();
+    this.allTeachers$ = this.userSvc.getAllTeachers();
+    this.allDisabledUsers$ = this.userSvc.getAllDisabledUsersDetails();
+    this.allUsers$ = this.userSvc.getAllUsersDetails();
+    this.allAppUsers$ = this.userSvc.getAllUsers();
+  }
 
   ngOnInit() {
-    this.userSvc.getAllUsersDetails().subscribe(
-      (users: UserDetails[]) => {
-        console.log(`Número de usuarios: ${users.length}`);
-        this.allUsers = users;
-        this.students = users.filter( u => u.isStudent );
-        this.teachers = users.filter( u => u.isTeacher );
-        // this.admins = users.filter( u => u.isAdmin );
-    });
+    this.getRegisteredUsers();
+  }
 
-    this.userSvc.getAllDisabledUsersDetails().subscribe(
-      (users: UserDetails[]) => {
-        console.log(`Número de usuarios deshabilitados: ${users.length}`);
-        this.disabledUsers = users;
-    });
+  private getRegisteredUsers() {
+    const usersDetails$: Observable<UserDetails[]> = this.userSvc.getAllUsersDetails();
+
+    combineLatest([
+      this.allAppUsers$,
+      usersDetails$
+    ])
+      .pipe(
+        map(([users, usersDetails]) => users.map(user => ({
+          ...user,
+          location: usersDetails.find(ud => user.uid === ud.uid)?.location,
+        }) as UserDetails)),
+      )
+      .subscribe((usersDetails: UserDetails[]) => {
+        this.allRegisteredUsers = usersDetails;
+      });
   }
 
   gotoNew() {

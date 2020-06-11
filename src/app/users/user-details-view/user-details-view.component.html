@@ -206,7 +206,12 @@
 </ng-template>
 
 <ng-template #noRateTemplate>
-    <div class="alert alert-warning" style="margin:10px;padding:40px" role="alert">
-        No hay tarifa aún asociada a {{ userDetails.displayName }}
+
+    <div *ngIf="userDetails.isStudent" class="alert alert-danger" style="margin:10px;padding:40px" role="alert">
+        No hay tarifa asociada al estudiante {{ userDetails.displayName }}
+    </div>
+
+    <div *ngIf="!userDetails.isStudent" class="alert alert-success" style="margin:10px;padding:40px" role="alert">
+        No hay tarifa asociada a {{ userDetails.displayName }} (al no ser estudiante, no pasa nada)
     </div>
 </ng-template>

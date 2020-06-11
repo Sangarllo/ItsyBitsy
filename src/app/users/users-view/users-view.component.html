@@ -12,57 +12,69 @@
 
         <!-- 1. Todos -->
         <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>recent_actors</mat-icon>
-                &nbsp;&nbsp;Todos
-            </ng-template>
+            <div *ngIf="allUsers$ | async as allUsers; else loadingTemplate">
+                <ng-template mat-tab-label>
+                    <mat-icon>recent_actors</mat-icon>
+                    &nbsp;&nbsp;Todos ({{allUsers.length}})
+                </ng-template>
 
-            <sh-user-list *ngIf="allUsers" [users]="allUsers" [titleTable]="'Todas las personas registradas'"></sh-user-list>
+                <sh-user-list [users]="allUsers" [titleTable]="'Todas las personas activas en la Academia'"></sh-user-list>
+            </div>
         </mat-tab>
 
         <!-- 2. Students -->
         <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>people_outline</mat-icon>
-                &nbsp;&nbsp;Estudiantes
-            </ng-template>
+            <div *ngIf="allStudents$ | async as allStudents">
+                <ng-template mat-tab-label>
+                    <mat-icon>people_outline</mat-icon>
+                    &nbsp;&nbsp;Estudiantes ({{allStudents.length}})
+                </ng-template>
 
-            <sh-user-list *ngIf="students" [users]="students" [titleTable]="'Estudiantes Actuales'"></sh-user-list>
+                <sh-user-list [users]="allStudents" [titleTable]="'Estudiantes Actuales de la Academia'"></sh-user-list>
+            </div>
         </mat-tab>
 
         <!-- 3. Teachers -->
         <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>people</mat-icon>
-                &nbsp;&nbsp;Profesores
-            </ng-template>
+            <div *ngIf="allTeachers$ | async as allTeachers">
+                <ng-template mat-tab-label>
+                    <mat-icon>people</mat-icon>
+                    &nbsp;&nbsp;Profesores ({{allTeachers.length}})
+                </ng-template>
 
-            <sh-user-list *ngIf="teachers" [users]="teachers" [titleTable]="'Profesores Actuales'"></sh-user-list>
+                <sh-user-list [users]="allTeachers" [titleTable]="'Profesores Actuales de la Academia'"></sh-user-list>
+            </div>
         </mat-tab>
 
-        <!-- 4. Admins -->
-        <!--
+        <!-- 4. Usuarios Eliminados -->
         <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>star</mat-icon>
-                &nbsp;&nbsp;Administradores
-            </ng-template>
+            <div *ngIf="allDisabledUsers$ | async as allDisabledUsers">
+                <ng-template mat-tab-label>
+                    <mat-icon>delete</mat-icon>
+                    &nbsp;&nbsp;Personas no Activas ({{allDisabledUsers.length}})
+                </ng-template>
 
-            <sh-user-list *ngIf="admins" [users]="admins" [titleTable]="'Administradores Actuales'"></sh-user-list>
+                <sh-user-list [users]="allDisabledUsers" [titleTable]="'Personas no activas en la Academia'"></sh-user-list>
+            </div>
         </mat-tab>
-        -->
 
-        <!-- 5. Usuarios Eliminados -->
+        <!-- 5. Todas las personas Registradas -->
         <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>delete</mat-icon>
-                &nbsp;&nbsp;Usuarios deshabilitados
-            </ng-template>
+            <div *ngIf="allRegisteredUsers">
+                <ng-template mat-tab-label>
+                    <mat-icon>how_to_reg</mat-icon>
+                    &nbsp;&nbsp;Registrados en la App ({{ allRegisteredUsers.length }})
+                </ng-template>
 
-            <sh-user-list *ngIf="disabledUsers" [users]="disabledUsers" [titleTable]="'Usuarios deshabilitados'"></sh-user-list>
+                <sh-user-list [users]="allRegisteredUsers" [titleTable]="'Usuarios registrados en la App'"></sh-user-list>
+            </div>
         </mat-tab>
 
 
     </mat-tab-group>
 
 </mat-card>
+
+<ng-template #loadingTemplate>
+    <sh-loading></sh-loading>
+</ng-template>
