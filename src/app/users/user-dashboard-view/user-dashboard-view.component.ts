@@ -14,9 +14,8 @@ import { Observable } from 'rxjs';
 })
 export class UserDashboardView implements OnInit {
 
-  pageTitle: string;
   userId: string;
-  userDetails: UserDetails;
+  userDetails$: Observable<UserDetails>;
 
   // User Authenticated
   public user$: Observable<User>;
@@ -33,15 +32,9 @@ export class UserDashboardView implements OnInit {
 
       ( user ) => {
         this.userId = user.uid;
-
         this.user$ = this.userService.getUser(this.userId);
-
-        this.userService.getUserDetails(this.userId)
-        .subscribe( (userDetails: UserDetails) => {
-          this.userDetails = userDetails;
-          this.pageTitle = `Panel de opciones de ${this.userDetails.displayName}`;
-        });
-        }
+        this.userDetails$ = this.userService.getUserDetails(this.userId);
+      }
     );
   }
 

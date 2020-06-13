@@ -25,23 +25,24 @@ export class UsersView implements OnInit {
     private router: Router,
     private userSvc: UserService
   ) {
+  }
+
+  ngOnInit() {
+
     this.allStudents$ = this.userSvc.getAllStudents();
     this.allTeachers$ = this.userSvc.getAllTeachers();
     this.allDisabledUsers$ = this.userSvc.getAllDisabledUsersDetails();
     this.allUsers$ = this.userSvc.getAllUsersDetails();
     this.allAppUsers$ = this.userSvc.getAllUsers();
-  }
 
-  ngOnInit() {
     this.getRegisteredUsers();
   }
 
   private getRegisteredUsers() {
-    const usersDetails$: Observable<UserDetails[]> = this.userSvc.getAllUsersDetails();
 
     combineLatest([
       this.allAppUsers$,
-      usersDetails$
+      this.allUsers$
     ])
       .pipe(
         map(([users, usersDetails]) => users.map(user => ({

@@ -1,4 +1,4 @@
-<div *ngIf="!loading; else loadingTemplate">
+<div *ngIf="users">
 
     <div *ngIf="this.users.length > 0; else noData">
         <mat-toolbar>
@@ -60,10 +60,6 @@
     </div>
 </ng-template>
 
-
-<ng-template #loadingTemplate>
-    <sh-loading></sh-loading>
-</ng-template>
 
 <ng-template #noPhotoTemplate>
     <img [src]="'assets/avatar/000-no-picture.png'" class="img-thumbnail rounded-circle">

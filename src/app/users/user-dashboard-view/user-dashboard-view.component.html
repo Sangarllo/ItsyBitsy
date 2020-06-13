@@ -1,12 +1,14 @@
 <mat-card *ngIf="user$ | async as user; else showLogin">
 
     <mat-toolbar color="primary">
-        <span>{{pageTitle}}</span>
+        <span>Panel de Opciones de {{user.displayName}}</span>
         <span class="fill-remaining-space"></span>
         <button mat-raised-button color="accent" (click)="gotoMyProfile()">Ver Perfil</button>
     </mat-toolbar>
 
-    <app-sh-user-data [user]="user" [userDetails]="userDetails" *ngIf="userDetails"></app-sh-user-data>
+    <div *ngIf="userDetails$ | async as userDetails">
+        <app-sh-user-data [user]="user" [userDetails]="userDetails"></app-sh-user-data>
+    </div>
 
     <div *ngIf="user.roles?.includes('ADMIN')" class="card dashboard-rol-item">
         <div class="alert alert-primary" role="alert">
