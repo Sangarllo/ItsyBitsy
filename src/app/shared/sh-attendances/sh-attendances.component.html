@@ -2,11 +2,11 @@
 
     <mat-toolbar>
 
-        <button [disabled]="dataSource?.data?.length === 0" mat-mini-fab color="primary"> <!-- (click)="downloadAllInfo()" -->
+        <button [disabled]="dataSource?.data?.length === 0" mat-mini-fab color="primary" (click)="downloadAllInfo()">
           <mat-icon>cloud_download</mat-icon>
         </button>
 
-        <span [hidden]="(dataSource?.data?.length === 0)" class="color-disabled toolbar-message">Descargar las {{ dataSource?.data?.length }} asistencias del mes</span>
+        <span [hidden]="(dataSource?.data?.length === 0)" class="color-primary toolbar-message">Descargar las {{ dataSource?.data?.length }} asistencias del mes</span>
 
     </mat-toolbar>
 

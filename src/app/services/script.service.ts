@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ReceiptData, WeekLessonsData, RateData, CourseData } from '@models/report-summary';
 import { PRINTED_LOGO, PRINTED_RECIPT_NUMBER } from './pdf';
+import { AttendanceData } from '../models/report-summary';
+import moment from 'moment';
 
 interface Scripts {
   name: string;
@@ -381,6 +383,58 @@ export class ScriptService {
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
 
+
+  // ---- AttendancesReport
+
+  createAttendancesReports(dataTitle: string, attendancesData: AttendanceData[]): any {
+
+    const reportContent = [];
+
+    reportContent.push(this.addTitle(dataTitle));
+    reportContent.push(this.addSmallEmptyLine());
+    reportContent.push(
+    {
+      layout: 'lightHorizontalLines', // optional
+      table: {
+        headerRows: 1,
+        widths: [ 'auto', 'auto', 'auto', 'auto' ],
+
+        body: this.getAttendancesDataTable(attendancesData)
+      }
+    });
+
+    return {
+      pageMargins: ScriptService.PAGE_MARGINS,
+      content: reportContent,
+      styles: ScriptService.PDF_STYLES
+    };
+  }
+
+  private getAttendancesDataTable(attendancesData: AttendanceData[]): any {
+
+    moment.locale('es');
+    const bodyHeader = [ 'Fecha', 'Estado', 'Estudiante', 'Curso' ];
+
+    const bodyTable = [];
+    bodyTable.push(bodyHeader);
+    attendancesData.forEach(attendance => {
+      bodyTable.push([
+        { text: `${moment(attendance.lessonDate).format('DD MMMM YYYY')}`, fontSize: 9 },
+        { text: `${attendance.status}`, fontSize: 8 },
+        { text: `${attendance.studentName}`, fontSize: 8 },
+        { text: `${attendance.courseName}`, fontSize: 8 },
+      ]);
+    });
+
+    return bodyTable;
+  }
+
+
+  // Download PDF with attendances info
+  downloadAttendancesReports(reportName: string, dataTitle: string, data: AttendanceData[]) {
+    const documentDefinition = this.createAttendancesReports(dataTitle, data);
+    pdfMake.createPdf(documentDefinition).download(reportName);
+  }
 
 
 

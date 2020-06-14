@@ -15,6 +15,8 @@ import { DatesService } from '@services/dates.service';
 import { Course } from '@models/course.model';
 import { Attendance, Status } from '@models/attendance.model';
 import { UserDetails } from '@models/user.model';
+import { AttendanceData } from '@app/models/report-summary';
+import { ScriptService } from '@services/script.service';
 
 @Component({
   selector: 'app-sh-attendances',
@@ -48,6 +50,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
     private userSvc: UserService,
     private attendancesSvc: AttendancesService,
     private coursesSvc: CoursesService,
+    private scriptSvc: ScriptService,
   ) {
     this.loading = true;
   }
@@ -125,6 +128,39 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
       this.dataSource.data = attendances;
       this.loading = false;
     });
+  }
+
+  // Download PDF with attedances info
+  downloadAllInfo() {
+
+    const data: AttendanceData[] = [];
+
+    const attendances = this.dataSource.data;
+    attendances.forEach(
+      (attendance: Attendance) => {
+        data.push(this.getReportData(attendance));
+      });
+
+    this.scriptSvc.downloadAttendancesReports(
+        `Listado de Asistencias del mes.pdf`,
+        'Listado de Asistencias del mes',
+        data,
+    );
+  }
+
+  private getReportData(attendance: Attendance): AttendanceData {
+
+    const status = attendance.status;
+    const lessonDate: Date = attendance.lessonDate;
+    const studentName = attendance.studentName;
+    const courseName = attendance.courseName;
+
+    return {
+      status,
+      lessonDate,
+      studentName,
+      courseName
+    };
   }
 
 }

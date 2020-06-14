@@ -127,7 +127,6 @@ export class RatesView implements OnInit, AfterViewInit {
         data.push(this.getReportData(rate));
       });
 
-    const dataTitle = ``;
     this.scriptSvc.downloadRatesReports(
       `Tarifas Actuales.pdf`,
       'Tarifas Actuales',

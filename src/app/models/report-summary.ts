@@ -35,3 +35,11 @@ export interface CourseData {
   teacher: string;
   nStudents: number;
 }
+
+export interface AttendanceData {
+  status: string;
+  lessonDate: Date;
+  studentName: string;
+  courseName: string;
+  // comment: string
+}
