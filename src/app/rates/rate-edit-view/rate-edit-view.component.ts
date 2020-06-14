@@ -38,16 +38,11 @@ export class RateEditView implements OnInit, OnDestroy {
     });
 
     // Read the student Id from the route parameter
-    this.sub = this.route.paramMap.subscribe(
-      params => {
-        const id = params.get('id');
-        this.getRate(id);
-      }
-    );
+    const rateId = this.route.snapshot.paramMap.get('id');
+    this.getRate(rateId);
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
   }
 
   getRate(id: string): void {
@@ -130,15 +125,9 @@ export class RateEditView implements OnInit, OnDestroy {
     this.router.navigate([`/${Rate.PATH_URL}`]);
   }
 
-  gotoList(): void {
-    // Reset the form to clear the flags
-    this.rateForm.reset();
-    this.router.navigate([`/${Rate.PATH_URL}`]);
-  }
-
   goBack(): void {
     // Reset the form to clear the flags
     this.rateForm.reset();
-    this.router.navigate([`/${Rate.PATH_URL}/${this.rate.id}`]);
+    this.router.navigate([`/${Rate.PATH_URL}`]);
   }
 }

@@ -1,7 +1,7 @@
-<mat-card *ngIf="rate">
+<mat-card *ngIf="rate$ | async as rate">
 
     <mat-toolbar color="primary">
-        <span>{{pageTitle}}</span>
+        <span>Detalles de la tarifa {{ rate.name }}</span>
         <span class="fill-remaining-space"></span>
         <button mat-raised-button color="accent" (click)="gotoDashboard()">Ir al Panel</button>
     </mat-toolbar>
@@ -11,7 +11,9 @@
     </div>
 
     <mat-card-content>
-        <sh-user-list *ngIf="students" [users]="students"></sh-user-list>
+        <div *ngIf="students$ | async as students">
+            <sh-user-list [users]="students"></sh-user-list>
+        </div>
     </mat-card-content>
 
 </mat-card>

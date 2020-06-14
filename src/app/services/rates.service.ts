@@ -22,6 +22,7 @@ export class RateService {
     this.rateCollection = this.afs.collection(
       RATE_COLLECTION,
       ref => ref.where('current', '==', true)
+                .where('listed', '==', true)
                 .orderBy('name')
     );
 
@@ -76,10 +77,13 @@ export class RateService {
     // Return an initialized object
     return {
       current: true,
+      listed: true,
       id: '0',
       name: '',
       type: RateType.porAsistencia,
       price: 7.5,
+      image: 'assets/rates/rate-default.png',
+      students: []
     };
   }
 }

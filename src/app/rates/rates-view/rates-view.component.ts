@@ -6,6 +6,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Rate } from '@models/rate';
 import { RateService } from '@services/rates.service';
 import Swal from 'sweetalert2';
+import { UserDetails } from '@models/user.model';
+import { Observable, combineLatest } from 'rxjs';
+import { UserService } from '@services/user.service';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -15,24 +19,45 @@ import Swal from 'sweetalert2';
 })
 export class RatesView implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['name', 'type', 'price', 'actions'];
+  columnsToDisplay = ['rateImage', 'name', 'type', 'price', 'students', 'actions'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  rates$: Observable<Rate[]>;
+  students$: Observable<UserDetails[]>;
 
   constructor(
     private router: Router,
-    private rateSvc: RateService
+    private rateSvc: RateService,
+    private userSvc: UserService
   ) { }
 
   ngOnInit() {
+    this.rates$ = this.rateSvc.getAllRates();
+    this.students$ = this.userSvc.getAllStudents();
+  }
+
+  ngAfterViewInit() {
+
+    combineLatest([
+      this.rates$,
+      this.students$
+    ])
+      .pipe(map(([rates, students]) => rates.map(rate => ({
+        ...rate,
+        students: students.filter(st => st.rateId === rate.id),
+      }) as Rate)))
+    .subscribe((rates: Rate[]) => {
+      this.dataSource.data = rates;
+    });
+
+    /*
     this.rateSvc.getAllRates().subscribe(
       (rates: Rate[]) => {
         this.dataSource.data = rates;
     });
-  }
+    */
 
-  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

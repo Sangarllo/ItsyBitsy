@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { RateService } from '@services/rates.service';
-import { UserService } from '@services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RateService } from '@services/rates.service';
+
+import { Observable } from 'rxjs';
+
 import { Rate } from '@models/rate';
 import { UserDetails } from '@models/user.model';
+import { UserService } from '@services/user.service';
 
 
 @Component({
@@ -17,8 +20,8 @@ export class RateDetailView implements OnInit {
   errorMessage: string;
 
   rateId: string;
-  rate: Rate;
-  students: UserDetails[];
+  rate$: Observable<Rate>;
+  students$: Observable<UserDetails[]>;
 
   constructor(
     private rateService: RateService,
@@ -29,19 +32,8 @@ export class RateDetailView implements OnInit {
 
   ngOnInit() {
     this.rateId = this.route.snapshot.paramMap.get('id');
-    this.rateService.getRate(this.rateId)
-    .subscribe({
-      next: rate => {
-        this.rate = rate;
-        this.pageTitle = `Detalles de la tarifa ${this.rate.name}`;
-        this.userSvc.getStudentsByRate(rate.id).subscribe(
-          (students: UserDetails[]) => {
-            this.students = students;
-          }
-        );
-      },
-      error: err => this.errorMessage = err
-    });
+    this.rate$ = this.rateService.getRate(this.rateId);
+    this.students$ = this.userSvc.getStudentsByRate(this.rateId);
   }
 
   gotoEdition() {
