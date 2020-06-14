@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReceiptData, WeekLessonsData } from '@models/report-summary';
+import { ReceiptData, WeekLessonsData, RateData } from '@models/report-summary';
 import { PRINTED_LOGO, PRINTED_RECIPT_NUMBER } from './pdf';
 
 interface Scripts {
@@ -142,7 +142,7 @@ export class ScriptService {
         headerRows: 1,
         widths: [ 'auto', 'auto',  'auto', 'auto', 'auto', 'auto' ],
 
-        body: this.getDataTable(lessonsData)
+        body: this.getWeekLessonsDataTable(lessonsData)
       }
     });
 
@@ -153,7 +153,7 @@ export class ScriptService {
     };
   }
 
-  private getDataTable(lessonsData: WeekLessonsData[]): any {
+  private getWeekLessonsDataTable(lessonsData: WeekLessonsData[]): any {
 
     const bodyHeader = [ 'Profesor', 'Curso', 'Día', 'Horario', 'Aula', 'Asistentes' ];
 
@@ -167,7 +167,7 @@ export class ScriptService {
         { text: `${lesson.schedule}`, fontSize: 10 },
         { text: `${lesson.classRoom}`, fontSize: 10 },
         {
-          ul: this.getStudentsList(lesson.studentNames)
+          ul: this.getStudentsList(lesson.studentNames, 8)
         }
       ]);
     });
@@ -175,12 +175,12 @@ export class ScriptService {
     return bodyTable;
   }
 
-  private getStudentsList(studentNames: string[]): any {
+  private getStudentsList(studentNames: string[], fontSize: number): any {
     const studentsList = [];
     studentNames.forEach( name => {
       studentsList.push({
         text: `${name}`,
-        fontSize: 8
+        fontSize
       });
     });
     return studentsList;
@@ -278,6 +278,57 @@ export class ScriptService {
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
 
+  // ----
+
+  createRatesReports(dataTitle: string, rateData: RateData[]): any {
+
+    const reportContent = [];
+
+    reportContent.push(this.addTitle(dataTitle));
+    reportContent.push(this.addSmallEmptyLine());
+    reportContent.push(
+    {
+      layout: 'lightHorizontalLines', // optional
+      table: {
+        headerRows: 1,
+        widths: [ 'auto', 'auto', 'auto' ],
+
+        body: this.getRatesDataTable(rateData)
+      }
+    });
+
+    return {
+      pageMargins: ScriptService.PAGE_MARGINS,
+      content: reportContent,
+      styles: ScriptService.PDF_STYLES
+    };
+  }
+
+  private getRatesDataTable(ratesData: RateData[]): any {
+
+    const bodyHeader = [ 'Tarifa', 'Estudiantes', 'Listado' ];
+
+    const bodyTable = [];
+    bodyTable.push(bodyHeader);
+    ratesData.forEach(rate => {
+      bodyTable.push([
+        { text: `Tarifa ${rate.name}`, fontSize: 14 },
+        { text: `${rate.studentNames.length} estudiantes`, fontSize: 14 },
+        {
+          ul: this.getStudentsList(rate.studentNames, 10)
+        }
+      ]);
+    });
+
+    return bodyTable;
+  }
+
+
+  // Download PDF with WeekLesson info
+  downloadRatesReports(reportName: string, dataTitle: string, data: RateData[]) {
+    const documentDefinition = this.createRatesReports(dataTitle, data);
+    pdfMake.createPdf(documentDefinition).download(reportName);
+  }
 
 
 

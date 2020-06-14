@@ -10,6 +10,8 @@ import { UserDetails } from '@models/user.model';
 import { Observable, combineLatest } from 'rxjs';
 import { UserService } from '@services/user.service';
 import { map } from 'rxjs/operators';
+import { ScriptService } from '@services/script.service';
+import { RateData } from '@models/report-summary';
 
 
 @Component({
@@ -28,8 +30,9 @@ export class RatesView implements OnInit, AfterViewInit {
 
   constructor(
     private router: Router,
+    private scriptSvc: ScriptService,
     private rateSvc: RateService,
-    private userSvc: UserService
+    private userSvc: UserService,
   ) { }
 
   ngOnInit() {
@@ -112,5 +115,62 @@ export class RatesView implements OnInit, AfterViewInit {
       }
     });
   }
+
+  // Download PDF with data info
+  downloadAllInfo() {
+
+    const data: RateData[] = [];
+
+    const rates = this.dataSource.data;
+    rates.forEach(
+      (rate: Rate) => {
+        data.push(this.getReportData(rate));
+      });
+
+    const dataTitle = ``;
+    this.scriptSvc.downloadRatesReports(
+      `Tarifas Actuales.pdf`,
+      'Tarifas Actuales',
+      data,
+    );
+
+    /*
+    this.rates$.subscribe(
+      (rates: Rate[]) => {
+        rates = rates;
+        console.log(`Cuántas tarifas hay: ${rates.length}`);
+        rates.forEach(
+          (rate: Rate) => {
+            data.push(this.getReportData(rate));
+          });
+
+        const dataTitle = ``;
+        this.scriptSvc.downloadRatesReports(
+          `Tarifas Actuales.pdf`,
+          'Tarifas Actuales',
+          data,
+        );
+      });
+      */
+  }
+
+  private getReportData(rate: Rate): RateData {
+
+    const name: string = rate.name;
+    const type: string = rate.type;
+    const price = rate.price;
+    const studentNames = [];
+    rate.students.forEach(student => {
+      studentNames.push(student.displayName);
+    });
+
+    return {
+      name,
+      type,
+      price,
+      studentNames
+    };
+  }
+
 
 }

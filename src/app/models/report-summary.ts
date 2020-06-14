@@ -20,3 +20,10 @@ export interface WeekLessonsData {
   classRoom: string;
   studentNames: string[];
 }
+
+export interface RateData {
+  name: string;
+  type: string;
+  price: number;
+  studentNames: string[];
+}

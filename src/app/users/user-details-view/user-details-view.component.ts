@@ -52,13 +52,14 @@ export class UserDetailsView implements OnInit {
 
       this.userSvc.getUser(this.userDetailsId)
         .subscribe( (user: User) => {
+          console.log(`userDetailsId: ${this.userDetailsId}`);
           this.userChecked = user;
           console.log(`userChecked: ${this.userChecked}`);
         });
 
       this.userSvc.getUserDetails(this.userDetailsId)
       .subscribe( (userDetails: UserDetails) => {
-
+        console.log(`userDetails: ${userDetails.displayName}`);
         this.userDetails = userDetails;
         this.pageTitle = `Datos del usuario ${this.userDetails?.displayName}`;
         this.userDetails.birthday = ( userDetails?.birthday ) ?
