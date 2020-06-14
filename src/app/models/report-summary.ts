@@ -27,3 +27,11 @@ export interface RateData {
   price: number;
   studentNames: string[];
 }
+
+export interface CourseData {
+  name: string;
+  type: string;
+  schedule: string;
+  teacher: string;
+  nStudents: number;
+}

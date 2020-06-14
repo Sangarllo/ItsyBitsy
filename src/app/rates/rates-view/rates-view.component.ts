@@ -117,7 +117,7 @@ export class RatesView implements OnInit, AfterViewInit {
   }
 
   // Download PDF with data info
-  downloadAllInfo() {
+  downloadReport() {
 
     const data: RateData[] = [];
 
@@ -133,25 +133,6 @@ export class RatesView implements OnInit, AfterViewInit {
       'Tarifas Actuales',
       data,
     );
-
-    /*
-    this.rates$.subscribe(
-      (rates: Rate[]) => {
-        rates = rates;
-        console.log(`Cuántas tarifas hay: ${rates.length}`);
-        rates.forEach(
-          (rate: Rate) => {
-            data.push(this.getReportData(rate));
-          });
-
-        const dataTitle = ``;
-        this.scriptSvc.downloadRatesReports(
-          `Tarifas Actuales.pdf`,
-          'Tarifas Actuales',
-          data,
-        );
-      });
-      */
   }
 
   private getReportData(rate: Rate): RateData {

@@ -47,31 +47,18 @@ export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
       this.lessons$,
       this.attendances$
     ])
-      .pipe(map(([lessons, attendances]) => lessons.map(lesson => ({
-        ...lesson,
-        date: this.dateSvc.fromFirebaseDate(lesson.date),
-        attendances: attendances.filter(a => a.lessonId === lesson.id)
-      }) as Lesson)), tap(data => console.log('Lessons:  ', JSON.stringify(data))))
+      .pipe(
+        map(([lessons, attendances]) => lessons.map(lesson => ({
+          ...lesson,
+          date: this.dateSvc.fromFirebaseDate(lesson.date),
+          attendances: attendances.filter(a => a.lessonId === lesson.id)
+        }) as Lesson)),
+        // tap(data => console.log('Lessons:  ', JSON.stringify(data)))
+      )
       .subscribe((lessons: Lesson[]) => {
         this.lessons = lessons;
         this.dataSource.data = this.lessons;
       });
-
-/*
-        this.lessonsSvc.getLessonsByCourseId(this.course)
-        .pipe(
-        )
-        .subscribe(
-          (lessons: Lesson[]) => {
-
-            lessons.forEach(lesson => {
-              lesson.date = this.dateSvc.fromFirebaseDate(lesson.date);
-            });
-
-            this.lessons = lessons;
-            this.dataSource.data = this.lessons;
-          });
-          */
   }
 
   ngAfterViewInit(): void {

@@ -1,6 +1,10 @@
 <mat-card *ngIf="!loading; else loadingTemplate">
 
     <mat-toolbar color="primary">
+
+        <button mat-mini-fab color="accent" (click)="downloadReport()">
+        <mat-icon>cloud_download</mat-icon>
+        </button> &nbsp;&nbsp;
         <span>Cursos Activos</span>
         <span class="fill-remaining-space"></span>
 

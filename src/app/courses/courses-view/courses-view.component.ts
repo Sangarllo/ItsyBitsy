@@ -10,6 +10,8 @@ import { UserService } from '@services/user.service';
 import { UserDetails } from '@models/user.model';
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CourseData } from '@models/report-summary';
+import { ScriptService } from '@services/script.service';
 
 @Component({
   selector: 'app-courses-view',
@@ -30,7 +32,8 @@ export class CoursesView implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private coursesSvc: CoursesService,
-    private userSvc: UserService
+    private userSvc: UserService,
+    private scriptSvc: ScriptService
   ) {
   }
 
@@ -78,4 +81,42 @@ export class CoursesView implements OnInit, AfterViewInit {
       this.loading = false;
     });
   }
+
+  // Download PDF with data info
+  downloadReport() {
+
+    const data: CourseData[] = [];
+
+    const courses = this.dataSource.data;
+    courses.forEach(
+      (course: Course) => {
+        data.push(this.getReportData(course));
+      });
+
+    const dataTitle = ``;
+    this.scriptSvc.downloadCoursesReport(
+      `Cursos Actuales.pdf`,
+      'Cursos Actuales',
+      data,
+    );
+  }
+
+  private getReportData(course: Course): CourseData {
+
+    const name: string = course.name;
+    const type: string = course.type;
+    const schedule = `${course.weekDay}, de ${course.startTime} a ${course.endTime}`;
+    const teacher = course.teacherName;
+    const nStudents = course.studentList.length;
+
+    return {
+      name,
+      type,
+      schedule,
+      teacher,
+      nStudents
+    };
+  }
+
+
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReceiptData, WeekLessonsData, RateData } from '@models/report-summary';
+import { ReceiptData, WeekLessonsData, RateData, CourseData } from '@models/report-summary';
 import { PRINTED_LOGO, PRINTED_RECIPT_NUMBER } from './pdf';
 
 interface Scripts {
@@ -278,7 +278,7 @@ export class ScriptService {
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
 
-  // ----
+  // ---- RatesReport
 
   createRatesReports(dataTitle: string, rateData: RateData[]): any {
 
@@ -323,12 +323,64 @@ export class ScriptService {
     return bodyTable;
   }
 
-
-  // Download PDF with WeekLesson info
+  // Download PDF with Rates info
   downloadRatesReports(reportName: string, dataTitle: string, data: RateData[]) {
     const documentDefinition = this.createRatesReports(dataTitle, data);
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
+
+  // ---- CoursesReport
+
+  createCoursesReports(dataTitle: string, courseData: CourseData[]): any {
+
+    const reportContent = [];
+
+    reportContent.push(this.addTitle(dataTitle));
+    reportContent.push(this.addSmallEmptyLine());
+    reportContent.push(
+    {
+      layout: 'lightHorizontalLines', // optional
+      table: {
+        headerRows: 1,
+        widths: [ 'auto', 'auto', 'auto', 'auto', 'auto' ],
+
+        body: this.getCoursesDataTable(courseData)
+      }
+    });
+
+    return {
+      pageMargins: ScriptService.PAGE_MARGINS,
+      content: reportContent,
+      styles: ScriptService.PDF_STYLES
+    };
+  }
+
+  private getCoursesDataTable(coursesData: CourseData[]): any {
+
+    const bodyHeader = [ 'Curso', 'Tipo', 'Horario', 'Profesor', 'Aforo' ];
+
+    const bodyTable = [];
+    bodyTable.push(bodyHeader);
+    coursesData.forEach(course => {
+      bodyTable.push([
+        { text: `Curso ${course.name}`, fontSize: 9 },
+        { text: `${course.type}`, fontSize: 8 },
+        { text: `${course.schedule}`, fontSize: 8 },
+        { text: `${course.teacher}`, fontSize: 8 },
+        { text: `${course.nStudents} estudiantes`, fontSize: 8 },
+      ]);
+    });
+
+    return bodyTable;
+  }
+
+
+  // Download PDF with courses info
+  downloadCoursesReport(reportName: string, dataTitle: string, data: CourseData[]) {
+    const documentDefinition = this.createCoursesReports(dataTitle, data);
+    pdfMake.createPdf(documentDefinition).download(reportName);
+  }
+
 
 
 
