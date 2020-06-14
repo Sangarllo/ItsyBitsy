@@ -106,9 +106,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
 
     this.courses$ = this.coursesSvc.getAllCourses();
     this.students$ = this.userSvc.getAllStudents();
-    this.attendances$ = ( this.userDetails ) ?
-      this.attendancesSvc.getAllAttendancesByUser( this.userDetails, dateIni, dateEnd) :
-      this.attendancesSvc.getAllAttendancesByDates( dateIni, dateEnd);
+    this.attendances$ = this.attendancesSvc.getAllAttendancesByDates( this.userDetails, dateIni, dateEnd );
 
     combineLatest([
       this.attendances$,

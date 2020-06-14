@@ -43,7 +43,7 @@ export class ShUserAttendanceTableComponent implements OnInit, AfterViewInit {
     this.statusAttendance = Attendance.getAllStatus();
     this.dataSource = new MatTableDataSource(this.attendances);
 
-    this.attendancesSvc.getAllAttendancesByUser(this.student, this.dateIni, this.dateEnd)
+    this.attendancesSvc.getAllAttendancesByDates(this.student, this.dateIni, this.dateEnd)
     .subscribe((attendances: Attendance[]) => {
       this.attendances = attendances;
 

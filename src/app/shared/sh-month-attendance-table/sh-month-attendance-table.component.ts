@@ -39,7 +39,7 @@ export class ShMonthAttendanceTableComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.statusAttendance = Attendance.getAllStatus();
 
-    this.attendancesSvc.getAllAttendancesByDates( this.dateIni, this.dateEnd)
+    this.attendancesSvc.getAllAttendancesByDates( null, this.dateIni, this.dateEnd)
     .subscribe((attendances: Attendance[]) => {
       this.attendances = attendances;
 

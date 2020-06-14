@@ -62,32 +62,22 @@ export class AttendancesService {
     );
   }
 
+  getAllAttendancesByDates(userDetails: UserDetails, dateIni: Date, dateEnd: Date): Observable<Attendance[]> {
 
-  getAllAttendancesByUser(userDetails: UserDetails, dateIni: Date, dateEnd: Date): Observable<Attendance[]> {
-    this.attendanceCollection = this.afs.collection(
-      ATTENDANCE_COLLECTION,
-      ref => ref.where('studentId', '==', userDetails.uid)
-                .where('lessonDate', '>=', dateIni)
-                .where('lessonDate', '<=', dateEnd)
-    );
-
-    return this.attendanceCollection.snapshotChanges().pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data() as Attendance;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      )
-    );
-  }
-
-  getAllAttendancesByDates(dateIni: Date, dateEnd: Date): Observable<Attendance[]> {
-    this.attendanceCollection = this.afs.collection(
-      ATTENDANCE_COLLECTION,
-      ref => ref.where('lessonDate', '>=', dateIni)
-                .where('lessonDate', '<=', dateEnd)
-    );
+    if ( userDetails !== null ) {
+      this.attendanceCollection = this.afs.collection(
+        ATTENDANCE_COLLECTION,
+        ref => ref.where('studentId', '==', userDetails.uid)
+                  .where('lessonDate', '>=', dateIni)
+                  .where('lessonDate', '<=', dateEnd)
+      );
+    } else {
+      this.attendanceCollection = this.afs.collection(
+        ATTENDANCE_COLLECTION,
+        ref => ref.where('lessonDate', '>=', dateIni)
+                  .where('lessonDate', '<=', dateEnd)
+      );
+    }
 
     return this.attendanceCollection.snapshotChanges().pipe(
       map(actions =>

@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { UserDetails } from '@models/user.model';
 import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
-import { map, finalize } from 'rxjs/operators';
+import { map, finalize, tap } from 'rxjs/operators';
 import { UserService } from '@services/user.service';
 import { Rate } from '@models/rate';
 import { RateService } from '@services/rates.service';
@@ -130,31 +130,34 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
         new Date(this.date.getFullYear() + 1, 1, 1 ) :
         new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1 );
 
-    this.attendances$ = ( this.userDetails ) ?
-      this.attendancesSvc.getAllAttendancesByUser( this.userDetails, dateIni, dateEnd) :
-      this.attendancesSvc.getAllAttendancesByDates( dateIni, dateEnd);
+    this.attendances$ = this.attendancesSvc.getAllAttendancesByDates( this.userDetails, dateIni, dateEnd);
 
     combineLatest([
       this.students$,
       this.attendances$,
       this.rates$,
     ])
-      .pipe(map(([students, attendances, rates]) => students.map(student => ({
-        ...student,
-        rate: rates.find(rate => student.rateId === rate.id),
-        numAttendances: attendances.filter( attendance => attendance.studentId === student.uid ).length,
-        paymentAmmout: this.rateSvc.calculatePayment(
-          rates.find(rate => student.rateId === rate.id),
-          attendances.filter( attendance => attendance.studentId === student.uid ).length
-        )
-      }) as UserDetails)),
+      .pipe(
+        map(([students, attendances, rates]) => students.map(student => ({
+          ...student,
+          rate: rates.find(rate => student.rateId === rate.id),
+          numAttendances: attendances.filter( attendance => attendance.studentId === student.uid ).length,
+          paymentAmmout: this.rateSvc.calculatePayment(
+            rates.find(rate => student.rateId === rate.id),
+            attendances.filter( attendance => attendance.studentId === student.uid ).length
+          )
+        }) as UserDetails)),
+        // tap(data => console.log('student:  ', JSON.stringify(data))),
     )
     .subscribe({
       next: (students: UserDetails[]) => {
         this.dataSource.data = students;
         this.loading = false;
         },
-      error: err => console.log(`Oops... ${err}`),
+      error: (err) => {
+        console.log(`Oops... ${err}`);
+        this.loading = false;
+      },
       complete: () => {
         console.log(`Complete!`);
         this.loading = false;
@@ -180,7 +183,7 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
     this.scriptSvc.downloadReceiptReport([
         this.getReceiptData(student)
       ],
-      `Recibo ${student.displayName}.pdf`
+      `Recibo del estudiante ${student.displayName}.pdf`
     );
   }
 
@@ -195,7 +198,7 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
 
     this.scriptSvc.downloadReceiptReport(
       receipts,
-      `Recibo.pdf`
+      `Recibos de todos los estudiantes.pdf`
     );
   }
 

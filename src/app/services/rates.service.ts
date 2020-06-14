@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Rate, RateType } from '@models/rate';
 import { BrowserStack } from 'protractor/built/driverProviders';
 
-
+const PAYMENT_ERROR = -1;
 const RATE_COLLECTION = 'rates';
 
 @Injectable({
@@ -42,15 +42,21 @@ export class RateService {
   }
 
   calculatePayment(rate: Rate, nAttendances: number): number {
-    switch (rate.type) {
-      case RateType.porAsistencia:
-        return nAttendances * rate.price;
+    try {
+      switch (rate.type) {
+        case RateType.porAsistencia:
+          return nAttendances * rate.price;
 
-      case RateType.cuotaFijaMensual:
-        return rate.price;
+        case RateType.cuotaFijaMensual:
+          return rate.price;
 
-      default:
-        return -1;
+        default:
+          console.log(`Error getting payment. Type ${rate.type}`);
+          return PAYMENT_ERROR;
+      }
+    } catch (error) {
+      console.log(`Error getting payment: ${error}`);
+      return PAYMENT_ERROR;
     }
   }
 
