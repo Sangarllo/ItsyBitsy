@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule, A
 import { Observable, of } from 'rxjs';
 import { Rate, RateType } from '@models/rate';
 import { BrowserStack } from 'protractor/built/driverProviders';
+import { RateData } from '@models/report-summary';
 
 const PAYMENT_ERROR = -1;
 const RATE_COLLECTION = 'rates';
@@ -90,6 +91,24 @@ export class RateService {
       price: 7.5,
       image: 'assets/rates/rate-default.png',
       students: []
+    };
+  }
+
+  getReportData(rate: Rate): RateData {
+
+    const name: string = rate.name;
+    const type: string = rate.type;
+    const price = rate.price;
+    const studentNames = [];
+    rate.students.forEach(student => {
+      studentNames.push(student.displayName);
+    });
+
+    return {
+      name,
+      type,
+      price,
+      studentNames
     };
   }
 }

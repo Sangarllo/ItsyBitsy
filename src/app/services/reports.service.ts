@@ -2,10 +2,12 @@ import moment from 'moment';
 import { Injectable } from '@angular/core';
 
 import { Attendance } from '@models/attendance.model';
-import { AttendanceData, CourseData } from '@models/report-summary';
+import { AttendanceData, CourseData, RateData } from '@models/report-summary';
 import { AttendancesService } from '@services/attendances.service';
 import { Course } from '@models/course.model';
 import { CoursesService } from '@services/courses.service';
+import { RateService } from '@services/rates.service';
+import { Rate } from '../models/rate';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,8 @@ export class ReportsService {
 
   constructor(
     private attendancesSvc: AttendancesService,
-    private courseSvc: CoursesService
+    private courseSvc: CoursesService,
+    private ratesSvc: RateService
   ) { }
 
   // A. Attendances -----
@@ -94,5 +97,54 @@ export class ReportsService {
     });
 
     return bodyTable;
+  }
+
+  // C. Rates -----
+
+  getRatesReportData(rates: unknown[]): RateData[] {
+
+    const data: RateData[] = [];
+    rates.forEach(
+      (rate: Rate) => {
+        data.push(this.ratesSvc.getReportData(rate));
+      });
+    return data;
+  }
+
+  getRatesDataTable(ratesData: RateData[]): any {
+
+    const bodyHeader = [ 'Tarifa', 'Estudiantes', 'Listado' ];
+    return {
+      headerRows: 1,
+      widths: [ 'auto', 'auto', 'auto' ],
+      body: this.getRatesBodyTable(bodyHeader, ratesData)
+    };
+  }
+
+  private getRatesBodyTable(bodyHeader: string[], ratesData: RateData[]): any {
+    const bodyTable = [];
+    bodyTable.push(bodyHeader);
+    ratesData.forEach(rate => {
+      bodyTable.push([
+        { text: `Tarifa ${rate.name}`, fontSize: 14 },
+        { text: `${rate.studentNames.length} estudiantes`, fontSize: 14 },
+        {
+          ul: this.getStudentsList(rate.studentNames, 10)
+        }
+      ]);
+    });
+
+    return bodyTable;
+  }
+
+  private getStudentsList(studentNames: string[], fontSize: number): any {
+    const studentsList = [];
+    studentNames.forEach( name => {
+      studentsList.push({
+        text: `${name}`,
+        fontSize
+      });
+    });
+    return studentsList;
   }
 }

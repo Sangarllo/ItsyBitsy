@@ -12,6 +12,7 @@ import { UserService } from '@services/user.service';
 import { map } from 'rxjs/operators';
 import { ScriptService } from '@services/script.service';
 import { RateData } from '@models/report-summary';
+import { ReportsService } from '../../services/reports.service';
 
 
 @Component({
@@ -20,6 +21,9 @@ import { RateData } from '@models/report-summary';
   styleUrls: ['./rates-view.component.scss']
 })
 export class RatesView implements OnInit, AfterViewInit {
+
+  // For reporting
+  rates: Rate[];
 
   columnsToDisplay = ['rateImage', 'name', 'type', 'price', 'students', 'actions'];
   dataSource = new MatTableDataSource();
@@ -31,12 +35,13 @@ export class RatesView implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private scriptSvc: ScriptService,
-    private rateSvc: RateService,
+    private reportSvc: ReportsService,
+    private ratesSvc: RateService,
     private userSvc: UserService,
   ) { }
 
   ngOnInit() {
-    this.rates$ = this.rateSvc.getAllRates();
+    this.rates$ = this.ratesSvc.getAllRates();
     this.students$ = this.userSvc.getAllStudents();
   }
 
@@ -51,15 +56,9 @@ export class RatesView implements OnInit, AfterViewInit {
         students: students.filter(st => st.rateId === rate.id),
       }) as Rate)))
     .subscribe((rates: Rate[]) => {
+      this.rates = rates;
       this.dataSource.data = rates;
     });
-
-    /*
-    this.rateSvc.getAllRates().subscribe(
-      (rates: Rate[]) => {
-        this.dataSource.data = rates;
-    });
-    */
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -95,7 +94,7 @@ export class RatesView implements OnInit, AfterViewInit {
       if (result.value) {
 
         rate.current = false;
-        this.rateSvc.updateRate(rate)
+        this.ratesSvc.updateRate(rate)
         .subscribe({
           next: () => {
             Swal.fire(
@@ -119,38 +118,16 @@ export class RatesView implements OnInit, AfterViewInit {
   // Download PDF with data info
   downloadReport() {
 
-    const data: RateData[] = [];
+    const reportTitle: string = 'Tarifas Actuales';
 
-    const rates = this.dataSource.data;
-    rates.forEach(
-      (rate: Rate) => {
-        data.push(this.getReportData(rate));
-      });
+    const data = this.reportSvc.getRatesReportData(
+      this.rates
+    );
 
-    this.scriptSvc.downloadRatesReports(
-      `Tarifas Actuales.pdf`,
-      'Tarifas Actuales',
+    this.scriptSvc.downloadRatesReport(
+      `${reportTitle}.pdf`,
+      reportTitle,
       data,
     );
   }
-
-  private getReportData(rate: Rate): RateData {
-
-    const name: string = rate.name;
-    const type: string = rate.type;
-    const price = rate.price;
-    const studentNames = [];
-    rate.students.forEach(student => {
-      studentNames.push(student.displayName);
-    });
-
-    return {
-      name,
-      type,
-      price,
-      studentNames
-    };
-  }
-
-
 }

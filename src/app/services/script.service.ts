@@ -282,23 +282,17 @@ export class ScriptService {
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
 
-  // ---- RatesReport
+  // C. Rates -----
 
-  createRatesReports(dataTitle: string, rateData: RateData[]): any {
+  createRatesReports(dataTitle: string, ratesData: RateData[]): any {
 
     const reportContent = [];
-
     reportContent.push(this.addTitle(dataTitle));
     reportContent.push(this.addSmallEmptyLine());
     reportContent.push(
     {
       layout: 'lightHorizontalLines', // optional
-      table: {
-        headerRows: 1,
-        widths: [ 'auto', 'auto', 'auto' ],
-
-        body: this.getRatesDataTable(rateData)
-      }
+      table: this.reportSvc.getRatesDataTable(ratesData)
     });
 
     return {
@@ -308,30 +302,12 @@ export class ScriptService {
     };
   }
 
-  private getRatesDataTable(ratesData: RateData[]): any {
-
-    const bodyHeader = [ 'Tarifa', 'Estudiantes', 'Listado' ];
-
-    const bodyTable = [];
-    bodyTable.push(bodyHeader);
-    ratesData.forEach(rate => {
-      bodyTable.push([
-        { text: `Tarifa ${rate.name}`, fontSize: 14 },
-        { text: `${rate.studentNames.length} estudiantes`, fontSize: 14 },
-        {
-          ul: this.getStudentsList(rate.studentNames, 10)
-        }
-      ]);
-    });
-
-    return bodyTable;
-  }
-
-  // Download PDF with Rates info
-  downloadRatesReports(reportName: string, dataTitle: string, data: RateData[]) {
+  // Download PDF with courses info
+  downloadRatesReport(reportName: string, dataTitle: string, data: RateData[]) {
     const documentDefinition = this.createRatesReports(dataTitle, data);
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
+
 
   // B. Courses -----
 
