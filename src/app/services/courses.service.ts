@@ -6,6 +6,7 @@ import { ICON_REGISTRY_PROVIDER } from '@angular/material/icon';
 import { Icon } from '@models/image.model';
 import { UserDetails } from '@models/user.model';
 import { map } from 'rxjs/operators';
+import { CourseData } from '@models/report-summary';
 
 const COURSE_COLLECTION = 'courses';
 
@@ -86,6 +87,23 @@ export class CoursesService {
       studentList: [],
       weekLesson: null,
       nextLesson: null
+    };
+  }
+
+  getReportData(course: Course): CourseData {
+
+    const name: string = course.name;
+    const type: string = course.type;
+    const schedule = `${course.weekDay}, de ${course.startTime} a ${course.endTime}`;
+    const teacher = course.teacherName;
+    const nStudents = course.studentList.length;
+
+    return {
+      name,
+      type,
+      schedule,
+      teacher,
+      nStudents
     };
   }
 }

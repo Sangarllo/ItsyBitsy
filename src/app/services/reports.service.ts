@@ -2,8 +2,10 @@ import moment from 'moment';
 import { Injectable } from '@angular/core';
 
 import { Attendance } from '@models/attendance.model';
-import { AttendanceData } from '@models/report-summary';
+import { AttendanceData, CourseData } from '@models/report-summary';
 import { AttendancesService } from '@services/attendances.service';
+import { Course } from '@models/course.model';
+import { CoursesService } from '@services/courses.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +13,11 @@ import { AttendancesService } from '@services/attendances.service';
 export class ReportsService {
 
   constructor(
-    private attendancesSvc: AttendancesService
+    private attendancesSvc: AttendancesService,
+    private courseSvc: CoursesService
   ) { }
+
+  // A. Attendances -----
 
   getAttendancesReportData(attendances: unknown[]): AttendanceData[] {
 
@@ -53,4 +58,41 @@ export class ReportsService {
     return bodyTable;
   }
 
+  // B. Courses -----
+
+  getCoursesReportData(courses: unknown[]): CourseData[] {
+
+    const data: CourseData[] = [];
+    courses.forEach(
+      (course: Course) => {
+        data.push(this.courseSvc.getReportData(course));
+      });
+    return data;
+  }
+
+  getCoursesDataTable(coursesData: CourseData[]): any {
+
+    const bodyHeader = [ 'Curso', 'Tipo', 'Horario', 'Profesor', 'Aforo' ];
+    return {
+      headerRows: 1,
+      widths: [ 'auto', 'auto', 'auto', 'auto', 'auto' ],
+      body: this.getCoursesBodyTable(bodyHeader, coursesData)
+    };
+  }
+
+  private getCoursesBodyTable(bodyHeader: string[], coursesData: CourseData[]): any {
+    const bodyTable = [];
+    bodyTable.push(bodyHeader);
+    coursesData.forEach(course => {
+      bodyTable.push([
+        { text: `Curso ${course.name}`, fontSize: 9 },
+        { text: `${course.type}`, fontSize: 8 },
+        { text: `${course.schedule}`, fontSize: 8 },
+        { text: `${course.teacher}`, fontSize: 8 },
+        { text: `${course.nStudents} estudiantes`, fontSize: 8 },
+      ]);
+    });
+
+    return bodyTable;
+  }
 }

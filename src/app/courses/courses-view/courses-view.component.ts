@@ -12,6 +12,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CourseData } from '@models/report-summary';
 import { ScriptService } from '@services/script.service';
+import { ReportsService } from '@services/reports.service';
 
 @Component({
   selector: 'app-courses-view',
@@ -19,6 +20,9 @@ import { ScriptService } from '@services/script.service';
   styleUrls: ['./courses-view.component.scss']
 })
 export class CoursesView implements OnInit, AfterViewInit {
+
+  // For reporting
+  courses: Course[];
 
   columnsToDisplay = ['courseImage', 'courseName', 'type', 'schedule', 'teacher', 'aforo', 'actions'];
 
@@ -33,7 +37,8 @@ export class CoursesView implements OnInit, AfterViewInit {
     private router: Router,
     private coursesSvc: CoursesService,
     private userSvc: UserService,
-    private scriptSvc: ScriptService
+    private scriptSvc: ScriptService,
+    private reportSvc: ReportsService
   ) {
   }
 
@@ -77,7 +82,8 @@ export class CoursesView implements OnInit, AfterViewInit {
         teacherImage: teachers.find(t => course.teacherId === t.uid)?.displayName,
       }) as Course)))
     .subscribe((courses: Course[]) => {
-      this.dataSource.data = courses;
+      this.courses = courses;
+      this.dataSource.data = this.courses;
       this.loading = false;
     });
   }
@@ -85,38 +91,16 @@ export class CoursesView implements OnInit, AfterViewInit {
   // Download PDF with data info
   downloadReport() {
 
-    const data: CourseData[] = [];
+    const reportTitle: string = 'Cursos Actuales';
 
-    const courses = this.dataSource.data;
-    courses.forEach(
-      (course: Course) => {
-        data.push(this.getReportData(course));
-      });
+    const data = this.reportSvc.getCoursesReportData(
+      this.courses
+    );
 
-    const dataTitle = ``;
     this.scriptSvc.downloadCoursesReport(
-      `Cursos Actuales.pdf`,
-      'Cursos Actuales',
+      `${reportTitle}.pdf`,
+      reportTitle,
       data,
     );
   }
-
-  private getReportData(course: Course): CourseData {
-
-    const name: string = course.name;
-    const type: string = course.type;
-    const schedule = `${course.weekDay}, de ${course.startTime} a ${course.endTime}`;
-    const teacher = course.teacherName;
-    const nStudents = course.studentList.length;
-
-    return {
-      name,
-      type,
-      schedule,
-      teacher,
-      nStudents
-    };
-  }
-
-
 }

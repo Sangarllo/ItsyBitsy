@@ -333,23 +333,17 @@ export class ScriptService {
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
 
-  // ---- CoursesReport
+  // B. Courses -----
 
   createCoursesReports(dataTitle: string, courseData: CourseData[]): any {
 
     const reportContent = [];
-
     reportContent.push(this.addTitle(dataTitle));
     reportContent.push(this.addSmallEmptyLine());
     reportContent.push(
     {
       layout: 'lightHorizontalLines', // optional
-      table: {
-        headerRows: 1,
-        widths: [ 'auto', 'auto', 'auto', 'auto', 'auto' ],
-
-        body: this.getCoursesDataTable(courseData)
-      }
+      table: this.reportSvc.getCoursesDataTable(courseData)
     });
 
     return {
@@ -359,26 +353,6 @@ export class ScriptService {
     };
   }
 
-  private getCoursesDataTable(coursesData: CourseData[]): any {
-
-    const bodyHeader = [ 'Curso', 'Tipo', 'Horario', 'Profesor', 'Aforo' ];
-
-    const bodyTable = [];
-    bodyTable.push(bodyHeader);
-    coursesData.forEach(course => {
-      bodyTable.push([
-        { text: `Curso ${course.name}`, fontSize: 9 },
-        { text: `${course.type}`, fontSize: 8 },
-        { text: `${course.schedule}`, fontSize: 8 },
-        { text: `${course.teacher}`, fontSize: 8 },
-        { text: `${course.nStudents} estudiantes`, fontSize: 8 },
-      ]);
-    });
-
-    return bodyTable;
-  }
-
-
   // Download PDF with courses info
   downloadCoursesReport(reportName: string, dataTitle: string, data: CourseData[]) {
     const documentDefinition = this.createCoursesReports(dataTitle, data);
@@ -386,7 +360,7 @@ export class ScriptService {
   }
 
 
-  // ---- AttendancesReport
+  // A. Attendances -----
 
   createAttendancesReport(dataTitle: string, attendancesData: AttendanceData[]): any {
 
