@@ -23,7 +23,7 @@ import { Course } from '@models/course.model';
 export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
 
   columnsToDisplay = [ 'select', 'status',
-    'studentImage', 'studentName', 'actions'];
+    'studentImage', 'studentName', 'actions2'];
   dataSource = new MatTableDataSource();
   newStudent: UserDetails;
   selection = new SelectionModel<Attendance>(true, []);
@@ -143,7 +143,7 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
 
   viewComment(attendance) {
     Swal.fire({
-      title: `Nota sobre ${attendance.studentName}:`,
+      title: `<h4>Nota sobre ${attendance.studentName}:</h4>`,
       text: `${attendance.comment}`,
       showClass: {
         popup: 'animated fadeInDown faster'

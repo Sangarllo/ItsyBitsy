@@ -41,5 +41,5 @@ export interface AttendanceData {
   lessonDate: Date;
   studentName: string;
   courseName: string;
-  // comment: string
+  comment: string
 }

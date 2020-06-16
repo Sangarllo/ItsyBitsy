@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ReceiptData, WeekLessonsData, RateData, CourseData } from '@models/report-summary';
 import { PRINTED_LOGO, PRINTED_RECIPT_NUMBER } from './pdf';
 import { AttendanceData } from '../models/report-summary';
-import moment from 'moment';
+import { ReportsService } from '@services/reports.service';
 
 interface Scripts {
   name: string;
@@ -71,7 +71,9 @@ export class ScriptService {
 
   private scripts: any = {};
 
-  constructor() {
+  constructor(
+    private reportSvc: ReportsService
+  ) {
     ScriptStore.forEach((script: any) => {
       this.scripts[script.name] = {
         loaded: false,
@@ -386,21 +388,15 @@ export class ScriptService {
 
   // ---- AttendancesReport
 
-  createAttendancesReports(dataTitle: string, attendancesData: AttendanceData[]): any {
+  createAttendancesReport(dataTitle: string, attendancesData: AttendanceData[]): any {
 
     const reportContent = [];
-
     reportContent.push(this.addTitle(dataTitle));
     reportContent.push(this.addSmallEmptyLine());
     reportContent.push(
     {
       layout: 'lightHorizontalLines', // optional
-      table: {
-        headerRows: 1,
-        widths: [ 'auto', 'auto', 'auto', 'auto' ],
-
-        body: this.getAttendancesDataTable(attendancesData)
-      }
+      table: this.reportSvc.getAttendancesDataTable(attendancesData)
     });
 
     return {
@@ -410,29 +406,10 @@ export class ScriptService {
     };
   }
 
-  private getAttendancesDataTable(attendancesData: AttendanceData[]): any {
-
-    moment.locale('es');
-    const bodyHeader = [ 'Fecha', 'Estado', 'Estudiante', 'Curso' ];
-
-    const bodyTable = [];
-    bodyTable.push(bodyHeader);
-    attendancesData.forEach(attendance => {
-      bodyTable.push([
-        { text: `${moment(attendance.lessonDate).format('DD MMMM YYYY')}`, fontSize: 9 },
-        { text: `${attendance.status}`, fontSize: 8 },
-        { text: `${attendance.studentName}`, fontSize: 8 },
-        { text: `${attendance.courseName}`, fontSize: 8 },
-      ]);
-    });
-
-    return bodyTable;
-  }
-
 
   // Download PDF with attendances info
   downloadAttendancesReports(reportName: string, dataTitle: string, data: AttendanceData[]) {
-    const documentDefinition = this.createAttendancesReports(dataTitle, data);
+    const documentDefinition = this.createAttendancesReport(dataTitle, data);
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
 

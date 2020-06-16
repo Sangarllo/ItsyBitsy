@@ -13,6 +13,7 @@ import { UserDetails } from '@models/user.model';
 import { UserService } from './user.service';
 import { LessonsService } from './lessons.service';
 import { Course } from '@models/course.model';
+import { AttendanceData } from '@models/report-summary';
 
 const ATTENDANCE_COLLECTION = 'attendances';
 
@@ -191,4 +192,22 @@ getAttendance(course: Course, lesson: Lesson, attendanceId: string): Observable<
 
     return attendancesIds;
   }
+
+  getReportData(attendance: Attendance): AttendanceData {
+
+    const status = attendance.status;
+    const lessonDate: Date = attendance.lessonDate;
+    const studentName = attendance.studentName;
+    const courseName = attendance.courseName;
+    const comment = attendance.comment;
+
+    return {
+      status,
+      lessonDate,
+      studentName,
+      courseName,
+      comment
+    };
+  }
+
 }
