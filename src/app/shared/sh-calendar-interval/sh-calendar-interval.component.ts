@@ -21,8 +21,8 @@ export class ShCalendarIntervalComponent implements OnInit {
     private dateSvc: DatesService
   ) {
     this.resetToday();
-    console.log(`constructor dateIni: ${this.dateIni}`);
-    console.log(`constructor dateEnd: ${this.dateEnd}`);
+    // console.log(`constructor dateIni: ${this.dateIni}`);
+    // console.log(`constructor dateEnd: ${this.dateEnd}`);
   }
 
 
@@ -32,13 +32,13 @@ export class ShCalendarIntervalComponent implements OnInit {
   }
 
   dateIniClicked(event: MatDatepickerInputEvent<Date>) {
-    console.log(`dateIniClicked: ${event.value}`);
+    // console.log(`dateIniClicked: ${event.value}`);
     this.dateIni = new Date(event.value);
     this.onUpdateInterval();
   }
 
   dateEndClicked(event: MatDatepickerInputEvent<Date>) {
-    console.log(`dateEndClicked: ${event.value}`);
+    // console.log(`dateEndClicked: ${event.value}`);
     this.dateEnd = new Date(event.value);
     this.onUpdateInterval();
   }
@@ -53,7 +53,7 @@ export class ShCalendarIntervalComponent implements OnInit {
 
   moveInterval(nDays: number): void {
 
-    console.log(`nDays ${nDays}`);
+    // console.log(`nDays ${nDays}`);
     this.dateIni.setDate(this.dateIni.getDate() + nDays);
     this.dateEnd.setDate(this.dateEnd.getDate() + nDays);
 
@@ -64,8 +64,8 @@ export class ShCalendarIntervalComponent implements OnInit {
   }
 
   onUpdateInterval() {
-    console.log(`dateIni (${this.dateIni})`);
-    console.log(`dateEnd (${this.dateEnd})`);
+    // console.log(`dateIni (${this.dateIni})`);
+    // console.log(`dateEnd (${this.dateEnd})`);
     this.updateInterval.emit([this.dateIni, this.dateEnd]);
   }
 
