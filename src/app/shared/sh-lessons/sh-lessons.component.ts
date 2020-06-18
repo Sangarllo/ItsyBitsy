@@ -29,7 +29,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  @Input() userDetails: UserDetails = null;
+  @Input() userDetails: UserDetails;
   @Input() dateIni: Date;
   @Input() dateEnd: Date;
 
@@ -57,7 +57,6 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
     private datesSvc: DatesService,
     private router: Router
   ) {
-    this.loading = true;
   }
 
   ngOnInit() {
@@ -70,7 +69,6 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.loading = true;
     this.displayLessons();
   }
 
@@ -84,12 +82,11 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
 
   private displayLessons() {
 
+    this.loading = true;
     this.courses$ = this.coursesSvc.getAllCourses();
     this.teachers$ = this.userSvc.getAllTeachers();
-    this.attendances$ = this.attendancesSvc.getAllAttendancesByDates( this.userDetails, this.dateIni, this.dateEnd);
-    this.lessons$ = ( this.userDetails ) ?
-      this.lessonsSvc.getLessonsByTeacherByDate(this.userDetails, this.dateIni, this.dateEnd) :
-      this.lessonsSvc.getAllLessonsByDate( this.dateIni, this.dateEnd );
+    this.lessons$ = this.lessonsSvc.getAllLessonsByDate(this.userDetails, this.dateIni, this.dateEnd);
+    this.attendances$ = this.attendancesSvc.getAllAttendancesByDates( null, this.dateIni, this.dateEnd);
 
     combineLatest([
       this.lessons$,
@@ -110,7 +107,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
       )
       .subscribe((lessons: Lesson[]) => {
         this.lessons = lessons;
-        this.dataSource.data = this.lessons;
+        this.dataSource.data = lessons;
         this.loading = false;
       });
   }

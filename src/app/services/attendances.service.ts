@@ -65,7 +65,7 @@ export class AttendancesService {
 
   getAllAttendancesByDates(userDetails: UserDetails, dateIni: Date, dateEnd: Date): Observable<Attendance[]> {
 
-    if ( userDetails !== null ) {
+    if ( userDetails ) {
       this.attendanceCollection = this.afs.collection(
         ATTENDANCE_COLLECTION,
         ref => ref.where('studentId', '==', userDetails.uid)

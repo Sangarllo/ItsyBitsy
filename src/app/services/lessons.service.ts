@@ -41,28 +41,26 @@ export class LessonsService {
     return this.lessonCollection.valueChanges();
   }
 
-  getAllLessonsByDate(dateIni: Date, dateEnd: Date): Observable<Lesson[]> {
-    this.lessonCollection = this.afs.collection(
-      LESSON_COLLECTION,
-      ref => ref.where('current', '==', true)
-                .where('date', '>=', dateIni)
-                .where('date', '<=', dateEnd)
-                .orderBy('date')
-    );
+  getAllLessonsByDate(teacher: UserDetails, dateIni: Date, dateEnd: Date): Observable<Lesson[]> {
 
-    return this.lessonCollection.valueChanges();
-  }
-
-  getLessonsByTeacherByDate(teacher: UserDetails, dateIni: Date, dateEnd: Date): Observable<Lesson[]> {
-
-    this.lessonCollection = this.afs.collection(
-      LESSON_COLLECTION,
-      ref => ref.where('teacherId', '==', teacher.uid)
-                .where('current', '==', true)
-                .where('date', '>=', dateIni)
-                .where('date', '<=', dateEnd)
-                .orderBy('date')
-    );
+    if ( teacher ) {
+      this.lessonCollection = this.afs.collection(
+        LESSON_COLLECTION,
+        ref => ref.where('teacherId', '==', teacher.uid)
+                  .where('current', '==', true)
+                  .where('date', '>=', dateIni)
+                  .where('date', '<=', dateEnd)
+                  .orderBy('date')
+      );
+    } else {
+      this.lessonCollection = this.afs.collection(
+        LESSON_COLLECTION,
+        ref => ref.where('current', '==', true)
+                  .where('date', '>=', dateIni)
+                  .where('date', '<=', dateEnd)
+                  .orderBy('date')
+      );
+    }
 
     return this.lessonCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {

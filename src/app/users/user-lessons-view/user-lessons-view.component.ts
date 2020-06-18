@@ -25,7 +25,7 @@ export class UserLessonsView implements OnInit {
     private dateSvc: DatesService,
     private userService: UserService) {
 
-    this.pageTitle = 'Clases semanales de los profesores';
+    this.pageTitle = 'Clases semanales de todos los profesores';
 
     // Fechas que limitan la semana
     this.dateIni = this.dateSvc.getWeekMonday();
@@ -64,14 +64,14 @@ export class UserLessonsView implements OnInit {
       .subscribe({
         next: (userDetails: UserDetails) => {
           this.userDetails = userDetails;
-          this.displayUserDetails();
+          this.displayTitle();
         },
         error: err => this.errorMessage = err
       });
   }
 
-  displayUserDetails(): void {
-    this.pageTitle = `Clases del profesor ${this.userDetails?.displayName}`;
+  displayTitle(): void {
+    this.pageTitle = `Clases semanales del profesor ${this.userDetails?.displayName}`;
   }
 
   onUpdateInterval(fechas: Date[]): void {
