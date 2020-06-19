@@ -29,16 +29,28 @@
                 <td mat-cell *matCellDef="let element"> {{element.displayName?.toUpperCase()}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="location">
+            <!-- extraData Column -->
+            <ng-container matColumnDef="extraData" *ngIf="type === 'REGISTERED'">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Roles </th>
+                <td mat-cell *matCellDef="let element"> {{element.roles?.toString()}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="extraData" *ngIf="(type === '') || (type === 'TEACHERS') || (type === 'STUDENTS')">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Localidad </th>
                 <td mat-cell *matCellDef="let element"> {{element.location?.toUpperCase()}} </td>
             </ng-container>
 
+
             <!-- Actions -->
-            <ng-container matColumnDef="actions">
+            <ng-container matColumnDef="actions2">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
                 <td mat-cell *matCellDef="let user">
-                    <button mat-mini-fab color="warn" (click)="viewUser(user)"><mat-icon>pageview</mat-icon></button>
+                    <button mat-mini-fab color="warn" (click)="viewUser(user)"><mat-icon>pageview</mat-icon></button> &nbsp;
+                    <button *ngIf="type === 'TEACHERS'" mat-mini-fab color="warn" (click)="gotoUserLessons(user)"><mat-icon>menu_book</mat-icon></button>
+                    <button *ngIf="type === 'STUDENTS'" mat-mini-fab color="warn" (click)="gotoUserAttendances(user)"><mat-icon>person_pin</mat-icon></button>
+
+                    <button *ngIf="type === 'REGISTERED'" mat-mini-fab color="warn" (click)="printData(user)"><mat-icon>check_box</mat-icon></button>
+
                 </td>
             </ng-container>
 
@@ -63,4 +75,12 @@
 
 <ng-template #noPhotoTemplate>
     <img [src]="'assets/avatar/000-no-picture.png'" class="img-thumbnail rounded-circle">
+</ng-template>
+
+
+<ng-template #locationTemplate>
+    <ng-container matColumnDef="extraData">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Localidad </th>
+        <td mat-cell *matCellDef="let element"> {{element.location?.toUpperCase()}} </td>
+    </ng-container>
 </ng-template>

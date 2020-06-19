@@ -70,9 +70,9 @@ export class UserDetailsEditView implements OnInit, OnDestroy {
         creationDate: [new Date()],
         isTeacher: false,
         isStudent: false,
-        contactPerson: ['', Validators.required],
+        contactPerson: [''],
         contactPersonNif: '',
-        telephone: ['', Validators.required],
+        telephone: [''],
         address:  [''],
         rateId: ['', Validators.required],
         paymentMethod: ['', Validators.required],
@@ -136,12 +136,12 @@ export class UserDetailsEditView implements OnInit, OnDestroy {
       location: this.userDetails.location,
       isTeacher: this.userDetails.isTeacher,
       isStudent: this.userDetails.isStudent,
-      contactPerson: this.userDetails.contactPerson,
-      contactPersonNif: ( this.userDetails.contactPersonNif ) ? this.userDetails.contactPersonNif : '',
-      telephone: this.userDetails.telephone,
-      address: ( this.userDetails.address ) ? this.userDetails.address : '',
-      rateId: (this.userDetails.rateId) ?  this.userDetails.rateId : 'no-aplica',
-      paymentMethod: (this.userDetails.paymentMethod) ? this.userDetails.paymentMethod : UserDetails.getDefaultPaymentMethod(),
+      contactPerson: this.userDetails.contactPerson ?? '',
+      contactPersonNif: this.userDetails.contactPersonNif ?? '',
+      telephone: this.userDetails.telephone ?? '',
+      address: this.userDetails.address ?? '',
+      rateId: this.userDetails.rateId ?? 'no-aplica',
+      paymentMethod: this.userDetails.paymentMethod ?? UserDetails.getDefaultPaymentMethod(),
       creationDate: this.userDetails.creationDate
     });
   }
@@ -248,7 +248,7 @@ export class UserDetailsEditView implements OnInit, OnDestroy {
       case 'REVISOR':
 
         if ( !this.userChecked.roles ) {
-          this.userChecked.roles.push(dataUser);
+          this.userChecked.roles = [dataUser];
         } else if ( !this.userChecked.roles.includes(dataUser) ) {
           this.userChecked.roles.push(dataUser);
         } else {

@@ -18,7 +18,7 @@
                     &nbsp;&nbsp;Todos ({{allUsers.length}})
                 </ng-template>
 
-                <sh-user-list [users]="allUsers" [titleTable]="'Todas las personas activas en la Academia'"></sh-user-list>
+                <sh-user-list [users]="allUsers" [titleTable]="'Todas las personas activas en la Academia'" [type]="''"></sh-user-list>
             </div>
         </mat-tab>
 
@@ -30,7 +30,7 @@
                     &nbsp;&nbsp;Estudiantes ({{allStudents.length}})
                 </ng-template>
 
-                <sh-user-list [users]="allStudents" [titleTable]="'Estudiantes Actuales de la Academia'"></sh-user-list>
+                <sh-user-list [users]="allStudents" [titleTable]="'Estudiantes Actuales de la Academia'" [type]="'STUDENTS'"></sh-user-list>
             </div>
         </mat-tab>
 
@@ -42,7 +42,7 @@
                     &nbsp;&nbsp;Profesores ({{allTeachers.length}})
                 </ng-template>
 
-                <sh-user-list [users]="allTeachers" [titleTable]="'Profesores Actuales de la Academia'"></sh-user-list>
+                <sh-user-list [users]="allTeachers" [titleTable]="'Profesores Actuales de la Academia'" [type]="'TEACHERS'"></sh-user-list>
             </div>
         </mat-tab>
 
@@ -54,7 +54,7 @@
                     &nbsp;&nbsp;Personas no Activas ({{allDisabledUsers.length}})
                 </ng-template>
 
-                <sh-user-list [users]="allDisabledUsers" [titleTable]="'Personas no activas en la Academia'"></sh-user-list>
+                <sh-user-list [users]="allDisabledUsers" [titleTable]="'Personas no activas en la Academia'" [type]="''"></sh-user-list>
             </div>
         </mat-tab>
 
@@ -66,7 +66,7 @@
                     &nbsp;&nbsp;Registrados en la App ({{ allRegisteredUsers.length }})
                 </ng-template>
 
-                <sh-user-list [users]="allRegisteredUsers" [titleTable]="'Usuarios registrados en la App'"></sh-user-list>
+                <sh-user-list [users]="allRegisteredUsers" [titleTable]="'Usuarios registrados en la App'" [type]="'REGISTERED'"></sh-user-list>
             </div>
         </mat-tab>
 

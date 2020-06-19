@@ -12,17 +12,19 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ShUserListComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['studentImage', 'displayName', 'location', 'actions'];
+  columnsToDisplay = ['studentImage', 'displayName', 'extraData', 'actions2'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   @Input() users: UserDetails[];
   @Input() titleTable: string;
+  @Input() type: string;
 
   constructor(
     private router: Router,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.sortStudentList();
@@ -49,5 +51,17 @@ export class ShUserListComponent implements OnInit, AfterViewInit {
   private sortStudentList() {
     // tslint:disable-next-line:max-line-length
     this.users.sort((a, b) => (a.displayName > b.displayName) ? 1 : (a.displayName === b.displayName) ? ((a.displayName > b.displayName) ? 1 : -1) : -1 );
+  }
+
+  gotoUserLessons(userDetails: UserDetails) {
+    this.router.navigate([`${UserDetails.PATH_URL}/${userDetails.uid}/clases`]);
+  }
+
+  gotoUserAttendances(userDetails: UserDetails) {
+    this.router.navigate([`${UserDetails.PATH_URL}/${userDetails.uid}/asistencias`]);
+  }
+
+  printData(userDetails: UserDetails) {
+    console.log(`Data: ${JSON.stringify(userDetails)}`);
   }
 }

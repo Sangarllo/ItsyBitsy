@@ -40,8 +40,8 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <div *ngIf="( !userDetails.photoURL|| !userDetails.contactPerson || !userDetails.telephone || !userDetails.location)" class="alert alert-danger text-center">
-                        Como mínimo, es necesario asignar una imagen al perfil e indicar la localidad procedencia, persona de contacto y teléfono
+                    <div *ngIf="( !userDetails.photoURL|| !userDetails.location)" class="alert alert-danger text-center">
+                        Como mínimo, es necesario asignar una imagen al perfil e indicar la localidad procedencia
                     </div>
 
                 </div>
