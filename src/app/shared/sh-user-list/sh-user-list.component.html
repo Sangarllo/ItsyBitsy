@@ -48,9 +48,6 @@
                     <button mat-mini-fab color="warn" (click)="viewUser(user)"><mat-icon>pageview</mat-icon></button> &nbsp;
                     <button *ngIf="type === 'TEACHERS'" mat-mini-fab color="warn" (click)="gotoUserLessons(user)"><mat-icon>menu_book</mat-icon></button>
                     <button *ngIf="type === 'STUDENTS'" mat-mini-fab color="warn" (click)="gotoUserAttendances(user)"><mat-icon>person_pin</mat-icon></button>
-
-                    <button *ngIf="type === 'REGISTERED'" mat-mini-fab color="warn" (click)="printData(user)"><mat-icon>check_box</mat-icon></button>
-
                 </td>
             </ng-container>
 

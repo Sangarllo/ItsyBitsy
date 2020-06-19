@@ -60,8 +60,4 @@ export class ShUserListComponent implements OnInit, AfterViewInit {
   gotoUserAttendances(userDetails: UserDetails) {
     this.router.navigate([`${UserDetails.PATH_URL}/${userDetails.uid}/asistencias`]);
   }
-
-  printData(userDetails: UserDetails) {
-    console.log(`Data: ${JSON.stringify(userDetails)}`);
-  }
 }

@@ -44,7 +44,10 @@
 
                     <button *ngIf="userDetails.current" mat-mini-fab color="warn" [disabled]="!canAdmin" (click)="updateCurrent()"><mat-icon class="button-always-enabled">toggle_on</mat-icon></button>
                     <button *ngIf="!userDetails.current" mat-mini-fab color="warn" [disabled]="!canAdmin" (click)="updateCurrent()"><mat-icon>toggle_off</mat-icon></button> &nbsp;
-                    <button mat-mini-fab color="warn" [disabled]="!userDetails.current || !canAdmin" (click)="gotoEdition()"><mat-icon>edit</mat-icon></button>
+                    <button mat-mini-fab color="warn" [disabled]="!userDetails.current || !canAdmin" (click)="gotoEdition()"><mat-icon>edit</mat-icon></button>&nbsp;
+                    <button *ngIf="userDetails.isTeacher" mat-mini-fab color="warn" (click)="gotoUserLessons()"><mat-icon>menu_book</mat-icon></button>
+                    <button *ngIf="userDetails.isStudent" mat-mini-fab color="warn" (click)="gotoUserAttendances()"><mat-icon>person_pin</mat-icon></button>
+
                 </mat-card-actions>
 
             </div>

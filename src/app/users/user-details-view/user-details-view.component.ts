@@ -123,6 +123,14 @@ export class UserDetailsView implements OnInit {
     this.router.navigate([`/${UserDetails.PATH_URL}/${this.userDetailsId}/editar`]);
   }
 
+  gotoUserLessons() {
+    this.router.navigate([`/${UserDetails.PATH_URL}/${this.userDetailsId}/clases`]);
+  }
+
+  gotoUserAttendances() {
+    this.router.navigate([`/${UserDetails.PATH_URL}/${this.userDetailsId}/asistencias`]);
+  }
+
   gotoDashboard() {
     this.router.navigate([`/usuarios/dashboard`]);
   }
