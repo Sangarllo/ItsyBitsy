@@ -113,8 +113,8 @@ export class LessonsService {
         LESSON_COLLECTION,
         ref => ref.where('courseId', '==', course.id)
                   .where('current', '==', true)
-                  .where('date', '>=', this.dateSvc.getWeekMonday())
-                  .where('date', '<=', this.dateSvc.getWeekFriday())
+                  .where('date', '>=', this.dateSvc.getLastSunday())
+                  .where('date', '<=', this.dateSvc.getWeekSaturday())
 
                   .limit(limit)
                   .orderBy('date', 'asc')
@@ -130,8 +130,8 @@ export class LessonsService {
       LESSON_COLLECTION,
       ref => ref.where('courseId', '==', course.id)
                 .where('current', '==', true)
-                .where('date', '>=', this.dateSvc.getNextMonday())
-                .where('date', '<=', this.dateSvc.getNextFriday())
+                .where('date', '>=', this.dateSvc.getWeekSunday())
+                .where('date', '<=', this.dateSvc.getNextSaturday())
                 .limit(limit)
                 .orderBy('date', 'asc')
     );

@@ -13,6 +13,7 @@ import { UserService } from '@services/user.service';
 import { UserDetails } from '@models/user.model';
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
+import moment from 'moment';
 
 @Component({
   selector: 'app-course-dashboard-view',
@@ -32,6 +33,11 @@ export class CourseDashboardView implements OnInit, AfterViewInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   courses: Course[] = [];
 
+  public weekMonday: any;
+  public weekFriday: any;
+  public nextMonday: any;
+  public nextFriday: any;
+
   constructor(
     private router: Router,
     private dateSvc: DatesService,
@@ -41,6 +47,11 @@ export class CourseDashboardView implements OnInit, AfterViewInit {
     private userSvc: UserService
   ) {
     this.loading = true;
+
+    this.weekMonday = moment(this.dateSvc.getWeekMonday());
+    this.weekFriday = moment(this.dateSvc.getWeekFriday());
+    this.nextMonday = moment(this.dateSvc.getNextMonday());
+    this.nextFriday = moment(this.dateSvc.getNextFriday());
   }
 
   ngOnInit() {

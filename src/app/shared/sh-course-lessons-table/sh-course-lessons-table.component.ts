@@ -20,7 +20,7 @@ import { AttendancesService } from '@services/attendances.service';
 })
 export class ShCourseLessonsTableComponent implements OnInit, AfterViewInit {
 
-  columnsToDisplay = [ 'actions', 'schedule', 'attendances'];
+  columnsToDisplay = [ 'schedule', 'attendances', 'actions'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

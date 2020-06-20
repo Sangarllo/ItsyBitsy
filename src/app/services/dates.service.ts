@@ -44,20 +44,15 @@ export class DatesService {
     return today;
   }
 
-  getWeekMonday(): Date {
+  getLastSunday(): Date {
     const date = new Date(this.getToday());
-    // console.log(`getWeekMonday`);
-    // console.log(`date: ${date}`);
-    // console.log(`date.getDate(): ${date.getDate()}`);
-    // console.log(`date.getDay(): ${date.getDay()}`);
-    date.setDate(date.getDate() - date.getDay() + 1);
-    // console.log(`date: ${date}`);
+    date.setDate(date.getDate() - date.getDay() + 0);
     return date;
   }
 
-  getNextMonday(): Date {
+  getWeekMonday(): Date {
     const date = new Date(this.getToday());
-    date.setDate(date.getDate() - date.getDay() + 8);
+    date.setDate(date.getDate() - date.getDay() + 1);
     return date;
   }
 
@@ -67,9 +62,33 @@ export class DatesService {
     return date;
   }
 
+  getWeekSaturday(): Date {
+    const date = new Date(this.getToday());
+    date.setDate(date.getDate() - date.getDay() + 6);
+    return date;
+  }
+
+  getWeekSunday(): Date {
+    const date = new Date(this.getToday());
+    date.setDate(date.getDate() - date.getDay() + 7);
+    return date;
+  }
+
+  getNextMonday(): Date {
+    const date = new Date(this.getToday());
+    date.setDate(date.getDate() - date.getDay() + 8);
+    return date;
+  }
+
   getNextFriday(): Date {
     const date = new Date(this.getToday());
     date.setDate(date.getDate() - date.getDay() + 12);
+    return date;
+  }
+
+  getNextSaturday(): Date {
+    const date = new Date(this.getToday());
+    date.setDate(date.getDate() - date.getDay() + 13);
     return date;
   }
 

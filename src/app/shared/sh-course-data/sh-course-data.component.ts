@@ -18,6 +18,9 @@ export class ShCourseDataComponent {
     private coursesSvc: CoursesService
     ) { }
 
+  gotoCourse() {
+    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}`]);
+  }
 
   gotoEdition() {
     this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/editar`]);

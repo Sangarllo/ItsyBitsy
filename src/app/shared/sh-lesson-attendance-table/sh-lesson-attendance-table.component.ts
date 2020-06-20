@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import { ShAddStudentDialogComponent } from '../sh-add-student-dialog/sh-add-student-dialog.component';
 import { LessonsService } from '@services/lessons.service';
 import { Course } from '@models/course.model';
+import moment from 'moment';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @Input() course: Course;
   @Input() lesson: Lesson;
+  lessonDate: any;
   attendances: Attendance[] = [];
 
   constructor(
@@ -40,9 +42,13 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
     private lessonsSvc: LessonsService,
     private attendancesSvc: AttendancesService,
     private router: Router,
-  ) { }
+  ) {
+    moment.locale('es');
+  }
 
   ngOnInit() {
+
+    this.lessonDate = moment(this.lesson.date);
 
     this.statusAttendance = Attendance.getAllStatus();
     this.dataSource = new MatTableDataSource(this.attendances);
