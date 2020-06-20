@@ -44,6 +44,7 @@ export interface IUserDetails extends User {
   paymentAmmout?: number;
 
   coursesEnrolled?: string;
+  deletedReason?: string;
 }
 
 export class UserDetails implements IUserDetails {
@@ -72,6 +73,7 @@ export class UserDetails implements IUserDetails {
     public numAttendances?: number,
     public paymentAmmout?: number,
     public coursesEnrolled?: string,
+    public deletedReason?: string
      ) {
   }
 

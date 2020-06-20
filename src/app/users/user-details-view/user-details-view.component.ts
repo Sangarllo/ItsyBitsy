@@ -7,6 +7,7 @@ import { DatesService } from '@services/dates.service';
 import { RateService } from '@services/rates.service';
 import { Rate } from '@models/rate';
 import { Observable } from 'rxjs';
+import moment from 'moment';
 
 @Component({
   selector: 'app-user-details-view',
@@ -25,6 +26,7 @@ export class UserDetailsView implements OnInit {
 
   public canAdmin: boolean = false;
   public user$: Observable<User>; // User Authenticated
+  userAuth: User;
 
   constructor(
     public authSvc: AuthService,
@@ -47,6 +49,7 @@ export class UserDetailsView implements OnInit {
       // Watch auth User to scope the visibility
       this.authSvc.user$.subscribe(
         ( user ) => {
+          this.userAuth = user;
           this.canAdmin = user.roles?.includes('ADMIN');
       });
 
@@ -112,7 +115,18 @@ export class UserDetailsView implements OnInit {
   }
 
   updateCurrent() {
-    this.userDetails.current = !this.userDetails.current;
+
+    moment.locale('es');
+    const now = moment(new Date()).format('DD-MM-YYYY');
+
+    if ( this.userDetails.current ) {
+      this.userDetails.current = false;
+      this.userDetails.deletedReason = `Eliminado el ${now} por ${this.userAuth.displayName}`;
+    } else {
+      this.userDetails.current = true;
+      this.userDetails.deletedReason += ` | Activado el ${now} por ${this.userAuth.displayName}`;
+    }
+
     this.userSvc.updateUserDetails(this.userDetails)
       .subscribe( userDetails => {
         this.userDetails = userDetails;
