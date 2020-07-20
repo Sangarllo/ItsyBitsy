@@ -7,12 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2020-07-21
+
 ### Added
 
 - Add documentation (`changelog.md` and `.markdownlint.json`).
 - Configure Path aliases [DominiCode](https://www.youtube.com/watch?v=f5aEPnoh9rs).
-- Create Receipt Reports.
-- Create Lessons Reports.
+- Create Receipt, Lessons and Rates Reports.
+- Add spiner for loading.
+- Enable email register for login.
+- Add guards.
+
+### Changed
+
+- New style for editing mode.
+- Divide user roles into app-type (admin & revisor) and academy-type (teacher & student).
 
 ## [1.2.0] - 2020-04-24
 
