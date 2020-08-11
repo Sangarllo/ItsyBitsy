@@ -29,9 +29,10 @@ export interface RateData {
 }
 
 export interface CourseData {
-  name: string;
   type: string;
-  schedule: string;
+  name: string;
+  scheduleDay: string;
+  scheduleTime: string;
   teacher: string;
   nStudents: number;
 }

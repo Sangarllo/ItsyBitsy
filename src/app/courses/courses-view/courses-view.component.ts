@@ -24,7 +24,7 @@ export class CoursesView implements OnInit, AfterViewInit {
   // For reporting
   courses: Course[];
 
-  columnsToDisplay = ['courseImage', 'courseName', 'type', 'schedule', 'teacher', 'aforo', 'actions'];
+  columnsToDisplay = ['courseImage', 'type', 'courseName', 'scheduleDay', 'scheduleTime', 'teacher', 'aforo', 'actions'];
 
   public loading = true;
   dataSource = new MatTableDataSource();

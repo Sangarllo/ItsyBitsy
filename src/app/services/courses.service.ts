@@ -27,6 +27,7 @@ export class CoursesService {
     this.courseCollection = this.afs.collection(
       COURSE_COLLECTION,
       ref => ref.where('current', '==', true)
+                .orderBy('type')
                 .orderBy('name')
     );
 
@@ -92,16 +93,18 @@ export class CoursesService {
 
   getReportData(course: Course): CourseData {
 
-    const name: string = course.name;
     const type: string = course.type;
-    const schedule = `${course.weekDay}, de ${course.startTime} a ${course.endTime}`;
+    const name: string = course.name;
+    const scheduleDay = `${course.weekDay}`;
+    const scheduleTime = `${course.startTime} - ${course.endTime}`;
     const teacher = course.teacherName;
     const nStudents = course.studentList.length;
 
     return {
-      name,
       type,
-      schedule,
+      name,
+      scheduleDay,
+      scheduleTime,
       teacher,
       nStudents
     };

@@ -75,10 +75,10 @@ export class ReportsService {
 
   getCoursesDataTable(coursesData: CourseData[]): any {
 
-    const bodyHeader = [ 'Curso', 'Tipo', 'Horario', 'Profesor', 'Aforo' ];
+    const bodyHeader = [ 'Tipo', 'Curso', 'Día', 'Horario', 'Profesor', 'Aforo' ];
     return {
       headerRows: 1,
-      widths: [ 'auto', 'auto', 'auto', 'auto', 'auto' ],
+      widths: [ 'auto', 'auto', 'auto', 'auto', 'auto', 'auto' ],
       body: this.getCoursesBodyTable(bodyHeader, coursesData)
     };
   }
@@ -88,9 +88,10 @@ export class ReportsService {
     bodyTable.push(bodyHeader);
     coursesData.forEach(course => {
       bodyTable.push([
-        { text: `Curso ${course.name}`, fontSize: 9 },
         { text: `${course.type}`, fontSize: 8 },
-        { text: `${course.schedule}`, fontSize: 8 },
+        { text: `Curso ${course.name}`, fontSize: 9 },
+        { text: `${course.scheduleDay}`, fontSize: 8 },
+        { text: `${course.scheduleTime}`, fontSize: 8 },
         { text: `${course.teacher}`, fontSize: 8 },
         { text: `${course.nStudents} estudiantes`, fontSize: 8 },
       ]);
