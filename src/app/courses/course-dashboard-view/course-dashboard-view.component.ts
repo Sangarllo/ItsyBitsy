@@ -22,8 +22,8 @@ import moment from 'moment';
 })
 export class CourseDashboardView implements OnInit, AfterViewInit {
 
-  columnsToDisplay = ['courseImage', 'courseName',
-    'schedule', 'teacherImage', 'aforo',
+  columnsToDisplay = [ 'teacherImage', 'courseImage', 'courseName',
+    'schedule', 'aforo',
     'weekLessonActions', 'weekLesson',
     'nextLessonActions', 'nextLesson', ];
 
@@ -55,7 +55,8 @@ export class CourseDashboardView implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.courseSvc.getAllCourses().subscribe(
+    const orderByTeacher = true;
+    this.courseSvc.getAllCourses(orderByTeacher).subscribe(
       (courses: Course[]) => {
 
         this.courses = courses;

@@ -83,7 +83,8 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   private displayLessons() {
 
     this.loading = true;
-    this.courses$ = this.coursesSvc.getAllCourses();
+    const orderByTeacher = true;
+    this.courses$ = this.coursesSvc.getAllCourses(orderByTeacher);
     this.teachers$ = this.userSvc.getAllTeachers();
     this.lessons$ = this.lessonsSvc.getAllLessonsByDate(this.userDetails, this.dateIni, this.dateEnd);
     this.attendances$ = this.attendancesSvc.getAllAttendancesByDates( null, this.dateIni, this.dateEnd);

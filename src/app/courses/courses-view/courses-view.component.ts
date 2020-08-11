@@ -43,7 +43,8 @@ export class CoursesView implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.courses$ = this.coursesSvc.getAllCourses();
+    const orderByTeacher = false;
+    this.courses$ = this.coursesSvc.getAllCourses(orderByTeacher);
     this.teachers$ = this.userSvc.getAllTeachers();
     this.displayData();
   }
