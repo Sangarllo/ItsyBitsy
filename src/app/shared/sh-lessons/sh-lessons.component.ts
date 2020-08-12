@@ -41,8 +41,8 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   lessons: Lesson[] = [];
   courses: Course[] = [];
 
-  columnsToDisplay = [ 'teacherImage',
-    'courseImage', 'courseName', 'schedule', 'classRoom', 'attendances', ];
+  columnsToDisplay = [ 'teacherImage', 'courseImage', 'courseName',
+    'date', 'schedule', 'classRoom', 'attendances', ];
 
   public loading = true;
   dataSource = new MatTableDataSource(this.lessons);
@@ -142,7 +142,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
     // const date = lesson.date.toLocaleDateString();
     // console.log(`date: ${date}`);
     const date = this.dateSvc.getShortFormatedDate(lesson.date);
-    const schedule: string = `de ${lesson.startTime} a ${lesson.endTime}.`;
+    const schedule: string = `${lesson.startTime} - ${lesson.endTime}`;
     const classRoom = lesson.classRoom;
     const studentNames = [];
     lesson.attendances.forEach(attendance => {
