@@ -75,7 +75,7 @@
                             </mat-form-field>
 
                             <mat-form-field class="data-detail" *ngIf="userDetails.birthday">
-                                <input matInput type="text" disabled="true" [value]="userDetails.birthday  | date:'fullDate'" placeholder="Fecha de Nacimiento" />
+                                <input matInput type="text" disabled="true" [value]="userDetails.birthday  | date:'longDate'" placeholder="Fecha de Nacimiento" />
                                 <mat-icon matSuffix>cake</mat-icon>
                             </mat-form-field>
 
