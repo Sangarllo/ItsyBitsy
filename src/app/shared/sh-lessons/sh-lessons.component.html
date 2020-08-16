@@ -21,6 +21,18 @@
             </td>
         </ng-container>
 
+        <!-- date Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Día </th>
+            <td mat-cell *matCellDef="let lesson"> {{lesson.date | date:'fullDate' }} </td>
+        </ng-container>
+
+        <!-- schedule Column -->
+        <ng-container matColumnDef="schedule">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Horario </th>
+            <td mat-cell *matCellDef="let lesson"> {{lesson.startTime}} - {{lesson.endTime}} </td>
+        </ng-container>
+
         <!-- courseImage Column -->
         <ng-container matColumnDef="courseImage">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
@@ -33,18 +45,6 @@
         <ng-container matColumnDef="courseName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Curso</th>
             <td mat-cell *matCellDef="let element"> {{element.courseName }} </td>
-        </ng-container>
-
-        <!-- date Column -->
-        <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Día </th>
-            <td mat-cell *matCellDef="let lesson"> {{lesson.date | date:'fullDate' }} </td>
-        </ng-container>
-
-        <!-- schedule Column -->
-        <ng-container matColumnDef="schedule">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Horario </th>
-            <td mat-cell *matCellDef="let lesson"> {{lesson.startTime}} - {{lesson.endTime}} </td>
         </ng-container>
 
         <!-- classRoom Column -->

@@ -41,8 +41,10 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   lessons: Lesson[] = [];
   courses: Course[] = [];
 
-  columnsToDisplay = [ 'teacherImage', 'courseImage', 'courseName',
-    'date', 'schedule', 'classRoom', 'attendances', ];
+  columnsToDisplay = [ 'teacherImage',
+    'date', 'schedule',
+    'courseImage', 'courseName',
+    'classRoom', 'attendances', ];
 
   public loading = true;
   dataSource = new MatTableDataSource(this.lessons);
@@ -124,10 +126,12 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
     const dateIniStr = this.dateSvc.getLargeFormatedDate(this.dateIni);
     const dateEndStr = this.dateSvc.getLargeFormatedDate(this.dateEnd);
     const dataTitle = `Clases del ${dateIniStr} al ${dateEndStr}`;
+    const dataSubtitle = this.userDetails.displayName ?? 'Todos los Profesores';
 
     this.scriptSvc.downloadWeekLessonReports(
       `Clases de la Semana.pdf`,
       dataTitle,
+      dataSubtitle,
       data,
     );
   }
@@ -135,13 +139,9 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   private getReportData(lesson: Lesson): WeekLessonsData {
 
     const teacherName: string = lesson.teacherName;
-    const courseName: string = lesson.courseName;
-    // console.log(`date: ${lesson.date}`);
-    // console.log(`getDay: ${lesson.date.getDay()}`);
-    // const date = lesson.date.toLocaleDateString();
-    // console.log(`date: ${date}`);
     const date = this.dateSvc.getShortFormatedDate(lesson.date);
     const schedule: string = `${lesson.startTime} - ${lesson.endTime}`;
+    const courseName: string = lesson.courseName;
     const classRoom = lesson.classRoom;
     const studentNames = [];
     lesson.attendances.forEach(attendance => {
@@ -150,9 +150,9 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
 
     return {
       teacherName,
-      courseName,
       date,
       schedule,
+      courseName,
       classRoom,
       studentNames
     };

@@ -14,9 +14,9 @@ export interface ReceiptData {
 
 export interface WeekLessonsData {
   teacherName: string;
-  courseName: string;
   date: string;
   schedule: string;
+  courseName: string;
   classRoom: string;
   studentNames: string[];
 }

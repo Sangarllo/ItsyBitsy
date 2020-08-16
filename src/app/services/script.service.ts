@@ -131,11 +131,12 @@ export class ScriptService {
     };
   }
 
-  createWeekLessonReports(dataTitle: string, lessonsData: WeekLessonsData[]): any {
+  createWeekLessonReports(dataTitle: string, dataSubtitle: string, lessonsData: WeekLessonsData[]): any {
 
     const reportContent = [];
 
     reportContent.push(this.addTitle(dataTitle));
+    reportContent.push(this.addTitle(dataSubtitle));
     reportContent.push(this.addSmallEmptyLine());
     reportContent.push(
     {
@@ -166,9 +167,9 @@ export class ScriptService {
     lessonsData.forEach(lesson => {
       bodyTable.push([
         { text: `${lesson.teacherName}`, fontSize: 10 },
-        { text: `${lesson.courseName}`, fontSize: 10 },
         { text: `${lesson.date}`, fontSize: 10 },
         { text: `${lesson.schedule}`, fontSize: 10 },
+        { text: `${lesson.courseName}`, fontSize: 10 },
         { text: `${lesson.classRoom}`, fontSize: 10 },
         {
           ul: this.getStudentsList(lesson.studentNames, 8)
@@ -277,8 +278,8 @@ export class ScriptService {
   }
 
   // Download PDF with WeekLesson info
-  downloadWeekLessonReports(reportName: string, dataTitle: string, data: WeekLessonsData[]) {
-    const documentDefinition = this.createWeekLessonReports(dataTitle, data);
+  downloadWeekLessonReports(reportName: string, dataTitle: string, dataSubtitle: string, data: WeekLessonsData[]) {
+    const documentDefinition = this.createWeekLessonReports(dataTitle, dataSubtitle, data);
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
 
