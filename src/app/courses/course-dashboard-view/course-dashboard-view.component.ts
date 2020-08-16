@@ -55,8 +55,7 @@ export class CourseDashboardView implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    const orderByTeacher = true;
-    this.courseSvc.getAllCourses(orderByTeacher).subscribe(
+    this.courseSvc.getAllCourses('byTeacher').subscribe(
       (courses: Course[]) => {
 
         this.courses = courses;
@@ -111,6 +110,8 @@ export class CourseDashboardView implements OnInit, AfterViewInit {
 
                 this.lessonSvc.createLesson(theCourse, dataLesson)
                   .subscribe((newLesson: Lesson) => {
+
+                    console.log(`new Lesson created: ${JSON.stringify(newLesson)}`);
 
                     this.attendanceSvc.createAttendancesFromStudentList(theCourse, newLesson);
                     if ( !multiple ) {

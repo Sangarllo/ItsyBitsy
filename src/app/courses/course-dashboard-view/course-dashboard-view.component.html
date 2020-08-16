@@ -85,7 +85,9 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-icon-message">
                 Próxima Semana<br>de {{ nextMonday | date:'dd-MMM' }} a {{ nextFriday | date:'dd-MMM' }}
             </th>
-            <td mat-cell *matCellDef="let element"> <span *ngIf="element.nextLesson">{{element.nextLesson | date:'EEEE, MMMM d' }}</span> </td>
+            <td mat-cell *matCellDef="let element">
+                <span *ngIf="element.nextLesson">{{element.nextLesson | date:'EEEE, MMMM d' }}</span>
+            </td>
         </ng-container>
 
 

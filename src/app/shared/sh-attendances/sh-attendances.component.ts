@@ -118,7 +118,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
 
     this.month = moment(this.date).format('MMMM [de] YYYY');
 
-    this.courses$ = this.coursesSvc.getAllCourses();
+    this.courses$ = this.coursesSvc.getAllCourses('');
     this.students$ = this.userSvc.getAllStudents();
     this.attendances$ = this.attendancesSvc.getAllAttendancesByDates( this.userDetails, dateIni, dateEnd );
 

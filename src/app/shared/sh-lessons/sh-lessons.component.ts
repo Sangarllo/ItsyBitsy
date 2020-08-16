@@ -83,10 +83,9 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   private displayLessons() {
 
     this.loading = true;
-    const orderByTeacher = true;
-    this.courses$ = this.coursesSvc.getAllCourses(orderByTeacher);
-    this.teachers$ = this.userSvc.getAllTeachers();
     this.lessons$ = this.lessonsSvc.getAllLessonsByDate(this.userDetails, this.dateIni, this.dateEnd);
+    this.courses$ = this.coursesSvc.getAllCourses('');
+    this.teachers$ = this.userSvc.getAllTeachers();
     this.attendances$ = this.attendancesSvc.getAllAttendancesByDates( null, this.dateIni, this.dateEnd);
 
     combineLatest([

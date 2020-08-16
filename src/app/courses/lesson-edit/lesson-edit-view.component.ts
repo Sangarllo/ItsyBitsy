@@ -145,26 +145,22 @@ export class LessonEditView implements OnInit, OnDestroy {
     }
   }
 
-  onResetForm(): void {
-    this.lessonForm.reset();
-  }
-
   onSaveForm(): void {
     if (this.lessonForm.valid) {
-
-        this.lesson.date = new Date(2019, 11, 19);
-
-        const item = { ...this.lesson, ...this.lessonForm.value };
-
-        if (item.id === '0') {
-          this.lessonService.createLesson(this.course, item)
+        this.gotoCourse();
+        const lesson: Lesson = { ...this.lesson, ...this.lessonForm.value };
+        lesson.date.setHours( +lesson.startTime.substr(0, 2), +lesson.startTime.substr(3, 2));
+        if (lesson.id === '0') {
+          this.lessonService.createLesson(this.course, lesson)
             .subscribe({
-              next: (createdLesson: Lesson) => {
+              next: (newLesson: Lesson) => {
+
+                console.log(`new Lesson created: ${JSON.stringify(newLesson)}`);
 
                 // 1. Creamos las attendances
                 const attendancesIds = this.attendacesSvc.createAttendancesFromStudentList(
                   this.course,
-                  createdLesson
+                  newLesson
                 );
 
                 // 2. Las asignamos a la lección
@@ -182,7 +178,7 @@ export class LessonEditView implements OnInit, OnDestroy {
               error: err => this.errorMessage = err
             });
         } else {
-          this.lessonService.updateLesson(this.course, item)
+          this.lessonService.updateLesson(this.course, lesson)
             .subscribe({
               next: () => this.gotoCourse(),
               error: err => this.errorMessage = err
@@ -194,8 +190,6 @@ export class LessonEditView implements OnInit, OnDestroy {
   }
 
   gotoCourse(): void {
-    // Reset the form to clear the flags
-    this.lessonForm.reset();
-    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}/`]);
+    this.router.navigate([`/${Course.PATH_URL}/${this.course.id}`]);
   }
 }

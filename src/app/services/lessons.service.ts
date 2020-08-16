@@ -51,6 +51,7 @@ export class LessonsService {
                   .where('date', '>=', dateIni)
                   .where('date', '<=', dateEnd)
                   .orderBy('date')
+                  .orderBy('startTime')
       );
     } else {
       this.lessonCollection = this.afs.collection(
@@ -59,6 +60,7 @@ export class LessonsService {
                   .where('date', '>=', dateIni)
                   .where('date', '<=', dateEnd)
                   .orderBy('date')
+                  .orderBy('startTime')
       );
     }
 
@@ -181,7 +183,8 @@ export class LessonsService {
       newDate = this.dateSvc.getWeekMonday();
     }
     newDate.setDate(newDate.getDate() + (7 + Course.getWeekDayNumber(course.weekDay) - newDate.getDay()) % 7);
-
+    newDate.setHours( +course.startTime.substr(0, 2), +course.startTime.substr(3, 2), 0);
+    // lesson.date.setHours( +lesson.startTime.substr(0, 2), +lesson.startTime.substr(3, 2));
     // Return an initialized object
     return {
       id: '0',

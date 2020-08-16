@@ -23,17 +23,21 @@ export class CoursesService {
     this.courseCollection = afs.collection<ICourse>(COURSE_COLLECTION);
   }
 
-  getAllCourses(orderByTeacher: boolean = false): Observable<Course[]> {
+  getAllCourses(orderBy: string): Observable<Course[]> {
 
-    if ( orderByTeacher ) {
-      this.courseCollection = this.afs.collection(
-        COURSE_COLLECTION,
-        ref => ref.where('current', '==', true)
-                  .orderBy('teacherId')
-                  .orderBy('type')
-                  .orderBy('name')
-      );
-    } else {
+    switch ( orderBy ) {
+
+      case 'byTeacher':
+        this.courseCollection = this.afs.collection(
+          COURSE_COLLECTION,
+          ref => ref.where('current', '==', true)
+                    .orderBy('teacherId')
+                    .orderBy('type')
+                    .orderBy('name')
+        );
+        break;
+
+      default:
         this.courseCollection = this.afs.collection(
           COURSE_COLLECTION,
           ref => ref.where('current', '==', true)
@@ -41,7 +45,6 @@ export class CoursesService {
                     .orderBy('name')
         );
     }
-
 
     return this.courseCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
