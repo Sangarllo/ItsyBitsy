@@ -160,7 +160,7 @@ export class ScriptService {
 
   private getWeekLessonsDataTable(lessonsData: WeekLessonsData[]): any {
 
-    const bodyHeader = [ 'Profesor', 'Curso', 'Día', 'Horario', 'Aula', 'Asistentes' ];
+    const bodyHeader = [ 'Profesor', 'Día', 'Horario', 'Curso', 'Aula', 'Asistentes' ];
 
     const bodyTable = [];
     bodyTable.push(bodyHeader);

@@ -43,6 +43,11 @@ export class RateService {
   }
 
   calculatePayment(rate: Rate, nAttendances: number): number {
+    if ( !rate ) {
+      console.log(`No se puede hacer cálculo sin tarifa`);
+      return PAYMENT_ERROR;
+    }
+
     try {
       switch (rate.type) {
         case RateType.porAsistencia:

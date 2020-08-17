@@ -13,7 +13,7 @@ export class UserAttendancesReportView implements OnInit {
 
   user: User;
   userDetails: UserDetails;
-  pageTitle: string = '';
+  pageTitle: string;
   errorMessage: string;
 
   date: Date;

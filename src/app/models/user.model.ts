@@ -71,6 +71,7 @@ export class UserDetails implements IUserDetails {
     public emailVerified: boolean,
     public address?: string,
     public numAttendances?: number,
+    public numExpectedAttendances?: number,
     public paymentAmmout?: number,
     public coursesEnrolled?: string,
     public deletedReason?: string

@@ -141,10 +141,12 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
         map(([students, attendances, rates]) => students.map(student => ({
           ...student,
           rate: rates.find(rate => student.rateId === rate.id),
-          numAttendances: attendances.filter( attendance => attendance.studentId === student.uid ).length,
+          // tslint:disable-next-line: max-line-length
+          numAttendances: attendances.filter( attendance => attendance.studentId === student.uid && attendance.status === Status.Presente ).length,
+          numExpectedAttendances: attendances.filter( attendance => attendance.studentId === student.uid ).length,
           paymentAmmout: this.rateSvc.calculatePayment(
             rates.find(rate => student.rateId === rate.id),
-            attendances.filter( attendance => attendance.studentId === student.uid ).length
+            attendances.filter( attendance => attendance.studentId === student.uid && attendance.status === Status.Presente ).length
           )
         }) as UserDetails)),
         // tap(data => console.log('student:  ', JSON.stringify(data))),

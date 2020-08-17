@@ -51,7 +51,6 @@ export class LessonsService {
                   .where('date', '>=', dateIni)
                   .where('date', '<=', dateEnd)
                   .orderBy('date')
-                  .orderBy('startTime')
       );
     } else {
       this.lessonCollection = this.afs.collection(
@@ -60,7 +59,6 @@ export class LessonsService {
                   .where('date', '>=', dateIni)
                   .where('date', '<=', dateEnd)
                   .orderBy('date')
-                  .orderBy('startTime')
       );
     }
 

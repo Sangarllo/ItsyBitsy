@@ -126,7 +126,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
     const dateIniStr = this.dateSvc.getLargeFormatedDate(this.dateIni);
     const dateEndStr = this.dateSvc.getLargeFormatedDate(this.dateEnd);
     const dataTitle = `Clases del ${dateIniStr} al ${dateEndStr}`;
-    const dataSubtitle = this.userDetails.displayName ?? 'Todos los Profesores';
+    const dataSubtitle = this.userDetails?.displayName ?? 'Todos los Profesores';
 
     this.scriptSvc.downloadWeekLessonReports(
       `Clases de la Semana.pdf`,
