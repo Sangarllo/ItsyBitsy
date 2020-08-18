@@ -7,6 +7,7 @@ import { AuthGuard } from '@auth/guards/auth.guard';
 import { UsersView } from './users-view/users-view.component';
 import { UserLessonsView } from './user-lessons-view/user-lessons-view.component';
 import { UserDashboardView } from './user-dashboard-view/user-dashboard-view.component';
+import { UserCommentsView } from './user-comments-view/user-comments-view.component';
 import { UserAttendancesView } from './user-attendances-view/user-attendances-view.component';
 import { UserAttendancesReportView } from './user-attendances-report-view/user-attendances-report-view.component';
 import { UserDetailsView } from './user-details-view/user-details-view.component';
@@ -28,6 +29,11 @@ const routes: Routes = [
     path: 'dashboard',
     component: UserDashboardView,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'all/comentarios',
+    component: UserCommentsView,
+    canActivate: [AdminGuard]
   },
   {
     path: ':id',

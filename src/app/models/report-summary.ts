@@ -44,3 +44,10 @@ export interface AttendanceData {
   courseName: string;
   comment: string;
 }
+
+export interface CommentData {
+  lessonDate: Date;
+  courseName: string;
+  studentName: string;
+  comment: string;
+}

@@ -26,6 +26,7 @@ import { ShRateDataComponent } from './sh-rate-data/sh-rate-data.component';
 import { ShLoadingComponent } from './sh-loading/sh-loading.component';
 import { ShNoDataComponent } from './sh-no-data/sh-no-data.component';
 import { ShUserListComponent } from './sh-user-list/sh-user-list.component';
+import { ShCommentsComponent } from './sh-comments/sh-comments.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ShUserListComponent } from './sh-user-list/sh-user-list.component';
     ShLessonAttendanceTableComponent,
     ShLessonsComponent,
     ShAttendancesComponent,
+    ShCommentsComponent,
     ShAttendancesSummaryComponent,
     ShUserAttendanceTableComponent,
     ShMonthAttendanceTableComponent,
@@ -72,6 +74,7 @@ import { ShUserListComponent } from './sh-user-list/sh-user-list.component';
     ShCourseLessonsTableComponent,
     ShLessonAttendanceTableComponent,
     ShLessonsComponent,
+    ShCommentsComponent,
     ShAttendancesComponent,
     ShAttendancesSummaryComponent,
     ShUserDataComponent,

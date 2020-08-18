@@ -21,16 +21,15 @@ import { ReportsService } from '@services/reports.service';
 import moment from 'moment';
 
 @Component({
-  selector: 'app-sh-attendances',
-  templateUrl: './sh-attendances.component.html',
-  styleUrls: ['./sh-attendances.component.scss']
+  selector: 'app-sh-comments',
+  templateUrl: './sh-comments.component.html',
+  styleUrls: ['./sh-comments.component.scss']
 })
-export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges {
+export class ShCommentsComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  @Input() userDetails: UserDetails;
   @Input() date: Date;
   @Output() reportSummary = new EventEmitter<Attendance[]>();
 
@@ -42,7 +41,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
   attendances: Attendance[];
   month: string = '';
 
-  columnsToDisplay = [ 'status', 'studentImage', 'studentName', 'courseImage', 'courseName', 'lessonDate', 'actions' ];
+  columnsToDisplay = [ 'studentImage', 'studentName', 'courseImage', 'lesson', 'comment' ];
 
   public loading = true;
   dataSource = new MatTableDataSource();
@@ -66,7 +65,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
 
   ngOnInit() {
     this.statusAttendance = Attendance.getAllStatus();
-    this.displayAttendances();
+    this.displayAttendanceComments();
   }
 
   ngAfterViewInit(): void {
@@ -76,7 +75,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
 
   ngOnChanges(): void {
     this.loading = true;
-    this.displayAttendances();
+    this.displayAttendanceComments();
   }
 
   gotoStudent(attendance: Attendance) {
@@ -111,7 +110,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
     this.router.navigate([`/${Course.PATH_URL}/${courseId}/lessons/${lessonId}`]);
   }
 
-  private displayAttendances() {
+  private displayAttendanceComments() {
     const dateIni = this.date;
     const dateEnd = ( this.date.getMonth() === 12 ) ?
         new Date(this.date.getFullYear() + 1, 1, 1 ) :
@@ -121,7 +120,7 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
 
     this.courses$ = this.coursesSvc.getAllCourses('');
     this.students$ = this.userSvc.getAllStudents();
-    this.attendances$ = this.attendancesSvc.getAllAttendancesByDates( this.userDetails, dateIni, dateEnd );
+    this.attendances$ = this.attendancesSvc.getAllCommentsByDates( dateIni, dateEnd );
 
     combineLatest([
       this.attendances$,
@@ -146,18 +145,13 @@ export class ShAttendancesComponent implements OnInit, AfterViewInit, OnChanges 
   // Download PDF with attedances info
   downloadReport() {
 
-    let reportTitle: string;
-    if ( this.userDetails ) {
-      reportTitle = `Listado de Asistencias de ${this.userDetails.displayName} de ${this.month}`;
-    } else {
-      reportTitle = `Listado de Asistencias de ${this.month}`;
-    }
+    const reportTitle: string = `Listado de Comentarios de ${this.month}`;
 
-    const data = this.reportSvc.getAttendancesReportData(
+    const data = this.reportSvc.getCommentsReportData(
       this.attendances
     );
 
-    this.scriptSvc.downloadAttendancesReports(
+    this.scriptSvc.downloadCommentsReports(
         `${reportTitle}.pdf`,
         reportTitle,
         data,

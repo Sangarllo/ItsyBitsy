@@ -16,7 +16,8 @@ export interface IAttendance {
   studentName: string;
   studentImage: string;
   status: string;
-  comment: string;
+  hayComment?: boolean;
+  comment?: string;
 }
 
 export class Attendance implements IAttendance {
@@ -34,7 +35,8 @@ export class Attendance implements IAttendance {
     public studentName: string,
     public studentImage: string,
     public status: Status,
-    public comment: string,
+    public hayComment?: boolean,
+    public comment?: string,
      ) {
   }
 

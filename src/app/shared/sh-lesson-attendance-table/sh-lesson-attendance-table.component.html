@@ -67,9 +67,8 @@
     <ng-container matColumnDef="actions2">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Comentario</th>
         <td mat-cell *matCellDef="let element">
-            &nbsp;
-            <button mat-mini-fab color="warn" (click)="addComment(element)"><mat-icon>add_message</mat-icon></button> &nbsp;
-            <button *ngIf="element.comment!=''" (click)="viewComment(element)" mat-mini-fab color="warn"><mat-icon>message</mat-icon></button> &nbsp;
+            <button *ngIf="!element.hayComment" mat-mini-fab color="warn" (click)="addComment(element, false)"><mat-icon>add_message</mat-icon></button>
+            <button *ngIf="element.hayComment" (click)="addComment(element, true)" mat-mini-fab color="accent"><mat-icon>message</mat-icon></button> &nbsp;
         </td>
     </ng-container>
 

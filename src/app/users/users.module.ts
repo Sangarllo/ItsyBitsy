@@ -6,6 +6,7 @@ import { UserDetailsView } from './user-details-view/user-details-view.component
 import { UserDetailsEditView } from './user-details-edit-view/user-details-edit-view.component';
 import { UserLessonsView } from './user-lessons-view/user-lessons-view.component';
 import { UserDashboardView } from './user-dashboard-view/user-dashboard-view.component';
+import { UserCommentsView } from './user-comments-view/user-comments-view.component';
 import { UserAttendancesView } from './user-attendances-view/user-attendances-view.component';
 import { UserAttendancesReportView } from './user-attendances-report-view/user-attendances-report-view.component';
 
@@ -16,6 +17,7 @@ import { UserAttendancesReportView } from './user-attendances-report-view/user-a
     UserDetailsEditView,
     UserLessonsView,
     UserDashboardView,
+    UserCommentsView,
     UserAttendancesView,
     UserAttendancesReportView,
   ],

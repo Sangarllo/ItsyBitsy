@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReceiptData, WeekLessonsData, RateData, CourseData } from '@models/report-summary';
 import { PRINTED_LOGO, PRINTED_RECIPT_NUMBER } from './pdf';
-import { AttendanceData } from '../models/report-summary';
+import { AttendanceData, CommentData } from '../models/report-summary';
 import { ReportsService } from '@services/reports.service';
 
 interface Scripts {
@@ -364,6 +364,32 @@ export class ScriptService {
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
 
+  // D. Comments -----
+
+  createCommentsReport(dataTitle: string, commentsData: CommentData[]): any {
+
+    const reportContent = [];
+    reportContent.push(this.addTitle(dataTitle));
+    reportContent.push(this.addSmallEmptyLine());
+    reportContent.push(
+    {
+      layout: 'lightHorizontalLines', // optional
+      table: this.reportSvc.getCommentsDataTable(commentsData)
+    });
+
+    return {
+      pageMargins: ScriptService.PAGE_MARGINS,
+      content: reportContent,
+      styles: ScriptService.PDF_STYLES
+    };
+  }
+
+
+  // Download PDF with comments info
+  downloadCommentsReports(reportName: string, dataTitle: string, data: CommentData[]) {
+    const documentDefinition = this.createCommentsReport(dataTitle, data);
+    pdfMake.createPdf(documentDefinition).download(reportName);
+  }
 
 
 }

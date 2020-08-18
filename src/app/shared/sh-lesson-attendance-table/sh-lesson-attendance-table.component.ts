@@ -126,17 +126,21 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
     this.router.navigate([`/${UserDetails.PATH_URL}/${user.uid}`]);
   }
 
-  addComment(attendance) {
+  addComment(attendance: Attendance, prevComment: boolean) {
     Swal.fire({
-      title: 'Añade un comentario',
+      title: ( prevComment ) ?  `<h4>Comentario sobre ${attendance.studentName}:</h4>` : 'Añade un comentario',
+      text: `${attendance.comment}`,
       input: 'text',
+      inputValue: `${attendance.comment}`,
       inputAttributes: {
         autocapitalize: 'off'
       },
       showCancelButton: true,
       confirmButtonText: 'Aceptar',
       showLoaderOnConfirm: true,
-      preConfirm: (commentAdded) => {
+      footer: ( prevComment ) ? 'El comentario será cambiado por el nuevo texto introducido' : '',
+      preConfirm: (commentAdded: string) => {
+        attendance.hayComment = ( commentAdded.length > 0 );
         attendance.comment = commentAdded;
         this.attendancesSvc.updateAttendance(this.lesson, attendance)
           .subscribe((updAttendance: Attendance) => {
@@ -147,6 +151,7 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
     });
   }
 
+
   viewComment(attendance) {
     Swal.fire({
       title: `<h4>Nota sobre ${attendance.studentName}:</h4>`,
@@ -156,7 +161,8 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
       },
       hideClass: {
         popup: 'animated fadeOutUp faster'
-      }
+      },
+      footer: 'Para editar o eliminar el comentario, modifica su contenido'
     });
   }
 

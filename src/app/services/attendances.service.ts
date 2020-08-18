@@ -6,14 +6,14 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { IAttendance, Attendance, Status } from '@models/attendance.model';
 import { Lesson } from '@models/lesson.model';
 import { UserDetails } from '@models/user.model';
 import { UserService } from './user.service';
 import { LessonsService } from './lessons.service';
 import { Course } from '@models/course.model';
-import { AttendanceData } from '@models/report-summary';
+import { AttendanceData, CommentData } from '@models/report-summary';
 
 const ATTENDANCE_COLLECTION = 'attendances';
 
@@ -83,6 +83,26 @@ export class AttendancesService {
     return this.attendanceCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
+          const data = a.payload.doc.data() as Attendance;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+  }
+
+  getAllCommentsByDates( dateIni: Date, dateEnd: Date): Observable<Attendance[]> {
+
+    this.attendanceCollection = this.afs.collection(
+        ATTENDANCE_COLLECTION,
+        ref => ref.where('lessonDate', '>=', dateIni)
+                  .where('lessonDate', '<=', dateEnd)
+                  .where('hayComment', '==', true)
+                  .orderBy('lessonDate')
+    );
+
+    return this.attendanceCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
           const data = a.payload.doc.data() as Attendance;
           const id = a.payload.doc.id;
           return { id, ...data };
@@ -206,6 +226,21 @@ getAttendance(course: Course, lesson: Lesson, attendanceId: string): Observable<
       lessonDate,
       studentName,
       courseName,
+      comment
+    };
+  }
+
+  getReportCommentsData(attendance: Attendance): CommentData {
+
+    const lessonDate: Date = attendance.lessonDate;
+    const courseName = attendance.courseName;
+    const studentName = attendance.studentName;
+    const comment = attendance.comment;
+
+    return {
+      lessonDate,
+      courseName,
+      studentName,
       comment
     };
   }

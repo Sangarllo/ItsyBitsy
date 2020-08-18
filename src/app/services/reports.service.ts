@@ -2,7 +2,7 @@ import moment from 'moment';
 import { Injectable } from '@angular/core';
 
 import { Attendance } from '@models/attendance.model';
-import { AttendanceData, CourseData, RateData } from '@models/report-summary';
+import { AttendanceData, CourseData, RateData, CommentData } from '@models/report-summary';
 import { AttendancesService } from '@services/attendances.service';
 import { Course } from '@models/course.model';
 import { CoursesService } from '@services/courses.service';
@@ -148,4 +148,45 @@ export class ReportsService {
     });
     return studentsList;
   }
+
+  // D. Comments -----
+
+  getCommentsReportData(attendances: Attendance[]): CommentData[] {
+
+    const data: CommentData[] = [];
+    attendances.forEach(
+      (attendance: Attendance) => {
+        data.push(this.attendancesSvc.getReportCommentsData(attendance));
+      });
+    return data;
+  }
+
+  getCommentsDataTable(commentsData: CommentData[]): any {
+
+    const bodyHeader = [ 'Fecha', 'Clase', 'Estudiante', 'Comentario' ];
+    return {
+      headerRows: 1,
+      widths: [ 'auto', 'auto', 'auto', 'auto' ],
+      body: this.getCommentsBodyTable(bodyHeader, commentsData)
+    };
+  }
+
+  private getCommentsBodyTable(bodyHeader: string[], commentsData: CommentData[]): any {
+
+    moment.locale('es');
+
+    const bodyTable = [];
+    bodyTable.push(bodyHeader);
+    commentsData.forEach(comment => {
+      bodyTable.push([
+        { text: `${moment(comment.lessonDate).format('DD MMMM YYYY')}`, fontSize: 8 },
+        { text: `${comment.courseName}`, fontSize: 8 },
+        { text: `${comment.studentName}`, fontSize: 8 },
+        { text: `${comment.comment}`, fontSize: 8 },
+      ]);
+    });
+
+    return bodyTable;
+  }
+
 }

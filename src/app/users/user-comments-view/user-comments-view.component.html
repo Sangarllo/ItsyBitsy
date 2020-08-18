@@ -1,0 +1,18 @@
+<mat-card>
+
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+
+        <button mat-raised-button color="accent" (click)="gotoDashboard()">Ir al Panel</button>
+    </mat-toolbar>
+
+    <div class="row">
+
+        <app-sh-calendar-interval-month class="col-6" [date]="date" (updateMonth)="onUpdateMonth($event)"></app-sh-calendar-interval-month>
+
+    </div>
+
+    <app-sh-comments [date]="date"></app-sh-comments>
+
+</mat-card>

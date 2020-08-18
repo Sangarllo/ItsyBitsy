@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2020-08-18
+
+### Added
+
+- Create Comment Report.
+
+### Changed
+
+- Change order for reports.
+- Fix attendances bugs.
+
 ## [1.3.0] - 2020-07-21
 
 ### Added
