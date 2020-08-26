@@ -50,6 +50,7 @@ export class CourseEditView implements OnInit, OnDestroy {
       endTime: ['', Validators.required],
       teacherId: ['', Validators.required],
       classRoom: ['', Validators.required],
+      order: ['', Validators.required],
     });
 
     // Read the student Id from the route parameter
@@ -108,7 +109,8 @@ export class CourseEditView implements OnInit, OnDestroy {
       startTime: this.course.startTime,
       endTime: this.course.endTime,
       teacherId: this.course.teacherId,
-      classRoom: this.course.classRoom
+      classRoom: this.course.classRoom,
+      order: this.course.order,
     });
 
     // tslint:disable-next-line:no-string-literal

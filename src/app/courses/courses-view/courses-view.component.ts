@@ -24,7 +24,7 @@ export class CoursesView implements OnInit, AfterViewInit {
   // For reporting
   courses: Course[];
 
-  columnsToDisplay = ['courseImage', 'type', 'courseName', 'scheduleDay', 'scheduleTime', 'teacher', 'aforo', 'actions'];
+  columnsToDisplay = ['courseImage', 'order', 'type', 'courseName', 'scheduleDay', 'scheduleTime', 'teacher', 'aforo', 'actions'];
 
   public loading = true;
   dataSource = new MatTableDataSource();
@@ -43,7 +43,7 @@ export class CoursesView implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.courses$ = this.coursesSvc.getAllCourses('byTeacher');
+    this.courses$ = this.coursesSvc.getAllCourses('byOrder');
     this.teachers$ = this.userSvc.getAllTeachers();
     this.displayData();
   }

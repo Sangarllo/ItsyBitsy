@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.2] - 2020-08-26
+
 ### Added
 
 - New button to view attendances-report without download.
+
+### Changed
+
+- Change order for receipt-reports (adding order-field for courses).
 
 ## [1.3.1] - 2020-08-18
 

@@ -30,6 +30,7 @@ export enum CourseType {
 
 export interface ICourse {
   current: boolean;
+  order: number;
   name: string;
   type: CourseType;
   image: string;
@@ -54,6 +55,7 @@ export class Course implements ICourse {
   constructor(
     public id: string,
     public current: boolean,
+    public order: number,
     public name: string,
     public type: CourseType,
     public image: string,

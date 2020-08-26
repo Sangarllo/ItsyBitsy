@@ -27,6 +27,16 @@ export class CoursesService {
 
     switch ( orderBy ) {
 
+      case 'byOrder':
+        this.courseCollection = this.afs.collection(
+          COURSE_COLLECTION,
+          ref => ref.where('current', '==', true)
+                    .orderBy('order')
+                    .orderBy('type')
+                    .orderBy('name')
+        );
+        break;
+
       case 'byTeacher':
         this.courseCollection = this.afs.collection(
           COURSE_COLLECTION,
@@ -49,6 +59,8 @@ export class CoursesService {
     return this.courseCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Course;
+        console.log(`-> new Curso ${data.id} | ${data.name} |  ${data.order} |`);
+
         const id = a.payload.doc.id;
         return { id, ...data };
       }))
@@ -92,6 +104,7 @@ export class CoursesService {
     return {
       current: true,
       id: '0',
+      order: 0,
       name: '',
       type: typeDefault,
       image: imageDefault,

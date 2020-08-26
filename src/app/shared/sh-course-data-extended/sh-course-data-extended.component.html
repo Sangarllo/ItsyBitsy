@@ -14,13 +14,17 @@
                         {{ teacher?.displayName }}
                     </p>
                 </div>
-                <div class="col-6">
-                    <h6>Aula habitual</h6>
-                    <p>{{ course.classRoom }}.</p>
+                <div class="col-3">
+                    <h6>Aula</h6>
+                    <p>{{ course.classRoom }}</p>
                 </div>
                 <div class="col-6">
                     <h6>Horario habitual</h6>
                     <p>{{ course.weekDay }}, de {{ course.startTime }} a {{ course.endTime }}.</p>
+                </div>
+                <div class="col-3">
+                    <h6>Orden</h6>
+                    <p>{{ course.order }}</p>
                 </div>
             </div>
         </div>
