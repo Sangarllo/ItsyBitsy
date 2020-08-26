@@ -189,7 +189,7 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
     );
   }
 
-  // Download PDF with recipts info
+  // Download selected PDF with recipts info
   downloadAllInfo() {
 
     const receipts: ReceiptData[] = [];
@@ -210,6 +210,20 @@ export class ShAttendancesSummaryComponent implements OnInit, AfterViewInit, OnC
     this.scriptSvc.openInfo([
       this.getReceiptData(student)
     ]);
+  }
+
+  // Open selected PDF with recipts info
+  openAllInfo() {
+
+    const receipts: ReceiptData[] = [];
+    this.selection.selected.forEach(
+      (student: UserDetails) => {
+        receipts.push(this.getReceiptData(student));
+      });
+
+    this.scriptSvc.openInfo(
+      receipts
+    );
   }
 
   private getReceiptData(student: UserDetails): ReceiptData {
