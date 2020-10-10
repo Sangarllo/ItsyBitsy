@@ -2,14 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { ICON_REGISTRY_PROVIDER } from '@angular/material/icon';
-import { Icon } from '@models/image.model';
 import { Lesson } from '@models/lesson.model';
 import { UserDetails } from '@models/user.model';
-import { Teacher } from '@models/teacher.model';
 import { Course } from '@models/course.model';
 import { map } from 'rxjs/operators';
-import { UserService } from './user.service';
-import { Attendance } from '@models/attendance.model';
 import { AttendancesService } from './attendances.service';
 import { DatesService } from './dates.service';
 
@@ -42,6 +38,9 @@ export class LessonsService {
   }
 
   getAllLessonsByDate(teacher: UserDetails, dateIni: Date, dateEnd: Date): Observable<Lesson[]> {
+
+    dateIni.setHours(0, 0, 0);
+    dateEnd.setHours(23, 59, 59);
 
     if ( teacher ) {
       this.lessonCollection = this.afs.collection(
@@ -109,12 +108,15 @@ export class LessonsService {
 
   getWeekLessons(course: Course, limit: number): Observable<Lesson[]> { {
 
+    const dateLastSunday = this.dateSvc.getLastSunday().setHours(0, 0, 0);
+    const dateWeekSaturday = this.dateSvc.getWeekSaturday().setHours(23, 59, 59);
+
     this.lessonCollection = this.afs.collection(
         LESSON_COLLECTION,
         ref => ref.where('courseId', '==', course.id)
                   .where('current', '==', true)
-                  .where('date', '>=', this.dateSvc.getLastSunday())
-                  .where('date', '<=', this.dateSvc.getWeekSaturday())
+                  .where('date', '>=', dateLastSunday)
+                  .where('date', '<=', dateWeekSaturday)
 
                   .limit(limit)
                   .orderBy('date', 'asc')
@@ -126,12 +128,15 @@ export class LessonsService {
 
   getNextLessons(course: Course, limit: number): Observable<Lesson[]> { {
 
+    const dateWeekSunday = this.dateSvc.getWeekSunday().setHours(0, 0, 0);
+    const dateNextSaturday = this.dateSvc.getNextSaturday().setHours(23, 59, 59);
+
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,
       ref => ref.where('courseId', '==', course.id)
                 .where('current', '==', true)
-                .where('date', '>=', this.dateSvc.getWeekSunday())
-                .where('date', '<=', this.dateSvc.getNextSaturday())
+                .where('date', '>=', dateWeekSunday)
+                .where('date', '<=', dateNextSaturday)
                 .limit(limit)
                 .orderBy('date', 'asc')
     );

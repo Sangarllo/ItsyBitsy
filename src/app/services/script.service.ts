@@ -336,6 +336,12 @@ export class ScriptService {
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
 
+  // Download PDF with courses info
+  openCoursesReport(dataTitle: string, data: CourseData[]) {
+    const documentDefinition = this.createCoursesReports(dataTitle, data);
+    pdfMake.createPdf(documentDefinition).open();
+  }
+
 
   // A. Attendances -----
 

@@ -103,4 +103,19 @@ export class CoursesView implements OnInit, AfterViewInit {
       data,
     );
   }
+
+  // Open selected PDF with recipts info
+  openReport() {
+
+    const reportTitle: string = 'Cursos Actuales';
+    const data = this.reportSvc.getCoursesReportData(
+      this.courses
+    );
+
+    this.scriptSvc.openCoursesReport(
+      reportTitle,
+      data,
+    );
+  }
+
 }

@@ -59,8 +59,6 @@ export class CoursesService {
     return this.courseCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Course;
-        console.log(`-> new Curso ${data.id} | ${data.name} |  ${data.order} |`);
-
         const id = a.payload.doc.id;
         return { id, ...data };
       }))
