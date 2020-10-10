@@ -283,6 +283,13 @@ export class ScriptService {
     pdfMake.createPdf(documentDefinition).download(reportName);
   }
 
+  // Download PDF with WeekLesson info
+  openWeekLessonReports(dataTitle: string, dataSubtitle: string, data: WeekLessonsData[]) {
+    const documentDefinition = this.createWeekLessonReports(dataTitle, dataSubtitle, data);
+    pdfMake.createPdf(documentDefinition).open();
+  }
+
+
   // C. Rates -----
 
   createRatesReports(dataTitle: string, ratesData: RateData[]): any {

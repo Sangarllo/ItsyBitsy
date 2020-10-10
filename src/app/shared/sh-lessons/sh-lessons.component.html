@@ -2,9 +2,12 @@
 
     <mat-toolbar>
 
-        <button [disabled]="dataSource?.data?.length === 0" mat-mini-fab color="primary" (click)="downloadAllInfo()">
+        <button [disabled]="dataSource?.data?.length === 0" mat-mini-fab color="primary" (click)="downloadReport()">
         <mat-icon>cloud_download</mat-icon>
-      </button>
+      </button> &nbsp;
+        <button mat-mini-fab color="primary" (click)="openReport()">
+        <mat-icon>open_in_new</mat-icon>
+      </button> &nbsp;&nbsp;
 
         <span [className]="(dataSource?.data?.length === 0) ? 'color-disabled toolbar-message' : 'color-primary toolbar-message'">Descargar las {{ dataSource?.data?.length }} clases de la semana</span>
 

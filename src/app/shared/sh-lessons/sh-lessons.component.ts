@@ -115,7 +115,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   // Download PDF with recipts info
-  downloadAllInfo() {
+  downloadReport() {
 
     const data: WeekLessonsData[] = [];
     this.lessons.forEach(
@@ -135,6 +135,28 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
       data,
     );
   }
+
+  // Download PDF with recipts info
+  openReport() {
+
+    const data: WeekLessonsData[] = [];
+    this.lessons.forEach(
+      (lesson: Lesson) => {
+        data.push(this.getReportData(lesson));
+      });
+
+    const dateIniStr = this.dateSvc.getLargeFormatedDate(this.dateIni);
+    const dateEndStr = this.dateSvc.getLargeFormatedDate(this.dateEnd);
+    const dataTitle = `Clases del ${dateIniStr} al ${dateEndStr}`;
+    const dataSubtitle = this.userDetails?.displayName ?? 'Todos los Profesores';
+
+    this.scriptSvc.openWeekLessonReports(
+      dataTitle,
+      dataSubtitle,
+      data,
+    );
+  }
+
 
   private getReportData(lesson: Lesson): WeekLessonsData {
 
