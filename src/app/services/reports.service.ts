@@ -100,9 +100,29 @@ export class ReportsService {
     return bodyTable;
   }
 
-  // C. Rates -----
+  // C1. Rate -----
 
-  getRatesReportData(rates: unknown[]): RateData[] {
+  getRateReportData(rate: Rate): RateData[] {
+    const data: RateData[] = [];
+    data.push(this.ratesSvc.getReportData(rate));
+    return data;
+  }
+
+  getRateDataTable(ratesData: RateData[]): any {
+
+    const bodyHeader = [ 'Tarifa', 'Estudiantes', 'Listado' ];
+    return {
+      headerRows: 1,
+      widths: [ 'auto', 'auto', 'auto' ],
+      body: this.getRatesBodyTable(bodyHeader, ratesData)
+    };
+  }
+
+  // C2. Rates -----
+
+  getRatesReportData(rates: Rate[]): RateData[] {
+
+    console.log(`getRatesReportData: # ${rates.length}`);
 
     const data: RateData[] = [];
     rates.forEach(

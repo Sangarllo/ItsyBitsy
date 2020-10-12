@@ -310,10 +310,16 @@ export class ScriptService {
     };
   }
 
-  // Download PDF with courses info
+  // Download PDF with rates info
   downloadRatesReport(reportName: string, dataTitle: string, data: RateData[]) {
     const documentDefinition = this.createRatesReports(dataTitle, data);
     pdfMake.createPdf(documentDefinition).download(reportName);
+  }
+
+  // Open PDF with rates info
+  openRatesReport(dataTitle: string, data: RateData[]) {
+    const documentDefinition = this.createRatesReports(dataTitle, data);
+    pdfMake.createPdf(documentDefinition).open();
   }
 
 

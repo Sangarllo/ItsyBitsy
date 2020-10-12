@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RateService } from '@services/rates.service';
 
-import { Observable } from 'rxjs';
+import { combineLatest, Observable, forkJoin } from 'rxjs';
 
 import { Rate } from '@models/rate';
 import { UserDetails } from '@models/user.model';
 import { UserService } from '@services/user.service';
+import { ScriptService } from '@services/script.service';
+import { ReportsService } from '@services/reports.service';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -27,7 +30,9 @@ export class RateDetailView implements OnInit {
     private rateService: RateService,
     private userSvc: UserService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private reportSvc: ReportsService,
+    private scriptSvc: ScriptService,
   ) { }
 
   ngOnInit() {
@@ -48,4 +53,53 @@ export class RateDetailView implements OnInit {
     this.router.navigate([`/usuarios/dashboard`]);
   }
 
+  // Download PDF with data info
+  downloadReport() {
+
+    let reportTitle = 'Alumnos con esta tarifa';
+    let theRate: Rate;
+
+    this.rate$.subscribe((rate: Rate) => {
+        theRate = rate;
+        reportTitle = `Alumnos con la tarifa ${rate.name}`;
+
+        this.students$.subscribe((users: UserDetails[]) => {
+          theRate.students = users;
+
+          const data = this.reportSvc.getRateReportData(
+            theRate
+          );
+
+          this.scriptSvc.downloadRatesReport(
+            `${reportTitle}.pdf`,
+            reportTitle,
+            data,
+          );
+        });
+      });
+  }
+
+  // Open PDF with data info
+  openReport() {
+    let reportTitle = 'Alumnos con esta tarifa';
+    let theRate: Rate;
+
+    this.rate$.subscribe((rate: Rate) => {
+        theRate = rate;
+        reportTitle = `Alumnos con la tarifa ${rate.name}`;
+
+        this.students$.subscribe((users: UserDetails[]) => {
+          theRate.students = users;
+
+          const data = this.reportSvc.getRateReportData(
+            theRate
+          );
+
+          this.scriptSvc.openRatesReport(
+            reportTitle,
+            data,
+          );
+        });
+      });
+  }
 }

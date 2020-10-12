@@ -130,4 +130,21 @@ export class RatesView implements OnInit, AfterViewInit {
       data,
     );
   }
+
+  // Open PDF with data info
+  openReport() {
+
+    const reportTitle: string = 'Tarifas Actuales';
+
+    const data = this.reportSvc.getRatesReportData(
+      this.rates
+    );
+
+    this.scriptSvc.openRatesReport(
+      reportTitle,
+      data,
+    );
+  }
+
+
 }

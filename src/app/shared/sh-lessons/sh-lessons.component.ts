@@ -136,7 +136,7 @@ export class ShLessonsComponent implements OnInit, AfterViewInit, OnChanges {
     );
   }
 
-  // Download PDF with recipts info
+  // Open PDF with recipts info
   openReport() {
 
     const data: WeekLessonsData[] = [];

@@ -105,9 +105,11 @@ export class RateService {
     const type: string = rate.type;
     const price = rate.price;
     const studentNames = [];
-    rate.students.forEach(student => {
-      studentNames.push(student.displayName);
-    });
+    if ( rate.students ) {
+      rate.students.forEach(student => {
+        studentNames.push(student.displayName);
+      });
+    }
 
     return {
       name,
