@@ -39,8 +39,8 @@ export class LessonsService {
 
   getAllLessonsByDate(teacher: UserDetails, dateIni: Date, dateEnd: Date): Observable<Lesson[]> {
 
-    dateIni.setHours(0, 0, 0);
-    dateEnd.setHours(23, 59, 59);
+    dateIni.setHours(0, 0, 0, 0);
+    dateEnd.setHours(23, 59, 59, 59);
 
     if ( teacher ) {
       this.lessonCollection = this.afs.collection(
@@ -50,6 +50,7 @@ export class LessonsService {
                   .where('date', '>=', dateIni)
                   .where('date', '<=', dateEnd)
                   .orderBy('date')
+                  .orderBy('startTime')
       );
     } else {
       this.lessonCollection = this.afs.collection(
@@ -58,6 +59,7 @@ export class LessonsService {
                   .where('date', '>=', dateIni)
                   .where('date', '<=', dateEnd)
                   .orderBy('date')
+                  .orderBy('startTime')
       );
     }
 
@@ -151,6 +153,7 @@ export class LessonsService {
       ref => ref.where('courseId', '==', course.id)
     );
     this.lessonDoc = this.lessonCollection.doc(lesson.id);
+    debugger;
     this.lessonDoc.update(lesson);
     return of(lesson);
   }
@@ -187,7 +190,6 @@ export class LessonsService {
     }
     newDate.setDate(newDate.getDate() + (7 + Course.getWeekDayNumber(course.weekDay) - newDate.getDay()) % 7);
     newDate.setHours( +course.startTime.substr(0, 2), +course.startTime.substr(3, 2), 0);
-    // lesson.date.setHours( +lesson.startTime.substr(0, 2), +lesson.startTime.substr(3, 2));
     // Return an initialized object
     return {
       id: '0',
