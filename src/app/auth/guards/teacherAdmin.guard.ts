@@ -9,7 +9,7 @@ import { UserService } from '@services/user.service';
 @Injectable({
   providedIn: 'root'
 })
-export class TeacherGuard implements CanActivate {
+export class TeacherAdminGuard implements CanActivate {
 
   constructor(
     private auth: AuthService,
@@ -21,6 +21,9 @@ export class TeacherGuard implements CanActivate {
              take(1),
              map(user => {
                switch (user.uid) {
+                case 'QkwjVEpXnRcQEnyy00aSIO8lHmH3':
+                 case 'qUGCxNLrwmclnCFiRtsQ':
+                 case 'syhqJPE3P0gkVNNdHiNKuTz0xM72':
                  case 'QkwjVEpXnRcQEnyy00aSIO8lHmH3':
                  case 'cNS7AELLwOdX4WKFiGngUSjz7472':
                  case 'qUGCxNLrwmclnCFiRtsQ':
@@ -37,7 +40,7 @@ export class TeacherGuard implements CanActivate {
              }), // <-- map to boolean
              tap(isTeacher => {
                if (!isTeacher) {
-                 console.log('is not teacher');
+                 console.log('is not admin or teacher');
                  this.router.navigate(['/error-403']);
                }
            })

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { AdminGuard } from '@auth/guards/admin.guard';
 import { AuthGuard } from '@auth/guards/auth.guard';
+import { TeacherAdminGuard } from '@auth/guards/teacherAdmin.guard';
 
 import { UsersView } from './users-view/users-view.component';
 import { UserLessonsView } from './user-lessons-view/user-lessons-view.component';
@@ -38,7 +39,7 @@ const routes: Routes = [
   {
     path: ':id',
     component: UserDetailsView,
-    canActivate: [AdminGuard]
+    canActivate: [TeacherAdminGuard]
   },
   {
     path: ':id/editar',
@@ -48,7 +49,7 @@ const routes: Routes = [
   {
     path: ':id/clases',
     component: UserLessonsView,
-    canActivate: [AdminGuard]
+    canActivate: [TeacherAdminGuard]
   },
   {
     path: ':id/asistencias',

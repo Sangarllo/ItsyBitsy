@@ -9,6 +9,7 @@ import { CourseDetailView } from './course-detail-view/course-detail-view.compon
 import { CourseEditView } from './course-edit-view/course-edit-view.component';
 import { LessonDetailView } from './lesson-detail-view/lesson-detail-view.component';
 import { LessonEditView } from './lesson-edit/lesson-edit-view.component';
+import { TeacherAdminGuard } from '@auth/guards/teacherAdmin.guard';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
   {
     path: ':id',
     component: CourseDetailView,
-    canActivate: [AdminGuard]
+    canActivate: [TeacherAdminGuard]
   },
   {
     path: ':id/editar',
@@ -35,7 +36,7 @@ const routes: Routes = [
   {
     path: ':courseId/lessons/:lessonId',
     component: LessonDetailView,
-    canActivate: [AdminGuard]
+    canActivate: [TeacherAdminGuard]
   },
   {
     path: ':courseId/lessons/:lessonId/editar',
