@@ -9,6 +9,7 @@ import { UserDashboardView } from './user-dashboard-view/user-dashboard-view.com
 import { UserCommentsView } from './user-comments-view/user-comments-view.component';
 import { UserAttendancesView } from './user-attendances-view/user-attendances-view.component';
 import { UserAttendancesReportView } from './user-attendances-report-view/user-attendances-report-view.component';
+import { UserAttendancesDashboardView } from './all/user-attendances-dashboard-view/user-attendances-dashboard-view.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { UserAttendancesReportView } from './user-attendances-report-view/user-a
     UserCommentsView,
     UserAttendancesView,
     UserAttendancesReportView,
+    UserAttendancesDashboardView,
   ],
   imports: [
     SharedModule,

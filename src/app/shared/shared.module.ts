@@ -15,6 +15,7 @@ import { ShLessonsComponent } from './sh-lessons/sh-lessons.component';
 import { ShCalendarIntervalComponent } from './sh-calendar-interval/sh-calendar-interval.component';
 import { ShUserDataComponent } from './sh-user-data/sh-user-data.component';
 import { ShCalendarIntervalMonthComponent } from './sh-calendar-interval-month/sh-calendar-interval-month.component';
+import { ShCalendarDateComponent } from './sh-calendar-date/sh-calendar-date.component';
 import { ShAttendancesComponent } from './sh-attendances/sh-attendances.component';
 import { ShAttendancesSummaryComponent } from './sh-attendances-summary/sh-attendances-summary.component';
 import { ShAttendancesItemsComponent } from './sh-attendances-items/sh-attendances-items.component';
@@ -47,6 +48,7 @@ import { ShCommentsComponent } from './sh-comments/sh-comments.component';
     ShLessonsComponent,
     ShCalendarIntervalMonthComponent,
     ShCalendarIntervalComponent,
+    ShCalendarDateComponent,
     ShUserDataComponent,
     ShAttendancesItemsComponent,
     ShStudentsItemsComponent,
@@ -84,6 +86,7 @@ import { ShCommentsComponent } from './sh-comments/sh-comments.component';
     ShRateDataComponent,
     ShCalendarIntervalMonthComponent,
     ShCalendarIntervalComponent,
+    ShCalendarDateComponent,
     ShUserAttendanceTableComponent,
     ShMonthAttendanceTableComponent,
     ShMonthAttendanceTableSummaryComponent,

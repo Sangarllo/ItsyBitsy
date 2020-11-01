@@ -11,6 +11,7 @@ import { UserDashboardView } from './user-dashboard-view/user-dashboard-view.com
 import { UserCommentsView } from './user-comments-view/user-comments-view.component';
 import { UserAttendancesView } from './user-attendances-view/user-attendances-view.component';
 import { UserAttendancesReportView } from './user-attendances-report-view/user-attendances-report-view.component';
+import { UserAttendancesDashboardView } from './all/user-attendances-dashboard-view/user-attendances-dashboard-view.component';
 import { UserDetailsView } from './user-details-view/user-details-view.component';
 
 import { UserDetailsEditView } from './user-details-edit-view/user-details-edit-view.component';
@@ -30,6 +31,11 @@ const routes: Routes = [
     path: 'dashboard',
     component: UserDashboardView,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'asistencias-dashboard',
+    component: UserAttendancesDashboardView,
+    canActivate: [AdminGuard]
   },
   {
     path: 'all/comentarios',
