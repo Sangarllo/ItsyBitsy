@@ -1,0 +1,17 @@
+<mat-card>
+
+    <mat-toolbar color="primary">
+        <span>{{pageTitle}}</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-raised-button color="accent" (click)="gotoDashboard()">Ir al Panel</button>
+    </mat-toolbar>
+
+    <div class="row">
+        <app-sh-calendar-date class="col-6" [date]="date" (updateDate)="onUpdateDate($event)"></app-sh-calendar-date>
+    </div>
+
+    <!--
+    <app-sh-lessons [userDetails]="userDetails" [dateIni]="dateIni" [dateEnd]="dateEnd"></app-sh-lessons>
+    -->
+
+</mat-card>

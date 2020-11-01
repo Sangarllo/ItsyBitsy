@@ -1,0 +1,33 @@
+<mat-card class="container">
+
+    <div class="row">
+
+        <div class="col-6">
+
+            <mat-form-field class="datepicker-container">
+                <input matInput [matDatepicker]="picker1" (dateChange)="dateClicked($event)" placeholder="Escoge el día" [formControl]="date1">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <h5>Día {{ date | date:'fullDate' }}</h5>
+        </div>
+
+
+        <div class="col-6">
+
+            <button (click)="removeDay()" mat-mini-fab color="accent">
+          <mat-icon>skip_previous</mat-icon>
+        </button> &nbsp;&nbsp;
+            <button (click)="resetToday()" mat-mini-fab color="accent">
+          <mat-icon>restore_page</mat-icon>
+        </button> &nbsp;&nbsp;
+            <button (click)="addDay()" mat-mini-fab color="accent">
+          <mat-icon>skip_next</mat-icon>
+        </button>
+
+        </div>
+
+    </div>
+
+</mat-card>
