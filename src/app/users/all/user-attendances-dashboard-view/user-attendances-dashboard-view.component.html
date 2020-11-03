@@ -7,11 +7,27 @@
     </mat-toolbar>
 
     <div class="row">
-        <app-sh-calendar-date class="col-6" [date]="date" (updateDate)="onUpdateDate($event)"></app-sh-calendar-date>
+        <app-sh-calendar-date class="col-12" [date]="dateIni" (updateDate)="onUpdateDate($event)"></app-sh-calendar-date>
     </div>
 
-    <!--
-    <app-sh-lessons [userDetails]="userDetails" [dateIni]="dateIni" [dateEnd]="dateEnd"></app-sh-lessons>
-    -->
+    <mat-card-content *ngIf="!loading; else loadingTemplate">
+        <mat-tab-group mat-stretch-tabs class="mat-elevation-z4">
+            <mat-tab *ngFor="let lesson of lessons">
+
+                <ng-template mat-tab-label>
+                    <mat-icon>assignment_ind</mat-icon>
+                    &nbsp;&nbsp; {{ lesson.course.name }} ({{lesson.startTime}})
+                </ng-template>
+
+                <sh-lesson-attendance-table [course]="lesson.course" [lesson]="lesson"></sh-lesson-attendance-table>
+
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
 
 </mat-card>
+
+<ng-template #loadingTemplate>
+    cargando...
+    <sh-loading></sh-loading>
+</ng-template>
