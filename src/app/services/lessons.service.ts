@@ -110,8 +110,8 @@ export class LessonsService {
 
   getWeekLessons(course: Course, limit: number): Observable<Lesson[]> { {
 
-    const dateLastSunday = this.dateSvc.getLastSunday().setHours(0, 0, 0);
-    const dateWeekSaturday = this.dateSvc.getWeekSaturday().setHours(23, 59, 59);
+    const dateLastSunday = new Date(this.dateSvc.getLastSunday().setHours(0, 0, 0));
+    const dateWeekSaturday = new Date(this.dateSvc.getWeekSaturday().setHours(23, 59, 59));
 
     this.lessonCollection = this.afs.collection(
         LESSON_COLLECTION,
@@ -130,8 +130,8 @@ export class LessonsService {
 
   getNextLessons(course: Course, limit: number): Observable<Lesson[]> { {
 
-    const dateWeekSunday = this.dateSvc.getWeekSunday().setHours(0, 0, 0);
-    const dateNextSaturday = this.dateSvc.getNextSaturday().setHours(23, 59, 59);
+    const dateWeekSunday = new Date(this.dateSvc.getWeekSunday().setHours(0, 0, 0));
+    const dateNextSaturday = new Date(this.dateSvc.getNextSaturday().setHours(23, 59, 59));
 
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,
@@ -153,7 +153,6 @@ export class LessonsService {
       ref => ref.where('courseId', '==', course.id)
     );
     this.lessonDoc = this.lessonCollection.doc(lesson.id);
-    debugger;
     this.lessonDoc.update(lesson);
     return of(lesson);
   }
