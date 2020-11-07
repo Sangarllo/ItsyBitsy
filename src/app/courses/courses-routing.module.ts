@@ -10,6 +10,7 @@ import { CourseEditView } from './course-edit-view/course-edit-view.component';
 import { LessonDetailView } from './lesson-detail-view/lesson-detail-view.component';
 import { LessonEditView } from './lesson-edit/lesson-edit-view.component';
 import { TeacherAdminGuard } from '@auth/guards/teacherAdmin.guard';
+import { LessonAuditViewComponent } from './lesson-audit-view/lesson-audit-view.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: CourseDashboardView,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'audit/:num',
+    component: LessonAuditViewComponent,
     canActivate: [AdminGuard]
   },
   {

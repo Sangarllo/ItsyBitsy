@@ -26,6 +26,16 @@ export class LessonsService {
     private attendanceService: AttendancesService) {
   }
 
+  auditAllLessons(limit: number): Observable<Lesson[]> {
+    this.lessonCollection = this.afs.collection(
+      LESSON_COLLECTION,
+      ref => ref.orderBy('date', 'desc')
+                .limit(limit)
+    );
+
+    return this.lessonCollection.valueChanges();
+  }
+
   getAllLessons(course: Course): Observable<Lesson[]> {
     this.lessonCollection = this.afs.collection(
       LESSON_COLLECTION,

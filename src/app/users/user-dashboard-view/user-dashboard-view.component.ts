@@ -38,71 +38,51 @@ export class UserDashboardView implements OnInit {
     );
   }
 
-  // 1. ADMIN
-
-  // 1A. Ver todas las personas
   gotoUsersList() {
     this.router.navigate([`/${UserDetails.PATH_URL}`]);
   }
 
-  // 1B. Ver todos los cursos
   gotoCoursesList() {
     this.router.navigate([`/${Course.PATH_URL}`]);
   }
 
-  // 1C. Ver todas las tarifas
   gotoRates() {
     this.router.navigate([`/${Rate.PATH_URL}`]);
   }
 
-  // 1D. Ver todas las clases de profesores
   gotoAllLessons() {
     this.router.navigate([`/usuarios/all/clases`]);
   }
 
-  // 1E. Ver todos los comentarios
+  gotoLessonsAudit() {
+    this.router.navigate([`/cursos/audit/100`]);
+  }
+
   gotoAllComments() {
     this.router.navigate([`/usuarios/all/comentarios`]);
   }
 
-  // 1F. Ver el informe de todas las asistencias de estudiantes
   gotoAllAttendancesReport() {
     this.router.navigate([`/usuarios/all/resumen-asistencias`]);
   }
 
-  // 1G. Ver el tablero de configuración de cursos
   gotoAttendancesDashboard() {
     this.router.navigate([`/usuarios/asistencias-dashboard`]);
   }
 
-  // 1H. Ver el tablero de configuración de cursos
   gotoCoursesDashboard() {
     this.router.navigate([`/cursos/dashboard`]);
   }
 
-
-  // 2. TEACHER
-
-  // 2A. Ver mis clases
   gotoMyLessons() {
     this.router.navigate([`/usuarios/${this.userId}/clases`]);
   }
 
-
-  // 3. STUDENT
-
-  // 3A. Ver mis asistencias
   gotoMyAttendances() {
     this.router.navigate([`/usuarios/${this.userId}/asistencias`]);
   }
 
-
-  // 4. USER
-
-  // 4A. Ver mi perfil
   gotoMyProfile() {
     this.router.navigate([`/perfil`]);
   }
-
-
 }

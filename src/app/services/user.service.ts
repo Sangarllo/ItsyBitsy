@@ -18,6 +18,7 @@ export class UserService {
   private adminsCollection: AngularFirestoreCollection<IUserDetails>;
 
   private userDetailsCollection: AngularFirestoreCollection<IUserDetails>;
+  private userDetailsCollection2: AngularFirestoreCollection<UserDetails>;
   private userDetailsDoc: AngularFirestoreDocument<IUserDetails>;
 
   private userCollection: AngularFirestoreCollection<User>;
@@ -28,7 +29,18 @@ export class UserService {
     private afs: AngularFirestore,
   ) {
     this.userDetailsCollection = this.afs.collection<UserDetails>(UserService.USER_DETAILS_COLLECTION);
+    this.userDetailsCollection2 = this.afs.collection<UserDetails>(UserService.USER_DETAILS_COLLECTION);
     this.userCollection = this.afs.collection<User>(UserService.USER_COLLECTION);
+  }
+
+  auditAllUser(): Observable<UserDetails[]> {
+
+    this.userDetailsCollection2 = this.afs.collection(
+      UserService.USER_DETAILS_COLLECTION,
+      ref => ref.orderBy('displayName')
+    );
+
+    return this.userDetailsCollection2.valueChanges();
   }
 
   getAllUsersDetails(): Observable<UserDetails[]> {

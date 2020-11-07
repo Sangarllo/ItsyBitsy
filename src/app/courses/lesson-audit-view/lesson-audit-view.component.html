@@ -1,0 +1,101 @@
+<mat-card *ngIf="!loading; else loadingTemplate">
+
+    <mat-toolbar>
+
+        <button mat-mini-fab color="accent">
+        <mat-icon>build</mat-icon>
+      </button> &nbsp;&nbsp;
+        <span>Auditoría de lecciones y cursos</span>
+
+    </mat-toolbar>
+
+
+    <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0; else noDataTemplate" matSort>
+
+        <!-- lessonId Column -->
+        <ng-container matColumnDef="lessonId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+            <td mat-cell *matCellDef="let lesson"> {{lesson.id}} </td>
+        </ng-container>
+
+
+        <!-- lessonCurrent Column -->
+        <ng-container matColumnDef="lessonActive">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Activa </th>
+            <td mat-cell *matCellDef="let lesson"> {{lesson.current}} </td>
+        </ng-container>
+
+        <!-- date Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Día </th>
+            <td mat-cell *matCellDef="let lesson"> {{lesson.date | date:'fullDate' }} </td>
+        </ng-container>
+
+        <!-- schedule Column -->
+        <ng-container matColumnDef="schedule">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Horario </th>
+            <td mat-cell *matCellDef="let lesson"> {{lesson.startTime}} - {{lesson.endTime}} </td>
+        </ng-container>
+
+        <!-- courseId Column -->
+        <ng-container matColumnDef="courseId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> CursoId</th>
+            <td mat-cell *matCellDef="let element"> {{element.course?.id }} </td>
+        </ng-container>
+
+        <!-- courseActive Column -->
+        <ng-container matColumnDef="courseActive">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Activo</th>
+            <td mat-cell *matCellDef="let element"> {{element.course?.current }} </td>
+        </ng-container>
+
+
+        <!-- courseName Column -->
+        <ng-container matColumnDef="courseName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Curso</th>
+            <td mat-cell *matCellDef="let element"> {{element.course?.name }} </td>
+        </ng-container>
+
+        <!-- classRoom Column -->
+        <ng-container matColumnDef="classRoom">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Aula</th>
+            <td mat-cell *matCellDef="let element"> {{element.classRoom }} </td>
+        </ng-container>
+
+        <!-- courseName Column -->
+        <ng-container matColumnDef="teacherName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Profesor</th>
+            <td mat-cell *matCellDef="let element"> {{element.teacherName }} </td>
+        </ng-container>
+
+
+        <!-- Actions -->
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">
+        </tr>
+
+    </table>
+
+    <mat-paginator [pageSize]="100" [pageSizeOptions]="[25, 50, 100, 200, 500, 1000]"></mat-paginator>
+
+
+</mat-card>
+
+<!--
+<pre>
+  {{ lessons | json }}
+</pre>
+
+<pre *ngIf="courses$ | async as courses">
+  {{ courses | json }}
+</pre>
+-->
+
+<ng-template #loadingTemplate>
+    <sh-loading></sh-loading>
+</ng-template>
+
+<ng-template #noDataTemplate>
+    <sh-no-data></sh-no-data>
+</ng-template>

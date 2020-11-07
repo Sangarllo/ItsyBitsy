@@ -23,6 +23,22 @@ export class CoursesService {
     this.courseCollection = afs.collection<ICourse>(COURSE_COLLECTION);
   }
 
+  auditAllCourses(): Observable<Course[]> {
+
+    this.courseCollection = this.afs.collection(
+          COURSE_COLLECTION,
+          ref => ref.orderBy('name')
+        );
+
+    return this.courseCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Course;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+  }
+
   getAllCourses(orderBy: string): Observable<Course[]> {
 
     switch ( orderBy ) {
