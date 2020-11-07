@@ -139,17 +139,32 @@
         <div class="alert alert-primary" role="alert">
             Como profesor puedes...
         </div>
-        <mat-nav-list>
 
-            <!-- 1D. Ver todas las clases de profesores semanales -->
-            <mat-list-item>
-                <button mat-icon-button (click)="gotoAllLessons()">
-            <mat-icon>info</mat-icon>
-            <span class="task-item">Ver las clases semanales de todos los profesores</span>
-          </button>
-            </mat-list-item>
+        <div class="container-fluid">
+            <div class="row justify-content-around">
 
-        </mat-nav-list>
+                <!-- 1 VER ENTIDADES -->
+                <mat-card class="col-3 mat-elevation-z4">
+                    <mat-card-title>Clases semanales</mat-card-title>
+                    <mat-card-subtitle></mat-card-subtitle>
+                    <img mat-card-image class="px-3" src="assets/screenshots/list-users.png" alt="Listado de Usuarios">
+                    <mat-card-content>
+                        <mat-nav-list>
+
+                            <!-- 1A. Ver todas las personas -->
+                            <mat-list-item class="my-3" (click)="gotoMyLessons()">
+                                <button mat-fab color="primary" class="task-button" aria-label="Ver usuarios">
+                                  <mat-icon>menu_book</mat-icon>
+                                  </button>
+                                <span class="task-list-item">Agenda semanal de clases</span>
+                            </mat-list-item>
+
+                        </mat-nav-list>
+                    </mat-card-content>
+                </mat-card>
+
+            </div>
+        </div>
     </div>
 
     <div *ngIf="user.roles?.includes('ESTUDIANTE')" class="card dashboard-rol-item">
