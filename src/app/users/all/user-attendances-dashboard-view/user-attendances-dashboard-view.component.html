@@ -10,7 +10,7 @@
         <app-sh-calendar-date class="col-12" [date]="dateIni" (updateDate)="onUpdateDate($event)"></app-sh-calendar-date>
     </div>
 
-    <mat-card-content *ngIf="!loading; else loadingTemplate">
+    <mat-card-content class="attendances-view" *ngIf="!loading; else loadingTemplate">
         <mat-tab-group mat-stretch-tabs class="mat-elevation-z4">
             <mat-tab *ngFor="let lesson of lessons">
 
