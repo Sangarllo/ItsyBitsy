@@ -78,4 +78,8 @@ export class UserAttendancesDashboardView implements OnInit {
   gotoDashboard(): void {
     this.router.navigate([`usuarios/dashboard`]);
   }
+
+  gotoLesson(lesson: Lesson): void {
+    this.router.navigate([`cursos/${lesson.courseId}/lessons/${lesson.id}`]);
+  }
 }

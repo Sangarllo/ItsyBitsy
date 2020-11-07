@@ -10,24 +10,36 @@
         <app-sh-calendar-date class="col-12" [date]="dateIni" (updateDate)="onUpdateDate($event)"></app-sh-calendar-date>
     </div>
 
-    <mat-card-content class="attendances-view" *ngIf="!loading; else loadingTemplate">
-        <mat-tab-group mat-stretch-tabs class="mat-elevation-z4">
-            <mat-tab *ngFor="let lesson of lessons">
+    <div *ngIf="lessons.length > 0; else noLessonsTemplate">
+        <mat-card-content class="attendances-view" *ngIf="!loading; else loadingTemplate">
+            <mat-tab-group mat-stretch-tabs class="mat-elevation-z4">
+                <mat-tab *ngFor="let lesson of lessons">
 
-                <ng-template mat-tab-label>
-                    <mat-icon>assignment_ind</mat-icon>
-                    &nbsp;&nbsp; {{ lesson.course.name }} ({{lesson.startTime}})
-                </ng-template>
+                    <ng-template mat-tab-label>
+                        <mat-icon>assignment_ind</mat-icon>
+                        &nbsp;&nbsp; {{ lesson.course.name }} ({{lesson.startTime}})
+                    </ng-template>
 
-                <sh-lesson-attendance-table [course]="lesson.course" [lesson]="lesson"></sh-lesson-attendance-table>
+                    <sh-lesson-attendance-table [course]="lesson.course" [lesson]="lesson"></sh-lesson-attendance-table>
 
-            </mat-tab>
-        </mat-tab-group>
-    </mat-card-content>
+                    <div class="m-3 text-center">
+                        <button mat-raised-button (click)="gotoLesson(lesson)" color="primary" text="Ir a esta clase">Ir a esta clase</button>
+                    </div>
+
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </div>
 
 </mat-card>
 
 <ng-template #loadingTemplate>
     cargando...
     <sh-loading></sh-loading>
+</ng-template>
+
+<ng-template #noLessonsTemplate>
+    <div class="alert alert-warning text-center" style="margin:10px;padding:40px" role="alert">
+        No hay lecciones para este día
+    </div>
 </ng-template>
