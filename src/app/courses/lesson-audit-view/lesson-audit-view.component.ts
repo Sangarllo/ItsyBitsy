@@ -30,7 +30,7 @@ export class LessonAuditViewComponent implements OnInit, AfterViewInit {
   lessons: Lesson[] = [];
   courses: Course[] = [];
 
-  columnsToDisplay = [ 'lessonId', 'lessonActive', 'date', 'schedule',
+  columnsToDisplay = [ 'lessonId', 'creationDate', 'lessonActive', 'date', 'schedule',
     'courseId', 'courseActive', 'courseName',
     'classRoom', 'teacherName' ];
 
@@ -74,6 +74,7 @@ export class LessonAuditViewComponent implements OnInit, AfterViewInit {
     ])
       .pipe(map(([lessons, courses, users]) => lessons.map(lesson => ({
         ...lesson,
+        creationDate: this.dateSvc.fromFirebaseDate(lesson.creationDate),
         date: this.dateSvc.fromFirebaseDate(lesson.date),
         teacherName: users.find(c => lesson.teacherId === c.uid)?.displayName,
         // courseName: courses.find(c => lesson.courseId === c.id)?.name,

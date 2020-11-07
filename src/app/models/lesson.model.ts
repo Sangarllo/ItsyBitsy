@@ -7,6 +7,7 @@ import { Course } from '@models/course.model';
 export interface ILesson {
   id: string;
   current: boolean;
+  creationDate: Date;
   courseId: string;
   date: Date;
   teacherId: string;
@@ -29,6 +30,7 @@ export class Lesson implements ILesson {
 
   public static FIELD_ID = 'id';
   public static FIELD_CURRENT = 'current';
+  public static FIELD_CREATION_DATE = 'creationDate';
   public static FIELD_COURSE_ID = 'courseId';
   public static FIELD_DATE = 'date';
   public static FIELD_TEACHER_ID = 'teacherId';
@@ -41,6 +43,7 @@ export class Lesson implements ILesson {
   constructor(
     public id: string,
     public current: boolean,
+    public creationDate: Date,
     public courseId: string,
     public date: Date,
     public teacherId: string,

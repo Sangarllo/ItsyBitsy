@@ -203,6 +203,7 @@ export class LessonsService {
     return {
       id: '0',
       current: true,
+      creationDate: new Date(),
       courseId: course.id,
       date: newDate,
       teacherId: course.teacherId,

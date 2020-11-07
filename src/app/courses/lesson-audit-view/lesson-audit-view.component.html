@@ -18,6 +18,11 @@
             <td mat-cell *matCellDef="let lesson"> {{lesson.id}} </td>
         </ng-container>
 
+        <!-- date Column -->
+        <ng-container matColumnDef="creationDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Día creación </th>
+            <td mat-cell *matCellDef="let lesson"> {{lesson.creationDate | date:'fullDate' }} </td>
+        </ng-container>
 
         <!-- lessonCurrent Column -->
         <ng-container matColumnDef="lessonActive">
