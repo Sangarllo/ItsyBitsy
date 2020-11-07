@@ -7,7 +7,7 @@
     </mat-toolbar>
 
     <div *ngIf="userDetails$ | async as userDetails">
-        <app-sh-user-data [user]="user" [userDetails]="userDetails"></app-sh-user-data>
+        <app-sh-user-data [user]="user" [userDetails]="userDetails" (click)="gotoMyProfile()"></app-sh-user-data>
     </div>
 
     <div *ngIf="user.roles?.includes('ADMIN')" class="card dashboard-rol-item">
@@ -15,73 +15,114 @@
             Como administrador puedes...
         </div>
 
-        <mat-nav-list>
+        <div class="container-fluid">
+            <div class="row justify-content-around">
 
-            <!-- 1A. Ver todas las personas -->
-            <mat-list-item>
-                <button mat-icon-button (click)="gotoUsersList()">
-              <mat-icon>info</mat-icon>
-              <span class="task-item">Ver todas las personas</span>
-            </button>
-            </mat-list-item>
+                <!-- 1 VER ENTIDADES -->
+                <mat-card class="col-3 mat-elevation-z4">
+                    <mat-card-title>Personas y Tarifas</mat-card-title>
+                    <mat-card-subtitle></mat-card-subtitle>
+                    <img mat-card-image class="px-3" src="assets/screenshots/list-users.png" alt="Listado de Usuarios">
+                    <mat-card-content>
+                        <mat-nav-list>
 
-            <!-- 1B. Ver todos los cursos -->
-            <mat-list-item>
-                <button mat-icon-button (click)="gotoCoursesList()">
-            <mat-icon>info</mat-icon>
-            <span class="task-item">Ver todos los cursos</span>
-          </button>
-            </mat-list-item>
+                            <!-- 1A. Ver todas las personas -->
+                            <mat-list-item class="my-3" (click)="gotoUsersList()">
+                                <button mat-fab color="primary" class="task-button" aria-label="Ver usuarios">
+                                    <mat-icon>people</mat-icon>
+                                    </button>
+                                <span class="task-list-item">Ver y organizar personas</span>
+                            </mat-list-item>
 
-            <!-- 1C. Ver todas las tarifas -->
-            <mat-list-item>
-                <button mat-icon-button (click)="gotoRates()">
-            <mat-icon>info</mat-icon>
-            <span class="task-item">Ver todas las tarifas</span>
-          </button>
-            </mat-list-item>
+                            <!-- 1B. Ver todas las tarifas -->
+                            <mat-list-item class="my-3" (click)="gotoRates()">
+                                <button mat-fab color="primary" class="task-button" aria-label="Ver tarifas">
+                                  <mat-icon>euro</mat-icon>
+                                  </button>
+                                <span class="task-list-item">Ver y modificar tarifas</span>
+                            </mat-list-item>
 
-            <!-- 1D. Ver todas las clases de profesores semanales -->
-            <mat-list-item>
-                <button mat-icon-button (click)="gotoAllLessons()">
-              <mat-icon>info</mat-icon>
-              <span class="task-item">Ver las clases semanales de todos los profesores</span>
-            </button>
-            </mat-list-item>
+                        </mat-nav-list>
+                    </mat-card-content>
+                </mat-card>
 
-            <!-- 1E. Ver todas las asistencias mensuales -->
-            <mat-list-item>
-                <button mat-icon-button (click)="gotoAllComments()">
-                <mat-icon>info</mat-icon>
-                <span class="task-item">Ver todos los comentarios del mes</span>
-              </button>
-            </mat-list-item>
 
-            <!-- 1F. Ver el informe de todas las asistencias mensuales -->
-            <mat-list-item>
-                <button mat-icon-button (click)="gotoAllAttendancesReport()">
-            <mat-icon>info</mat-icon>
-            <span class="task-item">Ver el informe de asistencias mensuales de todos los estudiantes</span>
-          </button>
-            </mat-list-item>
+                <!-- 2 CONFIGURACIÓN DE CURSOS Y CLASES -->
+                <mat-card class="col-3 mat-elevation-z4">
+                    <mat-card-title>Configuración de cursos y clases</mat-card-title>
+                    <mat-card-subtitle></mat-card-subtitle>
+                    <img mat-card-image class="px-3" src="assets/screenshots/courses-dashboard.png" alt="Configuración de cursos">
+                    <mat-card-content>
+                        <mat-nav-list>
 
-            <!-- 1G. Ver el tablero de asistencias diarias -->
-            <mat-list-item>
-                <button mat-icon-button (click)="gotoAttendancesDashboard()">
-          <mat-icon>info</mat-icon>
-          <span class="task-item">Ver el tablero de asistencias diarias</span>
-        </button>
-            </mat-list-item>
+                            <!-- 2A. Tablero de cursos y próximas clases -->
+                            <mat-list-item class="my-3" (click)="gotoCoursesDashboard()">
+                                <button mat-fab color="primary" class="task-button" aria-label="Tablero de cursos">
+                                  <mat-icon>add_circle</mat-icon>
+                                  </button>
+                                <span class="task-list-item">Tablero de cursos y próximas clases</span>
+                            </mat-list-item>
 
-            <!-- 1H. Ver el tablero de configuración de cursos -->
-            <mat-list-item>
-                <button mat-icon-button (click)="gotoCoursesDashboard()">
-            <mat-icon>info</mat-icon>
-            <span class="task-item">Ver el tablero de configuración de cursos</span>
-          </button>
-            </mat-list-item>
+                            <!-- 2B. Ver las clases semanales de todos los profesores -->
+                            <mat-list-item class="my-3" (click)="gotoAllLessons()">
+                                <button mat-fab color="primary" class="task-button" aria-label="Ver cursos">
+                                <mat-icon>menu_book</mat-icon>
+                                </button>
+                                <span class="task-list-item">Agenda semanal de los profesores</span>
+                            </mat-list-item>
 
-        </mat-nav-list>
+                            <!-- 2C. Ver todos los cursos -->
+                            <mat-list-item class="my-3" (click)="gotoCoursesList()">
+                                <button mat-fab color="primary" class="task-button" aria-label="Ver cursos">
+                                  <mat-icon>table_rows</mat-icon>
+                                  </button>
+                                <span class="task-list-item">Ver el listado de cursos</span>
+                            </mat-list-item>
+
+                        </mat-nav-list>
+                    </mat-card-content>
+                </mat-card>
+
+
+                <!-- 3 GESTIÓN DE ASISTENCIAS Y COMENTARIOS -->
+                <mat-card class="col-3 mat-elevation-z4">
+                    <mat-card-title>Gestión de asistencias y comentarios</mat-card-title>
+                    <mat-card-subtitle></mat-card-subtitle>
+                    <img mat-card-image class="px-3" src="assets/screenshots/attendances-dashboard.png" alt="Configuración de asistencias">
+                    <mat-card-content>
+                        <mat-nav-list>
+
+                            <!-- 3A. Tablero de asistencias diarias -->
+                            <mat-list-item class="my-3" (click)="gotoAttendancesDashboard()">
+                                <button mat-fab color="primary" class="task-button" aria-label="Asistencias diarias">
+                                <mat-icon>add_location_alt</mat-icon>
+                                </button>
+                                <span class="task-list-item">Tablero de asistencias diarias</span>
+                            </mat-list-item>
+
+                            <!-- 3B. Informe de asistencias mensuales -->
+                            <mat-list-item class="my-3" (click)="gotoAllAttendancesReport()">
+                                <button mat-fab color="primary" class="task-button" aria-label="Informe de asistencias mensuales">
+                              <mat-icon>receipt</mat-icon>
+                              </button>
+                                <span class="task-list-item">Informe de asistencias mensuales</span>
+                            </mat-list-item>
+
+                            <!-- 3C. Ver comentarios del mes -->
+                            <mat-list-item class="my-3" (click)="gotoAllComments()">
+                                <button mat-fab color="primary" class="task-button" aria-label="Comentarios del mes">
+                                <mat-icon>comment</mat-icon>
+                                </button>
+                                <span class="task-list-item">Comentarios del mes</span>
+                            </mat-list-item>
+
+                        </mat-nav-list>
+                    </mat-card-content>
+                </mat-card>
+
+            </div>
+        </div>
+
 
     </div>
 
@@ -118,24 +159,6 @@
             </mat-list-item>
         </mat-nav-list>
 
-    </div>
-
-    <div *ngIf="user.enable" class="card dashboard-rol-item">
-        <div class="alert alert-primary" role="alert">
-            Como usuario registrado puedes...
-        </div>
-
-        <mat-nav-list>
-
-            <!-- 4A. Ver mi perfil  -->
-            <mat-list-item>
-                <button mat-icon-button (click)="gotoMyProfile()">
-              <mat-icon>info</mat-icon>
-              <span class="task-item">Ver mi perfil</span>
-            </button>
-            </mat-list-item>
-
-        </mat-nav-list>
     </div>
 
 </mat-card>
