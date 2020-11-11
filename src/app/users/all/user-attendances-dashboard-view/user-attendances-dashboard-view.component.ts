@@ -25,6 +25,8 @@ export class UserAttendancesDashboardView implements OnInit {
   public loading = true;
   lessons: Lesson[] = [];
 
+  attendancesReviewed = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -73,6 +75,11 @@ export class UserAttendancesDashboardView implements OnInit {
         this.lessons = lessons;
         this.loading = false;
       });
+  }
+
+  checkReviewed(isReviewed: boolean) {
+    console.log(`isReviewed: ${isReviewed}`);
+    this.attendancesReviewed = isReviewed;
   }
 
   gotoDashboard(): void {

@@ -213,6 +213,7 @@ export class LessonsService {
       endTime: course.endTime,
       attendancesIds: [],
       attendancesNames: [],
+      attendancesReviewed: false,
     };
   }
 }

@@ -22,6 +22,7 @@ export interface ILesson {
   course?: Course;
   teacherName?: string;
   attendances?: Attendance[];
+  attendancesReviewed?: boolean;
 }
 
 export class Lesson implements ILesson {
@@ -39,6 +40,7 @@ export class Lesson implements ILesson {
   public static FIELD_START_TIME = 'startTime';
   public static FIELD_END_TIME = 'endTime';
   public static FIELD_ATTENDANCES_IDS = 'attendancesIds';
+  public static FIELD_ATTENDANCES_REVIEWED = 'attendancesReviewed';
 
   constructor(
     public id: string,
@@ -57,7 +59,8 @@ export class Lesson implements ILesson {
     public courseImage?: string,
     public course?: Course,
     public teacherName?: string,
-    public attendances?: Attendance[]
+    public attendances?: Attendance[],
+    public attendancesReviewed?: boolean
      ) {
   }
 }

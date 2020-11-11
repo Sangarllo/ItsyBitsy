@@ -16,11 +16,19 @@
                 <mat-tab *ngFor="let lesson of lessons">
 
                     <ng-template mat-tab-label>
-                        <mat-icon>assignment_ind</mat-icon>
-                        &nbsp;&nbsp; {{ lesson.course.name }} ({{lesson.startTime}})
+                        <div [ngClass]="{'tab-lesson-reviewed': lesson.attendancesReviewed, 'tab-lesson-pending': !lesson.attendancesReviewed }">
+                            <div *ngIf="!lesson.attendancesReviewed; else lessonReviewedTemplate">
+                                <mat-icon>
+                                    assignment_ind
+                                </mat-icon>
+                                &nbsp;&nbsp;
+                            </div>
+
+                            {{ lesson.course.name }} ({{lesson.startTime}})
+                        </div>
                     </ng-template>
 
-                    <sh-lesson-attendance-table [course]="lesson.course" [lesson]="lesson"></sh-lesson-attendance-table>
+                    <sh-lesson-attendance-table (isReviewed)="checkReviewed($event)" [course]="lesson.course" [lesson]="lesson"></sh-lesson-attendance-table>
 
                     <div class="m-3 text-center">
                         <button mat-raised-button (click)="gotoLesson(lesson)" color="primary" text="Ir a esta clase">Ir a esta clase</button>
@@ -41,5 +49,14 @@
 <ng-template #noLessonsTemplate>
     <div class="alert alert-warning text-center" style="margin:10px;padding:40px" role="alert">
         No hay lecciones para este día
+    </div>
+</ng-template>
+
+<ng-template #lessonReviewedTemplate>
+    <div>
+        <mat-icon>
+            check_circle
+        </mat-icon>
+        &nbsp;&nbsp;
     </div>
 </ng-template>

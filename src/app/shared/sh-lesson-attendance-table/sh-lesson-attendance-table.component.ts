@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit, ViewChild, Input, AfterViewInit} from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter, AfterViewInit, OnChanges } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ import moment from 'moment';
   templateUrl: './sh-lesson-attendance-table.component.html',
   styleUrls: ['./sh-lesson-attendance-table.component.scss']
 })
-export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
+export class ShLessonAttendanceTableComponent implements OnInit, OnChanges,  AfterViewInit {
 
   columnsToDisplay = [ 'select', 'status',
     'studentImage', 'studentName', 'actions2'];
@@ -34,6 +34,8 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @Input() course: Course;
   @Input() lesson: Lesson;
+  isComplete = false;
+  @Output() isReviewed = new EventEmitter<boolean>();
   lessonDate: any;
   attendances: Attendance[] = [];
 
@@ -58,12 +60,17 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
       this.attendances = attendances;
       this.sortAttendances();
       this.dataSource.data = this.attendances;
+      this.checkCompleted();
     });
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  ngOnChanges(): void {
+    this.checkCompleted();
   }
 
   applyFilter(filterValue: string) {
@@ -218,5 +225,13 @@ export class ShLessonAttendanceTableComponent implements OnInit, AfterViewInit {
   private sortAttendances() {
     // tslint:disable-next-line:max-line-length
     this.attendances.sort((a, b) => (a.studentName > b.studentName) ? 1 : (a.studentName === b.studentName) ? ((a.studentName > b.studentName) ? 1 : -1) : -1 );
+  }
+
+  checkCompleted() {
+    const pending = this.attendances.filter( att => att.status === Status.Prevista ).length;
+
+    this.isComplete = pending === 0;
+    this.lesson.attendancesReviewed = this.isComplete;
+    this.isReviewed.emit(this.isComplete);
   }
 }

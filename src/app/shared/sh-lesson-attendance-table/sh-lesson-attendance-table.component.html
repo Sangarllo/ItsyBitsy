@@ -1,14 +1,6 @@
 <mat-toolbar color="primary" *ngIf="lesson">
     <span>Asistencia a la clase del {{ this.lesson.date | date:'fullDate' }}</span>
-    <span class="fill-remaining-space"></span>
-
-    <!--
-    <mat-form-field class="filter-form-field">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
-        <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-    -->
-
+    <span class="fill-remaining-space"></span> &nbsp;
     <div [hidden]="selection.selected.length === 0">
         <mat-form-field>
             <mat-label>Estado a Aplicar</mat-label>
