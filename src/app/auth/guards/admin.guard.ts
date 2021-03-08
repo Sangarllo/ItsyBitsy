@@ -23,6 +23,7 @@ export class AdminGuard implements CanActivate {
              map(user => {
                switch (user.uid) {
                  case 'QkwjVEpXnRcQEnyy00aSIO8lHmH3':
+                 case 'ZPF6sd4qDRa5Kjc0fhHSyOBF14S2':
                  case 'qUGCxNLrwmclnCFiRtsQ':
                  case 'syhqJPE3P0gkVNNdHiNKuTz0xM72': // TODO by profile
                    return true;
