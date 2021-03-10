@@ -21,7 +21,8 @@ export class TeacherAdminGuard implements CanActivate {
              take(1),
              map(user => {
                switch (user.uid) {
-                case 'QkwjVEpXnRcQEnyy00aSIO8lHmH3':
+                 case 'QkwjVEpXnRcQEnyy00aSIO8lHmH3':
+                 case 'ZPF6sd4qDRa5Kjc0fhHSyOBF14S2':
                  case 'qUGCxNLrwmclnCFiRtsQ':
                  case 'syhqJPE3P0gkVNNdHiNKuTz0xM72':
                  case 'QkwjVEpXnRcQEnyy00aSIO8lHmH3':
